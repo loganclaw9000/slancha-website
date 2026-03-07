@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "skills": {
+    "self-improving-agent": {
+      "version": "1.0.11",
+      "installedAt": 1772919067720
+    },
+    "multi-search-engine": {
+      "version": "2.0.1",
+      "installedAt": 1772919460837
+    },
+    "find-skills": {
+      "version": "0.1.0",
+      "installedAt": 1772919490482
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "skills": {
+    "github": {
+      "source": "/home/admin/.openclaw/workspace/skills/github-1.0.0",
+      "sourceType": "local",
+      "computedHash": "433edef2c3cf0464294a54aebc793064a40e50dbe6f0fd2b3a0fbd5a7d27f92d"
+    },
+    "web-search": {
+      "source": "toolshell/skills",
+      "sourceType": "github",
+      "computedHash": "5021def0682174a1fca7e203795a9b137f359144f2794a7f78ba07ac69dcd76a"
+    }
+  }
+}

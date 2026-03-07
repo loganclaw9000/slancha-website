@@ -1,0 +1,7 @@
+{
+  "product": "Slancha AI",
+  "audience": "Enterprise decision‑makers and tech founders who need low‑latency, cost‑optimized inference.",
+  "tone": "debonair, witty, confident – think Sean Connery as James Bond with a glass of scotch.",
+  "pages": ["home", "about", "features", "contact"],
+  "keyMessage": "Slancha makes your inference fast, safe and cheap – you set the latency target, we handle the rest."
+}
