@@ -1,0 +1,47 @@
+.how-it-works {
+  /* uses .section-padded from index.css */
+}
+
+.step-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+@media (max-width: 768px) {
+  .step-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.step-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  transition: transform 200ms ease, border-color 150ms ease;
+}
+.step-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--text-muted);
+}
+
+.step-num {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.step-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--text-primary);
+}
+
+.step-body {
+  font-size: 16px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}

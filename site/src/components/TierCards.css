@@ -1,0 +1,74 @@
+.tier-section {
+  /* uses .section-padded from index.css */
+}
+
+.tier-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+@media (max-width: 768px) {
+  .tier-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.tier-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  min-height: 260px;
+  position: relative;
+  transition: transform 200ms ease, border-color 150ms ease;
+}
+.tier-card:hover {
+  transform: translateY(-2px);
+}
+.tier-card:not(.tier-card--featured):hover {
+  border-color: var(--text-muted);
+}
+
+.tier-card--featured {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent), 0 4px 24px rgba(10, 132, 255, 0.12);
+}
+
+.tier-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: rgba(10, 132, 255, 0.1);
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  padding: 2px 10px;
+  border-radius: 20px;
+}
+
+.tier-name {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.tier-for {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 0;
+}
+
+.tier-divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 16px 0;
+}
+
+.tier-body {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
