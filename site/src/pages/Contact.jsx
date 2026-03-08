@@ -1,4 +1,3 @@
-// PLACEHOLDER — Copywriter/Designer: replace with final copy & design
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -110,11 +109,39 @@ export default function Contact() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // TODO: wire up form submission (API or mailto fallback)
-    // PLACEHOLDER — Backend/Frontend: connect to contact@slancha.ai or a form API
-    console.log('Contact form submitted:', form);
+
+    // Try Formspree if VITE_FORM_ENDPOINT is set, otherwise fall back to mailto.
+    const endpoint = import.meta.env.VITE_FORM_ENDPOINT;
+
+    if (endpoint) {
+      try {
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify(form),
+        });
+        if (!res.ok) throw new Error('Form API error');
+      } catch (err) {
+        // Fallback to mailto on API failure
+        console.error('Form submission failed, falling back to mailto:', err);
+        const subject = encodeURIComponent(`Pilot request from ${form.company || form.name}`);
+        const body = encodeURIComponent(
+          `Name: ${form.name}\nEmail: ${form.email}\nCompany: ${form.company}\n\n${form.message}`
+        );
+        window.location.href = `mailto:contact@slancha.ai?subject=${subject}&body=${body}`;
+        return;
+      }
+    } else {
+      // No API endpoint configured — open mail client
+      const subject = encodeURIComponent(`Pilot request from ${form.company || form.name}`);
+      const body = encodeURIComponent(
+        `Name: ${form.name}\nEmail: ${form.email}\nCompany: ${form.company}\n\n${form.message}`
+      );
+      window.location.href = `mailto:contact@slancha.ai?subject=${subject}&body=${body}`;
+    }
+
     setSubmitted(true);
   };
 
