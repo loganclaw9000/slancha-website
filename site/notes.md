@@ -1,20 +1,23 @@
 Build status: ✓ passing
-Build date: 2026-03-23T09:11Z
-Commit: 5f5297d (2026-03-23 09:11 UTC)
+Build date: 2026-03-23T15:45Z
+Commit: 3106cc0 (2026-03-23 15:45 UTC)
 
-Components: Nav, Hero, HowItWorks, TierCards, TechStack, PilotCTA, Footer, Contact
+Components: Nav, Hero, Features, HowItWorks, TierCards, TechStack, About, PilotCTA, Footer, Contact
 Missing copy (COPY_PENDING): none — all copy written and embedded in components
-Scroll-reveal: HowItWorks ✓, TierCards ✓, TechStack ✓, PilotCTA ✓ (Hero excluded per animations spec)
+Scroll-reveal: Features ✓, HowItWorks ✓, TierCards ✓, TechStack ✓, PilotCTA ✓, About ✓ (Hero excluded per animations spec)
 
 Copy files:
 - site/copy/homepage-hero.md ✓ (applied to Hero.jsx)
+- site/copy/hero.md ✓ (same as homepage-hero.md)
 - site/copy/how-it-works.md ✓ (applied to HowItWorks.jsx)
 - site/copy/offerings.md ✓
 - site/copy/value-prop.md ✓
 - site/copy/pilot-cta.md ✓ (applied to PilotCTA.jsx)
 - site/copy/tech-stack.md ✓ (applied to TechStack.jsx)
 - site/copy/contact.md ✓
-- site/copy/meta.md ✓
+- site/copy/meta.md ✓ (applied to index.html)
+- site/copy/features.md ✓ (applied to Features.jsx — NEW)
+- site/copy/about.md ✓ (applied to About.jsx — NEW)
 
 Design specs:
 - site/design/system.md ✓
