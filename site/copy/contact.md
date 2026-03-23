@@ -1,25 +1,21 @@
-# Contact Page Copy
+# Get in Touch – Pilot Your Inference
 
-## H1
-Talk to us about a pilot
+Ready to accelerate your inference workloads without blowing up the cloud bill? If you’re a data‑engineer, ML lead, or CTO looking for a latency‑first solution, let’s talk.
 
-## Subtext
-If you're running production AI inference and want to cut costs or hit tighter latency targets, tell us about your stack. We review pilot requests within one business day.
+**Name**
+Your full name.
 
-## Form Field Labels
-- Name
-- Work email
-- Company
-- Describe your inference stack (optional)
+**Work email**
+A professional address we can reply to.
 
-## Form Field Placeholder (message field)
-Tell us about your model, your current cloud spend, and what's driving your latency requirements...
+**Company**
+The organization you represent.
 
-## Submit Button
-Request a Pilot
+**Describe your inference stack**
+What models, hardware, and serving framework are you using today?
 
-## Success Heading
-We'll be in touch.
+[Request a Pilot]
 
-## Success Body
-Thanks for reaching out. We review pilot requests within one business day and reach out to qualified teams directly. Expect a response from contact@slancha.ai.
+### Success!
+We’ve received your request.
+Our team will review it within 48 hours and get back with next steps.

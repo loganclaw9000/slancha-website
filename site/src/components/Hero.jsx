@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './Hero.css';
 
 const Hero = () => (
-  <section className="hero reveal" id="hero">
+  <section className="hero" id="hero">
     <p className="hero-eyebrow">Inference Optimization Platform</p>
     <h1 className="hero-h1">The Databricks of<br /><span className="hero-accent">AI Inference</span></h1>
     <p className="hero-subtitle">Slancha lets you set precise latency targets and instantly delivers optimized models—no jargon, no guesswork. We handle quantization, pruning, and hardware selection so you get predictable performance without hiring a specialist.</p>

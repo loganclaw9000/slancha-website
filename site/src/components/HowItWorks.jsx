@@ -1,16 +1,29 @@
 import React from 'react';
+import { useScrollReveal } from '../utils/useScrollReveal';
 import './HowItWorks.css';
 
-// COPY_PENDING: replace placeholder steps with actual copy from site/copy/how-it-works.md
 const steps = [
-  { num: '01', title: 'Step One', body: 'Description for step one.' },
-  { num: '02', title: 'Step Two', body: 'Description for step two.' },
-  { num: '03', title: 'Step Three', body: 'Description for step three.' },
+  {
+    num: '01',
+    title: 'Set Latency Target',
+    body: 'Choose the exact latency (P99) you need for your inference workload. Our UI lets you specify a target in milliseconds, so you know precisely what performance means for your users.',
+  },
+  {
+    num: '02',
+    title: 'Optimize Model',
+    body: 'We automatically apply state‑of‑the‑art techniques—quantization, pruning, and TensorRT acceleration—to squeeze the best speed out of any model while preserving accuracy.',
+  },
+  {
+    num: '03',
+    title: 'Deploy & Save Costs',
+    body: 'Slancha provisions the optimal hardware stack, deploys your tuned model, and shows you a clear cost estimate. You get predictable latency without over‑provisioning.',
+  },
 ];
 
 export default function HowItWorks() {
+  const ref = useScrollReveal();
   return (
-    <section className="how-it-works section-padded" id="how-it-works">
+    <section ref={ref} className="how-it-works section-padded reveal" id="how-it-works">
       <h2 className="section-title">One number in. Optimized system out.</h2>
       <div className="step-grid">
         {steps.map(step => (
@@ -24,4 +37,3 @@ export default function HowItWorks() {
     </section>
   );
 }
-

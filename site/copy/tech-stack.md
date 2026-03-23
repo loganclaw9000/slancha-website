@@ -1,3 +1,5 @@
-## Tech Stack
+# Tech Stack
 
-Slancha’s control plane orchestrates a best‑in‑class toolchain—think Kubernetes, Terraform, and Prometheus—to automatically select the optimal stack for your workload. You set the latency target; we pick the underlying technologies.
+Slancha’s control plane orchestrates inference across a best‑in‑class toolchain—think NVIDIA TensorRT, AWS Inferentia, and Google Cloud TPU—so you never have to juggle hardware specifics. It automatically selects the optimal runtime, scaling policies, and cost‑performance trade‑offs based on your latency target.
+
+You pick the latency target. We pick the stack.

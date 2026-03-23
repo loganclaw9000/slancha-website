@@ -1,24 +1,26 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import '../components/TechStack.css';
+import { useScrollReveal } from '../utils/useScrollReveal';
+import './TechStack.css';
 
-// Placeholder copy – replace with actual content from site/copy/tech-stack.md when available
-const heading = "Built on cutting‑edge AI infrastructure";
-const body = "Leverage the latest tools in machine learning to deliver unparalleled performance and scalability.";
 const pills = ["TensorRT", "TensorRT-LLM", "vLLM", "ONNX", "llmcompressor"];
 
 export default function TechStack() {
+  const ref = useScrollReveal();
   return (
-    <section className="tech-stack">
+    <section ref={ref} className="tech-stack reveal">
       <p className="tech-label">BUILT ON</p>
-      <h2 className="tech-heading">{heading}</h2>
-      <p className="tech-body">{body}</p>
+      <h2 className="tech-heading">Best‑in‑class inference toolchain</h2>
+      <p className="tech-body">
+        Slancha's control plane orchestrates inference across a best‑in‑class toolchain—think NVIDIA TensorRT,
+        AWS Inferentia, and Google Cloud TPU—so you never have to juggle hardware specifics. It automatically
+        selects the optimal runtime, scaling policies, and cost‑performance trade‑offs based on your latency target.
+      </p>
       <div className="tech-pills">
         {pills.map(tool => (
           <span className="tech-pill" key={tool}>{tool}</span>
         ))}
       </div>
-      <p className="tech-footer">Slancha's control plane selects and composes these automatically.</p>
+      <p className="tech-footer">You pick the latency target. We pick the stack.</p>
     </section>
   );
 }
