@@ -2,26 +2,16 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Hero.css';
 
-const EYEBROW = 'INFERENCE OPTIMIZATION PLATFORM';
-const H1_LINE1 = 'Pick your latency.';
-const H1_LINE2 = 'We handle the rest.';
-const SUBTITLE = 'The inference optimization platform for teams running production AI. Set a P99 latency target — we optimize your model, select the hardware, and manage costs automatically.';
-const PRIMARY_CTA = 'Request a Pilot';
-const SECONDARY_CTA = 'See how it works';
+const Hero = () => (
+  <section className="hero reveal" id="hero">
+    <p className="hero-eyebrow">Inference Optimization Platform</p>
+    <h1 className="hero-h1">The Databricks of<br /><span className="hero-accent">AI Inference</span></h1>
+    <p className="hero-subtitle">Slancha lets you set precise latency targets and instantly delivers optimized models—no jargon, no guesswork. We handle quantization, pruning, and hardware selection so you get predictable performance without hiring a specialist.</p>
+    <div className="hero-cta">
+      <Link to="/contact" className="btn-primary btn-lg">Request a Pilot</Link>
+      <a href="#how-it-works" className="btn-secondary btn-lg">See How It Works</a>
+    </div>
+  </section>
+);
 
-export default function Hero() {
-  return (
-    <section className="hero" id="hero">
-      <p className="hero-eyebrow">{EYEBROW}</p>
-      <h1 className="hero-h1">
-        {H1_LINE1}<br />
-        <span className="hero-accent">{H1_LINE2}</span>
-      </h1>
-      <p className="hero-subtitle">{SUBTITLE}</p>
-      <div className="hero-cta">
-        <Link to="/contact" className="btn-primary btn-lg">{PRIMARY_CTA}</Link>
-        <a href="#how-it-works" className="btn-secondary btn-lg">{SECONDARY_CTA}</a>
-      </div>
-    </section>
-  );
-}
+export default Hero;
