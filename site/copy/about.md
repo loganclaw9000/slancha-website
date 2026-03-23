@@ -1,12 +1,7 @@
 # About Slancha
 
-Slancha is the ultimate latency‑first inference platform that takes the guesswork out of model deployment. We partner with you to understand your service‑level agreements, then automatically select the optimal hardware and software stack—whether that's Amazon Inferentia, NVIDIA L40S, or a custom B200 accelerator.
+**Slancha** empowers developers and enterprises to run inference workloads at the edge of latency and cost. We combine cutting‑edge hardware selection, automated optimization, and a managed control plane so you can focus on building models—not managing infrastructure.
 
-Our control plane continuously monitors performance and cost, shifting workloads in real time so you always hit your latency targets without overpaying. No inference team? No problem. We become that team, handling everything from provisioning to scaling, letting you focus on building great products.
+Our platform continuously evaluates your workload, picks the right hardware—from NVIDIA L40S to AWS Inferentia—sets the optimal batch size, and scales in real time. The result: lower latency, predictable costs, and no need for an internal inference ops team.
 
-**Why choose Slancha?**
-- **Latency‑first, not cost‑first:** We start with your SLA and work backwards.
-- **Hardware agnostic:** Seamlessly move across the best‑in‑class accelerators.
-- **Zero inference ops overhead:** Our autonomous SRE agents run the whole stack for you.
-
-Ready to experience latency without compromise?
+Whether you’re a startup launching a new AI product or a large organization scaling existing services, Slancha delivers a seamless, latency‑first experience that lets you ship faster and stay competitive.

@@ -1,0 +1,26 @@
+.about {
+  background: var(--color-surface);
+}
+
+.about-inner {
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.about-body p {
+  font-size: 1.05rem;
+  color: var(--color-text-muted);
+  line-height: 1.8;
+  margin-bottom: 1.25rem;
+}
+
+.about-body p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 600px) {
+  .about-body p {
+    font-size: 0.95rem;
+  }
+}
