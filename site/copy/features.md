@@ -1,15 +1,16 @@
 # Features
 
 ## Latency‑First Optimization
-We start from the latency you promise your users and automatically select models, hardware, and scaling strategies that meet that target while minimizing cost.
+We start with your service‑level agreement and automatically pick the right hardware, software, and scaling strategy to meet it.
 
-## Hardware‑Agnostic Deployments
-Whether you run on AWS Inferentia, NVIDIA L40S, or AMD B200, Slancha abstracts away vendor specifics. Switch providers without rewriting code – we handle the provisioning and tuning.
+## Hardware Agnostic Deployments
+Deploy across Amazon Inferentia, NVIDIA L40S, or custom B200 accelerators without rewriting code.
 
 ## Autonomous SRE Agent
-Our AI‑driven Site Reliability Engine monitors performance, detects anomalies, and performs self‑healing actions in real time. No dedicated inference ops team required.
+Our AI‑driven SRE agent runs the entire inference stack for you – provisioning, monitoring, scaling, and cost optimization.
 
 ## Cost Transparency & Control
-Live dashboards show per‑inference cost breakdowns. Set budget caps and let the platform auto‑adjust resources to stay within limits.
+Real‑time dashboards show performance vs. spend, letting you adjust targets on the fly.
 
-Ready to simplify your inference pipeline? Explore how Slancha can accelerate your AI product.
+## Seamless Integration
+Plug into your existing CI/CD pipelines; we handle the heavy lifting while you keep ownership of model development.
