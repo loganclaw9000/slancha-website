@@ -1,15 +1,6 @@
-# Meta / SEO Copy
+# Meta Copy for Slancha
 
-## Page Title
-Slancha — Pick your latency. We handle the rest.
-
-## Meta Description
-Slancha is the inference optimization platform for production AI teams. Set a P99 latency target; we handle model optimization, hardware selection, and cost management automatically.
-
-*(148 chars — includes "latency", "inference", "model optimization")*
-
-## OG Title
-Slancha — Pick your latency. We handle the rest.
-
-## OG Description
-The inference optimization platform for teams running production AI. Set a P99 latency target — we optimize your model, select the hardware, and manage costs automatically.
+- **HTML `<title>`**: Slancha — Pick your latency, we handle the rest.
+- **Meta description** (150 chars): Optimize inference with Slancha’s latency‑first platform. Reduce cloud costs, boost performance, and simplify model deployment.
+- **OG title**: Slancha — Pick your latency, we handle the rest.
+- **OG description**: Optimize inference with Slancha’s latency‑first platform. Reduce cloud costs, boost performance, and simplify model deployment.
