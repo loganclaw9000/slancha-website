@@ -1,21 +1,21 @@
-# Get in Touch – Pilot Your Inference
+# Talk to Us About a Pilot
 
-Ready to accelerate your inference workloads without blowing up the cloud bill? If you’re a data‑engineer, ML lead, or CTO looking for a latency‑first solution, let’s talk.
+Ready to accelerate your inference while cutting cloud costs? Slancha’s platform is built for teams that need predictable latency without the overhead of an MLOps crew.
 
-**Name**
-Your full name.
+**Who should reach out:**
+- Companies scaling AI workloads in production
+- Teams looking to reduce inference spend
+- Organizations needing a custom latency SLA guarantee
 
-**Work email**
-A professional address we can reply to.
-
-**Company**
-The organization you represent.
-
-**Describe your inference stack**
-What models, hardware, and serving framework are you using today?
+### Contact Form
+- **Name**
+- **Work Email**
+- **Company**
+- **Describe your inference stack** (e.g., models, hardware, current pain points)
 
 [Request a Pilot]
 
-### Success!
-We’ve received your request.
-Our team will review it within 48 hours and get back with next steps.
+---
+#### Success!
+### We'll be in touch.
+Your pilot request has been received. Our team will review your details and get back within 2 business days to discuss next steps.
