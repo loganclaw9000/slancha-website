@@ -1,13 +1,13 @@
-# Pilot CTA Section Copy
+## Pilot CTA
 
-## Headline
-Running production inference with a growing cloud bill? Let's talk.
+**Headline:**
+Running production inference with a growing cloud bill? Let’s talk.
 
-## Body
-We work with teams that have an AI product in production and feel the cost pressure. If your inference spend is a line item that's hard to justify, that's exactly what we're built for.
+**Body:**
+If you’re scaling AI workloads and need cost‑effective latency, our pilot gets you started fast. We’ll assess your stack, set up a proof‑of‑concept, and show savings in weeks.
 
-## CTA Button
-Request a Pilot
+**CTA Button Text:**
+Start My Pilot
 
-## Contact
+**Contact Line:**
 contact@slancha.ai

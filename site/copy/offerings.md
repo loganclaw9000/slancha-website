@@ -1,18 +1,16 @@
-# Offerings Copy
+# Offerings
 
-Section heading: Built for inference teams with a real cloud bill
+## Managed Hosting
+**Best for:** Companies that want a fully managed, hassle‑free inference platform.
 
-## Tier 1: Managed Hosting
-**Best for:** Teams that want optimized inference without touching infra
+Our team runs Slancha’s control plane on your behalf, handling hardware provisioning, scaling, and SLA monitoring. You provide your model and data; we deliver ultra‑low latency inference with predictable costs. Pricing is subscription‑based, starting at $2,500 /mo for up to 5 M inferences.
 
-**Description:** Upload your model. We run benchmark sweeps, apply the right optimization stack, and host it at your latency target. Hourly pricing with optional placement in a specific CSP or region. You get an API endpoint. We own the uptime.
+## Self‑Hosted Deployment
+**Best for:** Teams that need full control over their infrastructure while leveraging Slancha’s optimization engine.
 
-## Tier 2: Self-Hosted Deployment
-**Best for:** Teams with data residency or air-gap requirements
+Deploy the Slancha stack on your own servers or cloud instances. You retain ownership of all hardware and data, yet benefit from automatic model placement across GPUs, TPUs, or custom ASICs. Pricing is a one‑time license fee of $12,000 plus optional support contracts.
 
-**Description:** We convert your model into a secure NIM deployment package — optimized, containerized, and ready to run. Includes CloudFormation templates for API Gateway and auth. Deploy to your own cloud or on-prem. You control the infra; we handle the optimization.
+## Autonomous SRE Agent (Premium)
+**Best for:** Enterprises that require an AI‑driven operations layer to manage inference workloads at scale.
 
-## Tier 3: Autonomous SRE Agent
-**Best for:** Enterprise inference teams at scale — currently in limited preview
-
-**Description:** Full orchestration on top of your Kubernetes cluster. Our agent manages GPU bin-packing, autoscaling, and continuous benchmarking to hit SLAs at minimum cost. Shifts hardware dynamically — Inferentia overnight, L40S during business hours, B200 at peak demand. Currently in limited preview — contact us to join the waitlist.
+The Autonomous SRE Agent continuously monitors performance, auto‑tunes resources, and resolves incidents before they impact users. You supply the models; we provide a self‑optimizing, latency‑first execution environment with enterprise‑grade SLAs. Currently in limited preview — contact us for early access.

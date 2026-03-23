@@ -1,16 +1,10 @@
-# Value Prop Copy — Why Slancha
+# Why Slancha
 
-## Differentiator 1: Latency-first, not cost-first
-**Title:** SLA-driven optimization
+- **Latency‑first, cost‑smart**
+  We start with your SLA target and work backward, delivering the lowest‑cost inference that still meets latency goals.
 
-**Body:** Most tools optimize for cost or throughput. We optimize backward from your latency target. Set your P99, and every configuration decision — model transformations, runtime, hardware — follows from that single constraint.
+- **Hardware‑agnostic mastery**
+  Whether you run on AWS Inferentia, NVIDIA L40S, or a B200, Slancha auto‑selects the optimal stack so you never worry about vendor lock‑in.
 
-## Differentiator 2: Hardware-agnostic routing
-**Title:** Right hardware, automatically
-
-**Body:** Our control plane benchmarks across Inferentia, L40S, A100, and B200 and routes workloads based on demand. No lock-in to one chip vendor or one cloud. You get the best price-performance point at any given moment.
-
-## Differentiator 3: We're the team you don't have to hire
-**Title:** No inference team required
-
-**Body:** Building a serious inference optimization practice takes 6–12 months and a team of specialists. Slancha gives you that capability on day one. You ship the model; we handle everything that turns it into a production system.
+- **Zero‑team inference ops**
+  No dedicated ML engineers needed – our platform becomes your inference team, handling scaling, tuning, and monitoring for you.

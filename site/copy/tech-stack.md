@@ -1,4 +1,3 @@
-# Tech Stack Copy
+## Tech Stack
 
-## Body
-Slancha's control plane makes optimization decisions across a best-in-class toolchain — TensorRT-LLM, vLLM, and llmcompressor — so you don't have to evaluate, configure, or maintain any of it. You pick the latency target. We pick the stack.
+Slancha’s control plane orchestrates a best‑in‑class toolchain—think Kubernetes, Terraform, and Prometheus—to automatically select the optimal stack for your workload. You set the latency target; we pick the underlying technologies.

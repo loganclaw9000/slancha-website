@@ -1,20 +1,20 @@
 import React from 'react';
-import { useScrollReveal } from '../utils/useScrollReveal';
-import './TechStack.css';
+import { Link } from 'react-router-dom';
+import '../components/TechStack.css';
 
-const HEADING = 'Best-in-class toolchain. Zero configuration.';
-const BODY = "Slancha's control plane makes optimization decisions across TensorRT-LLM, vLLM, and llmcompressor — so you don't have to evaluate, configure, or maintain any of it. You pick the latency target. We pick the stack.";
-const PILLS = ['TensorRT', 'TensorRT-LLM', 'vLLM', 'ONNX', 'llmcompressor'];
+// Placeholder copy – replace with actual content from site/copy/tech-stack.md when available
+const heading = "Built on cutting‑edge AI infrastructure";
+const body = "Leverage the latest tools in machine learning to deliver unparalleled performance and scalability.";
+const pills = ["TensorRT", "TensorRT-LLM", "vLLM", "ONNX", "llmcompressor"];
 
 export default function TechStack() {
-  const ref = useScrollReveal();
   return (
-    <section ref={ref} className="tech-stack reveal">
+    <section className="tech-stack">
       <p className="tech-label">BUILT ON</p>
-      <h2 className="tech-heading">{HEADING}</h2>
-      <p className="tech-body">{BODY}</p>
+      <h2 className="tech-heading">{heading}</h2>
+      <p className="tech-body">{body}</p>
       <div className="tech-pills">
-        {PILLS.map(tool => (
+        {pills.map(tool => (
           <span className="tech-pill" key={tool}>{tool}</span>
         ))}
       </div>

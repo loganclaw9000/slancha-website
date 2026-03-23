@@ -1,18 +1,11 @@
-# How It Works Copy
+**01 – Set Latency Target**
 
-Section heading: One number in. Optimized system out.
+Choose the exact latency (P99) you need for your inference workload. Our UI lets you specify a target in milliseconds, so you know precisely what performance means for your users.
 
-## Step 01
-**Title:** Set your latency target
+**02 – Optimize Model**
 
-**Body:** Tell us your P99 requirement. That number is your contract with us — every downstream decision is made to meet it. No SLA negotiation, no vague benchmarks. You pick the number; we're accountable to it.
+We automatically apply state‑of‑the‑art techniques—quantization, pruning, and TensorRT acceleration—to squeeze the best speed out of any model while preserving accuracy.
 
-## Step 02
-**Title:** We optimize your model
+**03 – Deploy & Save Costs**
 
-**Body:** Quantization, pruning, TensorRT compilation — we select and compose the right transformations automatically. Our control plane runs benchmark sweeps across your model to find the configuration that hits your target at the lowest cost.
-
-## Step 03
-**Title:** Ship to prod, cut your bill
-
-**Body:** Deploy to our managed hosting or receive a self-contained NIM package with CloudFormation templates for your own cloud. We charge a premium on the cost savings we generate — if we don't save you money, we don't win.
+Slancha provisions the optimal hardware stack, deploys your tuned model, and shows you a clear cost estimate. You get predictable latency without over‑provisioning.
