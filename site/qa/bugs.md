@@ -2,24 +2,29 @@
 
 ## Status: No open bugs
 
-Last QA run: 2026-03-08T02:20Z
+Last QA run: 2026-03-24T12:06Z
 
 ### Checks performed
 
-- ✓ Build passes (52 modules, vite 5.4.21)
-- ✓ All 7 homepage sections present (Nav, Hero, HowItWorks, TierCards, TechStack, PilotCTA, Footer)
-- ✓ No inline style objects in Home.jsx or Contact.jsx
-- ✓ No PLACEHOLDER comments remaining
-- ✓ All 8 copy files exist in site/copy/
+- ✓ Build passes (56 modules, vite 5.4.21)
+- ✓ All sections present (Nav, Hero, Features, HowItWorks, TierCards, TechStack, About, PilotCTA, Footer, Contact page)
+- ✓ No inline style objects in any component
+- ✓ No PLACEHOLDER or COPY_PENDING comments remaining
+- ✓ All copy files exist in site/copy/
 - ✓ Featured card treatment on Autonomous SRE (tier-card--featured class + Enterprise Preview badge)
 - ✓ Nav has scroll behavior (scrolled class + backdrop-filter in Nav.css)
 - ✓ CSS variables defined (13 var() references in index.css)
 - ✓ scroll-behavior: smooth in index.css
 - ✓ Mobile breakpoints in 8 CSS files
-- ✓ IntersectionObserver scroll-reveal in useScrollReveal.js
-- ✓ Contact form has 4 fields (name, email, company, message)
+- ✓ IntersectionObserver scroll-reveal in useScrollReveal.js (Features, HowItWorks, TierCards, TechStack, About, PilotCTA)
+- ✓ Contact form has 4 fields (name, email, subject, message) with client-side validation
 - ✓ Contact form has mailto:contact@slancha.ai fallback
 - ✓ index.html has correct title, meta description, OG tags, Inter font, lang="en"
+- ✓ Features.css and About.css now use correct design tokens (fixed 2026-03-24)
+
+### Fixed this run (2026-03-24)
+- **BUG FIXED** Features.css was using stale `--color-*` tokens (--color-bg, --color-surface, --color-border, --color-accent, --color-text, --color-text-muted, --radius-md) not defined in the design system. Feature cards were rendering with transparent backgrounds, wrong borders, and wrong text colors. Fixed to use --bg, --bg-card, --border, --accent, --text-primary, --text-secondary, --radius-lg. Commit: 7c95e14.
+- **BUG FIXED** About.css same issue (--color-surface, --color-text-muted). Fixed in same commit.
 
 ### Remaining pre-launch item (not a bug)
 - Add VITE_FORM_ENDPOINT in .env for Formspree — see .env.example. mailto fallback is live.
