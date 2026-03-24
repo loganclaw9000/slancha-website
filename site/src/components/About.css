@@ -1,5 +1,5 @@
 .about {
-  background: var(--color-surface);
+  background: var(--bg);
 }
 
 .about-inner {
@@ -10,7 +10,7 @@
 
 .about-body p {
   font-size: 1.05rem;
-  color: var(--color-text-muted);
+  color: var(--text-secondary);
   line-height: 1.8;
   margin-bottom: 1.25rem;
 }

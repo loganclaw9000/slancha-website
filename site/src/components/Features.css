@@ -1,5 +1,5 @@
 .features {
-  background: var(--color-bg);
+  background: var(--bg);
 }
 
 .features-grid {
@@ -10,15 +10,15 @@
 }
 
 .feature-card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
   padding: 2rem 1.5rem;
   transition: border-color 0.2s ease, transform 0.2s ease;
 }
 
 .feature-card:hover {
-  border-color: var(--color-accent);
+  border-color: var(--accent);
   transform: translateY(-2px);
 }
 
@@ -30,13 +30,13 @@
 .feature-title {
   font-size: 1rem;
   font-weight: 600;
-  color: var(--color-text);
+  color: var(--text-primary);
   margin-bottom: 0.5rem;
 }
 
 .feature-body {
   font-size: 0.9rem;
-  color: var(--color-text-muted);
+  color: var(--text-secondary);
   line-height: 1.65;
 }
 
