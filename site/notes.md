@@ -1,8 +1,8 @@
 Build status: ✓ passing
-Build date: 2026-03-23T17:07Z
-Commit: 93950f2 (2026-03-23 17:07 UTC)
+Build date: 2026-03-26T05:11Z
+Commit: 61989cd (2026-03-26 05:11 UTC)
 
-Components: Nav, Hero, Features, HowItWorks, TierCards, TechStack, About, PilotCTA, Footer, Contact
+Components: Nav, Hero, Features, HowItWorks, TierCards, TechStack, About, PilotCTA, Footer, Contact, NotFound (404)
 Missing copy (COPY_PENDING): none — all copy written and embedded in components
 Scroll-reveal: Features ✓, HowItWorks ✓, TierCards ✓, TechStack ✓, PilotCTA ✓, About ✓ (Hero excluded per animations spec)
 
