@@ -65,7 +65,7 @@ export default function Contact() {
   return (
     <div className="page">
       <Nav backLink />
-
+      <main>
       {/* Hero Banner */}
       <div className="contact-hero">
         <div className="contact-hero-overlay" />
@@ -193,6 +193,7 @@ export default function Contact() {
           </>
         )}
       </div>
+      </main>
 
       <Footer />
     </div>
