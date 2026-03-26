@@ -12,18 +12,21 @@ import Footer from '../components/Footer';
 export default function Home() {
   return (
     <div className="page">
+      <a href="#main-content" className="skip-link">Skip to main content</a>
       <Nav />
-      <Hero />
-      <hr className="section-divider" />
-      <Features />
-      <hr className="section-divider" />
-      <HowItWorks />
-      <hr className="section-divider" />
-      <TierCards />
-      <TechStack />
-      <hr className="section-divider" />
-      <About />
-      <PilotCTA />
+      <main id="main-content">
+        <Hero />
+        <hr className="section-divider" />
+        <Features />
+        <hr className="section-divider" />
+        <HowItWorks />
+        <hr className="section-divider" />
+        <TierCards />
+        <TechStack />
+        <hr className="section-divider" />
+        <About />
+        <PilotCTA />
+      </main>
       <Footer />
     </div>
   );
