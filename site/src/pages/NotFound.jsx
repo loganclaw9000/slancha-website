@@ -1,0 +1,25 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+import Nav from '../components/Nav';
+import Footer from '../components/Footer';
+import './NotFound.css';
+
+export default function NotFound() {
+  return (
+    <div className="page">
+      <a href="#main-content" className="skip-link">Skip to main content</a>
+      <Nav />
+      <main id="main-content" className="notfound">
+        <div className="notfound__inner">
+          <span className="notfound__code">404</span>
+          <h1 className="notfound__heading">Page not found</h1>
+          <p className="notfound__body">
+            The page you're looking for doesn't exist or has been moved.
+          </p>
+          <Link to="/" className="notfound__btn">Back to home</Link>
+        </div>
+      </main>
+      <Footer />
+    </div>
+  );
+}
