@@ -2,12 +2,12 @@
 
 ## Status: No open bugs
 
-Last QA run: 2026-03-24T12:06Z
+Last QA run: 2026-03-26T21:16Z
 
 ### Checks performed
 
-- ✓ Build passes (56 modules, vite 5.4.21)
-- ✓ All sections present (Nav, Hero, Features, HowItWorks, TierCards, TechStack, About, PilotCTA, Footer, Contact page)
+- ✓ Build passes (58 modules, vite 5.4.21)
+- ✓ All sections present (Nav, Hero, Features, HowItWorks, TierCards, TechStack, About, PilotCTA, Footer, Contact page, NotFound 404 page)
 - ✓ No inline style objects in any component
 - ✓ No PLACEHOLDER or COPY_PENDING comments remaining
 - ✓ All copy files exist in site/copy/
@@ -19,12 +19,17 @@ Last QA run: 2026-03-24T12:06Z
 - ✓ IntersectionObserver scroll-reveal in useScrollReveal.js (Features, HowItWorks, TierCards, TechStack, About, PilotCTA)
 - ✓ Contact form has 4 fields (name, email, subject, message) with client-side validation
 - ✓ Contact form has mailto:contact@slancha.ai fallback
-- ✓ index.html has correct title, meta description, OG tags, Inter font, lang="en"
-- ✓ Features.css and About.css now use correct design tokens (fixed 2026-03-24)
+- ✓ index.html has correct title, meta description, OG tags, Twitter card, canonical link, Inter font, lang="en"
+- ✓ Features.css and About.css use correct design tokens (fixed 2026-03-24)
+- ✓ 404 NotFound page — correct CSS tokens (--accent, --accent-hover, --text-primary, --text-secondary, --font-mono, --radius-lg all defined in index.css), Nav+Footer present, skip-to-content link, catches all routes via App.jsx catch-all route
+- ✓ Accessibility: <main id="main-content"> on Home, Contact, NotFound; skip-to-content link on all three; aria-label="Site footer" on footer
+- ✓ robots.txt and sitemap.xml in public/
+- ✓ favicon.svg in public/
 
-### Fixed this run (2026-03-24)
-- **BUG FIXED** Features.css was using stale `--color-*` tokens (--color-bg, --color-surface, --color-border, --color-accent, --color-text, --color-text-muted, --radius-md) not defined in the design system. Feature cards were rendering with transparent backgrounds, wrong borders, and wrong text colors. Fixed to use --bg, --bg-card, --border, --accent, --text-primary, --text-secondary, --radius-lg. Commit: 7c95e14.
-- **BUG FIXED** About.css same issue (--color-surface, --color-text-muted). Fixed in same commit.
+### Fixed previously
+- **BUG FIXED** Features.css was using stale `--color-*` tokens. Fixed commit: 7c95e14.
+- **BUG FIXED** About.css same issue. Fixed commit: 7c95e14.
+- **BUG FIXED** Hero.jsx had scroll-reveal class causing invisible hero. Fixed commit: 5f5297d.
 
 ### Remaining pre-launch item (not a bug)
 - Add VITE_FORM_ENDPOINT in .env for Formspree — see .env.example. mailto fallback is live.
