@@ -1,0 +1,42 @@
+{
+  "title": "Model Performance Comparison",
+  "data": {
+    "Qwen3-Coder-Next": {
+      "totalSessions": 60,
+      "success": 0,
+      "error": 60,
+      "successRate": 0
+    },
+    "big-tiger-gemma-27b-v3": {
+      "totalSessions": 18,
+      "success": 0,
+      "error": 18,
+      "successRate": 0
+    },
+    "claude-sonnet-4-6": {
+      "totalSessions": 11,
+      "success": 0,
+      "error": 11,
+      "successRate": 0
+    },
+    "glm-4.5-air": {
+      "totalSessions": 10,
+      "success": 0,
+      "error": 10,
+      "successRate": 0
+    },
+    "Qwen3.5-35B": {
+      "totalSessions": 16,
+      "success": 0,
+      "error": 16,
+      "successRate": 0
+    },
+    "Qwen3-Coder-30B": {
+      "totalSessions": 28,
+      "success": 0,
+      "error": 28,
+      "successRate": 0
+    }
+  },
+  "generated": "2026-03-29T07:57:09.663Z"
+}

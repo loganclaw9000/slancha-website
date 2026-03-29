@@ -1,0 +1,33 @@
+{
+  "title": "Error Pattern Analysis",
+  "patterns": [
+    {
+      "error": "LLM request failed: network connection error.",
+      "count": 1
+    },
+    {
+      "error": "LLM request rejected: Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.",
+      "count": 1
+    },
+    {
+      "error": "HTTP 400: Failed to load model \"glm-4.5-air\". Error: Error loading model.",
+      "count": 1
+    },
+    {
+      "error": "Cannot truncate prompt with n_keep (23339) >= n_ctx (4096)",
+      "count": 1
+    },
+    {
+      "error": "400 \"auto\" tool choice requires --enable-auto-tool-choice and --tool-call-parser to be set",
+      "count": 1
+    }
+  ],
+  "byType": {
+    "LLM request failed: network connection error.": 1,
+    "LLM request rejected: Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.": 1,
+    "HTTP 400: Failed to load model \"glm-4.5-air\". Error: Error loading model.": 1,
+    "Cannot truncate prompt with n_keep (23339) >= n_ctx (4096)": 1,
+    "400 \"auto\" tool choice requires --enable-auto-tool-choice and --tool-call-parser to be set": 1
+  },
+  "generated": "2026-03-29T07:57:09.663Z"
+}
