@@ -1,16 +1,40 @@
 # Offerings
 
-## Managed Hosting
-**Best for:** Companies that want a fully managed, hassle‑free inference platform.
+## Platform: Eval + Deploy
+**Best for:** AI engineering teams stitching together eval and inference tools today.
 
-Our team runs Slancha’s control plane on your behalf, handling hardware provisioning, scaling, and SLA monitoring. You provide your model and data; we deliver ultra‑low latency inference with predictable costs. Pricing is subscription‑based, starting at $2,500 /mo for up to 5 M inferences.
+Connect your production workloads, benchmark model candidates on real tasks, and deploy to API, managed hosting, or on-prem — all from one dashboard. Slancha tracks cost, latency, and accuracy across deployments so you always know which model is earning its spot.
 
-## Self‑Hosted Deployment
-**Best for:** Teams that need full control over their infrastructure while leveraging Slancha’s optimization engine.
+**Price:** $2,000/month minimum
 
-Deploy the Slancha stack on your own servers or cloud instances. You retain ownership of all hardware and data, yet benefit from automatic model placement across GPUs, TPUs, or custom ASICs. Pricing is a one‑time license fee of $12,000 plus optional support contracts.
+---
 
-## Autonomous SRE Agent (Premium)
-**Best for:** Enterprises that require an AI‑driven operations layer to manage inference workloads at scale.
+## Platform: Full Loop
+**Best for:** Teams running continuous fine-tuning or building proprietary model capabilities.
 
-The Autonomous SRE Agent continuously monitors performance, auto‑tunes resources, and resolves incidents before they impact users. You supply the models; we provide a self‑optimizing, latency‑first execution environment with enterprise‑grade SLAs. Currently in limited preview — contact us for early access.
+Includes everything in Eval + Deploy, plus the post-training pipeline that closes the loop: production signal captured during inference automatically becomes fine-tuning data, prepared and fed into your training runs. Each cycle produces a more capable model at lower cost.
+
+**Price:** Custom pricing
+
+---
+
+## Enterprise: Self-Hosted
+**Best for:** Organizations with strict data residency, air-gap requirements, or compliance constraints.
+
+Deploy the full Slancha platform on your own infrastructure. You retain complete data ownership; we supply the control plane, eval framework, and fine-tuning pipeline as software.
+
+**Price:** One-time license fee
+
+---
+
+## Autonomous SRE Agent
+**Best for:** Enterprises running high-throughput inference at scale.
+
+Slancha's autonomous SRE agent monitors your inference fleet 24/7, tuning hardware allocation, cost routing, and SLA compliance without human intervention. Available as an add-on to any plan.
+
+**Price:** Limited preview
+
+---
+
+## Section Title:
+`Plans built for AI engineering teams`

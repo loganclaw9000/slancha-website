@@ -1,5 +1,16 @@
 # Tech Stack
 
-Slancha’s control plane orchestrates inference across a best‑in‑class toolchain—think NVIDIA TensorRT, AWS Inferentia, and Google Cloud TPU—so you never have to juggle hardware specifics. It automatically selects the optimal runtime, scaling policies, and cost‑performance trade‑offs based on your latency target.
+**Built On Label:**
+`BUILT ON`
 
-You pick the latency target. We pick the stack.
+**Heading:**
+`Best-in-class open infrastructure`
+
+**Body:**
+Slancha's platform is built on best-in-class open infrastructure at every layer: vLLM and NVIDIA Triton for inference serving, PyTorch and Axolotl for post-training, plus a shared data layer that connects eval output directly to fine-tuning input. You bring the models and the production workloads. We handle the infrastructure decisions — which backend, which hardware, which fine-tuning config — so your team stays focused on the task scores, not the tooling.
+
+**Tools Listed:**
+`vLLM`, `NVIDIA Triton`, `PyTorch`, `Axolotl`, `Shared Data Layer`
+
+**Footer:**
+`You bring the workloads. We handle the infrastructure.`

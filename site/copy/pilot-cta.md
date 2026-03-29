@@ -1,13 +1,13 @@
 ## Pilot CTA
 
 **Headline:**
-Running production inference with a growing cloud bill? Let’s talk.
+Running your AI engineering loop across 4+ tools? There's a better way.
 
 **Body:**
-If you’re scaling AI workloads and need cost‑effective latency, our pilot gets you started fast. We’ll assess your stack, set up a proof‑of‑concept, and show savings in weeks.
+If your team is manually stitching together eval, inference, and fine-tuning today, our pilot program is built for you. We'll instrument your existing workloads, run your first eval-deploy-post-train cycle, and show you the baseline metrics before you commit to anything.
 
 **CTA Button Text:**
-Start My Pilot
+Create Your Account
 
 **Contact Line:**
 contact@slancha.ai

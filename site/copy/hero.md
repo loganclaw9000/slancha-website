@@ -1,9 +1,9 @@
-EYEBROW: INFERENCE OPTIMIZATION PLATFORM
+**EYEBROW:** INFERENCE OPTIMIZATION PLATFORM
 
-H1: The Databricks of AI Inference
+**H1:** The Databricks of AI Engineering.
 
-SUBTITLE: Slancha lets you set precise latency targets and automatically optimizes models, hardware, and deployment—no need to understand P99 or infrastructure details.
+**SUBTITLE:** The only platform that owns the full loop: benchmark models against your production workloads, deploy the winner, post-train on what you learn, and repeat. Eval data flows directly into fine-tuning. No manual exports. No lost signal.
 
-PRIMARY CTA: Request a Pilot
+**PRIMARY CTA:** Get Started Free
 
-SECONDARY CTA: See How It Works
+**SECONDARY CTA:** See How It Works
