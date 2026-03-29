@@ -1,0 +1,652 @@
+[Sun Mar 29 04:22:15 AM PDT 2026] Starting observability data collection
+[Sun Mar 29 04:22:15 AM PDT 2026] Running collect-metrics.sh
+[Sun Mar 29 04:22:15 AM PDT 2026] Starting metrics collection...
+[Sun Mar 29 04:22:15 AM PDT 2026] Output: /home/admin/.openclaw/workspace/observability/data/metrics-20260329-042215.json
+[Sun Mar 29 04:22:15 AM PDT 2026] Parsing session logs...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 04:22:15 AM PDT 2026] Extracting error patterns...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 04:22:15 AM PDT 2026] Parsing memory files...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 04:22:15 AM PDT 2026] Checking clawhub data...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 04:22:15 AM PDT 2026] Generating summary metrics...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 04:22:15 AM PDT 2026] Data collection failed
+[Sun Mar 29 04:22:15 AM PDT 2026] Running aggregate-metrics.js
+[Aggregator] Starting metrics aggregation...
+[Aggregator] Loaded 1 daily metrics files
+[Aggregator] Created time-series data with 143 sessions
+[Aggregator] Models found: 6
+[Aggregator] Calculated performance metrics
+[Aggregator] Success rate: 0.0%
+[Aggregator] Tracked skill adoption for 0 skills
+[Aggregator] Identified 5 error patterns
+[Aggregator] Extracted 0 learnings
+[Aggregator] Generated custom metrics
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/spawnHistory.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/modelPerformance.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/skillAdoption.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/errorPatterns.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/learnings.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/customMetrics.json
+[Aggregator] Saved aggregated metrics
+[Aggregator] Aggregation complete!
+[Aggregator] Reports saved to: /home/admin/.openclaw/workspace/observability/reports
+[Sun Mar 29 04:22:15 AM PDT 2026] Aggregation successful
+[Sun Mar 29 04:22:15 AM PDT 2026] Observability collection cycle complete
+[Sun Mar 29 04:28:52 AM PDT 2026] Starting observability data collection
+[Sun Mar 29 04:28:52 AM PDT 2026] Running collect-metrics.sh
+[Sun Mar 29 04:28:52 AM PDT 2026] Starting metrics collection...
+[Sun Mar 29 04:28:52 AM PDT 2026] Output: /home/admin/.openclaw/workspace/observability/data/metrics-20260329-042852.json
+[Sun Mar 29 04:28:52 AM PDT 2026] Parsing session logs...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 04:28:52 AM PDT 2026] Extracting error patterns...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 04:28:52 AM PDT 2026] Parsing memory files...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 04:28:52 AM PDT 2026] Checking clawhub data...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 04:28:52 AM PDT 2026] Generating summary metrics...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 04:28:52 AM PDT 2026] Data collection failed
+[Sun Mar 29 04:28:52 AM PDT 2026] Running aggregate-metrics.js
+[Aggregator] Starting metrics aggregation...
+[Aggregator] Loaded 1 daily metrics files
+[Aggregator] Created time-series data with 143 sessions
+[Aggregator] Models found: 6
+[Aggregator] Calculated performance metrics
+[Aggregator] Success rate: 0.0%
+[Aggregator] Tracked skill adoption for 0 skills
+[Aggregator] Identified 5 error patterns
+[Aggregator] Extracted 0 learnings
+[Aggregator] Generated custom metrics
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/spawnHistory.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/modelPerformance.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/skillAdoption.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/errorPatterns.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/learnings.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/customMetrics.json
+[Aggregator] Saved aggregated metrics
+[Aggregator] Aggregation complete!
+[Aggregator] Reports saved to: /home/admin/.openclaw/workspace/observability/reports
+[Sun Mar 29 04:28:52 AM PDT 2026] Aggregation successful
+[Sun Mar 29 04:28:52 AM PDT 2026] Observability collection cycle complete
+[Sun Mar 29 04:58:50 AM PDT 2026] Starting observability data collection
+[Sun Mar 29 04:58:50 AM PDT 2026] Running collect-metrics.sh
+[Sun Mar 29 04:58:50 AM PDT 2026] Starting metrics collection...
+[Sun Mar 29 04:58:50 AM PDT 2026] Output: /home/admin/.openclaw/workspace/observability/data/metrics-20260329-045850.json
+[Sun Mar 29 04:58:50 AM PDT 2026] Parsing session logs...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 04:58:50 AM PDT 2026] Extracting error patterns...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 04:58:50 AM PDT 2026] Parsing memory files...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 04:58:50 AM PDT 2026] Checking clawhub data...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 04:58:50 AM PDT 2026] Generating summary metrics...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 04:58:50 AM PDT 2026] Data collection failed
+[Sun Mar 29 04:58:50 AM PDT 2026] Running aggregate-metrics.js
+[Aggregator] Starting metrics aggregation...
+[Aggregator] Loaded 1 daily metrics files
+[Aggregator] Created time-series data with 143 sessions
+[Aggregator] Models found: 6
+[Aggregator] Calculated performance metrics
+[Aggregator] Success rate: 0.0%
+[Aggregator] Tracked skill adoption for 0 skills
+[Aggregator] Identified 5 error patterns
+[Aggregator] Extracted 0 learnings
+[Aggregator] Generated custom metrics
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/spawnHistory.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/modelPerformance.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/skillAdoption.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/errorPatterns.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/learnings.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/customMetrics.json
+[Aggregator] Saved aggregated metrics
+[Aggregator] Aggregation complete!
+[Aggregator] Reports saved to: /home/admin/.openclaw/workspace/observability/reports
+[Sun Mar 29 04:58:50 AM PDT 2026] Aggregation successful
+[Sun Mar 29 04:58:50 AM PDT 2026] Observability collection cycle complete
+[Sun Mar 29 05:28:50 AM PDT 2026] Starting observability data collection
+[Sun Mar 29 05:28:50 AM PDT 2026] Running collect-metrics.sh
+[Sun Mar 29 05:28:50 AM PDT 2026] Starting metrics collection...
+[Sun Mar 29 05:28:50 AM PDT 2026] Output: /home/admin/.openclaw/workspace/observability/data/metrics-20260329-052850.json
+[Sun Mar 29 05:28:50 AM PDT 2026] Parsing session logs...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 05:28:50 AM PDT 2026] Extracting error patterns...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 05:28:50 AM PDT 2026] Parsing memory files...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 05:28:50 AM PDT 2026] Checking clawhub data...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 05:28:50 AM PDT 2026] Generating summary metrics...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 05:28:50 AM PDT 2026] Data collection failed
+[Sun Mar 29 05:28:50 AM PDT 2026] Running aggregate-metrics.js
+[Aggregator] Starting metrics aggregation...
+[Aggregator] Loaded 1 daily metrics files
+[Aggregator] Created time-series data with 143 sessions
+[Aggregator] Models found: 6
+[Aggregator] Calculated performance metrics
+[Aggregator] Success rate: 0.0%
+[Aggregator] Tracked skill adoption for 0 skills
+[Aggregator] Identified 5 error patterns
+[Aggregator] Extracted 0 learnings
+[Aggregator] Generated custom metrics
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/spawnHistory.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/modelPerformance.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/skillAdoption.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/errorPatterns.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/learnings.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/customMetrics.json
+[Aggregator] Saved aggregated metrics
+[Aggregator] Aggregation complete!
+[Aggregator] Reports saved to: /home/admin/.openclaw/workspace/observability/reports
+[Sun Mar 29 05:28:50 AM PDT 2026] Aggregation successful
+[Sun Mar 29 05:28:50 AM PDT 2026] Observability collection cycle complete
+[Sun Mar 29 05:58:50 AM PDT 2026] Starting observability data collection
+[Sun Mar 29 05:58:50 AM PDT 2026] Running collect-metrics.sh
+[Sun Mar 29 05:58:50 AM PDT 2026] Starting metrics collection...
+[Sun Mar 29 05:58:50 AM PDT 2026] Output: /home/admin/.openclaw/workspace/observability/data/metrics-20260329-055850.json
+[Sun Mar 29 05:58:50 AM PDT 2026] Parsing session logs...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 05:58:50 AM PDT 2026] Extracting error patterns...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 05:58:51 AM PDT 2026] Parsing memory files...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 05:58:51 AM PDT 2026] Checking clawhub data...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 05:58:51 AM PDT 2026] Generating summary metrics...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 05:58:51 AM PDT 2026] Data collection failed
+[Sun Mar 29 05:58:51 AM PDT 2026] Running aggregate-metrics.js
+[Aggregator] Starting metrics aggregation...
+[Aggregator] Loaded 1 daily metrics files
+[Aggregator] Created time-series data with 143 sessions
+[Aggregator] Models found: 6
+[Aggregator] Calculated performance metrics
+[Aggregator] Success rate: 0.0%
+[Aggregator] Tracked skill adoption for 0 skills
+[Aggregator] Identified 5 error patterns
+[Aggregator] Extracted 0 learnings
+[Aggregator] Generated custom metrics
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/spawnHistory.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/modelPerformance.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/skillAdoption.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/errorPatterns.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/learnings.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/customMetrics.json
+[Aggregator] Saved aggregated metrics
+[Aggregator] Aggregation complete!
+[Aggregator] Reports saved to: /home/admin/.openclaw/workspace/observability/reports
+[Sun Mar 29 05:58:51 AM PDT 2026] Aggregation successful
+[Sun Mar 29 05:58:51 AM PDT 2026] Observability collection cycle complete
+[Sun Mar 29 06:28:51 AM PDT 2026] Starting observability data collection
+[Sun Mar 29 06:28:51 AM PDT 2026] Running collect-metrics.sh
+[Sun Mar 29 06:28:51 AM PDT 2026] Starting metrics collection...
+[Sun Mar 29 06:28:51 AM PDT 2026] Output: /home/admin/.openclaw/workspace/observability/data/metrics-20260329-062851.json
+[Sun Mar 29 06:28:51 AM PDT 2026] Parsing session logs...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 06:28:51 AM PDT 2026] Extracting error patterns...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 06:28:51 AM PDT 2026] Parsing memory files...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 06:28:51 AM PDT 2026] Checking clawhub data...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 06:28:51 AM PDT 2026] Generating summary metrics...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 06:28:51 AM PDT 2026] Data collection failed
+[Sun Mar 29 06:28:51 AM PDT 2026] Running aggregate-metrics.js
+[Aggregator] Starting metrics aggregation...
+[Aggregator] Loaded 1 daily metrics files
+[Aggregator] Created time-series data with 143 sessions
+[Aggregator] Models found: 6
+[Aggregator] Calculated performance metrics
+[Aggregator] Success rate: 0.0%
+[Aggregator] Tracked skill adoption for 0 skills
+[Aggregator] Identified 5 error patterns
+[Aggregator] Extracted 0 learnings
+[Aggregator] Generated custom metrics
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/spawnHistory.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/modelPerformance.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/skillAdoption.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/errorPatterns.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/learnings.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/customMetrics.json
+[Aggregator] Saved aggregated metrics
+[Aggregator] Aggregation complete!
+[Aggregator] Reports saved to: /home/admin/.openclaw/workspace/observability/reports
+[Sun Mar 29 06:28:51 AM PDT 2026] Aggregation successful
+[Sun Mar 29 06:28:51 AM PDT 2026] Observability collection cycle complete
+[Sun Mar 29 06:58:52 AM PDT 2026] Starting observability data collection
+[Sun Mar 29 06:58:52 AM PDT 2026] Running collect-metrics.sh
+[Sun Mar 29 06:58:52 AM PDT 2026] Starting metrics collection...
+[Sun Mar 29 06:58:52 AM PDT 2026] Output: /home/admin/.openclaw/workspace/observability/data/metrics-20260329-065852.json
+[Sun Mar 29 06:58:52 AM PDT 2026] Parsing session logs...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 06:58:52 AM PDT 2026] Extracting error patterns...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 06:58:52 AM PDT 2026] Parsing memory files...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 06:58:52 AM PDT 2026] Checking clawhub data...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 06:58:52 AM PDT 2026] Generating summary metrics...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 06:58:52 AM PDT 2026] Data collection failed
+[Sun Mar 29 06:58:52 AM PDT 2026] Running aggregate-metrics.js
+[Aggregator] Starting metrics aggregation...
+[Aggregator] Loaded 1 daily metrics files
+[Aggregator] Created time-series data with 143 sessions
+[Aggregator] Models found: 6
+[Aggregator] Calculated performance metrics
+[Aggregator] Success rate: 0.0%
+[Aggregator] Tracked skill adoption for 0 skills
+[Aggregator] Identified 5 error patterns
+[Aggregator] Extracted 0 learnings
+[Aggregator] Generated custom metrics
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/spawnHistory.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/modelPerformance.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/skillAdoption.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/errorPatterns.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/learnings.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/customMetrics.json
+[Aggregator] Saved aggregated metrics
+[Aggregator] Aggregation complete!
+[Aggregator] Reports saved to: /home/admin/.openclaw/workspace/observability/reports
+[Sun Mar 29 06:58:52 AM PDT 2026] Aggregation successful
+[Sun Mar 29 06:58:52 AM PDT 2026] Observability collection cycle complete
+[Sun Mar 29 07:28:52 AM PDT 2026] Starting observability data collection
+[Sun Mar 29 07:28:52 AM PDT 2026] Running collect-metrics.sh
+[Sun Mar 29 07:28:52 AM PDT 2026] Starting metrics collection...
+[Sun Mar 29 07:28:52 AM PDT 2026] Output: /home/admin/.openclaw/workspace/observability/data/metrics-20260329-072852.json
+[Sun Mar 29 07:28:52 AM PDT 2026] Parsing session logs...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 07:28:52 AM PDT 2026] Extracting error patterns...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 07:28:52 AM PDT 2026] Parsing memory files...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 07:28:52 AM PDT 2026] Checking clawhub data...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 07:28:52 AM PDT 2026] Generating summary metrics...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 07:28:52 AM PDT 2026] Data collection failed
+[Sun Mar 29 07:28:52 AM PDT 2026] Running aggregate-metrics.js
+[Aggregator] Starting metrics aggregation...
+[Aggregator] Loaded 1 daily metrics files
+[Aggregator] Created time-series data with 143 sessions
+[Aggregator] Models found: 6
+[Aggregator] Calculated performance metrics
+[Aggregator] Success rate: 0.0%
+[Aggregator] Tracked skill adoption for 0 skills
+[Aggregator] Identified 5 error patterns
+[Aggregator] Extracted 0 learnings
+[Aggregator] Generated custom metrics
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/spawnHistory.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/modelPerformance.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/skillAdoption.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/errorPatterns.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/learnings.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/customMetrics.json
+[Aggregator] Saved aggregated metrics
+[Aggregator] Aggregation complete!
+[Aggregator] Reports saved to: /home/admin/.openclaw/workspace/observability/reports
+[Sun Mar 29 07:28:52 AM PDT 2026] Aggregation successful
+[Sun Mar 29 07:28:52 AM PDT 2026] Observability collection cycle complete
+[Sun Mar 29 07:58:53 AM PDT 2026] Starting observability data collection
+[Sun Mar 29 07:58:53 AM PDT 2026] Running collect-metrics.sh
+[Sun Mar 29 07:58:53 AM PDT 2026] Starting metrics collection...
+[Sun Mar 29 07:58:53 AM PDT 2026] Output: /home/admin/.openclaw/workspace/observability/data/metrics-20260329-075853.json
+[Sun Mar 29 07:58:53 AM PDT 2026] Parsing session logs...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 07:58:53 AM PDT 2026] Extracting error patterns...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 07:58:53 AM PDT 2026] Parsing memory files...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 07:58:53 AM PDT 2026] Checking clawhub data...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 07:58:53 AM PDT 2026] Generating summary metrics...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 07:58:53 AM PDT 2026] Data collection failed
+[Sun Mar 29 07:58:53 AM PDT 2026] Running aggregate-metrics.js
+[Aggregator] Starting metrics aggregation...
+[Aggregator] Loaded 1 daily metrics files
+[Aggregator] Created time-series data with 143 sessions
+[Aggregator] Models found: 6
+[Aggregator] Calculated performance metrics
+[Aggregator] Success rate: 0.0%
+[Aggregator] Tracked skill adoption for 0 skills
+[Aggregator] Identified 5 error patterns
+[Aggregator] Extracted 0 learnings
+[Aggregator] Generated custom metrics
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/spawnHistory.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/modelPerformance.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/skillAdoption.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/errorPatterns.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/learnings.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/customMetrics.json
+[Aggregator] Saved aggregated metrics
+[Aggregator] Aggregation complete!
+[Aggregator] Reports saved to: /home/admin/.openclaw/workspace/observability/reports
+[Sun Mar 29 07:58:53 AM PDT 2026] Aggregation successful
+[Sun Mar 29 07:58:53 AM PDT 2026] Observability collection cycle complete
+[Sun Mar 29 08:28:54 AM PDT 2026] Starting observability data collection
+[Sun Mar 29 08:28:54 AM PDT 2026] Running collect-metrics.sh
+[Sun Mar 29 08:28:54 AM PDT 2026] Starting metrics collection...
+[Sun Mar 29 08:28:54 AM PDT 2026] Output: /home/admin/.openclaw/workspace/observability/data/metrics-20260329-082854.json
+[Sun Mar 29 08:28:54 AM PDT 2026] Parsing session logs...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 08:28:54 AM PDT 2026] Extracting error patterns...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 08:28:54 AM PDT 2026] Parsing memory files...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 08:28:54 AM PDT 2026] Checking clawhub data...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 08:28:54 AM PDT 2026] Generating summary metrics...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 08:28:54 AM PDT 2026] Data collection failed
+[Sun Mar 29 08:28:54 AM PDT 2026] Running aggregate-metrics.js
+[Aggregator] Starting metrics aggregation...
+[Aggregator] Loaded 1 daily metrics files
+[Aggregator] Created time-series data with 143 sessions
+[Aggregator] Models found: 6
+[Aggregator] Calculated performance metrics
+[Aggregator] Success rate: 0.0%
+[Aggregator] Tracked skill adoption for 0 skills
+[Aggregator] Identified 5 error patterns
+[Aggregator] Extracted 0 learnings
+[Aggregator] Generated custom metrics
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/spawnHistory.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/modelPerformance.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/skillAdoption.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/errorPatterns.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/learnings.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/customMetrics.json
+[Aggregator] Saved aggregated metrics
+[Aggregator] Aggregation complete!
+[Aggregator] Reports saved to: /home/admin/.openclaw/workspace/observability/reports
+[Sun Mar 29 08:28:54 AM PDT 2026] Aggregation successful
+[Sun Mar 29 08:28:54 AM PDT 2026] Observability collection cycle complete
+[Sun Mar 29 08:58:53 AM PDT 2026] Starting observability data collection
+[Sun Mar 29 08:58:53 AM PDT 2026] Running collect-metrics.sh
+[Sun Mar 29 08:58:53 AM PDT 2026] Starting metrics collection...
+[Sun Mar 29 08:58:53 AM PDT 2026] Output: /home/admin/.openclaw/workspace/observability/data/metrics-20260329-085853.json
+[Sun Mar 29 08:58:53 AM PDT 2026] Parsing session logs...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 08:58:53 AM PDT 2026] Extracting error patterns...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 08:58:53 AM PDT 2026] Parsing memory files...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 08:58:53 AM PDT 2026] Checking clawhub data...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 08:58:53 AM PDT 2026] Generating summary metrics...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 08:58:53 AM PDT 2026] Data collection failed
+[Sun Mar 29 08:58:53 AM PDT 2026] Running aggregate-metrics.js
+[Aggregator] Starting metrics aggregation...
+[Aggregator] Loaded 1 daily metrics files
+[Aggregator] Created time-series data with 143 sessions
+[Aggregator] Models found: 6
+[Aggregator] Calculated performance metrics
+[Aggregator] Success rate: 0.0%
+[Aggregator] Tracked skill adoption for 0 skills
+[Aggregator] Identified 5 error patterns
+[Aggregator] Extracted 0 learnings
+[Aggregator] Generated custom metrics
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/spawnHistory.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/modelPerformance.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/skillAdoption.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/errorPatterns.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/learnings.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/customMetrics.json
+[Aggregator] Saved aggregated metrics
+[Aggregator] Aggregation complete!
+[Aggregator] Reports saved to: /home/admin/.openclaw/workspace/observability/reports
+[Sun Mar 29 08:58:53 AM PDT 2026] Aggregation successful
+[Sun Mar 29 08:58:53 AM PDT 2026] Observability collection cycle complete
+[Sun Mar 29 11:28:47 AM PDT 2026] Starting observability data collection
+[Sun Mar 29 11:28:47 AM PDT 2026] Running collect-metrics.sh
+[Sun Mar 29 11:28:47 AM PDT 2026] Starting metrics collection...
+[Sun Mar 29 11:28:47 AM PDT 2026] Output: /home/admin/.openclaw/workspace/observability/data/metrics-20260329-112847.json
+[Sun Mar 29 11:28:47 AM PDT 2026] Parsing session logs...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 11:28:47 AM PDT 2026] Extracting error patterns...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 11:28:47 AM PDT 2026] Parsing memory files...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 11:28:47 AM PDT 2026] Checking clawhub data...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 11:28:47 AM PDT 2026] Generating summary metrics...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 11:28:47 AM PDT 2026] Data collection failed
+[Sun Mar 29 11:28:47 AM PDT 2026] Running aggregate-metrics.js
+[Aggregator] Starting metrics aggregation...
+[Aggregator] Loaded 1 daily metrics files
+[Aggregator] Created time-series data with 143 sessions
+[Aggregator] Models found: 6
+[Aggregator] Calculated performance metrics
+[Aggregator] Success rate: 0.0%
+[Aggregator] Tracked skill adoption for 0 skills
+[Aggregator] Identified 5 error patterns
+[Aggregator] Extracted 0 learnings
+[Aggregator] Generated custom metrics
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/spawnHistory.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/modelPerformance.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/skillAdoption.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/errorPatterns.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/learnings.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/customMetrics.json
+[Aggregator] Saved aggregated metrics
+[Aggregator] Aggregation complete!
+[Aggregator] Reports saved to: /home/admin/.openclaw/workspace/observability/reports
+[Sun Mar 29 11:28:47 AM PDT 2026] Aggregation successful
+[Sun Mar 29 11:28:47 AM PDT 2026] Observability collection cycle complete
+[Sun Mar 29 01:32:43 PM PDT 2026] Starting observability data collection
+[Sun Mar 29 01:32:43 PM PDT 2026] Running collect-metrics.sh
+[Sun Mar 29 01:32:43 PM PDT 2026] Starting metrics collection...
+[Sun Mar 29 01:32:43 PM PDT 2026] Output: /home/admin/.openclaw/workspace/observability/data/metrics-20260329-133243.json
+[Sun Mar 29 01:32:43 PM PDT 2026] Parsing session logs...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 01:32:43 PM PDT 2026] Extracting error patterns...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 01:32:43 PM PDT 2026] Parsing memory files...
+[Sun Mar 29 01:32:43 PM PDT 2026] Checking clawhub data...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 01:32:43 PM PDT 2026] Generating summary metrics...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 01:32:43 PM PDT 2026] Data collection failed
+[Sun Mar 29 01:32:43 PM PDT 2026] Running aggregate-metrics.js
+[Aggregator] Starting metrics aggregation...
+[Aggregator] Loaded 1 daily metrics files
+[Aggregator] Created time-series data with 143 sessions
+[Aggregator] Models found: 6
+[Aggregator] Calculated performance metrics
+[Aggregator] Success rate: 0.0%
+[Aggregator] Tracked skill adoption for 0 skills
+[Aggregator] Identified 5 error patterns
+[Aggregator] Extracted 0 learnings
+[Aggregator] Generated custom metrics
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/spawnHistory.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/modelPerformance.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/skillAdoption.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/errorPatterns.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/learnings.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/customMetrics.json
+[Aggregator] Saved aggregated metrics
+[Aggregator] Aggregation complete!
+[Aggregator] Reports saved to: /home/admin/.openclaw/workspace/observability/reports
+[Sun Mar 29 01:32:43 PM PDT 2026] Aggregation successful
+[Sun Mar 29 01:32:43 PM PDT 2026] Observability collection cycle complete
+[Sun Mar 29 01:58:53 PM PDT 2026] Starting observability data collection
+[Sun Mar 29 01:58:53 PM PDT 2026] Running collect-metrics.sh
+[Sun Mar 29 01:58:53 PM PDT 2026] Starting metrics collection...
+[Sun Mar 29 01:58:53 PM PDT 2026] Output: /home/admin/.openclaw/workspace/observability/data/metrics-20260329-135853.json
+[Sun Mar 29 01:58:53 PM PDT 2026] Parsing session logs...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 01:58:53 PM PDT 2026] Extracting error patterns...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 01:58:53 PM PDT 2026] Parsing memory files...
+[Sun Mar 29 01:58:53 PM PDT 2026] Checking clawhub data...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 01:58:53 PM PDT 2026] Generating summary metrics...
+jq: invalid JSON text passed to --argjson
+Use jq --help for help with command-line options,
+or see the jq manpage, or online docs  at https://jqlang.github.io/jq
+[Sun Mar 29 01:58:53 PM PDT 2026] Data collection failed
+[Sun Mar 29 01:58:53 PM PDT 2026] Running aggregate-metrics.js
+[Aggregator] Starting metrics aggregation...
+[Aggregator] Loaded 1 daily metrics files
+[Aggregator] Created time-series data with 143 sessions
+[Aggregator] Models found: 6
+[Aggregator] Calculated performance metrics
+[Aggregator] Success rate: 0.0%
+[Aggregator] Tracked skill adoption for 0 skills
+[Aggregator] Identified 5 error patterns
+[Aggregator] Extracted 0 learnings
+[Aggregator] Generated custom metrics
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/spawnHistory.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/modelPerformance.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/skillAdoption.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/errorPatterns.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/learnings.json
+[Aggregator] Generated report: /home/admin/.openclaw/workspace/observability/reports/customMetrics.json
+[Aggregator] Saved aggregated metrics
+[Aggregator] Aggregation complete!
+[Aggregator] Reports saved to: /home/admin/.openclaw/workspace/observability/reports
+[Sun Mar 29 01:58:53 PM PDT 2026] Aggregation successful
+[Sun Mar 29 01:58:53 PM PDT 2026] Observability collection cycle complete

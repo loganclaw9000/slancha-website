@@ -1,0 +1,864 @@
+{
+  "title": "Agent Spawn History",
+  "data": [
+    {
+      "timestamp": "2026-03-28T15:28:52.070-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T15:28:55.333-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T15:29:00.619-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T15:29:09.973-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T15:29:13.540-07:00",
+      "model": "big-tiger-gemma-27b-v3",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T15:29:16.922-07:00",
+      "model": "big-tiger-gemma-27b-v3",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T15:29:22.311-07:00",
+      "model": "big-tiger-gemma-27b-v3",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T15:29:31.647-07:00",
+      "model": "big-tiger-gemma-27b-v3",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T15:29:32.174-07:00",
+      "model": "claude-sonnet-4-6",
+      "isError": true,
+      "error": "LLM request rejected: Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."
+    },
+    {
+      "timestamp": "2026-03-28T15:33:18.156-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T15:33:21.408-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T15:33:26.735-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T15:33:36.190-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T15:57:21.332-07:00",
+      "model": "glm-4.5-air",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T15:57:24.811-07:00",
+      "model": "glm-4.5-air",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T15:57:30.224-07:00",
+      "model": "glm-4.5-air",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T15:57:39.576-07:00",
+      "model": "glm-4.5-air",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T15:59:13.494-07:00",
+      "model": "big-tiger-gemma-27b-v3",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T15:59:16.763-07:00",
+      "model": "big-tiger-gemma-27b-v3",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T15:59:22.175-07:00",
+      "model": "big-tiger-gemma-27b-v3",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T15:59:31.668-07:00",
+      "model": "big-tiger-gemma-27b-v3",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T16:29:11.530-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T16:29:14.852-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T16:29:20.048-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T16:29:29.261-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T16:29:32.708-07:00",
+      "model": "big-tiger-gemma-27b-v3",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T16:29:35.934-07:00",
+      "model": "big-tiger-gemma-27b-v3",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T16:29:41.296-07:00",
+      "model": "big-tiger-gemma-27b-v3",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T16:29:50.621-07:00",
+      "model": "big-tiger-gemma-27b-v3",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T16:29:53.217-07:00",
+      "model": "claude-sonnet-4-6",
+      "isError": true,
+      "error": "LLM request rejected: Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."
+    },
+    {
+      "timestamp": "2026-03-28T16:33:38.041-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T16:33:41.319-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T16:33:46.814-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T16:33:56.105-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T16:57:41.668-07:00",
+      "model": "glm-4.5-air",
+      "isError": true,
+      "error": "HTTP 400: Failed to load model \"glm-4.5-air\". Error: Error loading model."
+    },
+    {
+      "timestamp": "2026-03-28T17:13:18.960-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T17:13:22.199-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T17:13:27.601-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T17:13:36.879-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T17:17:44.245-07:00",
+      "model": "claude-sonnet-4-6",
+      "isError": true,
+      "error": "LLM request rejected: Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."
+    },
+    {
+      "timestamp": "2026-03-28T17:17:59.507-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T17:18:02.864-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T17:18:08.327-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T17:18:17.692-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T17:29:31.542-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T17:29:35.020-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T17:29:40.412-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T17:29:49.796-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T17:29:56.384-07:00",
+      "model": "claude-sonnet-4-6",
+      "isError": true,
+      "error": "LLM request rejected: Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."
+    },
+    {
+      "timestamp": "2026-03-28T17:33:57.877-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T17:34:01.259-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T17:34:06.508-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T17:34:15.958-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T17:37:57.140-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T17:38:00.426-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T17:38:05.783-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T17:38:14.971-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T17:57:44.350-07:00",
+      "model": "glm-4.5-air",
+      "isError": true,
+      "error": "HTTP 400: Failed to load model \"glm-4.5-air\". Error: Error loading model."
+    },
+    {
+      "timestamp": "2026-03-28T18:30:03.293-07:00",
+      "model": "claude-sonnet-4-6",
+      "isError": true,
+      "error": "LLM request rejected: Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."
+    },
+    {
+      "timestamp": "2026-03-28T18:57:46.975-07:00",
+      "model": "glm-4.5-air",
+      "isError": true,
+      "error": "HTTP 400: Failed to load model \"glm-4.5-air\". Error: Error loading model."
+    },
+    {
+      "timestamp": "2026-03-28T19:30:12.656-07:00",
+      "model": "claude-sonnet-4-6",
+      "isError": true,
+      "error": "LLM request rejected: Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."
+    },
+    {
+      "timestamp": "2026-03-28T19:57:49.528-07:00",
+      "model": "glm-4.5-air",
+      "isError": true,
+      "error": "HTTP 400: Failed to load model \"glm-4.5-air\". Error: Error loading model."
+    },
+    {
+      "timestamp": "2026-03-28T20:30:21.389-07:00",
+      "model": "claude-sonnet-4-6",
+      "isError": true,
+      "error": "LLM request rejected: Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."
+    },
+    {
+      "timestamp": "2026-03-28T20:57:51.966-07:00",
+      "model": "glm-4.5-air",
+      "isError": true,
+      "error": "HTTP 400: Failed to load model \"glm-4.5-air\". Error: Error loading model."
+    },
+    {
+      "timestamp": "2026-03-28T21:10:09.826-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T21:10:13.081-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T21:10:18.588-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T21:10:28.013-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T21:10:29.400-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T21:10:32.845-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T21:10:38.124-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T21:10:47.368-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T21:13:18.941-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T21:13:22.209-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T21:13:27.555-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T21:13:37.046-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T21:17:47.584-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T21:17:50.902-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T21:17:56.217-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T21:18:05.523-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T21:18:07.198-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T21:18:10.551-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T21:18:15.924-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T21:18:25.103-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T21:18:26.525-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T21:18:29.939-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T21:18:35.154-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T21:18:44.402-07:00",
+      "model": "Qwen3-Coder-Next",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T21:30:38.591-07:00",
+      "model": "claude-sonnet-4-6",
+      "isError": true,
+      "error": "LLM request rejected: Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."
+    },
+    {
+      "timestamp": "2026-03-28T21:43:15.752-07:00",
+      "model": "big-tiger-gemma-27b-v3",
+      "isError": true,
+      "error": "Cannot truncate prompt with n_keep (23339) >= n_ctx (4096)"
+    },
+    {
+      "timestamp": "2026-03-28T21:57:54.917-07:00",
+      "model": "glm-4.5-air",
+      "isError": true,
+      "error": "HTTP 400: Failed to load model \"glm-4.5-air\". Error: Error loading model."
+    },
+    {
+      "timestamp": "2026-03-28T22:00:36.668-07:00",
+      "model": "Qwen3.5-35B",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T22:00:39.973-07:00",
+      "model": "Qwen3.5-35B",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T22:00:45.328-07:00",
+      "model": "Qwen3.5-35B",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T22:00:54.585-07:00",
+      "model": "Qwen3.5-35B",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T22:30:34.511-07:00",
+      "model": "Qwen3-Coder-30B",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T22:30:37.884-07:00",
+      "model": "Qwen3-Coder-30B",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T22:30:43.301-07:00",
+      "model": "Qwen3-Coder-30B",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T22:30:52.652-07:00",
+      "model": "Qwen3-Coder-30B",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T22:30:56.329-07:00",
+      "model": "Qwen3.5-35B",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T22:30:59.732-07:00",
+      "model": "Qwen3.5-35B",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T22:31:05.066-07:00",
+      "model": "Qwen3.5-35B",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T22:31:14.554-07:00",
+      "model": "Qwen3.5-35B",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T22:31:15.557-07:00",
+      "model": "claude-sonnet-4-6",
+      "isError": true,
+      "error": "LLM request rejected: Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."
+    },
+    {
+      "timestamp": "2026-03-28T22:34:57.254-07:00",
+      "model": "Qwen3-Coder-30B",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T22:35:00.508-07:00",
+      "model": "Qwen3-Coder-30B",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T22:35:05.786-07:00",
+      "model": "Qwen3-Coder-30B",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T22:35:15.214-07:00",
+      "model": "Qwen3-Coder-30B",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T22:57:55.380-07:00",
+      "model": "big-tiger-gemma-27b-v3",
+      "isError": true,
+      "error": "400 \"auto\" tool choice requires --enable-auto-tool-choice and --tool-call-parser to be set"
+    },
+    {
+      "timestamp": "2026-03-28T23:00:56.295-07:00",
+      "model": "Qwen3.5-35B",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T23:00:59.679-07:00",
+      "model": "Qwen3.5-35B",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T23:01:05.025-07:00",
+      "model": "Qwen3.5-35B",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T23:01:14.513-07:00",
+      "model": "Qwen3.5-35B",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T23:13:19.155-07:00",
+      "model": "Qwen3-Coder-30B",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T23:13:22.410-07:00",
+      "model": "Qwen3-Coder-30B",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T23:13:27.870-07:00",
+      "model": "Qwen3-Coder-30B",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T23:13:37.289-07:00",
+      "model": "Qwen3-Coder-30B",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T23:30:54.198-07:00",
+      "model": "Qwen3-Coder-30B",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T23:30:57.549-07:00",
+      "model": "Qwen3-Coder-30B",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T23:31:02.804-07:00",
+      "model": "Qwen3-Coder-30B",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T23:31:12.197-07:00",
+      "model": "Qwen3-Coder-30B",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T23:31:15.610-07:00",
+      "model": "Qwen3.5-35B",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T23:31:18.899-07:00",
+      "model": "Qwen3.5-35B",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T23:31:24.266-07:00",
+      "model": "Qwen3.5-35B",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T23:31:33.636-07:00",
+      "model": "Qwen3.5-35B",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T23:31:36.854-07:00",
+      "model": "claude-sonnet-4-6",
+      "isError": true,
+      "error": "LLM request rejected: Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."
+    },
+    {
+      "timestamp": "2026-03-28T23:35:16.758-07:00",
+      "model": "Qwen3-Coder-30B",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T23:35:20.026-07:00",
+      "model": "Qwen3-Coder-30B",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T23:35:25.394-07:00",
+      "model": "Qwen3-Coder-30B",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T23:35:34.703-07:00",
+      "model": "Qwen3-Coder-30B",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T23:57:57.009-07:00",
+      "model": "big-tiger-gemma-27b-v3",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T23:58:00.491-07:00",
+      "model": "big-tiger-gemma-27b-v3",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T23:58:05.850-07:00",
+      "model": "big-tiger-gemma-27b-v3",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-28T23:58:15.226-07:00",
+      "model": "big-tiger-gemma-27b-v3",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-29T00:31:13.914-07:00",
+      "model": "Qwen3-Coder-30B",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-29T00:31:17.309-07:00",
+      "model": "Qwen3-Coder-30B",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-29T00:31:22.737-07:00",
+      "model": "Qwen3-Coder-30B",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-29T00:31:32.033-07:00",
+      "model": "Qwen3-Coder-30B",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-29T00:31:37.608-07:00",
+      "model": "claude-sonnet-4-6",
+      "isError": true,
+      "error": "LLM request rejected: Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."
+    },
+    {
+      "timestamp": "2026-03-29T00:35:36.439-07:00",
+      "model": "Qwen3-Coder-30B",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-29T00:35:39.811-07:00",
+      "model": "Qwen3-Coder-30B",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-29T00:35:45.141-07:00",
+      "model": "Qwen3-Coder-30B",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    },
+    {
+      "timestamp": "2026-03-29T00:35:54.504-07:00",
+      "model": "Qwen3-Coder-30B",
+      "isError": true,
+      "error": "LLM request failed: network connection error."
+    }
+  ],
+  "generated": "2026-03-29T20:58:53.460Z"
+}
