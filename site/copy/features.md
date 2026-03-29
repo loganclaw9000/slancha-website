@@ -1,22 +1,16 @@
 # Features
 
-## Real Production Benchmarking
-Evaluate models against your actual workloads, not synthetic benchmarks. Slancha scores cost, latency, and task accuracy on real traffic so you know which model earns its place before you deploy.
+## Latency‑First Optimization
+We start with your service‑level agreement and automatically pick the right hardware, software, and scaling strategy to meet it.
 
-## Multi-Target Deployment
-Ship to API, managed hosting, or on-prem — or all three. Slancha routes traffic optimally across inference targets, adjusting in real-time as costs and latency profiles shift.
-
-## Post-Training Automation
-Production signal captured during inference automatically becomes fine-tuning data. No manual exports, no data wrangling, no broken handoffs between eval and training teams.
-
-## Unified Data Layer
-Eval output flows directly into fine-tuning input. Your data never leaves the platform, and every iteration builds on the signal from the last.
+## Hardware Agnostic Deployments
+Deploy across Amazon Inferentia, NVIDIA L40S, or custom B200 accelerators without rewriting code.
 
 ## Autonomous SRE Agent
-24/7 monitoring of your inference fleet with automatic tuning of hardware allocation, cost routing, and SLA compliance. Available as an add-on to any plan.
+Our AI‑driven SRE agent runs the entire inference stack for you – provisioning, monitoring, scaling, and cost optimization.
 
-## Cost Transparency & Optimization
-Track cost-per-task across models, deployments, and cycles. Slancha optimizes on cost, latency, and accuracy simultaneously — not just one dimension in isolation.
+## Cost Transparency & Control
+Real‑time dashboards show performance vs. spend, letting you adjust targets on the fly.
 
-## Section Title:
-`Everything you need to close the AI engineering loop`
+## Seamless Integration
+Plug into your existing CI/CD pipelines; we handle the heavy lifting while you keep ownership of model development.

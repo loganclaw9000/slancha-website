@@ -1,10 +1,10 @@
 # Why Slancha
 
-## Stop losing signal between tools.
-Slancha captures production signal during inference and routes it directly into your fine-tuning pipeline — no manual exports, no lost context, no broken handoffs between eval and training teams.
+- **Latency‑first, cost‑smart**
+  We start with your SLA target and work backward, delivering the lowest‑cost inference that still meets latency goals.
 
-## Optimize across three dimensions simultaneously.
-Benchmark cost, latency, and accuracy against your real workloads, then deploy across API, hosted, or on-prem inference. Slancha optimizes on all three at once, not just one.
+- **Hardware‑agnostic mastery**
+  Whether you run on AWS Inferentia, NVIDIA L40S, or a B200, Slancha auto‑selects the optimal stack so you never worry about vendor lock‑in.
 
-## Compounding improvement by design.
-Each eval → deploy → post-train cycle produces a better model at lower cost. Slancha tracks gains across cycles so you see the compounding effect — not just snapshot metrics.
+- **Zero‑team inference ops**
+  No dedicated ML engineers needed – our platform becomes your inference team, handling scaling, tuning, and monitoring for you.
