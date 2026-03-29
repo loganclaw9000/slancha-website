@@ -1,6 +1,6 @@
 .footer {
   padding: 32px 64px;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--glass-border);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -9,12 +9,16 @@
 }
 
 .footer-email {
-  color: var(--accent);
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   text-decoration: none;
-  transition: text-decoration 150ms ease;
+  font-weight: 500;
+  transition: opacity 200ms ease;
 }
 .footer-email:hover {
-  text-decoration: underline;
+  opacity: 0.8;
 }
 
 @media (max-width: 768px) {

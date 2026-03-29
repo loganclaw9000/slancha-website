@@ -1,16 +1,26 @@
 .pilot-cta {
-  background: radial-gradient(ellipse at top center, #0A0A0F 0%, #121212 60%);
-  border-top: 1px solid #1A1A1A;
-  border-bottom: 1px solid #1A1A1A;
-  padding: 96px 64px;
+  position: relative;
+  padding: 120px 64px;
+  overflow: hidden;
 }
+
+/* Gradient mesh behind the CTA */
+.pilot-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 40%, rgba(10, 132, 255, 0.1) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 30% 60%, rgba(0, 209, 178, 0.06) 0%, transparent 50%);
+  pointer-events: none;
+}
+
 @media (max-width: 768px) {
-  .pilot-cta {
-    padding: 64px 24px;
-  }
+  .pilot-cta { padding: 80px 24px; }
 }
 
 .pilot-cta-inner {
+  position: relative;
   max-width: 640px;
   margin: 0 auto;
   display: flex;
@@ -21,37 +31,37 @@
 }
 
 .pilot-cta-headline {
-  font-size: 40px;
-  font-weight: 700;
-  line-height: 1.25;
+  font-size: 44px;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
   color: var(--text-primary);
 }
 @media (max-width: 768px) {
-  .pilot-cta-headline {
-    font-size: 28px;
-  }
+  .pilot-cta-headline { font-size: 30px; }
 }
 
 .pilot-cta-body {
   font-size: 18px;
   color: var(--text-secondary);
-  line-height: 1.6;
+  line-height: 1.7;
   max-width: 480px;
 }
 
 .pilot-cta .btn-primary {
-  min-width: 200px;
-}
-.pilot-cta .btn-primary:hover {
-  box-shadow: 0 0 20px rgba(10, 132, 255, 0.4);
+  min-width: 220px;
+  padding: 16px 40px;
+  font-size: 16px;
+  border-radius: var(--radius-lg);
+  animation: glow-pulse 3s ease-in-out infinite;
 }
 
 .pilot-cta-email {
   font-size: 14px;
   color: var(--text-muted);
   text-decoration: none;
-  transition: color 150ms ease;
+  transition: color 200ms ease;
 }
 .pilot-cta-email:hover {
-  color: var(--text-secondary);
+  color: var(--accent-teal);
 }

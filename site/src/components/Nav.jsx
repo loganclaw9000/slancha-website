@@ -25,7 +25,22 @@ export default function Nav({ backLink = false }) {
   return (
     <>
       <nav className={`nav${scrolled ? ' scrolled' : ''}`}>
-        <Link to="/" className="nav-logo">Slancha</Link>
+        <Link to="/" className="nav-logo">
+          <svg className="nav-triskele" viewBox="0 0 100 100" width="24" height="24" fill="none" strokeWidth="6" strokeLinecap="round">
+            <defs>
+              <linearGradient id="nav-tg" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#0A84FF" />
+                <stop offset="100%" stopColor="#00D1B2" />
+              </linearGradient>
+            </defs>
+            <g stroke="url(#nav-tg)">
+              <path d="M50 50 Q50 28 35 12 Q22 22 22 40 Q22 50 50 50" />
+              <path d="M50 50 Q69 59 87 52 Q85 36 72 28 Q63 24 50 50" />
+              <path d="M50 50 Q31 63 28 85 Q43 92 56 82 Q65 75 50 50" />
+            </g>
+          </svg>
+          Slancha
+        </Link>
         {backLink ? (
           <Link to="/" className="nav-link">&#8592; Back to home</Link>
         ) : (
@@ -33,9 +48,7 @@ export default function Nav({ backLink = false }) {
             <a href="/#how-it-works" className="nav-link">How it works</a>
             <a href="/#offerings" className="nav-link">Offerings</a>
             {user ? (
-              <>
-                <Link to="/dashboard" className="btn-primary btn-sm">Dashboard</Link>
-              </>
+              <Link to="/dashboard" className="btn-primary btn-sm">Dashboard</Link>
             ) : (
               <>
                 <Link to="/login" className="nav-link">Sign in</Link>

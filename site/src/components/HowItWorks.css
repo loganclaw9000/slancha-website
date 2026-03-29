@@ -1,47 +1,70 @@
-.how-it-works {
-  /* uses .section-padded from index.css */
-}
-
 .step-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
 }
-@media (max-width: 768px) {
-  .step-grid {
-    grid-template-columns: 1fr;
-  }
+@media (max-width: 900px) {
+  .step-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .step-grid { grid-template-columns: 1fr; }
 }
 
 .step-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
+  position: relative;
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius-lg);
   padding: 32px;
-  transition: transform 200ms ease, border-color 150ms ease;
+  transition: transform 300ms var(--ease-out-expo), box-shadow 300ms ease;
 }
+
+.step-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(10, 132, 255, 0.3), rgba(0, 209, 178, 0.15));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
 .step-card:hover {
-  transform: translateY(-2px);
-  border-color: var(--text-muted);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+.step-card:hover::before {
+  opacity: 1;
 }
 
 .step-num {
-  font-size: 32px;
-  font-weight: 700;
-  color: var(--accent);
+  font-size: 36px;
+  font-weight: 800;
   margin-bottom: 12px;
   font-variant-numeric: tabular-nums;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .step-title {
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 700;
   margin-bottom: 12px;
   color: var(--text-primary);
+  letter-spacing: -0.01em;
 }
 
 .step-body {
-  font-size: 16px;
+  font-size: 15px;
   color: var(--text-secondary);
-  line-height: 1.6;
+  line-height: 1.7;
 }

@@ -7,22 +7,33 @@
   align-items: center;
   height: 72px;
   padding: 0 64px;
-  transition: background 200ms ease, backdrop-filter 200ms ease;
+  transition: background 300ms ease, backdrop-filter 300ms ease, border-color 300ms ease;
+  border-bottom: 1px solid transparent;
 }
 
 .nav.scrolled {
-  background: rgba(18, 18, 18, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border);
+  background: rgba(10, 10, 15, 0.8);
+  backdrop-filter: blur(20px) saturate(1.2);
+  -webkit-backdrop-filter: blur(20px) saturate(1.2);
+  border-bottom-color: var(--glass-border);
 }
 
 .nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-size: 22px;
   font-weight: 700;
   letter-spacing: -0.5px;
   color: var(--text-primary);
   text-decoration: none;
+}
+
+.nav-triskele {
+  transition: transform 300ms var(--ease-out-expo);
+}
+.nav-logo:hover .nav-triskele {
+  transform: rotate(120deg);
 }
 
 .nav-links {
@@ -32,13 +43,28 @@
 }
 
 .nav-link {
+  position: relative;
   font-size: 15px;
   color: var(--text-secondary);
   text-decoration: none;
-  transition: color 150ms ease;
+  transition: color 200ms ease;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--accent-gradient);
+  transform: scaleX(0);
+  transition: transform 200ms var(--ease-out-expo);
 }
 .nav-link:hover {
   color: var(--text-primary);
+}
+.nav-link:hover::after {
+  transform: scaleX(1);
 }
 
 .nav-hamburger {
@@ -56,12 +82,18 @@
   height: 2px;
   background: var(--text-secondary);
   border-radius: 1px;
+  transition: background 200ms ease;
+}
+.nav-hamburger:hover span {
+  background: var(--text-primary);
 }
 
 .nav-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(18, 18, 18, 0.97);
+  background: rgba(10, 10, 15, 0.95);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   z-index: 200;
   display: flex;
   flex-direction: column;
@@ -75,7 +107,7 @@
   font-weight: 600;
   color: var(--text-primary);
   text-decoration: none;
-  transition: color 150ms ease;
+  transition: color 200ms ease;
 }
 .nav-overlay-link:hover {
   color: var(--accent);

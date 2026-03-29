@@ -1,74 +1,103 @@
-.tier-section {
-  /* uses .section-padded from index.css */
-}
-
 .tier-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
 }
 @media (max-width: 768px) {
-  .tier-grid {
-    grid-template-columns: 1fr;
-  }
+  .tier-grid { grid-template-columns: 1fr; }
 }
 
 .tier-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 32px;
-  min-height: 260px;
   position: relative;
-  transition: transform 200ms ease, border-color 150ms ease;
-}
-.tier-card:hover {
-  transform: translateY(-2px);
-}
-.tier-card:not(.tier-card--featured):hover {
-  border-color: var(--text-muted);
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 36px;
+  min-height: 260px;
+  transition: transform 300ms var(--ease-out-expo), box-shadow 300ms ease;
 }
 
+.tier-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(10, 132, 255, 0.3), rgba(0, 209, 178, 0.15));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+.tier-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+.tier-card:not(.tier-card--featured):hover::before {
+  opacity: 1;
+}
+
+/* Featured: permanent gradient border + ambient glow */
 .tier-card--featured {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 1px var(--accent), 0 4px 24px rgba(10, 132, 255, 0.12);
+  background: rgba(10, 132, 255, 0.03);
+  border-color: transparent;
+  box-shadow: 0 0 40px rgba(10, 132, 255, 0.08), 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+.tier-card--featured::before {
+  opacity: 1;
+  background: linear-gradient(135deg, rgba(10, 132, 255, 0.5), rgba(0, 209, 178, 0.3));
 }
 
 .tier-badge {
   position: absolute;
   top: 16px;
   right: 16px;
-  background: rgba(10, 132, 255, 0.1);
-  border: 1px solid var(--accent);
+  background: linear-gradient(135deg, rgba(10, 132, 255, 0.15), rgba(0, 209, 178, 0.1));
+  border: 1px solid rgba(10, 132, 255, 0.3);
   color: var(--accent);
   font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.03em;
-  padding: 2px 10px;
-  border-radius: 20px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
 }
 
 .tier-name {
   font-size: 22px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text-primary);
   margin-bottom: 6px;
+  letter-spacing: -0.01em;
 }
 
 .tier-for {
   font-size: 13px;
   color: var(--text-muted);
-  margin-bottom: 0;
 }
 
 .tier-divider {
   border: none;
-  border-top: 1px solid var(--border);
+  height: 1px;
   margin: 16px 0;
+  background: linear-gradient(90deg, rgba(10, 132, 255, 0.15), rgba(0, 209, 178, 0.1), transparent);
 }
 
 .tier-body {
   font-size: 15px;
   color: var(--text-secondary);
-  line-height: 1.6;
+  line-height: 1.7;
+}
+
+.tier-price {
+  margin-top: 20px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
 }
