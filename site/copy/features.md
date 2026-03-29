@@ -1,7 +1,7 @@
 # Features
 
 ## Latency‑First Optimization
-We start with your service‑level agreement and automatically pick the right hardware, software, and scaling strategy to meet it.
+Start with your service‑level agreement. Automatically pick the right hardware, software, and scaling strategy to meet it.
 
 ## Hardware Agnostic Deployments
 Deploy across Amazon Inferentia, NVIDIA L40S, or custom B200 accelerators without rewriting code.
