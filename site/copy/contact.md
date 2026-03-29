@@ -1,22 +1,21 @@
-# Contact
+# Contact Us
 
-**Talk to us about your AI engineering stack.**
+## Get in Touch with Slancha
 
-If your team is managing 4–6 tools to approximate what Slancha does natively, or if you're running continuous fine-tuning and want to close the loop automatically, let's talk. We're onboarding pilots for the Full Loop platform through Q2 2026.
+**Talk to us about a pilot** – If you’re running production inference and your cloud bill is climbing, we want to help.
 
-## Get in Touch
+### Who Should Reach Out?
+If you have an ML team that needs predictable latency, wants to cut infrastructure costs, or lacks dedicated inference ops, this is for you. We’ll assess your stack and design a custom pilot.
 
-- **Name:** Your full name
-- **Work email:** We only accept professional emails
-- **Company:** Your organization
-- **Describe your inference stack:** What tools are you using today? (eval, inference, fine-tuning, monitoring)
+**Form Fields:**
+- **Name**
+- **Work email**
+- **Company**
+- **Describe your inference stack** – tell us the models, frameworks, and hardware you currently use.
 
-[Submit Request]
+### Submit Button
+`Request a Pilot`
 
----
-
-**Success message:**
-
-**Thanks — we'll be in touch.**
-
-We review all pilot applications within 48 hours. If your use case fits, we'll schedule a technical deep dive to instrument your first eval-deploy-post-train cycle.
+### Success Message
+#### Thanks! We'll be in touch.
+Our team will review your details and schedule a call within 2 business days. Expect an email with next steps shortly.

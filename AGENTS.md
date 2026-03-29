@@ -125,6 +125,55 @@ Skills provide your tools. When you need one, check its `SKILL.md`. Keep local n
 - **Discord links:** Wrap multiple links in `<>` to suppress embeds: `<https://example.com>`
 - **WhatsApp:** No headers — use **bold** or CAPS for emphasis
 
+## 📱 WhatsApp Status Updates
+
+**Every agent must report status on WhatsApp after completing meaningful work.**
+
+Send updates to the operator using:
+```bash
+openclaw message send --channel whatsapp --target +13177098416 -m "MESSAGE"
+```
+
+### When to send:
+- **After completing a task** from the central queue or local TODO
+- **After picking up a new task** (so the human knows you're working)
+- **When blocked** on something that needs human input
+- **When you've been idle for >1h** during active hours (08:00-23:00)
+
+### Format:
+Keep it short. No essays. WhatsApp formatting (no markdown tables, no headers).
+
+```
+✅ [agent:frontend] Done: Built About page component
+🔧 [agent:frontend] Working on: Features page component
+❌ [agent:frontend] Blocked: Need API endpoint for contact form
+💤 [agent:frontend] No tasks left — checked central queue, nothing for me
+```
+
+### When NOT to send:
+- Late night (23:00-08:00) unless urgent
+- HEARTBEAT_OK checks — don't spam "nothing to report"
+- Multiple updates within 10 minutes — batch them
+
+## 🔄 Work Driver — Never Wind Down
+
+**The #1 rule: agents should always be working or explicitly out of tasks.**
+
+When you finish a task, don't stop. Follow this loop:
+
+1. Check `~/.openclaw/tasks/TASKS.md` for unclaimed tasks with your owner tag
+2. If none with your tag, check for unowned `[ ]` tasks that match your skills
+3. If the central queue is empty, scan your workspace for obvious work:
+   - Uncommitted changes
+   - TODOs in code
+   - Stale/broken files
+   - Missing tests
+   - Documentation gaps
+4. If you find work, add it to the central queue AND your local TODO, then do it
+5. If truly nothing to do, send a WhatsApp message: "💤 [agent:name] No tasks left" and reply HEARTBEAT_OK
+
+**The goal is continuous motion.** An agent sitting idle with an empty TODO while the site has missing pages is a failure of the work-driver, not a success of task completion.
+
 ## 💓 Heartbeats - Be Proactive!
 
 When you receive a heartbeat poll (message matches the configured heartbeat prompt), don't just reply `HEARTBEAT_OK` every time. Use heartbeats productively!

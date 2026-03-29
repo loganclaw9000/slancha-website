@@ -14,7 +14,7 @@ export default function PilotCTA() {
           is built for you. We'll instrument your existing workloads, run your first eval-deploy-post-train cycle,
           and show you the baseline metrics before you commit to anything.
         </p>
-        <Link to="/contact" className="btn-primary btn-lg">Apply for the Pilot</Link>
+        <Link to="/signup" className="btn-primary btn-lg">Create Your Account</Link>
         <a href="mailto:contact@slancha.ai" className="pilot-cta-email">contact@slancha.ai</a>
       </div>
     </section>

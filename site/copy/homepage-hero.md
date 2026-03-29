@@ -1,13 +1,9 @@
-# Homepage Hero
+**EYEBROW:** INFERENCE OPTIMIZATION PLATFORM
 
-**Headline:**
-The Databricks of AI Engineering.
+**H1:** The Databricks of AI Inference
 
-**Subline:**
-The only platform that owns the full loop: benchmark models against your production workloads, deploy the winner, post-train on what you learn, and repeat. Eval data flows directly into fine-tuning. No manual exports. No lost signal.
+**SUBTITLE:** Slancha lets you set precise latency targets and instantly delivers optimized models—no jargon, no guesswork. We handle quantization, pruning, and hardware selection so you get predictable performance without hiring a specialist.
 
-**Primary CTA:**
-[Apply for the pilot](/pilot)
+**PRIMARY CTA:** Request a Pilot
 
-**Secondary CTA:**
-[See how it works](#how-it-works)
+**SECONDARY CTA:** See How It Works

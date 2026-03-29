@@ -1,14 +1,7 @@
 # About Slancha
 
-**Slancha is the platform that closes the AI engineering loop.**
+**Slancha** empowers developers and enterprises to run inference workloads at the edge of latency and cost. We combine cutting‑edge hardware selection, automated optimization, and a managed control plane so you can focus on building models—not managing infrastructure.
 
-Mature AI teams run the same cycle manually: benchmark models against production workloads, deploy the winner, collect signal, fine-tune, and repeat. The problem isn't that they don't know the process — it's that their tools don't talk to each other. Eval data doesn't reach fine-tuning. Deployment decisions aren't backed by real benchmarks. Signal gets lost at every handoff.
+Our platform continuously evaluates your workload, picks the right hardware—from NVIDIA L40S to AWS Inferentia—sets the optimal batch size, and scales in real time. The result: lower latency, predictable costs, and no need for an internal inference ops team.
 
-Slancha owns the full cycle through a single platform with a shared data layer: evaluate, deploy, post-train, repeat. Every iteration makes your models better and cheaper to run.
-
-*Why enterprise AI teams choose Slancha:*
-- **The full loop, not point tools** — one platform covers eval, inference, and post-training with data flowing natively between them.
-- **No dedicated inference team required** — Slancha handles hardware selection, cost routing, and SLA compliance automatically.
-- **Compounding improvement by design** — your models get better over time without manual intervention.
-
-If you're managing 4–6 tools to approximate what Slancha does natively, let's talk.
+Whether you’re a startup launching a new AI product or a large organization scaling existing services, Slancha delivers a seamless, latency‑first experience that lets you ship faster and stay competitive.

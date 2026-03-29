@@ -1,13 +1,11 @@
-# How It Works
+**01 – Set Latency Target**
 
-**Step 1 — Evaluate**
-Benchmark models against your real production workloads. Slancha evaluates cost, latency, and task accuracy on actual traffic — not synthetic benchmarks. Compare candidates side-by-side before you commit.
+Choose the exact latency (P99) you need for your inference workload. Our UI lets you specify a target in milliseconds, so you know precisely what performance means for your users.
 
-**Step 2 — Deploy**
-Ship the winner to the right inference layer: API, managed hosting, or on-prem. Slancha handles routing, scaling, and optimization across all three dimensions simultaneously.
+**02 – Optimize Model**
 
-**Step 3 — Post-train**
-Production signal captured during inference automatically becomes fine-tuning data. No manual exports, no data wrangling, no broken handoffs between eval and training teams.
+We automatically apply state‑of‑the‑art techniques—quantization, pruning, and TensorRT acceleration—to squeeze the best speed out of any model while preserving accuracy.
 
-**Step 4 — Repeat**
-Run the loop again with a better model. Track accuracy gains and cost-per-task across cycles. The compounding effect starts immediately — and widens the longer you run.
+**03 – Deploy & Save Costs**
+
+Slancha provisions the optimal hardware stack, deploys your tuned model, and shows you a clear cost estimate. You get predictable latency without over‑provisioning.
