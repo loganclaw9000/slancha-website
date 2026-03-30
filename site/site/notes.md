@@ -1,6 +1,9 @@
 # Site Notes
 
 ## Last Commit
-- Hash: 19a46a8362904792977394070100420019040231
-- Timestamp: 2026-03-30 19:46 UTC
-- Message: [agent:frontend] Update observability reports and site configurations
+- Hash: eaab58c
+- Timestamp: 2026-03-30 20:44 UTC
+- Message: [agent:frontend] Add SocialProof component with testimonials and logo grid
+
+## Preview URL
+https://slancha-website-git-master-loganclaws-projects.vercel.app/
