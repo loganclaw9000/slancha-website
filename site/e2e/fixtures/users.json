@@ -1,0 +1,84 @@
+{
+  "testUsers": [
+    {
+      "email": "test-user-1@example.com",
+      "password": "TestPassword123",
+      "displayName": "Test User One",
+      "company": "Test Company Inc"
+    },
+    {
+      "email": "test-user-2@example.com",
+      "password": "TestPassword123",
+      "displayName": "Test User Two",
+      "company": "Test Company LLC"
+    },
+    {
+      "email": "admin-test@example.com",
+      "password": "AdminPassword123",
+      "displayName": "Admin Test",
+      "company": "Test Corp",
+      "role": "admin"
+    }
+  ],
+  "apiKeys": [
+    {
+      "userId": "test-user-1@example.com",
+      "name": "Development Key",
+      "keyPrefix": "sk_test_",
+      "isActive": true
+    },
+    {
+      "userId": "test-user-2@example.com",
+      "name": "Production Key",
+      "keyPrefix": "sk_live_",
+      "isActive": true
+    }
+  ],
+  "usageLogs": [
+    {
+      "userId": "test-user-1@example.com",
+      "model": "gpt-4",
+      "tokensIn": 1000,
+      "tokensOut": 2000,
+      "latencyMs": 500
+    },
+    {
+      "userId": "test-user-1@example.com",
+      "model": "claude-3",
+      "tokensIn": 500,
+      "tokensOut": 750,
+      "latencyMs": 400
+    },
+    {
+      "userId": "test-user-2@example.com",
+      "model": "gpt-4",
+      "tokensIn": 2000,
+      "tokensOut": 4000,
+      "latencyMs": 600
+    }
+  ],
+  "testSequences": [
+    {
+      "name": "Complete User Journey",
+      "steps": [
+        "Create user account",
+        "Verify email (mocked)",
+        "Login with credentials",
+        "Create API key",
+        "Make API request",
+        "View usage statistics",
+        "Logout"
+      ]
+    },
+    {
+      "name": "Admin Operations",
+      "steps": [
+        "Login as admin",
+        "View all users",
+        "Create test data",
+        "Run data cleanup",
+        "Logout"
+      ]
+    }
+  ]
+}
