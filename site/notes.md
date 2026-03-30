@@ -1,36 +1,10 @@
-Build status: ✓ passing
-Build date: 2026-03-26T05:11Z
-Commit: 3fa981d5a6448a22e8c87d9fed099cdaf8873356 (2026-03-28 17:00 UTC)
+# Site Development Notes
 
-Components: Nav, Hero, Features, HowItWorks, TierCards, TechStack, About, PilotCTA, Footer, Contact, NotFound (404)
-Missing copy (COPY_PENDING): none — all copy written and embedded in components
-Scroll-reveal: Features ✓, HowItWorks ✓, TierCards ✓, TechStack ✓, PilotCTA ✓, About ✓ (Hero excluded per animations spec)
+## Latest Changes
+- **Commit Hash:** 8691b79
+- **Timestamp:** 2026-03-30 09:46 UTC
+- **Description:** [agent:frontend] Update design specs and observability reports
 
-Copy files:
-- site/copy/homepage-hero.md ✓ (applied to Hero.jsx)
-- site/copy/hero.md ✓ (same as homepage-hero.md)
-- site/copy/how-it-works.md ✓ (applied to HowItWorks.jsx)
-- site/copy/offerings.md ✓
-- site/copy/value-prop.md ✓
-- site/copy/pilot-cta.md ✓ (applied to PilotCTA.jsx)
-- site/copy/tech-stack.md ✓ (applied to TechStack.jsx)
-- site/copy/contact.md ✓
-- site/copy/meta.md ✓ (applied to index.html)
-- site/copy/features.md ✓ (applied to Features.jsx)
-- site/copy/about.md ✓ (applied to About.jsx)
-
-Design specs:
-- site/design/system.md ✓
-- site/design/offerings.md ✓
-- site/design/pilot-cta.md ✓
-- site/design/tech-stack.md ✓
-- site/design/nav.md ✓
-- site/design/contact.md ✓ (redesigned — hero + two-column layout implemented)
-- site/design/animations.md ✓
-
-Next steps before launch:
-- [ ] Add VITE_FORM_ENDPOINT (.env) for Formspree or equivalent — mailto fallback is live but a real form API is better for deliverability
-- [ ] SSH deploy key needed for git push from agent sessions
-
-Last updated: 2026-03-30 07:45 UTC
-Latest commit: 3fa981d
+## Recent Updates
+- Updated design specifications for homepage, offerings, value props, and how-it-works sections
+- Updated observability reports and data files
