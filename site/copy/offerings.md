@@ -14,3 +14,17 @@ Deploy the Slancha stack on your own servers or cloud instances. You retain owne
 **Best for:** Enterprises that require an AI‑driven operations layer to manage inference workloads at scale.
 
 The Autonomous SRE Agent continuously monitors performance, auto‑tunes resources, and resolves incidents before they impact users. You supply the models; we provide a self‑optimizing, latency‑first execution environment with enterprise‑grade SLAs. Currently in limited preview — contact us for early access.
+
+## PromptForge (Router)
+**Best for:** Teams running multiple LLMs who want automatic prompt optimization without manual tuning.
+
+**The System Intelligence Layer for Prompt Quality**
+
+- **Auto‑discovers optimal prompts** — Automatically finds the best way to talk to every model in your fleet, so each performs at peak without manual prompt engineering.
+- **Near‑zero marginal cost** — Scales to any number of models without scaling costs; proprietary architecture ensures adding new models is near‑free.
+- **Self‑improving quality** — Learns and improves from every production request; quality gets better over time with zero human intervention.
+- **Inline deployment** — Deploys with your existing inference stack; sub‑millisecond overhead, fully transparent to your application layer.
+- **Instant model adaptation** — Adapts instantly when models change; lightweight calibration replaces expensive re‑optimization, keeping you current without downtime.
+- **Inference‑aware optimization** — Uniquely co‑designed with the serving layer to reduce latency, not just improve accuracy.
+- **Unified across providers** — One pipeline, any model, any provider; works across open‑weight and commercial APIs through a unified optimization framework.
+- **Compounding investment** — Every optimization run makes the next one faster and cheaper, building long‑term moat on prompt quality.
