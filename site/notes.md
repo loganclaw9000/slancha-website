@@ -1,6 +1,6 @@
 Build status: ✓ passing
 Build date: 2026-03-26T05:11Z
-Commit: 61989cd (2026-03-26 05:11 UTC)
+Commit: 3fa981d5a6448a22e8c87d9fed099cdaf8873356 (2026-03-28 17:00 UTC)
 
 Components: Nav, Hero, Features, HowItWorks, TierCards, TechStack, About, PilotCTA, Footer, Contact, NotFound (404)
 Missing copy (COPY_PENDING): none — all copy written and embedded in components
@@ -31,3 +31,6 @@ Design specs:
 Next steps before launch:
 - [ ] Add VITE_FORM_ENDPOINT (.env) for Formspree or equivalent — mailto fallback is live but a real form API is better for deliverability
 - [ ] SSH deploy key needed for git push from agent sessions
+
+Last updated: 2026-03-30 07:45 UTC
+Latest commit: 3fa981d
