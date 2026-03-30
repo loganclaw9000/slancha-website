@@ -7,11 +7,12 @@ A full‑page, scrollable layout that guides the visitor from brand introduction
 1. **Nav** – sticky, transparent background, dark text on hover, CTA button highlighted with accent color.
 2. **Hero** – large headline, sub‑headline, primary CTA button ("Join Pilot"). Background: subtle animated gradient overlay on a dark image.
 3. **Value Props** – three equal‑width feature cards stacked horizontally on desktop, stacked vertically on mobile. Each card shows bold title, supporting text. Section class: `features`.
-4. **How It Works** – 4‑step grid layout with step numbers (01‑04), titles, and body text. Section class: `how-it-works`, ID: `how-it-works`.
-5. **Offerings** – 4‑tier card grid (2x2 on desktop: 2 per row), cards side‑by‑side; featured tier gets elevation and accent border. Section class: `tier-section`, ID: `offerings`.
-6. **Tech Stack** – minimal row of logos with brief caption; dark background, light icons.
-7. **Pilot CTA** – high‑contrast section (dark background, bright accent button). Short copy + testimonial quote.
-8. **Footer** – logo left, navigation links centered, social icons right. Dark background, muted text.
+4. **Social Proof** – "Trusted By" logo row (6 logos) + testimonial carousel (3 cards). Background: surface color with border-top/bottom. See `social-proof.md` for full spec.
+5. **How It Works** – 4‑step grid layout with step numbers (01‑04), titles, and body text. Section class: `how-it-works`, ID: `how-it-works`.
+6. **Offerings** – 4‑tier card grid (2x2 on desktop: 2 per row), cards side‑by‑side; featured tier gets elevation and accent border. Section class: `tier-section`, ID: `offerings`.
+7. **Tech Stack** – tool name pills (TensorRT, vLLM, etc.) with brief caption; dark background, monospace pills.
+8. **Pilot CTA** – high‑contrast section (dark background, bright accent button). Short copy + contact email.
+9. **Footer** – logo left, navigation links centered, social icons right. Dark background, muted text.
 
 ## Layout Details
 ### Nav
@@ -61,10 +62,6 @@ A full‑page, scrollable layout that guides the visitor from brand introduction
   - Description text (15px regular, class: `tier-body`)
   - Price line (18px accent color, class: `tier-price`)
 - Section class: `tier-section`, ID: `offerings`, section title: "Plans built for AI engineering teams".
-
-### Tech Stack
-- Row of 6‑8 logo images, evenly spaced.
-- Caption text: "Built on trusted infrastructure" – 18px, centered.
 
 ### Pilot CTA Section
 - Background: dark gradient with accent accent‑color overlay (10% opacity).

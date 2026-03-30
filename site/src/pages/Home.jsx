@@ -2,6 +2,7 @@ import React from 'react';
 import Nav from '../components/Nav';
 import Hero from '../components/Hero';
 import ValueProps from '../components/ValueProps';
+import SocialProof from '../components/SocialProof';
 import Features from '../components/Features';
 import HowItWorks from '../components/HowItWorks';
 import TierCards from '../components/TierCards';
@@ -18,7 +19,7 @@ export default function Home() {
       <main id="main-content">
         <Hero />
         <ValueProps />
-        <hr className="section-divider" />
+        <SocialProof />
         <Features />
         <hr className="section-divider" />
         <HowItWorks />
