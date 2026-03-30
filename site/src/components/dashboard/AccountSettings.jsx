@@ -1,73 +1,76 @@
 import React, { useState } from 'react';
+import { useAuth } from '../../contexts/AuthContext';
 
-const AccountSettings = () => {
-  const [formData, setFormData] = useState({
-    displayName: 'John Doe',
-    company: 'Acme Corp',
-    email: 'john.doe@example.com'
-  });
+export default function AccountSettings() {
+  const { user, updatePassword } = useAuth();
+  const [displayName, setDisplayName] = useState(user?.user_metadata?.display_name || '');
+  const [company, setCompany] = useState('');
+  const [saved, setSaved] = useState(false);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
+  const [pw, setPw] = useState({ current: '', new: '', confirm: '' });
+  const [pwError, setPwError] = useState('');
+  const [pwSaved, setPwSaved] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleProfile = (e) => {
     e.preventDefault();
-    // In a real app, this would submit to an API
-    console.log('Form submitted:', formData);
+    setSaved(true);
+    setTimeout(() => setSaved(false), 2000);
   };
+
+  const handlePassword = async (e) => {
+    e.preventDefault();
+    setPwError('');
+    if (pw.new !== pw.confirm) { setPwError('Passwords do not match.'); return; }
+    if (pw.new.length < 8) { setPwError('Password must be at least 8 characters.'); return; }
+    const { error } = await updatePassword(pw.new);
+    if (error) { setPwError(error.message); return; }
+    setPwSaved(true);
+    setPw({ current: '', new: '', confirm: '' });
+    setTimeout(() => setPwSaved(false), 2000);
+  };
+
+  const inputStyle = { width: '100%', padding: '10px 12px', background: 'var(--bg-input)', border: '1px solid var(--glass-border)', borderRadius: 'var(--radius)', color: 'var(--text-primary)', fontSize: '14px' };
+  const labelStyle = { display: 'block', fontSize: '13px', fontWeight: 500, color: 'var(--text-secondary)', marginBottom: '6px' };
 
   return (
-    <div className="account-settings">
-      <h2>Account Settings</h2>
-      
-      <form onSubmit={handleSubmit} className="settings-form">
-        <div className="form-group">
-          <label htmlFor="displayName">Display Name</label>
-          <input
-            type="text"
-            id="displayName"
-            name="displayName"
-            value={formData.displayName}
-            onChange={handleChange}
-          />
-        </div>
-        
-        <div className="form-group">
-          <label htmlFor="company">Company</label>
-          <input
-            type="text"
-            id="company"
-            name="company"
-            value={formData.company}
-            onChange={handleChange}
-          />
-        </div>
-        
-        <div className="form-group">
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-          />
-        </div>
-        
-        <button type="submit" className="btn-primary">Save Changes</button>
-      </form>
-      
-      <div className="password-change-section">
-        <h3>Change Password</h3>
-        <button className="btn-secondary">Change Password</button>
+    <div>
+      <h1 className="dash-page-title">Settings</h1>
+      <p className="dash-page-subtitle">Manage your account.</p>
+
+      <div style={{ maxWidth: '480px' }}>
+        <form onSubmit={handleProfile}>
+          <h2 style={{ fontSize: '16px', fontWeight: 600, marginBottom: '16px' }}>Profile</h2>
+          <div style={{ marginBottom: '16px' }}>
+            <label style={labelStyle}>Email</label>
+            <input style={{ ...inputStyle, opacity: 0.5, cursor: 'not-allowed' }} value={user?.email || ''} disabled />
+          </div>
+          <div style={{ marginBottom: '16px' }}>
+            <label style={labelStyle}>Display name</label>
+            <input style={inputStyle} value={displayName} onChange={e => setDisplayName(e.target.value)} placeholder="Your name" />
+          </div>
+          <div style={{ marginBottom: '20px' }}>
+            <label style={labelStyle}>Company</label>
+            <input style={inputStyle} value={company} onChange={e => setCompany(e.target.value)} placeholder="Your company" />
+          </div>
+          <button className="btn-primary btn-sm" type="submit">{saved ? 'Saved!' : 'Save'}</button>
+        </form>
+
+        <hr style={{ border: 'none', height: '1px', background: 'var(--glass-border)', margin: '40px 0' }} />
+
+        <form onSubmit={handlePassword}>
+          <h2 style={{ fontSize: '16px', fontWeight: 600, marginBottom: '16px' }}>Change password</h2>
+          {pwError && <div style={{ color: '#EF4444', fontSize: '13px', marginBottom: '12px' }}>{pwError}</div>}
+          <div style={{ marginBottom: '16px' }}>
+            <label style={labelStyle}>New password</label>
+            <input style={inputStyle} type="password" value={pw.new} onChange={e => setPw({ ...pw, new: e.target.value })} placeholder="At least 8 characters" />
+          </div>
+          <div style={{ marginBottom: '20px' }}>
+            <label style={labelStyle}>Confirm password</label>
+            <input style={inputStyle} type="password" value={pw.confirm} onChange={e => setPw({ ...pw, confirm: e.target.value })} placeholder="Confirm new password" />
+          </div>
+          <button className="btn-primary btn-sm" type="submit">{pwSaved ? 'Updated!' : 'Update Password'}</button>
+        </form>
       </div>
     </div>
   );
-};
-
-export default AccountSettings;
+}

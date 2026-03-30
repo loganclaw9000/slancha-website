@@ -1,20 +1,19 @@
 import React from 'react';
+import { Outlet } from 'react-router-dom';
 import DashboardNav from '../components/dashboard/DashboardNav';
 import Sidebar from '../components/dashboard/Sidebar';
-import { Outlet } from 'react-router-dom';
+import './Dashboard.css';
 
-const Dashboard = () => {
+export default function Dashboard() {
   return (
-    <div className="dashboard-container">
+    <div className="dash-layout">
       <DashboardNav />
-      <div className="dashboard-content">
+      <div className="dash-body">
         <Sidebar />
-        <main className="dashboard-main">
+        <main className="dash-content">
           <Outlet />
         </main>
       </div>
     </div>
   );
-};
-
-export default Dashboard;
+}

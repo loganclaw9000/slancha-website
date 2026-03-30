@@ -1,52 +1,37 @@
 import React from 'react';
 
-const UsageStats = () => {
-  // Mock data - in real app this would come from API
-  const stats = {
-    totalRequests: 12450,
-    uniqueModels: 23,
-    avgLatency: 142
-  };
-
-  const chartData = [65, 75, 85, 90, 70, 80, 95];
-
+export default function UsageStats() {
   return (
-    <div className="usage-stats">
-      <h2>Usage Statistics</h2>
-      
-      <div className="stats-grid">
-        <div className="stat-card">
-          <h3>Total Requests</h3>
-          <p className="stat-value">{stats.totalRequests.toLocaleString()}</p>
+    <div>
+      <h1 className="dash-page-title">Usage</h1>
+      <p className="dash-page-subtitle">Request volume and model distribution.</p>
+
+      <div className="dash-cards">
+        <div className="dash-stat-card">
+          <div className="dash-stat-label">Total Requests</div>
+          <div className="dash-stat-value">0</div>
         </div>
-        
-        <div className="stat-card">
-          <h3>Unique Models</h3>
-          <p className="stat-value">{stats.uniqueModels}</p>
+        <div className="dash-stat-card">
+          <div className="dash-stat-label">Avg Latency</div>
+          <div className="dash-stat-value">—</div>
         </div>
-        
-        <div className="stat-card">
-          <h3>Average Latency</h3>
-          <p className="stat-value">{stats.avgLatency}ms</p>
+        <div className="dash-stat-card">
+          <div className="dash-stat-label">Models Used</div>
+          <div className="dash-stat-value">0</div>
         </div>
       </div>
-      
-      <div className="bar-chart">
-        <h3>Last 7 Days</h3>
-        <div className="chart-bars">
-          {chartData.map((height, index) => (
-            <div key={index} className="chart-bar">
-              <div 
-                className="bar-fill" 
-                style={{ height: `${height}%` }}
-              ></div>
-              <span className="bar-label">Day {index + 1}</span>
-            </div>
-          ))}
+
+      <div className="dash-empty">
+        <div className="dash-empty-icon">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+          </svg>
         </div>
+        <h2 className="dash-empty-title">No usage data yet</h2>
+        <p className="dash-empty-text">
+          Start sending requests through the Slancha Router to see your usage metrics here.
+        </p>
       </div>
     </div>
   );
-};
-
-export default UsageStats;
+}

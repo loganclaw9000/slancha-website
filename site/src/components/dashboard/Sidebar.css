@@ -1,46 +1,69 @@
-.dashboard-sidebar {
+.dash-sidebar {
   width: 240px;
-  background-color: var(--bg-secondary);
-  border-right: 1px solid var(--border-color);
-  height: calc(100vh - 60px);
-  position: fixed;
-  top: 60px;
-  left: 0;
+  border-right: 1px solid var(--glass-border);
+  padding: 24px 12px;
+  position: sticky;
+  top: 72px;
+  height: calc(100vh - 72px);
   overflow-y: auto;
+  flex-shrink: 0;
 }
 
-.dashboard-sidebar-container {
-  padding: 1rem 0;
+.dash-sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
-.dashboard-sidebar-nav ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.dashboard-sidebar-link {
+.dash-sidebar-link {
   display: flex;
   align-items: center;
-  padding: 0.75rem 1rem;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 500;
   color: var(--text-secondary);
   text-decoration: none;
-  transition: all 0.2s ease;
-  border-left: 3px solid transparent;
+  transition: color 150ms ease, background 150ms ease;
 }
 
-.dashboard-sidebar-link:hover,
-.dashboard-sidebar-link.active {
-  background-color: var(--bg-primary);
+.dash-sidebar-link:hover {
   color: var(--text-primary);
-  border-left: 3px solid var(--primary-color);
+  background: rgba(255, 255, 255, 0.03);
 }
 
-.dashboard-sidebar-icon {
-  margin-right: 0.75rem;
-  font-size: 1.2rem;
+.dash-sidebar-link.active {
+  color: var(--text-primary);
+  background: rgba(10, 132, 255, 0.08);
 }
 
-.dashboard-sidebar-label {
-  font-size: 0.9rem;
+.dash-sidebar-link svg {
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+.dash-sidebar-link.active svg {
+  opacity: 1;
+  stroke: var(--accent);
+}
+
+@media (max-width: 768px) {
+  .dash-sidebar {
+    width: 100%;
+    height: auto;
+    position: static;
+    border-right: none;
+    border-bottom: 1px solid var(--glass-border);
+    padding: 12px;
+    overflow-x: auto;
+  }
+  .dash-sidebar-nav {
+    flex-direction: row;
+    gap: 4px;
+  }
+  .dash-sidebar-link {
+    white-space: nowrap;
+    padding: 8px 12px;
+    font-size: 13px;
+  }
 }
