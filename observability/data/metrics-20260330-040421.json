@@ -1,0 +1,12 @@
+{
+  "collectionTimestamp": "2026-03-30T11:04:21Z",
+  "summary": {
+    "totalSessions": 0,
+    "successCount": 0,
+    "errorCount": 0,
+    "successRate": 0,
+    "models": [],
+    "errors": [],
+    "hourlyActivity": []
+  }
+}
