@@ -6,11 +6,12 @@ A full‑page, scrollable layout that guides the visitor from brand introduction
 ### Sections (top → bottom)
 1. **Nav** – sticky, transparent background, dark text on hover, CTA button highlighted with accent color.
 2. **Hero** – large headline, sub‑headline, primary CTA button ("Join Pilot"). Background: subtle animated gradient overlay on a dark image.
-3. **Value Props** – three equal‑width cards/bullets stacked horizontally on desktop, stacked vertically on mobile. Each card shows an icon, short title, one‑sentence benefit.
-4. **Offerings** – tier cards (Managed Hosting, Self‑Hosted, Autonomous SRE). Cards side‑by‑side, same width; the middle tier gets a slight elevation and accent border to draw focus.
-5. **Tech Stack** – minimal row of logos with brief caption; dark background, light icons.
-6. **Pilot CTA** – high‑contrast section (dark background, bright accent button). Short copy + testimonial quote.
-7. **Footer** – logo left, navigation links centered, social icons right. Dark background, muted text.
+3. **Value Props** – three equal‑width feature cards stacked horizontally on desktop, stacked vertically on mobile. Each card shows bold title, supporting text. Section class: `features`.
+4. **How It Works** – 4‑step grid layout with step numbers (01‑04), titles, and body text. Section class: `how-it-works`, ID: `how-it-works`.
+5. **Offerings** – 4‑tier card grid (2x2 on desktop: 2 per row), cards side‑by‑side; featured tier gets elevation and accent border. Section class: `tier-section`, ID: `offerings`.
+6. **Tech Stack** – minimal row of logos with brief caption; dark background, light icons.
+7. **Pilot CTA** – high‑contrast section (dark background, bright accent button). Short copy + testimonial quote.
+8. **Footer** – logo left, navigation links centered, social icons right. Dark background, muted text.
 
 ## Layout Details
 ### Nav
@@ -27,22 +28,39 @@ A full‑page, scrollable layout that guides the visitor from brand introduction
 - Primary CTA button: width auto, padding 12px 24px, background accent, hover darken 10%.
 - Background image: dark overlay (rgba(0,0,0,0.5)) + subtle gradient animation.
 
-### Value Props
+### Value Props (Features Grid)
 - Container max‑width: 1200px, centered.
-- Card width: 33.3% desktop, 100% mobile.
-- Icon size: 48px, accent color.
-- Title: 24px bold.
-- Text: 16px regular, line‑height 1.5.
+- Grid layout: 3 columns on desktop (1fr 1fr 1fr), single column on mobile.
+- Card padding: 24px.
+- Title: 20px bold, color #E5E7EB, margin-bottom 12px.
+- Text: 15px regular, color #A0AEC0, line-height 1.6.
+- Section class: `features`, ID: `value-props`.
+- Card component: `<div className="feature-card">` with `<h3 className="feature-title">` and `<p className="feature-body">`.
 
-### Offerings Tier Cards
-- Container grid: three columns (1fr) on desktop, single column stacked on mobile.
+### How It Works (4‑Step Grid)
+- Container max‑width: 1200px, centered.
+- Grid layout: 4 columns on desktop (1fr 1fr 1fr 1fr), single column on mobile.
+- Section class: `how-it-works`, ID: `how-it-works`, section title: "Eval. Deploy. Post-train. Repeat."
+- Step card padding: 32px.
+- Step number: 32px bold, accent color, margin-bottom 16px, class: `step-num`.
+- Step title: 18px bold, color #E5E7EB, margin-bottom 8px, class: `step-title`.
+- Step body: 14px regular, color #A0AEC0, line-height 1.6, class: `step-body`.
+- Step card: `<div className="step-card">` with step number, title, and body.
+
+### Offerings Tier Cards (4 Tiers)
+- Container grid: 2 columns × 2 rows on desktop (2 per row), single column stacked on mobile.
+- Max-width 1200px, centered.
+- Gap: 24px between cards.
 - Card padding: 32px.
-- Visual emphasis: middle card gets a 2px accent border and slight lift (box‑shadow).
+- Card dimensions: min-width 280px, min-height 320px.
+- Featured card (Platform: Full Loop): accent border (#0A84FF), glow effect, "Most Popular" badge.
 - Each card includes:
-  - Tier name (28px bold)
-  - Price line (large, accent color)
-  - Feature list (bulleted, small icons)
-  - CTA button (secondary for outer cards, primary for middle).
+  - Tier name (22px bold, class: `tier-name`)
+  - "Best for:" line (13px regular, class: `tier-for`)
+  - Divider (1px solid #262626)
+  - Description text (15px regular, class: `tier-body`)
+  - Price line (18px accent color, class: `tier-price`)
+- Section class: `tier-section`, ID: `offerings`, section title: "Plans built for AI engineering teams".
 
 ### Tech Stack
 - Row of 6‑8 logo images, evenly spaced.
