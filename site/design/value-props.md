@@ -1,7 +1,7 @@
 # Design Spec — Value Props (Feature Cards)
 
 ## Overview
-A 3-column feature grid section showcasing the three core value propositions of Slancha: signal capture between tools, 3-dimension optimization, and compounding improvement.
+A 3-column feature grid section showcasing the three core value propositions of Slancha: latency-first cost optimization, hardware-agnostic deployment, and zero-team operations.
 
 ## Layout
 - **Section class:** `features`
@@ -35,17 +35,17 @@ A 3-column feature grid section showcasing the three core value propositions of 
 
 ## 3 Value Props
 
-### Prop 1 — Stop losing signal between tools
-**Title:** Stop losing signal between tools.  
-**Body:** Slancha captures production signal during inference and routes it directly into your fine-tuning pipeline — no manual exports, no lost context, no broken handoffs between eval and training teams.
+### Prop 1 — Latency‑first, cost‑smart
+**Title:** Latency‑first, cost‑smart.  
+**Body:** We start with your SLA target and work backward, delivering the lowest‑cost inference that still meets latency goals.
 
-### Prop 2 — Optimize across three dimensions simultaneously
-**Title:** Optimize across three dimensions simultaneously.  
-**Body:** Benchmark cost, latency, and accuracy against your real workloads, then deploy across API, hosted, or on-prem inference. Slancha optimizes on all three at once, not just one.
+### Prop 2 — Hardware‑agnostic mastery
+**Title:** Hardware‑agnostic mastery.  
+**Body:** Whether you run on AWS Inferentia, NVIDIA L40S, or a B200, Slancha auto‑selects the optimal stack so you never worry about vendor lock‑in.
 
-### Prop 3 — Compounding improvement by design
-**Title:** Compounding improvement by design.  
-**Body:** Each eval → deploy → post-train cycle produces a better model at lower cost. Slancha tracks gains across cycles so you see the compounding effect — not just snapshot metrics.
+### Prop 3 — Zero‑team inference ops
+**Title:** Zero‑team inference ops.  
+**Body:** No dedicated ML engineers needed – our platform becomes your inference team, handling scaling, tuning, and monitoring for you.
 
 ## Animations / Effects
 - **Reveal on scroll:** section has `reveal` class for scroll-triggered animation
