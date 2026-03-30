@@ -11,6 +11,7 @@ import UpdatePassword from './pages/UpdatePassword';
 import VerifyEmail from './pages/VerifyEmail';
 import AuthCallback from './pages/AuthCallback';
 import NotFound from './pages/NotFound';
+import Dashboard from './pages/Dashboard';
 
 const Blog = lazy(() => import('./pages/Blog'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
@@ -61,9 +62,15 @@ const App = () => (
           {/* Protected dashboard */}
           <Route path="/dashboard/*" element={
             <ProtectedRoute>
-              <DashboardPlaceholder />
+              <Dashboard />
             </ProtectedRoute>
           } />
+          
+          {/* Dashboard child routes */}
+          <Route path="/dashboard/overview" element={<Overview />} />
+          <Route path="/dashboard/api-keys" element={<ApiKeys />} />
+          <Route path="/dashboard/usage" element={<UsageStats />} />
+          <Route path="/dashboard/settings" element={<AccountSettings />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>
