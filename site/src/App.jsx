@@ -28,6 +28,7 @@ const FAQ = lazy(() => import('./pages/FAQ'));
 const VsCompetitors = lazy(() => import('./pages/VsCompetitors'));
 const UseCases = lazy(() => import('./pages/UseCases'));
 const CaseStudies = lazy(() => import('./pages/CaseStudies'));
+const Integrations = lazy(() => import('./pages/Integrations'));
 
 function Loading() {
   return (
@@ -60,6 +61,7 @@ const App = () => (
           <Route path="/vs-competitors" element={<VsCompetitors />} />
           <Route path="/use-cases" element={<UseCases />} />
           <Route path="/case-studies" element={<CaseStudies />} />
+          <Route path="/integrations" element={<Integrations />} />
 
           {/* Auth */}
           <Route path="/login" element={<Login />} />
