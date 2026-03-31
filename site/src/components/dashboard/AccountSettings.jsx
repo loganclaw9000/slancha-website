@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import usePageMeta from '../../hooks/usePageMeta';
 import './AccountSettings.css';
@@ -154,7 +155,7 @@ export default function AccountSettings() {
             <span className="settings-info-value">api.slancha.ai/v1</span>
           </div>
           <p className="settings-info-note">
-            Manage your API keys on the <a href="/dashboard/keys">API Keys</a> page.
+            Manage your API keys on the <Link to="/dashboard/keys">API Keys</Link> page.
           </p>
         </div>
       </div>
