@@ -34,6 +34,7 @@ const dropdowns = {
     { to: '/blog', label: 'Blog', desc: 'Technical deep dives' },
     { to: '/resources', label: 'Resources', desc: 'Guides, tools & case studies' },
     { to: '/faq', label: 'FAQ', desc: 'Common questions answered' },
+    { to: '/glossary', label: 'Glossary', desc: '30+ AI inference terms defined' },
   ],
 };
 

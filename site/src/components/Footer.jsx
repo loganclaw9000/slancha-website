@@ -35,6 +35,7 @@ export default function Footer() {
             <Link to="/docs/quickstart" className="footer-link">Quickstart</Link>
             <Link to="/blog" className="footer-link">Blog</Link>
             <Link to="/faq" className="footer-link">FAQ</Link>
+            <Link to="/glossary" className="footer-link">Glossary</Link>
           </div>
           <div className="footer-col">
             <h4 className="footer-col-title">Company</h4>

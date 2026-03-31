@@ -1,0 +1,235 @@
+.glossary-page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 80px 24px 60px;
+}
+
+.glossary-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.glossary-header h1 {
+  font-size: 2.5rem;
+  color: var(--text-primary, #f0f0f0);
+  margin-bottom: 12px;
+}
+
+.glossary-header p {
+  font-size: 1.1rem;
+  color: var(--text-secondary, #a0a0a0);
+  max-width: 640px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Search & filter */
+.glossary-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 32px;
+  align-items: center;
+}
+
+.glossary-search {
+  flex: 1;
+  min-width: 240px;
+}
+
+.glossary-search input {
+  width: 100%;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--border, #2a2a2a);
+  background: var(--bg-secondary, #1a1a1a);
+  color: var(--text-primary, #f0f0f0);
+  font-size: 0.95rem;
+}
+
+.glossary-search input::placeholder {
+  color: var(--text-muted, #666);
+}
+
+.glossary-search input:focus {
+  outline: none;
+  border-color: var(--accent, #6366f1);
+}
+
+.glossary-alpha {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.alpha-btn {
+  padding: 4px 8px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-secondary, #a0a0a0);
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.15s;
+}
+
+.alpha-btn:hover {
+  color: var(--text-primary, #f0f0f0);
+  background: var(--bg-secondary, #1a1a1a);
+}
+
+.alpha-btn.active {
+  color: var(--accent, #6366f1);
+  background: rgba(99, 102, 241, 0.1);
+}
+
+.alpha-btn.disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+/* Letter groups */
+.glossary-group {
+  margin-bottom: 40px;
+}
+
+.glossary-letter {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent, #6366f1);
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--border, #2a2a2a);
+  margin-bottom: 16px;
+}
+
+/* Term cards */
+.glossary-term {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border, #1e1e1e);
+}
+
+.glossary-term:last-child {
+  border-bottom: none;
+}
+
+.term-name {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-primary, #f0f0f0);
+  margin-bottom: 6px;
+}
+
+.term-name .term-abbr {
+  font-weight: 400;
+  color: var(--text-secondary, #a0a0a0);
+  font-size: 0.9rem;
+  margin-left: 8px;
+}
+
+.term-def {
+  color: var(--text-secondary, #c0c0c0);
+  line-height: 1.65;
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+}
+
+.term-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.term-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 4px;
+  background: rgba(99, 102, 241, 0.08);
+  color: var(--accent, #6366f1);
+  font-size: 0.8rem;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+
+.term-link:hover {
+  background: rgba(99, 102, 241, 0.18);
+}
+
+.term-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.term-tag {
+  padding: 2px 8px;
+  border-radius: 3px;
+  background: var(--bg-secondary, #1a1a1a);
+  color: var(--text-secondary, #a0a0a0);
+  font-size: 0.75rem;
+}
+
+/* Result count */
+.glossary-count {
+  color: var(--text-muted, #666);
+  font-size: 0.9rem;
+  margin-bottom: 24px;
+}
+
+/* Empty state */
+.glossary-empty {
+  text-align: center;
+  padding: 60px 24px;
+  color: var(--text-secondary, #a0a0a0);
+}
+
+.glossary-empty p {
+  font-size: 1.05rem;
+}
+
+/* CTA */
+.glossary-cta {
+  text-align: center;
+  padding: 48px 24px;
+  margin-top: 40px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.06), rgba(139, 92, 246, 0.06));
+  border: 1px solid var(--border, #2a2a2a);
+}
+
+.glossary-cta h2 {
+  font-size: 1.5rem;
+  color: var(--text-primary, #f0f0f0);
+  margin-bottom: 8px;
+}
+
+.glossary-cta p {
+  color: var(--text-secondary, #a0a0a0);
+  margin-bottom: 20px;
+}
+
+/* JSON-LD for SEO */
+.glossary-page script[type="application/ld+json"] {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .glossary-header h1 {
+    font-size: 2rem;
+  }
+
+  .glossary-controls {
+    flex-direction: column;
+  }
+
+  .glossary-alpha {
+    justify-content: center;
+  }
+
+  .glossary-search {
+    min-width: 100%;
+  }
+}
