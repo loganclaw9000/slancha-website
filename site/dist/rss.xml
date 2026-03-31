@@ -5,7 +5,7 @@
     <link>https://slancha.ai/blog</link>
     <description>Technical deep dives, tutorials, and insights on AI engineering: model evaluation, deployment strategies, fine-tuning pipelines, and the eval-deploy-train loop.</description>
     <language>en-us</language>
-    <lastBuildDate>Tue, 31 Mar 2026 09:46:34 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 31 Mar 2026 09:53:42 GMT</lastBuildDate>
     <atom:link href="https://slancha.ai/rss.xml" rel="self" type="application/rss+xml" />
     <image>
       <url>https://slancha.ai/favicon.svg</url>
@@ -212,6 +212,20 @@
       <category>RAG</category>
       <category>architecture</category>
       <category>tutorial</category>
+    </item>
+    <item>
+      <title>The Enterprise AI Inference Buyer&apos;s Guide 2026</title>
+      <link>https://slancha.ai/blog/enterprise-ai-inference-buyers-guide-2026</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/enterprise-ai-inference-buyers-guide-2026</guid>
+      <description>A practical framework for evaluating AI inference vendors — covering latency architecture, cost transparency, security requirements, TCO calculations, and migration playbooks. No fluff, no vendor bias.</description>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate>
+      <author>team@slancha.ai (Slancha Team)</author>
+      <category>enterprise</category>
+      <category>buyer-guide</category>
+      <category>comparison</category>
+      <category>TCO</category>
+      <category>security</category>
+      <category>migration</category>
     </item>
   </channel>
 </rss>

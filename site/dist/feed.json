@@ -309,6 +309,26 @@
         "architecture",
         "tutorial"
       ]
+    },
+    {
+      "id": "https://slancha.ai/blog/enterprise-ai-inference-buyers-guide-2026",
+      "url": "https://slancha.ai/blog/enterprise-ai-inference-buyers-guide-2026",
+      "title": "The Enterprise AI Inference Buyer's Guide 2026",
+      "summary": "A practical framework for evaluating AI inference vendors — covering latency architecture, cost transparency, security requirements, TCO calculations, and migration playbooks. No fluff, no vendor bias.",
+      "date_published": "2026-03-31T00:00:00.000Z",
+      "authors": [
+        {
+          "name": "Slancha Team"
+        }
+      ],
+      "tags": [
+        "enterprise",
+        "buyer-guide",
+        "comparison",
+        "TCO",
+        "security",
+        "migration"
+      ]
     }
   ]
 }
