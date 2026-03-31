@@ -1,5 +1,150 @@
 export const posts = [
   {
+    slug: 'introducing-slancha',
+    title: 'Introducing Slancha: The AI Inference Platform That Gets Better While You Sleep',
+    date: '2026-03-31',
+    author: 'Paul Logan',
+    excerpt: 'Today we\'re opening early access to Slancha — an end-to-end AI inference platform that routes, fine-tunes, and optimizes your LLM workloads behind a single API endpoint. No model selection, no benchmarking, no ML team required.',
+    tags: ['launch', 'announcement', 'platform'],
+    body: `Today, we're opening early access to Slancha.
+
+Slancha is an end-to-end AI inference platform built on a simple premise: **your team shouldn't have to become AI infrastructure experts to use AI well.**
+
+You get a single API endpoint. Behind it, Slancha routes requests to the right model, analyzes your task patterns, fine-tunes smaller models on your actual usage data, optimizes inference with quantization and GPU efficiency techniques, and continuously redeploys improved models. The platform gets better the more you use it — automatically, behind the scenes, with zero intervention.
+
+No model selection. No benchmarking. No fine-tuning pipelines to manage. No infrastructure decisions. Just an API.
+
+## Why We Built This
+
+We kept seeing the same pattern across engineering teams shipping AI features:
+
+1. Someone picks a model based on a blog post and a playground session
+2. It goes to production. Nobody re-evaluates.
+3. The team overpays by 3-5x because every request hits the most expensive frontier model, even for simple tasks like summarization
+4. Six months later, three better models have launched, but switching would mean another evaluation cycle nobody has time for
+
+Meanwhile, the teams that *do* optimize — routing to smaller models for easy tasks, fine-tuning for their specific workloads, quantizing for speed — save 60-80% on inference costs and get *better* accuracy on their actual tasks.
+
+The problem isn't that optimization doesn't work. It's that it requires a level of ML engineering sophistication most product teams don't have (and shouldn't need).
+
+Slancha makes that optimization automatic.
+
+## How It Works
+
+### One API, Four Layers
+
+\`\`\`python
+from slancha import Router
+
+router = Router(api_key="sk-...")
+response = router.chat.completions.create(
+    model="auto",
+    messages=[{"role": "user", "content": prompt}]
+)
+\`\`\`
+
+That's it. Behind that call, four layers work in concert:
+
+**Layer 1 — The Router.** Every request goes through an intelligent router powered by vLLM and semantic classification. Simple tasks (summarization, Q&A, short-form generation) get routed to smaller, faster, cheaper models. Complex tasks get routed to more capable ones. The router alone typically saves 40-60% compared to always hitting a frontier model.
+
+**Layer 2 — Task Analysis.** As your requests flow through, Slancha builds a map of what your application actually does: what percentage is summarization, what's code generation, what's long-form text, what's retrieval. This happens in the background, continuously.
+
+**Layer 3 — Automated Fine-Tuning.** Using the task data from your actual usage, Slancha fine-tunes smaller, task-specific models for your most common workloads. A 7B model fine-tuned on your summarization tasks will match or beat GPT-4-class output on those tasks — at a fraction of the cost. You never see this process. You never trigger it. It just happens.
+
+**Layer 4 — Inference Optimization.** Models are served with quantization-aware training (4-bit precision without quality loss), Multi-Instance GPU partitioning on NVIDIA Blackwell hardware, and multi-token prediction for higher throughput. These optimizations compound with the fine-tuning layer.
+
+The four layers form a closed loop: **route → analyze → fine-tune → optimize → redeploy.** The loop runs continuously. Your inference gets cheaper, faster, and more accurate over time.
+
+## What You Get
+
+**Month 1:** The router saves you 40-60% by not sending simple requests to expensive frontier models. Latency drops because smaller models respond faster.
+
+**Month 3:** Fine-tuned models start handling your most common task categories. Cost drops further. Accuracy on your specific workloads improves beyond what the frontier generalist model achieved.
+
+**Month 6:** Your total cost is 70-80% lower than direct API usage. You're running on models specifically tuned for your application. When a new open-source architecture drops, Slancha re-fine-tunes on your existing data — you get the upgrade automatically.
+
+Here's what that looks like in numbers:
+
+| Metric | Direct API | With Slancha |
+|---|---|---|
+| Monthly cost (100K requests) | $5,000-8,000 | $1,200-2,400 |
+| Avg latency | 800-1200ms | 200-400ms |
+| Models managed | 1 (manually chosen) | Auto-selected and evolving |
+| Engineering overhead | Ongoing | Zero |
+
+## Why the Black Box
+
+Most platforms give you more knobs to turn. We took them away.
+
+This isn't an accident. We studied what happens when engineering teams get "full control" over their inference stack: they make one decision, ship it, and never revisit it. The knobs don't get turned. The dashboards don't get checked. The optimization doesn't happen.
+
+The teams that *do* continuously optimize have dedicated ML infrastructure engineers. They have fine-tuning pipelines, evaluation suites, routing logic, GPU management — the kind of team that companies like Fireworks ($4B valuation) and BaseTen ($5B valuation) have spent years and hundreds of millions building.
+
+Slancha gives every team those capabilities without requiring that expertise. The black box isn't a limitation. It's the entire product.
+
+## Who This Is For
+
+Slancha is for **teams using LLM APIs that want to reduce cost and improve performance without building specialized AI/ML infrastructure.**
+
+You're a good fit if:
+- You're spending $2K+/month on LLM APIs
+- Your team builds product features, not ML infrastructure
+- You don't have (or want) a dedicated AI/ML ops team
+- You've picked a model and haven't re-evaluated in months
+- You suspect you're overpaying but don't know how to fix it without a major project
+
+You're probably not a good fit if:
+- You need to self-host models for regulatory reasons (we're working on VPC deployment)
+- You're building an AI research lab and want full control over every parameter
+- You're already running a mature, optimized inference stack with a dedicated team
+
+## Early Access
+
+We're opening early access today. Here's what you get:
+
+- **Free tier:** 10K requests/month through the Slancha Router with automatic model routing. No fine-tuning, but you'll see routing savings immediately.
+- **Pro tier ($99/month):** Unlimited routing + automated fine-tuning on your usage data. The full optimization loop.
+- **Enterprise:** Custom deployment, SLA, dedicated models, priority fine-tuning. [Talk to us](/enterprise).
+
+Getting started takes less than 5 minutes:
+
+1. [Sign up](/signup) and grab your API key
+2. Replace your current LLM endpoint with \`api.slancha.ai/v1\`
+3. That's it. Slancha is OpenAI-compatible — your existing code works unchanged.
+
+\`\`\`python
+# Before
+import openai
+client = openai.OpenAI(api_key="sk-openai-...")
+
+# After
+import openai
+client = openai.OpenAI(
+    api_key="sk-slancha-...",
+    base_url="https://api.slancha.ai/v1"
+)
+# Same code. Lower cost. Improving over time.
+\`\`\`
+
+## What's Next
+
+This is just the beginning. On the roadmap:
+
+- **VPC deployment** for teams with data residency requirements
+- **Custom evaluation suites** so you can define "quality" on your own terms
+- **Team dashboards** with per-endpoint cost and performance breakdowns
+- **Webhook notifications** when fine-tuned models are promoted to production
+- **SDK support** for Python, TypeScript, and Go (Python SDK available now)
+
+We're building Slancha because we believe the future of AI inference isn't about giving engineers more tools — it's about making the optimization invisible. The best infrastructure is the kind you don't have to think about.
+
+[Sign up for early access →](/signup)
+
+Have questions? [Reach out](/contact) or find us on [GitHub](https://github.com/slancha).
+
+— Paul Logan & James Maki, Co-founders`
+  },
+  {
     slug: 'the-case-for-black-box-ai-inference',
     title: 'The Case for Black Box AI Inference: Why Your Team Should Stop Picking Models',
     date: '2026-03-31',
