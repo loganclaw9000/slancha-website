@@ -6,10 +6,43 @@ import { posts } from '../content/blog';
 import usePageMeta from '../hooks/usePageMeta';
 import './Blog.css';
 
+function BlogJsonLd() {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Blog',
+    name: 'Slancha Blog',
+    description: 'Technical deep dives, tutorials, and insights on AI engineering: model evaluation, deployment strategies, fine-tuning pipelines, and the eval-deploy-train loop.',
+    url: 'https://slancha.ai/blog',
+    publisher: {
+      '@type': 'Organization',
+      name: 'Slancha',
+      url: 'https://slancha.ai',
+    },
+    inLanguage: 'en-US',
+    blogPost: posts.slice(0, 10).map(post => ({
+      '@type': 'BlogPosting',
+      headline: post.title,
+      description: post.excerpt,
+      url: `https://slancha.ai/blog/${post.slug}`,
+      datePublished: post.date,
+      author: { '@type': 'Person', name: post.author },
+      keywords: post.tags.join(', '),
+    })),
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
+  );
+}
+
 export default function Blog() {
   usePageMeta({ title: 'Blog', description: 'Technical deep dives, tutorials, and insights on AI engineering: model evaluation, deployment strategies, fine-tuning pipelines, and the eval-deploy-train loop.' });
   return (
     <div className="page">
+      <BlogJsonLd />
       <a href="#main-content" className="skip-link">Skip to main content</a>
       <Nav />
       <main id="main-content" className="blog-page">

@@ -5,13 +5,25 @@
     <link>https://slancha.ai/blog</link>
     <description>Technical deep dives, tutorials, and insights on AI engineering: model evaluation, deployment strategies, fine-tuning pipelines, and the eval-deploy-train loop.</description>
     <language>en-us</language>
-    <lastBuildDate>Tue, 31 Mar 2026 08:50:07 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 31 Mar 2026 09:21:04 GMT</lastBuildDate>
     <atom:link href="https://slancha.ai/rss.xml" rel="self" type="application/rss+xml" />
     <image>
       <url>https://slancha.ai/favicon.svg</url>
       <title>Slancha Blog</title>
       <link>https://slancha.ai/blog</link>
     </image>
+    <item>
+      <title>Zero-Config AI Inference: Why the Black Box Wins</title>
+      <link>https://slancha.ai/blog/zero-config-ai-inference</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/zero-config-ai-inference</guid>
+      <description>Every AI infrastructure platform gives you more knobs. Slancha took them away. Here&apos;s why the black box approach to AI inference consistently outperforms teams with &quot;full control&quot; — and what the data says about how engineering teams actually manage model selection.</description>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate>
+      <author>team@slancha.ai (Paul Logan)</author>
+      <category>strategy</category>
+      <category>black-box</category>
+      <category>inference</category>
+      <category>positioning</category>
+    </item>
     <item>
       <title>Introducing Slancha: The AI Inference Platform That Gets Better While You Sleep</title>
       <link>https://slancha.ai/blog/introducing-slancha</link>
@@ -162,6 +174,18 @@
       <category>routing</category>
       <category>fine-tuning</category>
       <category>guide</category>
+    </item>
+    <item>
+      <title>The Multi-Model Future: Why One LLM Won&apos;t Rule Them All</title>
+      <link>https://slancha.ai/blog/the-multi-model-future</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/the-multi-model-future</guid>
+      <description>The era of picking one model and routing everything through it is ending. MoE architectures, task-specific fine-tuning, and intelligent routing are converging on a multi-model future. Here&apos;s what that means for your AI stack.</description>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate>
+      <author>team@slancha.ai (Slancha Team)</author>
+      <category>strategy</category>
+      <category>architecture</category>
+      <category>inference</category>
+      <category>MoE</category>
     </item>
   </channel>
 </rss>
