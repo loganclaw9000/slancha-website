@@ -1,5 +1,213 @@
 export const posts = [
   {
+    slug: 'how-eval-data-should-drive-fine-tuning-technical-deep-dive',
+    title: 'How Eval Data Should Drive Fine-Tuning: A Technical Deep Dive',
+    date: '2026-03-30',
+    author: 'Slancha Team',
+    excerpt: 'A hands-on guide to building a closed-loop pipeline where evaluation failures automatically become training examples — with code, architecture patterns, and real metrics.',
+    tags: ['post-training', 'fine-tuning', 'engineering', 'tutorial'],
+    body: `Most teams run evals and fine-tuning as separate workflows with a manual handoff in between. This post shows you how to build a closed-loop pipeline where eval failures automatically feed into your next training run — and how Slancha makes it turnkey.
+
+## The Architecture
+
+A closed-loop eval→train pipeline has four components:
+
+1. **Eval Runner** — executes test suites against model candidates, produces scored results
+2. **Failure Filter** — extracts low-scoring examples that meet training criteria
+3. **Dataset Builder** — formats filtered examples into training-ready datasets
+4. **Training Trigger** — kicks off fine-tuning when enough new examples accumulate
+
+Here's how data flows through the system:
+
+\`\`\`
+Production Traffic
+      │
+      ▼
+┌─────────────┐    ┌──────────────┐    ┌─────────────────┐
+│  Eval Suite  │───▶│ Score & Tag  │───▶│ Results Store    │
+│  (500+ cases)│    │  each example│    │ (versioned runs) │
+└─────────────┘    └──────────────┘    └────────┬────────┘
+                                                │
+                                    ┌───────────┴───────────┐
+                                    │                       │
+                              score >= threshold      score < threshold
+                                    │                       │
+                              ┌─────▼─────┐          ┌─────▼──────┐
+                              │  Archive   │          │  Training  │
+                              │  (passing) │          │  Queue     │
+                              └───────────┘          └─────┬──────┘
+                                                           │
+                                                    batch size reached?
+                                                           │
+                                                    ┌──────▼──────┐
+                                                    │  Fine-Tune  │
+                                                    │  Next Model │
+                                                    └─────────────┘
+\`\`\`
+
+## Step 1: Structured Eval Runs
+
+The foundation is eval runs that produce structured, machine-readable output — not just a pass/fail summary. Each example needs:
+
+- The input query
+- The model's response
+- A numeric score (0-1) per dimension
+- Metadata: model version, timestamp, eval suite ID
+
+With Slancha's SDK, an eval run looks like this:
+
+\`\`\`python
+from slancha import EvalClient
+
+client = EvalClient(api_key="sk-...")
+
+# Define a test suite
+suite = client.suites.create(
+    name="customer-support-v3",
+    dimensions=["accuracy", "helpfulness", "safety"],
+    cases=load_cases("support_eval_cases.jsonl")  # 500+ cases
+)
+
+# Run against a model candidate
+run = client.eval.run(
+    suite_id=suite.id,
+    model="ft:qwen-2.5-72b:my-org:support-v2",
+    config={"temperature": 0.3, "max_tokens": 1024}
+)
+
+print(f"Run {run.id}: avg_accuracy={run.metrics['accuracy']:.3f}")
+# Run er_abc123: avg_accuracy=0.847
+\`\`\`
+
+Every run is versioned. You can diff any two runs:
+
+\`\`\`python
+diff = client.eval.diff(run_a="er_abc122", run_b="er_abc123")
+
+print(f"Accuracy: {diff.delta['accuracy']:+.3f}")
+print(f"Regressions: {len(diff.regressions)}")
+print(f"Improvements: {len(diff.improvements)}")
+# Accuracy: +0.023
+# Regressions: 12
+# Improvements: 47
+\`\`\`
+
+## Step 2: Failure Extraction
+
+Not every eval failure is a good training example. You need a filter that selects examples that are:
+
+- **Below threshold** on at least one dimension (obvious)
+- **Not adversarial** — don't train on jailbreak attempts or intentionally malformed inputs
+- **Not duplicates** — deduplicate against examples already in the training set
+- **Correctable** — the ground truth is available or can be generated
+
+\`\`\`python
+# Extract training candidates from a run
+candidates = client.training.extract(
+    run_id=run.id,
+    filters={
+        "score_below": {"accuracy": 0.6},
+        "exclude_tags": ["adversarial", "out-of-scope"],
+        "deduplicate_against": "training-set-support-v2",
+        "require_ground_truth": True
+    }
+)
+
+print(f"Extracted {len(candidates)} training candidates from {len(run.results)} eval cases")
+# Extracted 73 training candidates from 512 eval cases
+\`\`\`
+
+### The 14% Rule
+
+In practice, we see that 10-18% of eval cases produce useful training candidates per run. If you're getting less than 5%, your eval suite is too easy — it's not surfacing real weaknesses. If you're getting more than 25%, the model isn't ready for this eval tier; consider using an easier suite first.
+
+## Step 3: Dataset Construction
+
+Raw eval failures need transformation before they become training data. The key decisions:
+
+**Response format.** For instruction-tuned models, convert each failure into a (instruction, correct_response) pair. The instruction is the original eval query; the correct response is either the ground truth or a human-reviewed correction.
+
+**Mixing ratio.** Don't train exclusively on failures — that causes catastrophic forgetting. A healthy mix is:
+
+| Source | Ratio | Purpose |
+|--------|-------|---------|
+| New eval failures | 15-25% | Fix identified weaknesses |
+| Previous training data | 50-60% | Prevent regression |
+| General instruction data | 20-30% | Maintain broad capability |
+
+\`\`\`python
+dataset = client.training.build_dataset(
+    candidates=candidates,
+    mix={
+        "new_failures": 0.20,
+        "replay_existing": "training-set-support-v2",  # 55%
+        "general_pool": "slancha/instruction-general-v4"  # 25%
+    },
+    target_size=10000,
+    format="chat_completion"  # or "completion", "preference"
+)
+
+print(f"Dataset: {dataset.size} examples, {dataset.token_count} tokens")
+# Dataset: 10000 examples, 4.2M tokens
+\`\`\`
+
+## Step 4: Automated Training Triggers
+
+You don't want to fine-tune on every eval run. Set a trigger policy:
+
+\`\`\`python
+client.training.set_policy(
+    model_family="ft:qwen-2.5-72b:my-org:support",
+    trigger={
+        "min_new_examples": 50,       # at least 50 new failures
+        "max_interval_hours": 168,     # or once per week, whichever comes first
+        "auto_eval_after": True,       # run the same eval suite on the new model
+        "promote_if_better": True,     # auto-deploy if metrics improve
+        "rollback_if_worse": True      # revert if regression detected
+    }
+)
+\`\`\`
+
+This creates a self-improving cycle: eval → extract failures → train → eval again → promote or rollback.
+
+## Measuring the Loop
+
+After three iterations, you should see:
+
+| Metric | Cycle 1 | Cycle 2 | Cycle 3 |
+|--------|---------|---------|---------|
+| Accuracy | 0.824 | 0.861 | 0.889 |
+| Failure rate | 17.6% | 13.9% | 11.1% |
+| Novel failures | — | 71 | 43 |
+| Training time | 2.1h | 1.8h | 1.6h |
+
+The key signal is **novel failures decreasing** — each cycle catches failures that previous cycles missed, and the model learns from them. If novel failures aren't decreasing, your eval suite isn't covering enough of the input space, or your training process has a data quality issue.
+
+## Common Pitfalls
+
+**Training on eval outputs instead of ground truth.** If the model scored 0.3 on an example, don't use that response as the training target. Use the correct response.
+
+**Not deduplicating.** If the same failure appears in five consecutive eval runs, you'll oversample it in training and the model will overfit to that specific example.
+
+**Mixing ratio drift.** As your failure pool grows, the new_failures ratio can creep above 25%. Cap it — otherwise you're essentially training on a biased sample of your hardest cases.
+
+**Skipping the re-eval.** Always run the same eval suite on the fine-tuned model before promoting it. We've seen cases where fine-tuning on accuracy failures causes safety regressions that only show up in a full re-eval.
+
+## Why Not Build This Yourself?
+
+You can. The individual components — eval harness, dataset builder, training scripts — aren't complex. What's complex is:
+
+- **Versioning across the full loop.** Tracking which eval run produced which training set that produced which model that was evaluated by which run. One broken link and you can't reproduce results.
+- **The mixing and dedup logic.** Getting the ratios right and maintaining a deduplicated training corpus across dozens of cycles requires careful bookkeeping.
+- **Promotion safety.** Auto-deploying a fine-tuned model needs rollback logic, canary traffic, and eval gates that all talk to each other.
+
+Slancha handles all of this as a managed pipeline. You provide the eval suite and the model. The platform handles extraction, dataset construction, training orchestration, re-evaluation, and safe promotion.
+
+---
+
+*Want to see this pipeline running on your models? [Apply for the Slancha pilot](/contact) — we'll set up your first closed-loop cycle in a 30-minute onboarding call.*`,
+  },
+  {
     slug: '5-signs-your-ml-team-needs-an-evaluation-platform',
     title: '5 Signs Your ML Team Needs an Evaluation Platform',
     date: '2026-03-30',
