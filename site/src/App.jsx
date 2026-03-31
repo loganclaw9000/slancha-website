@@ -38,6 +38,8 @@ const Terms = lazy(() => import('./pages/Terms'));
 const Privacy = lazy(() => import('./pages/Privacy'));
 const Security = lazy(() => import('./pages/Security'));
 const Demo = lazy(() => import('./pages/Demo'));
+const Benchmarks = lazy(() => import('./pages/Benchmarks'));
+const Status = lazy(() => import('./pages/Status'));
 
 function Loading() {
   return (
@@ -79,6 +81,8 @@ const App = () => (
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/security" element={<Security />} />
           <Route path="/demo" element={<Demo />} />
+          <Route path="/benchmarks" element={<Benchmarks />} />
+          <Route path="/status" element={<Status />} />
 
           {/* Auth */}
           <Route path="/login" element={<Login />} />

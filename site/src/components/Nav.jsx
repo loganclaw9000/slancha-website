@@ -9,8 +9,10 @@ const dropdowns = {
     { to: '/integrations', label: 'Integrations', desc: '31 platforms supported' },
     { to: '/demo', label: 'Product Demo', desc: '5-step interactive walkthrough' },
     { to: '/playground', label: 'API Playground', desc: 'Try the API interactively' },
+    { to: '/benchmarks', label: 'Benchmarks', desc: 'Latency, quality & cost data' },
     { to: '/security', label: 'Security', desc: 'SOC 2, HIPAA, GDPR ready' },
     { to: '/changelog', label: 'Changelog', desc: 'Latest releases & updates' },
+    { to: '/status', label: 'Status', desc: 'Real-time system health' },
   ],
   Solutions: [
     { to: '/use-cases', label: 'Use Cases', desc: 'By industry & team size' },

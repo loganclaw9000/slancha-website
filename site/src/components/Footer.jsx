@@ -17,8 +17,10 @@ export default function Footer() {
             <Link to="/integrations" className="footer-link">Integrations</Link>
             <Link to="/playground" className="footer-link">API Playground</Link>
             <Link to="/roi-calculator" className="footer-link">ROI Calculator</Link>
+            <Link to="/benchmarks" className="footer-link">Benchmarks</Link>
             <Link to="/changelog" className="footer-link">Changelog</Link>
             <Link to="/security" className="footer-link">Security</Link>
+            <Link to="/status" className="footer-link">Status</Link>
           </div>
           <div className="footer-col">
             <h4 className="footer-col-title">Solutions</h4>
