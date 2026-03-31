@@ -42,6 +42,7 @@ const Demo = lazy(() => import('./pages/Demo'));
 const Benchmarks = lazy(() => import('./pages/Benchmarks'));
 const Status = lazy(() => import('./pages/Status'));
 const PricingCompare = lazy(() => import('./pages/PricingCompare'));
+const VerticalLanding = lazy(() => import('./pages/VerticalLanding'));
 
 function Loading() {
   return (
@@ -86,6 +87,7 @@ const App = () => (
           <Route path="/benchmarks" element={<Benchmarks />} />
           <Route path="/status" element={<Status />} />
           <Route path="/pricing/compare" element={<PricingCompare />} />
+          <Route path="/solutions/:vertical" element={<VerticalLanding />} />
 
           {/* Auth */}
           <Route path="/login" element={<Login />} />

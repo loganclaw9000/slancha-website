@@ -16,6 +16,9 @@ const dropdowns = {
   ],
   Solutions: [
     { to: '/use-cases', label: 'Use Cases', desc: 'By industry & team size' },
+    { to: '/solutions/fintech', label: 'Fintech', desc: 'SOC 2 & PCI-DSS ready' },
+    { to: '/solutions/healthtech', label: 'Healthtech', desc: 'HIPAA-compliant inference' },
+    { to: '/solutions/ecommerce', label: 'E-Commerce', desc: 'Scale to millions of SKUs' },
     { to: '/case-studies', label: 'Case Studies', desc: 'Real customer results' },
     { to: '/enterprise', label: 'Enterprise', desc: 'Cloud, VPC, or on-prem' },
     { to: '/roi-calculator', label: 'ROI Calculator', desc: 'Estimate your savings' },

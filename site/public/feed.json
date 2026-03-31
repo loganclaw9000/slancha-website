@@ -1,0 +1,128 @@
+{
+  "version": "https://jsonfeed.org/version/1.1",
+  "title": "Slancha Blog",
+  "home_page_url": "https://slancha.ai/blog",
+  "feed_url": "https://slancha.ai/feed.json",
+  "description": "Technical deep dives, tutorials, and insights on AI inference: model routing, fine-tuning, optimization, and the eval-deploy-train loop.",
+  "icon": "https://slancha.ai/favicon.svg",
+  "language": "en-US",
+  "items": [
+    {
+      "id": "https://slancha.ai/blog/introducing-slancha",
+      "url": "https://slancha.ai/blog/introducing-slancha",
+      "title": "Introducing Slancha: The AI Inference Platform That Gets Better While You Sleep",
+      "summary": "Today we're opening early access to Slancha — an end-to-end AI inference platform that routes, fine-tunes, and optimizes your LLM workloads behind a single API endpoint.",
+      "date_published": "2026-03-31T00:00:00Z",
+      "authors": [{ "name": "Paul Logan" }],
+      "tags": ["launch", "announcement", "platform"]
+    },
+    {
+      "id": "https://slancha.ai/blog/the-case-for-black-box-ai-inference",
+      "url": "https://slancha.ai/blog/the-case-for-black-box-ai-inference",
+      "title": "The Case for Black Box AI Inference: Why Your Team Should Stop Picking Models",
+      "summary": "Every AI platform promises transparency and control. Slancha bets on the opposite: a black box that handles everything.",
+      "date_published": "2026-03-31T00:00:00Z",
+      "authors": [{ "name": "Slancha Team" }],
+      "tags": ["strategy", "black-box", "inference"]
+    },
+    {
+      "id": "https://slancha.ai/blog/slancha-vs-openrouter-beyond-the-model-marketplace",
+      "url": "https://slancha.ai/blog/slancha-vs-openrouter-beyond-the-model-marketplace",
+      "title": "Slancha vs OpenRouter: Beyond the Model Marketplace",
+      "summary": "OpenRouter gives you access to every model through one API. Slancha gives you one API that makes model selection irrelevant.",
+      "date_published": "2026-03-31T00:00:00Z",
+      "authors": [{ "name": "Slancha Team" }],
+      "tags": ["comparison", "openrouter", "routing"]
+    },
+    {
+      "id": "https://slancha.ai/blog/how-to-reduce-llm-api-costs",
+      "url": "https://slancha.ai/blog/how-to-reduce-llm-api-costs",
+      "title": "How to Reduce Your LLM API Costs by 60% Without Sacrificing Quality",
+      "summary": "Five proven techniques — from intelligent routing to automated fine-tuning — that cut costs dramatically while maintaining or improving output quality.",
+      "date_published": "2026-03-31T00:00:00Z",
+      "authors": [{ "name": "Slancha Team" }],
+      "tags": ["cost-optimization", "tutorial", "routing"]
+    },
+    {
+      "id": "https://slancha.ai/blog/slancha-vs-databricks-ai-infrastructure-comparison",
+      "url": "https://slancha.ai/blog/slancha-vs-databricks-ai-infrastructure-comparison",
+      "title": "Slancha vs. Databricks: The AI Infrastructure Showdown",
+      "summary": "Databricks gives you the tools. Slancha does the work. A detailed comparison of two fundamentally different approaches to AI infrastructure.",
+      "date_published": "2026-03-31T00:00:00Z",
+      "authors": [{ "name": "Slancha Team" }],
+      "tags": ["comparison", "databricks", "infrastructure"]
+    },
+    {
+      "id": "https://slancha.ai/blog/building-a-production-ai-router-architecture-patterns",
+      "url": "https://slancha.ai/blog/building-a-production-ai-router-architecture-patterns",
+      "title": "Building a Production AI Router: Architecture Patterns That Scale",
+      "summary": "Routing requests to the right model is the easy part. The hard part is doing it at scale with sub-millisecond overhead.",
+      "date_published": "2026-03-31T00:00:00Z",
+      "authors": [{ "name": "Slancha Team" }],
+      "tags": ["architecture", "routing", "engineering"]
+    },
+    {
+      "id": "https://slancha.ai/blog/the-complete-guide-to-ai-model-routing",
+      "url": "https://slancha.ai/blog/the-complete-guide-to-ai-model-routing",
+      "title": "The Complete Guide to AI Model Routing: Strategies, Architecture, and Cost Optimization",
+      "summary": "Not every request needs GPT-4. Learn how intelligent model routing cuts inference costs 40-70% while maintaining quality.",
+      "date_published": "2026-03-31T00:00:00Z",
+      "authors": [{ "name": "Slancha Team" }],
+      "tags": ["guide", "routing", "cost-optimization"]
+    },
+    {
+      "id": "https://slancha.ai/blog/from-prototype-to-production-ai-deployment-checklist",
+      "url": "https://slancha.ai/blog/from-prototype-to-production-ai-deployment-checklist",
+      "title": "From Prototype to Production: The AI Deployment Checklist",
+      "summary": "Most AI projects that 'work' in prototype never make it to production. This checklist covers what actually breaks and how to fix it.",
+      "date_published": "2026-03-30T00:00:00Z",
+      "authors": [{ "name": "Slancha Team" }],
+      "tags": ["tutorial", "deployment", "production"]
+    },
+    {
+      "id": "https://slancha.ai/blog/how-eval-data-should-drive-fine-tuning-technical-deep-dive",
+      "url": "https://slancha.ai/blog/how-eval-data-should-drive-fine-tuning-technical-deep-dive",
+      "title": "How Eval Data Should Drive Fine-Tuning: A Technical Deep Dive",
+      "summary": "A hands-on guide to building a closed-loop pipeline where evaluation failures automatically become training examples.",
+      "date_published": "2026-03-30T00:00:00Z",
+      "authors": [{ "name": "Slancha Team" }],
+      "tags": ["technical", "fine-tuning", "evaluation"]
+    },
+    {
+      "id": "https://slancha.ai/blog/5-signs-your-ml-team-needs-an-evaluation-platform",
+      "url": "https://slancha.ai/blog/5-signs-your-ml-team-needs-an-evaluation-platform",
+      "title": "5 Signs Your ML Team Needs an Evaluation Platform",
+      "summary": "Spreadsheets, vibes-based deployment, and 'it works on my laptop' are not an eval strategy.",
+      "date_published": "2026-03-30T00:00:00Z",
+      "authors": [{ "name": "Slancha Team" }],
+      "tags": ["evaluation", "team", "platform"]
+    },
+    {
+      "id": "https://slancha.ai/blog/why-eval-data-should-drive-fine-tuning",
+      "url": "https://slancha.ai/blog/why-eval-data-should-drive-fine-tuning",
+      "title": "Why Eval Data Should Drive Fine-Tuning",
+      "summary": "Most teams treat evaluation and fine-tuning as separate workflows. That disconnect is costing you model quality and engineering hours.",
+      "date_published": "2026-03-29T00:00:00Z",
+      "authors": [{ "name": "Slancha Team" }],
+      "tags": ["evaluation", "fine-tuning"]
+    },
+    {
+      "id": "https://slancha.ai/blog/the-real-cost-of-stitching-ai-tools-together",
+      "url": "https://slancha.ai/blog/the-real-cost-of-stitching-ai-tools-together",
+      "title": "The Real Cost of Stitching AI Tools Together",
+      "summary": "You're paying for 4-6 tools that don't talk to each other. The integration tax is higher than you think.",
+      "date_published": "2026-03-28T00:00:00Z",
+      "authors": [{ "name": "Slancha Team" }],
+      "tags": ["cost", "integration", "tools"]
+    },
+    {
+      "id": "https://slancha.ai/blog/introducing-the-slancha-router",
+      "url": "https://slancha.ai/blog/introducing-the-slancha-router",
+      "title": "Introducing the Slancha Router: Free Intelligent Model Routing",
+      "summary": "Route requests to the best model for the job — automatically. Free to use, no lock-in.",
+      "date_published": "2026-03-27T00:00:00Z",
+      "authors": [{ "name": "Slancha Team" }],
+      "tags": ["launch", "router", "free"]
+    }
+  ]
+}

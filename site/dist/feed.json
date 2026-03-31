@@ -8,6 +8,26 @@
   "language": "en-US",
   "items": [
     {
+      "id": "https://slancha.ai/blog/ai-inference-optimization-qat-mig-multi-token",
+      "url": "https://slancha.ai/blog/ai-inference-optimization-qat-mig-multi-token",
+      "title": "AI Inference Optimization: Complete Guide to QAT, MIG, and Multi-Token Prediction",
+      "summary": "Three techniques are reshaping how production AI inference runs: Quantization-Aware Training, Multi-Instance GPU, and Multi-Token Prediction. Here's how each works, when to use them, and how they compound to cut inference costs by 60-75%.",
+      "date_published": "2026-03-31T00:00:00.000Z",
+      "authors": [
+        {
+          "name": "Slancha Engineering"
+        }
+      ],
+      "tags": [
+        "optimization",
+        "QAT",
+        "MIG",
+        "multi-token-prediction",
+        "inference",
+        "technical"
+      ]
+    },
+    {
       "id": "https://slancha.ai/blog/zero-config-ai-inference",
       "url": "https://slancha.ai/blog/zero-config-ai-inference",
       "title": "Zero-Config AI Inference: Why the Black Box Wins",
@@ -270,6 +290,24 @@
         "architecture",
         "inference",
         "MoE"
+      ]
+    },
+    {
+      "id": "https://slancha.ai/blog/fine-tuning-vs-rag-when-to-use-each",
+      "url": "https://slancha.ai/blog/fine-tuning-vs-rag-when-to-use-each",
+      "title": "Fine-Tuning vs RAG: When to Use Each (And How to Stop Choosing)",
+      "summary": "The fine-tuning vs RAG debate is one of the most common questions in production AI. Here's a practical decision framework based on real workloads — plus why the best systems use both, automatically.",
+      "date_published": "2026-03-31T00:00:00.000Z",
+      "authors": [
+        {
+          "name": "Slancha Engineering"
+        }
+      ],
+      "tags": [
+        "fine-tuning",
+        "RAG",
+        "architecture",
+        "tutorial"
       ]
     }
   ]

@@ -5,13 +5,27 @@
     <link>https://slancha.ai/blog</link>
     <description>Technical deep dives, tutorials, and insights on AI engineering: model evaluation, deployment strategies, fine-tuning pipelines, and the eval-deploy-train loop.</description>
     <language>en-us</language>
-    <lastBuildDate>Tue, 31 Mar 2026 09:21:04 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 31 Mar 2026 09:39:04 GMT</lastBuildDate>
     <atom:link href="https://slancha.ai/rss.xml" rel="self" type="application/rss+xml" />
     <image>
       <url>https://slancha.ai/favicon.svg</url>
       <title>Slancha Blog</title>
       <link>https://slancha.ai/blog</link>
     </image>
+    <item>
+      <title>AI Inference Optimization: Complete Guide to QAT, MIG, and Multi-Token Prediction</title>
+      <link>https://slancha.ai/blog/ai-inference-optimization-qat-mig-multi-token</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/ai-inference-optimization-qat-mig-multi-token</guid>
+      <description>Three techniques are reshaping how production AI inference runs: Quantization-Aware Training, Multi-Instance GPU, and Multi-Token Prediction. Here&apos;s how each works, when to use them, and how they compound to cut inference costs by 60-75%.</description>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate>
+      <author>team@slancha.ai (Slancha Engineering)</author>
+      <category>optimization</category>
+      <category>QAT</category>
+      <category>MIG</category>
+      <category>multi-token-prediction</category>
+      <category>inference</category>
+      <category>technical</category>
+    </item>
     <item>
       <title>Zero-Config AI Inference: Why the Black Box Wins</title>
       <link>https://slancha.ai/blog/zero-config-ai-inference</link>
@@ -186,6 +200,18 @@
       <category>architecture</category>
       <category>inference</category>
       <category>MoE</category>
+    </item>
+    <item>
+      <title>Fine-Tuning vs RAG: When to Use Each (And How to Stop Choosing)</title>
+      <link>https://slancha.ai/blog/fine-tuning-vs-rag-when-to-use-each</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/fine-tuning-vs-rag-when-to-use-each</guid>
+      <description>The fine-tuning vs RAG debate is one of the most common questions in production AI. Here&apos;s a practical decision framework based on real workloads — plus why the best systems use both, automatically.</description>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate>
+      <author>team@slancha.ai (Slancha Engineering)</author>
+      <category>fine-tuning</category>
+      <category>RAG</category>
+      <category>architecture</category>
+      <category>tutorial</category>
     </item>
   </channel>
 </rss>
