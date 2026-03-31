@@ -22,6 +22,7 @@ const dropdowns = {
     { to: '/solutions/ecommerce', label: 'E-Commerce', desc: 'Scale to millions of SKUs' },
     { to: '/case-studies', label: 'Case Studies', desc: 'Real customer results' },
     { to: '/enterprise', label: 'Enterprise', desc: 'Cloud, VPC, or on-prem' },
+    { to: '/pilot', label: 'Pilot Program', desc: 'Prove ROI in 4\u20136 weeks' },
     { to: '/roi-calculator', label: 'ROI Calculator', desc: 'Estimate your savings' },
     { to: '/pricing/compare', label: 'Pricing Compare', desc: 'Side-by-side competitor pricing' },
     { to: '/vs-competitors', label: 'Compare All', desc: 'All competitors side-by-side' },

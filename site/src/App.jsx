@@ -54,6 +54,7 @@ const CompetitorCompare = lazy(() => import('./pages/CompetitorCompare'));
 const Resources = lazy(() => import('./pages/Resources'));
 const Glossary = lazy(() => import('./pages/Glossary'));
 const Developers = lazy(() => import('./pages/Developers'));
+const PilotProgram = lazy(() => import('./pages/PilotProgram'));
 
 function Loading() {
   return (
@@ -103,6 +104,7 @@ const App = () => (
           <Route path="/resources" element={<Resources />} />
           <Route path="/glossary" element={<Glossary />} />
           <Route path="/developers" element={<Developers />} />
+          <Route path="/pilot" element={<PilotProgram />} />
 
           {/* Auth */}
           <Route path="/login" element={<Login />} />

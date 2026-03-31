@@ -27,6 +27,7 @@ export default function Footer() {
             <Link to="/use-cases" className="footer-link">Use Cases</Link>
             <Link to="/case-studies" className="footer-link">Case Studies</Link>
             <Link to="/enterprise" className="footer-link">Enterprise</Link>
+            <Link to="/pilot" className="footer-link">Pilot Program</Link>
             <Link to="/vs-competitors" className="footer-link">Compare</Link>
           </div>
           <div className="footer-col">

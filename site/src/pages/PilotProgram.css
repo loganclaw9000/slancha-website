@@ -1,0 +1,343 @@
+.pilot-page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 6rem 1.5rem 4rem;
+}
+
+.pilot-hero {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.pilot-hero .eyebrow {
+  display: inline-block;
+  color: #0A84FF;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 1rem;
+  padding: 0.35rem 1rem;
+  border: 1px solid rgba(10, 132, 255, 0.25);
+  border-radius: 99px;
+  background: rgba(10, 132, 255, 0.06);
+}
+
+.pilot-hero h1 {
+  font-size: 2.75rem;
+  margin-bottom: 1rem;
+  line-height: 1.15;
+}
+
+.pilot-hero .gradient-text {
+  background: linear-gradient(135deg, #0A84FF, #00D1B2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.pilot-hero p {
+  color: var(--text-secondary, #94a3b8);
+  font-size: 1.2rem;
+  max-width: 640px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
+}
+
+.pilot-hero-ctas {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Stats bar */
+.pilot-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+  padding: 2rem;
+  border-radius: 12px;
+  background: rgba(10, 132, 255, 0.04);
+  border: 1px solid rgba(10, 132, 255, 0.1);
+}
+
+.pilot-stat {
+  text-align: center;
+}
+
+.pilot-stat .stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #0A84FF;
+  display: block;
+}
+
+.pilot-stat .stat-label {
+  font-size: 0.85rem;
+  color: var(--text-secondary, #94a3b8);
+  margin-top: 0.25rem;
+}
+
+/* What's included */
+.pilot-section {
+  margin-bottom: 4rem;
+}
+
+.pilot-section h2 {
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.pilot-section .section-desc {
+  color: var(--text-secondary, #94a3b8);
+  margin-bottom: 2rem;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.pilot-includes {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.pilot-include-card {
+  padding: 1.5rem;
+  border-radius: 10px;
+  background: var(--surface, #1a1a2e);
+  border: 1px solid var(--border, #2a2a3e);
+  transition: border-color 0.2s;
+}
+
+.pilot-include-card:hover {
+  border-color: rgba(10, 132, 255, 0.3);
+}
+
+.pilot-include-card .card-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.pilot-include-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.pilot-include-card p {
+  color: var(--text-secondary, #94a3b8);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Timeline */
+.pilot-timeline {
+  position: relative;
+  padding-left: 2.5rem;
+}
+
+.pilot-timeline::before {
+  content: '';
+  position: absolute;
+  left: 0.75rem;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  width: 2px;
+  background: linear-gradient(180deg, #0A84FF, #00D1B2);
+  border-radius: 2px;
+}
+
+.timeline-phase {
+  position: relative;
+  margin-bottom: 2.5rem;
+}
+
+.timeline-phase:last-child {
+  margin-bottom: 0;
+}
+
+.timeline-phase::before {
+  content: '';
+  position: absolute;
+  left: -1.85rem;
+  top: 0.35rem;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #0A84FF;
+  border: 2px solid var(--bg, #0f0f1a);
+  box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.2);
+}
+
+.timeline-phase .phase-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.timeline-phase .phase-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #0A84FF;
+  background: rgba(10, 132, 255, 0.1);
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+}
+
+.timeline-phase h3 {
+  font-size: 1.15rem;
+  margin: 0;
+}
+
+.timeline-phase p {
+  color: var(--text-secondary, #94a3b8);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin: 0.5rem 0 0;
+}
+
+.timeline-phase .phase-items {
+  list-style: none;
+  padding: 0;
+  margin: 0.75rem 0 0;
+}
+
+.timeline-phase .phase-items li {
+  color: var(--text-secondary, #94a3b8);
+  font-size: 0.9rem;
+  padding: 0.25rem 0;
+  padding-left: 1.25rem;
+  position: relative;
+}
+
+.timeline-phase .phase-items li::before {
+  content: '\2713';
+  position: absolute;
+  left: 0;
+  color: #00D1B2;
+  font-weight: 700;
+}
+
+/* Success metrics */
+.pilot-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+.pilot-metric {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.25rem;
+  border-radius: 10px;
+  background: var(--surface, #1a1a2e);
+  border: 1px solid var(--border, #2a2a3e);
+}
+
+.pilot-metric .metric-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.pilot-metric h4 {
+  font-size: 0.95rem;
+  margin: 0 0 0.25rem;
+}
+
+.pilot-metric .metric-target {
+  color: #00D1B2;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.pilot-metric p {
+  color: var(--text-secondary, #94a3b8);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  margin: 0.25rem 0 0;
+}
+
+/* FAQ inline */
+.pilot-faq {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pilot-faq li {
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--border, #2a2a3e);
+}
+
+.pilot-faq li:last-child {
+  border-bottom: none;
+}
+
+.pilot-faq .faq-q {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.pilot-faq .faq-a {
+  color: var(--text-secondary, #94a3b8);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* CTA bottom */
+.pilot-cta {
+  text-align: center;
+  padding: 3rem 2rem;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(10, 132, 255, 0.08), rgba(0, 209, 178, 0.08));
+  border: 1px solid rgba(10, 132, 255, 0.15);
+}
+
+.pilot-cta h2 {
+  font-size: 1.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.pilot-cta p {
+  color: var(--text-secondary, #94a3b8);
+  margin-bottom: 1.5rem;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pilot-cta-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .pilot-hero h1 {
+    font-size: 2rem;
+  }
+
+  .pilot-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding: 1.5rem;
+  }
+
+  .pilot-includes {
+    grid-template-columns: 1fr;
+  }
+
+  .pilot-metrics {
+    grid-template-columns: 1fr;
+  }
+}
