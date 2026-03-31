@@ -11,6 +11,25 @@
   padding-top: 48px;
 }
 
+.blog-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.blog-rss {
+  color: var(--text-secondary);
+  opacity: 0.6;
+  transition: opacity 0.2s, color 0.2s;
+  display: flex;
+  align-items: center;
+}
+.blog-rss:hover {
+  opacity: 1;
+  color: #f97316;
+}
+
 .blog-title {
   font-size: 48px;
   font-weight: 800;

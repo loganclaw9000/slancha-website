@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node scripts/generate-feeds.js",
     "preview": "vite preview",
     "test": "npm run test:all",
     "test:all": "npm run test:unit && npm run test:components && npm run test:e2e",
