@@ -18,7 +18,6 @@ export default function Home() {
   });
   return (
     <div className="page">
-      <a href="#main-content" className="skip-link">Skip to main content</a>
       <Nav />
       <main id="main-content">
         <Hero />

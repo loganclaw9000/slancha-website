@@ -112,7 +112,6 @@ export default function Changelog() {
 
   return (
     <div className="page">
-      <a href="#main-content" className="skip-link">Skip to main content</a>
       <Nav />
       <main id="main-content" className="changelog-page">
         <div className="changelog-header">

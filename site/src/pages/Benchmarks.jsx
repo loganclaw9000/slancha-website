@@ -132,7 +132,7 @@ export default function Benchmarks() {
   return (
     <div className="page">
       <Nav />
-      <main className="bench-page">
+      <main id="main-content" className="bench-page">
         <section className="bench-hero">
           <span className="bench-eyebrow">Performance Data</span>
           <h1 className="bench-title">

@@ -258,7 +258,7 @@ export default function Demo() {
   return (
     <>
       <Nav />
-      <main className="demo-page">
+      <main id="main-content" className="demo-page">
         <div className="demo-header">
           <h1>Product Walkthrough</h1>
           <p>See how Slancha takes you from signup to optimized production AI in 5 steps — no infrastructure required.</p>

@@ -106,7 +106,7 @@ export default function VsCompetitors() {
   return (
     <div className="page">
       <Nav />
-      <main className="vs-page">
+      <main id="main-content" className="vs-page">
         <section className="vs-hero">
           <span className="vs-eyebrow">Competitive Landscape</span>
           <h1 className="vs-title">

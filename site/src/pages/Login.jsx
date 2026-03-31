@@ -43,7 +43,7 @@ export default function Login() {
   return (
     <div className="page">
       <Nav backLink />
-      <main className="auth-page">
+      <main id="main-content" className="auth-page">
         <div className="auth-card">
           <h1 className="auth-title">Sign in to Slancha</h1>
           <p className="auth-subtitle">Access your dashboard and API keys</p>

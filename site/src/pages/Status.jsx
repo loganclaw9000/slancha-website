@@ -107,7 +107,7 @@ export default function Status() {
   return (
     <div className="page">
       <Nav />
-      <main className="status-page">
+      <main id="main-content" className="status-page">
         <section className="status-hero">
           <h1 className="status-title">System Status</h1>
           <div className={`status-banner status-banner--${overall}`}>

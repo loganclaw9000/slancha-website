@@ -139,7 +139,8 @@ export default function Nav({ backLink = false }) {
 
   return (
     <>
-      <nav className={`nav${scrolled ? ' scrolled' : ''}`}>
+      <a href="#main-content" className="skip-link">Skip to main content</a>
+      <nav className={`nav${scrolled ? ' scrolled' : ''}`} aria-label="Main navigation">
         <Link to="/" className="nav-logo">
           <svg className="nav-triskele" viewBox="0 0 100 100" width="24" height="24" fill="none" strokeWidth="6" strokeLinecap="round">
             <defs>

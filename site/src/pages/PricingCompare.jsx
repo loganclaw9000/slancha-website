@@ -138,7 +138,7 @@ export default function PricingCompare() {
   return (
     <div className="page">
       <Nav />
-      <main className="pc-page">
+      <main id="main-content" className="pc-page">
         <section className="pc-hero">
           <h1 className="pc-title">
             How much will you <span className="gradient-text">actually save</span>?

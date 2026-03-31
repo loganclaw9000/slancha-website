@@ -100,7 +100,7 @@ export default function Contact() {
   return (
     <div className="page">
       <Nav backLink />
-      <main>
+      <main id="main-content">
       {/* Hero Banner */}
       <div className="contact-hero">
         <div className="contact-hero-overlay" />

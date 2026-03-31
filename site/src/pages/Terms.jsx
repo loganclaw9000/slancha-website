@@ -10,7 +10,7 @@ export default function Terms() {
   return (
     <>
       <Nav />
-      <div className="legal-page">
+      <main id="main-content" className="legal-page">
         <h1>Terms of Service</h1>
         <p className="legal-effective">Effective Date: March 30, 2026</p>
 
@@ -82,7 +82,7 @@ export default function Terms() {
         <div className="legal-nav">
           <Link to="/privacy">Privacy Policy</Link>
         </div>
-      </div>
+      </main>
       <Footer />
     </>
   );

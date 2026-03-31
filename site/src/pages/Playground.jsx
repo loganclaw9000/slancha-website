@@ -286,7 +286,7 @@ export default function Playground() {
   return (
     <div className="page">
       <Nav />
-      <div className="playground-page">
+      <main id="main-content" className="playground-page">
         <div className="playground-header">
           <h1>API Playground</h1>
           <p>
@@ -367,7 +367,7 @@ export default function Playground() {
             <Link to="/docs/api-reference" className="btn-cta-secondary">Full API Reference</Link>
           </div>
         </div>
-      </div>
+      </main>
       <Footer />
     </div>
   );

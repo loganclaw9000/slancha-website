@@ -8,7 +8,6 @@ export default function NotFound() {
   usePageMeta({ title: 'Page Not Found', description: 'The page you are looking for does not exist. Return to Slancha to explore our AI inference platform.' });
   return (
     <div className="page">
-      <a href="#main-content" className="skip-link">Skip to main content</a>
       <Nav />
       <main id="main-content" className="notfound">
         <div className="notfound__inner">

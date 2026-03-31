@@ -352,7 +352,7 @@ export default function CompetitorCompare() {
   return (
     <div className="page">
       <Nav />
-      <main className="cc-page">
+      <main id="main-content" className="cc-page">
         {/* Hero */}
         <section className="cc-hero">
           <span className="cc-badge">Comparison</span>

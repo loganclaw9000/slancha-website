@@ -81,7 +81,7 @@ export default function Enterprise() {
   return (
     <div className="page">
       <Nav />
-      <main className="enterprise-page">
+      <main id="main-content" className="enterprise-page">
         {/* Hero */}
         <section className="enterprise-hero">
           <h1>

@@ -228,7 +228,7 @@ export default function Resources() {
   return (
     <div className="page">
       <Nav />
-      <main className="resources-page">
+      <main id="main-content" className="resources-page">
         <div className="resources-header">
           <h1>Resources</h1>
           <p>Blog posts, tutorials, documentation, tools, and case studies — everything you need to evaluate, deploy, and optimize AI models.</p>

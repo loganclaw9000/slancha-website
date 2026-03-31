@@ -31,7 +31,7 @@ export default function ResetPassword() {
   return (
     <div className="page">
       <Nav backLink />
-      <main className="auth-page">
+      <main id="main-content" className="auth-page">
         <div className="auth-card">
           {sent ? (
             <>

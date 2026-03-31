@@ -265,7 +265,6 @@ export default function CaseStudyDetail() {
 
   return (
     <div className="page">
-      <a href="#main-content" className="skip-link">Skip to main content</a>
       <Nav />
       <JsonLd cs={cs} />
       <main id="main-content" className="csd-page">

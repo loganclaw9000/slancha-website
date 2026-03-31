@@ -79,7 +79,6 @@ export default function Blog() {
   return (
     <div className="page">
       <BlogJsonLd />
-      <a href="#main-content" className="skip-link">Skip to main content</a>
       <Nav />
       <main id="main-content" className="blog-page">
         <div className="blog-header">

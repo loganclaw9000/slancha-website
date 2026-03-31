@@ -10,7 +10,7 @@ export default function Privacy() {
   return (
     <>
       <Nav />
-      <div className="legal-page">
+      <main id="main-content" className="legal-page">
         <h1>Privacy Policy</h1>
         <p className="legal-effective">Effective Date: March 30, 2026</p>
 
@@ -98,7 +98,7 @@ export default function Privacy() {
         <div className="legal-nav">
           <Link to="/terms">Terms of Service</Link>
         </div>
-      </div>
+      </main>
       <Footer />
     </>
   );

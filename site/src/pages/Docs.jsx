@@ -17,7 +17,7 @@ export default function Docs() {
   return (
     <div className="page">
       <Nav />
-      <div className="docs-layout">
+      <main id="main-content" className="docs-layout">
         <aside className="docs-sidebar">
           <div className="docs-sidebar-inner">
             {docSections.map(section => (
@@ -43,14 +43,14 @@ export default function Docs() {
             ))}
           </div>
         </aside>
-        <main className="docs-content">
+        <div className="docs-content">
           {doc && (
             <article className="docs-article">
               <ReactMarkdown>{doc.body}</ReactMarkdown>
             </article>
           )}
-        </main>
-      </div>
+        </div>
+      </main>
       <Footer />
     </div>
   );

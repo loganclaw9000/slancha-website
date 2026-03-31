@@ -147,7 +147,7 @@ export default function Security() {
   return (
     <div className="page">
       <Nav />
-      <main className="security-page">
+      <main id="main-content" className="security-page">
         {/* Hero */}
         <section className="security-hero">
           <ShieldIcon />

@@ -365,7 +365,7 @@ export default function Glossary() {
     <div className="page">
       <GlossaryJsonLd />
       <Nav />
-      <main className="glossary-page">
+      <main id="main-content" className="glossary-page">
         <div className="glossary-header">
           <h1>AI Inference Glossary</h1>
           <p>

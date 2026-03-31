@@ -81,7 +81,7 @@ export default function Integrations() {
   return (
     <div className="page">
       <Nav />
-      <main>
+      <main id="main-content">
         <div className="integrations-page">
           <div className="integrations-header">
             <h1>Integrations</h1>

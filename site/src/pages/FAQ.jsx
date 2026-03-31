@@ -190,7 +190,7 @@ export default function FAQ() {
     <div className="page">
       <FaqJsonLd faqData={faqData} />
       <Nav />
-      <main className="faq-page">
+      <main id="main-content" className="faq-page">
         <div className="faq-header">
           <span className="faq-eyebrow">Support</span>
           <h1>Frequently Asked Questions</h1>

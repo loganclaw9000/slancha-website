@@ -939,7 +939,7 @@ export default function ApiReference() {
   return (
     <div className="api-ref">
       <Nav />
-      <div className="api-ref-layout">
+      <main id="main-content" className="api-ref-layout">
         <aside className="api-sidebar">
           <div className="api-sidebar-header">
             <h3>API Reference</h3>
@@ -992,7 +992,7 @@ export default function ApiReference() {
           </div>
         </aside>
 
-        <main className="api-content" ref={contentRef}>
+        <div className="api-content" ref={contentRef}>
           <div className="api-hero">
             <h1>REST API Reference</h1>
             <p>
@@ -1104,8 +1104,8 @@ response = client.chat.completions.create(
 print(response.choices[0].message.content)`}</code></pre>
             </div>
           </section>
-        </main>
-      </div>
+        </div>
+      </main>
       <Footer />
     </div>
   );

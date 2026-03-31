@@ -11,7 +11,7 @@ export default function Pricing() {
   return (
     <div className="page">
       <Nav />
-      <main className="pricing-page">
+      <main id="main-content" className="pricing-page">
         <section className="pricing-hero">
           <h1 className="pricing-title">
             Plans built for <span className="gradient-text">AI engineering teams</span>

@@ -589,7 +589,7 @@ export default function SdkReference() {
   return (
     <>
       <Nav />
-      <main className="sdk-ref">
+      <main id="main-content" className="sdk-ref">
         <div className="sdk-ref-layout">
           {/* Sidebar navigation */}
           <aside className="sdk-sidebar">

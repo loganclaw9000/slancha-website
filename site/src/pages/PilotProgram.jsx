@@ -142,7 +142,7 @@ export default function PilotProgram() {
   return (
     <>
       <Nav />
-      <main className="pilot-page">
+      <main id="main-content" className="pilot-page">
         {/* Hero */}
         <section className="pilot-hero">
           <span className="eyebrow">Pilot Program</span>

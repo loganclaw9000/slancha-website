@@ -218,7 +218,7 @@ export default function VerticalLanding() {
   return (
     <>
       <Nav />
-      <main className="vertical-page">
+      <main id="main-content" className="vertical-page">
         {/* Hero */}
         <section className="vertical-hero">
           <span className="vertical-badge">{data.name}</span>

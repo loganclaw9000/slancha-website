@@ -102,7 +102,7 @@ export default function RoiCalculator() {
   return (
     <div className="page">
       <Nav />
-      <main className="roi-page">
+      <main id="main-content" className="roi-page">
         <section className="roi-hero">
           <h1 className="roi-title">
             Calculate your <span className="gradient-text">AI cost savings</span>

@@ -84,7 +84,7 @@ export default function UseCases() {
   return (
     <div className="page">
       <Nav />
-      <main>
+      <main id="main-content">
         <div className="usecases-page">
           <div className="usecases-header">
             <h1>Use Cases</h1>

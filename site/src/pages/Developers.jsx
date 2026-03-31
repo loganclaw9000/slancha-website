@@ -170,7 +170,7 @@ export default function Developers() {
   return (
     <div className="page">
       <Nav />
-      <main className="developers-page">
+      <main id="main-content" className="developers-page">
         {/* Hero */}
         <section className="dev-hero">
           <span className="dev-eyebrow">Developer Portal</span>

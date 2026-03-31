@@ -201,7 +201,6 @@ export default function CaseStudies() {
 
   return (
     <div className="page">
-      <a href="#main-content" className="skip-link">Skip to main content</a>
       <Nav />
       <main id="main-content" className="casestudies-page">
         <div className="casestudies-header">

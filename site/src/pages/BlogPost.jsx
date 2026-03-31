@@ -287,7 +287,7 @@ export default function BlogPost() {
     <div className="page">
       <ArticleJsonLd post={post} />
       <Nav />
-      <main className={`blog-post-page${hasToc ? ' blog-post-page--toc' : ''}`}>
+      <main id="main-content" className={`blog-post-page${hasToc ? ' blog-post-page--toc' : ''}`}>
         <div className="blog-post-layout">
           <article className="blog-post">
             <div className="blog-post-header">

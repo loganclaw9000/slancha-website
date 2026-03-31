@@ -108,6 +108,7 @@ export default function Architecture() {
   return (
     <div className="arch-page">
       <Nav />
+      <main id="main-content">
 
       {/* Hero */}
       <section className="arch-hero">
@@ -262,6 +263,7 @@ export default function Architecture() {
         </div>
       </section>
 
+      </main>
       <Footer />
     </div>
   );

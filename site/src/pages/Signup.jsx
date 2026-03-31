@@ -53,7 +53,7 @@ export default function Signup() {
   return (
     <div className="page">
       <Nav backLink />
-      <main className="auth-page">
+      <main id="main-content" className="auth-page">
         <div className="auth-card">
           <h1 className="auth-title">Create your account</h1>
           <p className="auth-subtitle">Get free access to the Slancha router</p>
