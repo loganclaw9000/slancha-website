@@ -2,6 +2,7 @@ import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
+import ErrorBoundary from './components/ErrorBoundary';
 import Home from './pages/Home';
 
 // Lazy load all non-landing pages for smaller initial bundle
@@ -71,6 +72,7 @@ function Loading() {
 const App = () => (
   <AuthProvider>
     <Router>
+      <ErrorBoundary>
       <Suspense fallback={<Loading />}>
         <Routes>
           {/* Public marketing */}
@@ -144,6 +146,7 @@ const App = () => (
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
+      </ErrorBoundary>
     </Router>
   </AuthProvider>
 );
