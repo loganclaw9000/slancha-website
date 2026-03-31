@@ -18,7 +18,6 @@ export default function Footer() {
             <Link to="/docs" className="footer-link">Docs</Link>
             <Link to="/blog" className="footer-link">Blog</Link>
             <Link to="/changelog" className="footer-link">Changelog</Link>
-            <Link to="/enterprise" className="footer-link">Enterprise</Link>
           </div>
           <div className="footer-col">
             <h4 className="footer-col-title">Company</h4>

@@ -50,7 +50,6 @@ export default function Nav({ backLink = false }) {
             <Link to="/case-studies" className="nav-link">Case Studies</Link>
             <Link to="/integrations" className="nav-link">Integrations</Link>
             <Link to="/playground" className="nav-link">Playground</Link>
-            <Link to="/enterprise" className="nav-link">Enterprise</Link>
             <Link to="/docs" className="nav-link">Docs</Link>
             <Link to="/blog" className="nav-link">Blog</Link>
             {user ? (
@@ -76,7 +75,6 @@ export default function Nav({ backLink = false }) {
           <Link to="/case-studies" className="nav-overlay-link" onClick={closeMenu}>Case Studies</Link>
           <Link to="/integrations" className="nav-overlay-link" onClick={closeMenu}>Integrations</Link>
           <Link to="/playground" className="nav-overlay-link" onClick={closeMenu}>Playground</Link>
-          <Link to="/enterprise" className="nav-overlay-link" onClick={closeMenu}>Enterprise</Link>
           <Link to="/docs" className="nav-overlay-link" onClick={closeMenu}>Docs</Link>
           <Link to="/blog" className="nav-overlay-link" onClick={closeMenu}>Blog</Link>
           {user ? (
