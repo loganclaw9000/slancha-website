@@ -670,12 +670,338 @@ The router considers:
 
 You can lock specific models by setting them in your [Router Configuration](/docs/router).`,
   },
+  {
+    slug: 'post-training',
+    title: 'Post-Training Guide',
+    section: 'Post-Train',
+    order: 8,
+    body: `# Post-Training Guide
+
+Post-training is what makes Slancha different. Instead of treating model evaluation and model improvement as separate workflows, Slancha connects them: eval failures become training data, fine-tuned models get re-evaluated, and the cycle repeats automatically.
+
+## How It Works
+
+1. You run an [evaluation](/docs/evaluations) against your production model
+2. Slancha identifies the test cases where the model scored below your threshold
+3. Those failures become training candidates
+4. You review and approve the training set, then kick off a fine-tuning job
+5. The fine-tuned model gets evaluated against the same test suite
+6. If it passes, it's promoted to production via [canary rollout](/docs/deployments)
+
+## Extracting Training Data from Evals
+
+Every eval run generates a set of failures. These are the examples your model got wrong and the most valuable data for improvement.
+
+\`\`\`python
+from slancha import Slancha
+
+client = Slancha()
+
+# Get failures from a completed eval
+failures = client.evals.get_failures(
+    eval_id="eval_abc123",
+    threshold=0.7  # examples scoring below 70%
+)
+
+print(f"Found {len(failures)} improvement candidates")
+
+# Review individual failures
+for f in failures[:5]:
+    print(f"Input: {f.input[0]['content'][:80]}...")
+    print(f"Expected: {f.expected[:80]}...")
+    print(f"Got: {f.model_output[:80]}...")
+    print(f"Score: {f.score:.2f}")
+    print("---")
+\`\`\`
+
+### Filtering Training Candidates
+
+Not all failures make good training data. Filter by tags, score ranges, or failure patterns:
+
+\`\`\`python
+# Only failures on specific task types
+code_failures = client.evals.get_failures(
+    eval_id="eval_abc123",
+    threshold=0.7,
+    tags=["coding", "debugging"]
+)
+
+# Only near-misses (model was close but not quite right)
+near_misses = client.evals.get_failures(
+    eval_id="eval_abc123",
+    threshold=0.7,
+    min_score=0.4  # between 40-70%
+)
+\`\`\`
+
+## Creating a Fine-Tuning Job
+
+\`\`\`python
+finetune = client.training.create(
+    name="support-bot-v2",
+    base_model="llama-3.1-70b",
+    training_data=failures.to_training_format(),
+    config={
+        "epochs": 3,
+        "learning_rate": 2e-5,
+        "lora_rank": 16,       # LoRA for efficient fine-tuning
+        "lora_alpha": 32
+    },
+    eval_id="eval_abc123"  # link to the eval that generated this data
+)
+
+print(f"Job ID: {finetune.id}")
+print(f"Status: {finetune.status}")
+print(f"Estimated time: {finetune.estimated_minutes}min")
+\`\`\`
+
+### Monitoring Training Progress
+
+\`\`\`python
+job = client.training.get(finetune.id)
+print(f"Status: {job.status}")  # queued > running > completed
+print(f"Progress: {job.progress_percent}%")
+
+if job.status == "completed":
+    print(f"Final loss: {job.metrics.final_loss:.4f}")
+    print(f"Training tokens: {job.metrics.total_tokens:,}")
+    print(f"Model ID: {job.output_model}")
+\`\`\`
+
+## Verification Eval
+
+Never deploy a fine-tuned model without verifying it:
+
+\`\`\`python
+verification = client.evals.create(
+    name="support-bot-v2-verification",
+    models=[job.output_model, "llama-3.1-70b"],  # fine-tuned vs base
+    test_cases=original_test_cases,
+    scorers=["semantic_match", "trait_check", "latency", "cost"],
+    baseline_eval="eval_abc123"
+)
+
+results = client.evals.get(verification.id)
+
+for model in results.models:
+    print(f"{model.model}:")
+    print(f"  Accuracy: {model.accuracy:.1%}")
+    print(f"  vs baseline: {model.accuracy_delta:+.1%}")
+\`\`\`
+
+Example output:
+
+\`\`\`
+support-bot-v2-ft:
+  Accuracy: 89.3%
+  vs baseline: +16.0%
+llama-3.1-70b:
+  Accuracy: 73.3%
+  vs baseline: +0.0%
+\`\`\`
+
+## Auto-Promote Pipeline
+
+Set up automated fine-tuning that triggers when model quality drops:
+
+\`\`\`python
+pipeline = client.training.create_pipeline(
+    name="support-bot-continuous",
+    trigger={
+        "type": "eval_threshold",
+        "eval_schedule": "daily-regression",
+        "threshold": 0.85
+    },
+    training_config={
+        "base_model": "llama-3.1-70b",
+        "epochs": 3,
+        "lora_rank": 16
+    },
+    verification={
+        "test_suite": "ts_abc123",
+        "min_accuracy": 0.88,
+        "min_improvement": 0.05
+    },
+    promotion={
+        "deployment": "support-bot-prod",
+        "strategy": "canary",
+        "canary_percent": 10,
+        "canary_duration_hours": 24
+    }
+)
+\`\`\`
+
+This pipeline watches scheduled evals, automatically fine-tunes when accuracy drops, verifies the result, and deploys via canary rollout.
+
+## Training Data Management
+
+### Augmenting with Production Data
+
+Combine eval failures with flagged production examples:
+
+\`\`\`python
+flagged = client.production.get_flagged(
+    deployment="support-bot-prod",
+    period="7d"
+)
+
+combined = failures.to_training_format() + flagged.to_training_format()
+
+finetune = client.training.create(
+    name="support-bot-v3",
+    base_model="llama-3.1-70b",
+    training_data=combined,
+    eval_id="eval_abc123"
+)
+\`\`\`
+
+### Data Quality Checks
+
+Slancha validates training data before starting a job:
+
+\`\`\`python
+quality = client.training.validate(training_data=combined)
+print(f"Total examples: {quality.total}")
+print(f"Duplicates removed: {quality.duplicates}")
+print(f"Invalid removed: {quality.invalid}")
+print(f"Contradictions flagged: {quality.contradictions}")
+print(f"Clean examples: {quality.clean}")
+\`\`\`
+
+## Best Practices
+
+1. **Start with eval-driven training.** Use eval failures to target exactly where the model is weak.
+2. **Always run verification evals.** Fine-tuning can improve target tasks while regressing on others.
+3. **Use LoRA for iteration speed.** Full fine-tuning is expensive and slow. LoRA lets you iterate in hours instead of days.
+4. **Keep training sets under 10K examples.** Curated, high-quality examples from real failures beat large noisy datasets.
+5. **Version everything.** Slancha links evals to training jobs to deployments. Use this chain to understand why any model is in production.`,
+  },
+  {
+    slug: 'sdks',
+    title: 'SDKs & Libraries',
+    section: 'API',
+    order: 9,
+    body: `# SDKs & Libraries
+
+Slancha provides official SDKs for Python and JavaScript/TypeScript, plus full OpenAI SDK compatibility.
+
+## Python SDK
+
+\`\`\`bash
+pip install slancha
+\`\`\`
+
+\`\`\`python
+from slancha import Slancha
+
+client = Slancha()  # reads SLANCHA_API_KEY from env
+
+# Chat completions (OpenAI-compatible)
+response = client.chat.completions.create(
+    model="auto",
+    messages=[{"role": "user", "content": "Hello!"}]
+)
+
+# Evaluations
+eval_run = client.evals.create(
+    name="my-eval",
+    models=["gpt-4o", "llama-3.1-70b"],
+    test_cases=[...],
+    scorers=["exact_match", "latency"]
+)
+
+# Deployments
+deployment = client.deployments.create(
+    name="my-app-prod",
+    routing_config={"primary_model": "gpt-4o"}
+)
+
+# Training
+finetune = client.training.create(
+    name="my-model-v2",
+    base_model="llama-3.1-70b",
+    training_data=[...]
+)
+\`\`\`
+
+## JavaScript/TypeScript SDK
+
+\`\`\`bash
+npm install @slancha/sdk
+\`\`\`
+
+\`\`\`typescript
+import { Slancha } from '@slancha/sdk';
+
+const client = new Slancha(); // reads SLANCHA_API_KEY from env
+
+// Chat completions
+const response = await client.chat.completions.create({
+  model: 'auto',
+  messages: [{ role: 'user', content: 'Hello!' }],
+});
+
+// Streaming
+const stream = await client.chat.completions.create({
+  model: 'auto',
+  messages: [{ role: 'user', content: 'Write a poem.' }],
+  stream: true,
+});
+
+for await (const chunk of stream) {
+  process.stdout.write(chunk.choices[0]?.delta?.content || '');
+}
+\`\`\`
+
+## OpenAI SDK Compatibility
+
+Already using the OpenAI SDK? Point it at Slancha with one line:
+
+\`\`\`python
+import openai
+
+client = openai.OpenAI(
+    base_url="https://api.slancha.ai/v1",
+    api_key="sk-sl_your_key_here"
+)
+
+# Everything else works exactly the same
+response = client.chat.completions.create(
+    model="auto",
+    messages=[{"role": "user", "content": "Hello!"}]
+)
+\`\`\`
+
+\`\`\`typescript
+import OpenAI from 'openai';
+
+const client = new OpenAI({
+  baseURL: 'https://api.slancha.ai/v1',
+  apiKey: 'sk-sl_your_key_here',
+});
+\`\`\`
+
+## cURL
+
+No SDK needed:
+
+\`\`\`bash
+curl https://api.slancha.ai/v1/chat/completions \\
+  -H "Authorization: Bearer $SLANCHA_API_KEY" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "model": "auto",
+    "messages": [{"role": "user", "content": "Hello!"}]
+  }'
+\`\`\``,
+  },
 ];
 
 export const docSections = [
   { name: 'Introduction', slugs: ['getting-started', 'quickstart'] },
   { name: 'Evaluate', slugs: ['evaluations'] },
   { name: 'Deploy', slugs: ['deployments'] },
+  { name: 'Post-Train', slugs: ['post-training'] },
   { name: 'Router', slugs: ['router'] },
-  { name: 'API', slugs: ['api-reference', 'models'] },
+  { name: 'API', slugs: ['api-reference', 'models', 'sdks'] },
 ];
