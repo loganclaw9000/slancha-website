@@ -1,0 +1,485 @@
+.bench-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 120px 24px 80px;
+}
+
+.bench-hero {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.bench-eyebrow {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--primary);
+  margin-bottom: 16px;
+}
+
+.bench-title {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: 20px;
+  color: var(--text-primary);
+}
+
+.bench-subtitle {
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  max-width: 680px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Stats Grid */
+.bench-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.bench-stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px 24px;
+  text-align: center;
+}
+
+.bench-stat-value {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.bench-stat-unit {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-left: 4px;
+  opacity: 0.7;
+}
+
+.bench-stat-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.bench-stat-note {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* Sections */
+.bench-section {
+  margin-bottom: 64px;
+}
+
+.bench-section-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+
+.bench-section-desc {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  max-width: 720px;
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+/* Latency Table */
+.bench-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.bench-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.bench-table thead {
+  background: var(--surface);
+}
+
+.bench-table th {
+  padding: 14px 20px;
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid var(--border);
+}
+
+.bench-table td {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.bench-table tr:last-child td {
+  border-bottom: none;
+}
+
+.bench-cell-label {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.bench-cell-metric {
+  font-family: 'Source Code Pro', monospace;
+  font-weight: 500;
+  color: var(--primary);
+}
+
+.bench-cell-note {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+.bench-note-col {
+  min-width: 240px;
+}
+
+/* Quality Cards */
+.bench-quality-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 24px;
+}
+
+.bench-quality-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.bench-quality-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.bench-quality-header h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.bench-cost-badge {
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: rgba(16, 185, 129, 0.12);
+  color: #10b981;
+}
+
+.bench-quality-metric {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+
+.bench-quality-model {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  margin-top: 12px;
+  font-family: 'Source Code Pro', monospace;
+}
+
+/* Bar Chart */
+.bench-bar-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.bench-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.bench-bar-label {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  width: 70px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.bench-bar-track {
+  flex: 1;
+  height: 28px;
+  background: var(--bg);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.bench-bar {
+  height: 100%;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 10px;
+  transition: width 0.6s ease;
+  min-width: 50px;
+}
+
+.bench-bar-baseline {
+  background: rgba(148, 163, 184, 0.25);
+}
+
+.bench-bar-optimized {
+  background: linear-gradient(90deg, var(--primary), var(--primary-light));
+}
+
+.bench-bar-value {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-family: 'Source Code Pro', monospace;
+}
+
+/* Workload Tabs */
+.bench-workload-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.bench-workload-tab {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.bench-workload-tab:hover {
+  border-color: var(--primary);
+  color: var(--text-primary);
+}
+
+.bench-workload-tab.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+/* Workload Detail */
+.bench-workload-detail {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 32px;
+}
+
+.bench-workload-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.bench-workload-header h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.bench-volume-badge {
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: rgba(99, 102, 241, 0.12);
+  color: var(--primary);
+}
+
+.bench-cost-comparison {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.bench-cost-box {
+  flex: 1;
+  max-width: 280px;
+  padding: 24px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.bench-cost-direct {
+  background: rgba(148, 163, 184, 0.08);
+  border: 1px solid var(--border);
+}
+
+.bench-cost-slancha {
+  background: rgba(16, 185, 129, 0.06);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.bench-cost-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.bench-cost-amount {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  font-family: 'Source Code Pro', monospace;
+}
+
+.bench-cost-savings {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.12);
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.bench-cost-arrow {
+  color: var(--text-secondary);
+  flex-shrink: 0;
+}
+
+.bench-workload-routing {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  text-align: center;
+}
+
+/* Methodology */
+.bench-methodology {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 40px;
+}
+
+.bench-methodology-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+}
+
+.bench-methodology-item h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.bench-methodology-item p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* CTA */
+.bench-cta-section {
+  text-align: center;
+  padding: 64px 0;
+}
+
+.bench-cta-section h2 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+
+.bench-cta-section p {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  margin-bottom: 28px;
+}
+
+.bench-cta-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .bench-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .bench-methodology-grid {
+    grid-template-columns: 1fr;
+  }
+  .bench-quality-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .bench-page {
+    padding: 100px 16px 60px;
+  }
+  .bench-stats-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .bench-stat-value {
+    font-size: 1.8rem;
+  }
+  .bench-cost-comparison {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .bench-cost-arrow {
+    transform: rotate(90deg);
+  }
+  .bench-cost-box {
+    max-width: 100%;
+    width: 100%;
+  }
+  .bench-workload-detail {
+    padding: 20px;
+  }
+  .bench-methodology {
+    padding: 24px;
+  }
+  .bench-note-col {
+    display: none;
+  }
+}
