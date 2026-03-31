@@ -1,0 +1,372 @@
+{
+  "version": "https://jsonfeed.org/version/1.1",
+  "title": "Slancha Blog",
+  "home_page_url": "https://slancha.ai/blog",
+  "feed_url": "https://slancha.ai/feed.json",
+  "description": "Technical deep dives, tutorials, and insights on AI engineering: model evaluation, deployment strategies, fine-tuning pipelines, and the eval-deploy-train loop.",
+  "icon": "https://slancha.ai/favicon.svg",
+  "language": "en-US",
+  "items": [
+    {
+      "id": "https://slancha.ai/blog/reduce-llm-inference-latency",
+      "url": "https://slancha.ai/blog/reduce-llm-inference-latency",
+      "title": "How to Cut LLM Inference Latency in Half: 8 Production Techniques",
+      "summary": "High latency kills AI products. Here are 8 battle-tested techniques to slash LLM inference latency in production — from speculative decoding to intelligent routing — with code examples, benchmark data, and architecture patterns.",
+      "date_published": "2026-03-31T00:00:00.000Z",
+      "authors": [
+        {
+          "name": "Slancha Engineering"
+        }
+      ],
+      "tags": [
+        "latency",
+        "inference",
+        "optimization",
+        "production",
+        "performance"
+      ]
+    },
+    {
+      "id": "https://slancha.ai/blog/build-vs-buy-ai-gateway",
+      "url": "https://slancha.ai/blog/build-vs-buy-ai-gateway",
+      "title": "Build vs Buy: The AI Gateway Decision Framework for Engineering Teams",
+      "summary": "Your team needs an AI gateway. Should you build one in-house or use a managed platform? We break down the true cost, timeline, and complexity of both paths — with real code, architecture decisions, and a decision matrix.",
+      "date_published": "2026-03-31T00:00:00.000Z",
+      "authors": [
+        {
+          "name": "Slancha Engineering"
+        }
+      ],
+      "tags": [
+        "ai-gateway",
+        "build-vs-buy",
+        "architecture",
+        "engineering",
+        "decision-framework"
+      ]
+    },
+    {
+      "id": "https://slancha.ai/blog/ai-inference-optimization-qat-mig-multi-token",
+      "url": "https://slancha.ai/blog/ai-inference-optimization-qat-mig-multi-token",
+      "title": "AI Inference Optimization: Complete Guide to QAT, MIG, and Multi-Token Prediction",
+      "summary": "Three techniques are reshaping how production AI inference runs: Quantization-Aware Training, Multi-Instance GPU, and Multi-Token Prediction. Here's how each works, when to use them, and how they compound to cut inference costs by 60-75%.",
+      "date_published": "2026-03-31T00:00:00.000Z",
+      "authors": [
+        {
+          "name": "Slancha Engineering"
+        }
+      ],
+      "tags": [
+        "optimization",
+        "QAT",
+        "MIG",
+        "multi-token-prediction",
+        "inference",
+        "technical"
+      ]
+    },
+    {
+      "id": "https://slancha.ai/blog/zero-config-ai-inference",
+      "url": "https://slancha.ai/blog/zero-config-ai-inference",
+      "title": "Zero-Config AI Inference: Why the Black Box Wins",
+      "summary": "Every AI infrastructure platform gives you more knobs. Slancha took them away. Here's why the black box approach to AI inference consistently outperforms teams with \"full control\" — and what the data says about how engineering teams actually manage model selection.",
+      "date_published": "2026-03-31T00:00:00.000Z",
+      "authors": [
+        {
+          "name": "Paul Logan"
+        }
+      ],
+      "tags": [
+        "strategy",
+        "black-box",
+        "inference",
+        "positioning"
+      ]
+    },
+    {
+      "id": "https://slancha.ai/blog/introducing-slancha",
+      "url": "https://slancha.ai/blog/introducing-slancha",
+      "title": "Introducing Slancha: The AI Inference Platform That Gets Better While You Sleep",
+      "summary": "Today we're opening early access to Slancha — an end-to-end AI inference platform that routes, fine-tunes, and optimizes your LLM workloads behind a single API endpoint. No model selection, no benchmarking, no ML team required.",
+      "date_published": "2026-03-31T00:00:00.000Z",
+      "authors": [
+        {
+          "name": "Paul Logan"
+        }
+      ],
+      "tags": [
+        "launch",
+        "announcement",
+        "platform"
+      ]
+    },
+    {
+      "id": "https://slancha.ai/blog/the-case-for-black-box-ai-inference",
+      "url": "https://slancha.ai/blog/the-case-for-black-box-ai-inference",
+      "title": "The Case for Black Box AI Inference: Why Your Team Should Stop Picking Models",
+      "summary": "Every AI platform promises transparency and control. Slancha bets on the opposite: a black box that handles everything. Here's why that's the right call for 90% of teams using LLM APIs.",
+      "date_published": "2026-03-31T00:00:00.000Z",
+      "authors": [
+        {
+          "name": "Slancha Team"
+        }
+      ],
+      "tags": [
+        "philosophy",
+        "inference",
+        "platform",
+        "strategy"
+      ]
+    },
+    {
+      "id": "https://slancha.ai/blog/slancha-vs-databricks-ai-infrastructure-comparison",
+      "url": "https://slancha.ai/blog/slancha-vs-databricks-ai-infrastructure-comparison",
+      "title": "Slancha vs. Databricks: The AI Infrastructure Showdown",
+      "summary": "Databricks gives you the tools. Slancha does the work. A detailed comparison of two fundamentally different approaches to AI infrastructure — full control vs. automatic results.",
+      "date_published": "2026-03-31T00:00:00.000Z",
+      "authors": [
+        {
+          "name": "Slancha Team"
+        }
+      ],
+      "tags": [
+        "comparison",
+        "infrastructure",
+        "enterprise"
+      ]
+    },
+    {
+      "id": "https://slancha.ai/blog/from-prototype-to-production-ai-deployment-checklist",
+      "url": "https://slancha.ai/blog/from-prototype-to-production-ai-deployment-checklist",
+      "title": "From Prototype to Production: The AI Deployment Checklist",
+      "summary": "Most AI projects that \"work\" in prototype never make it to production. This checklist covers what actually breaks and how to fix it — routing, data curation, quantization, GPU efficiency, and more.",
+      "date_published": "2026-03-30T00:00:00.000Z",
+      "authors": [
+        {
+          "name": "Slancha Team"
+        }
+      ],
+      "tags": [
+        "production",
+        "deployment",
+        "checklist",
+        "engineering"
+      ]
+    },
+    {
+      "id": "https://slancha.ai/blog/building-a-production-ai-router-architecture-patterns",
+      "url": "https://slancha.ai/blog/building-a-production-ai-router-architecture-patterns",
+      "title": "Building a Production AI Router: Architecture Patterns That Scale",
+      "summary": "Routing requests to the right model is the easy part. The hard part is doing it at scale with sub-millisecond overhead, graceful degradation, and zero downtime deploys. Here are the architecture patterns that make it work.",
+      "date_published": "2026-03-31T00:00:00.000Z",
+      "authors": [
+        {
+          "name": "Slancha Team"
+        }
+      ],
+      "tags": [
+        "router",
+        "architecture",
+        "infrastructure",
+        "engineering"
+      ]
+    },
+    {
+      "id": "https://slancha.ai/blog/the-complete-guide-to-ai-model-routing",
+      "url": "https://slancha.ai/blog/the-complete-guide-to-ai-model-routing",
+      "title": "The Complete Guide to AI Model Routing: Strategies, Architecture, and Cost Optimization",
+      "summary": "Not every request needs GPT-4. Learn how intelligent model routing cuts inference costs 40-70% while maintaining quality — with architecture patterns, routing strategies, and real benchmarks.",
+      "date_published": "2026-03-31T00:00:00.000Z",
+      "authors": [
+        {
+          "name": "Slancha Team"
+        }
+      ],
+      "tags": [
+        "router",
+        "architecture",
+        "cost-optimization",
+        "tutorial"
+      ]
+    },
+    {
+      "id": "https://slancha.ai/blog/how-eval-data-should-drive-fine-tuning-technical-deep-dive",
+      "url": "https://slancha.ai/blog/how-eval-data-should-drive-fine-tuning-technical-deep-dive",
+      "title": "How Eval Data Should Drive Fine-Tuning: A Technical Deep Dive",
+      "summary": "A hands-on guide to building a closed-loop pipeline where evaluation failures automatically become training examples — with code, architecture patterns, and real metrics.",
+      "date_published": "2026-03-30T00:00:00.000Z",
+      "authors": [
+        {
+          "name": "Slancha Team"
+        }
+      ],
+      "tags": [
+        "post-training",
+        "fine-tuning",
+        "engineering",
+        "tutorial"
+      ]
+    },
+    {
+      "id": "https://slancha.ai/blog/5-signs-your-ml-team-needs-an-evaluation-platform",
+      "url": "https://slancha.ai/blog/5-signs-your-ml-team-needs-an-evaluation-platform",
+      "title": "5 Signs Your ML Team Needs an Evaluation Platform",
+      "summary": "Spreadsheets, vibes-based deployment, and \"it works on my laptop\" are not an eval strategy. Here's how to know you've outgrown ad-hoc testing.",
+      "date_published": "2026-03-30T00:00:00.000Z",
+      "authors": [
+        {
+          "name": "Slancha Team"
+        }
+      ],
+      "tags": [
+        "evaluation",
+        "best-practices",
+        "team"
+      ]
+    },
+    {
+      "id": "https://slancha.ai/blog/why-eval-data-should-drive-fine-tuning",
+      "url": "https://slancha.ai/blog/why-eval-data-should-drive-fine-tuning",
+      "title": "Why Eval Data Should Drive Fine-Tuning",
+      "summary": "Most teams treat evaluation and fine-tuning as separate workflows. That disconnect is costing you model quality and engineering hours.",
+      "date_published": "2026-03-29T00:00:00.000Z",
+      "authors": [
+        {
+          "name": "Slancha Team"
+        }
+      ],
+      "tags": [
+        "post-training",
+        "evaluation",
+        "fine-tuning"
+      ]
+    },
+    {
+      "id": "https://slancha.ai/blog/the-real-cost-of-stitching-ai-tools-together",
+      "url": "https://slancha.ai/blog/the-real-cost-of-stitching-ai-tools-together",
+      "title": "The Real Cost of Stitching AI Tools Together",
+      "summary": "You're paying for 4-6 tools that don't talk to each other. The integration tax is higher than you think.",
+      "date_published": "2026-03-28T00:00:00.000Z",
+      "authors": [
+        {
+          "name": "Slancha Team"
+        }
+      ],
+      "tags": [
+        "platform",
+        "infrastructure",
+        "cost"
+      ]
+    },
+    {
+      "id": "https://slancha.ai/blog/introducing-the-slancha-router",
+      "url": "https://slancha.ai/blog/introducing-the-slancha-router",
+      "title": "Introducing the Slancha Router: Free Intelligent Model Routing",
+      "summary": "Route requests to the best model for the job — automatically. Free to use, no lock-in.",
+      "date_published": "2026-03-27T00:00:00.000Z",
+      "authors": [
+        {
+          "name": "Slancha Team"
+        }
+      ],
+      "tags": [
+        "router",
+        "product",
+        "launch"
+      ]
+    },
+    {
+      "id": "https://slancha.ai/blog/slancha-vs-openrouter-beyond-the-model-marketplace",
+      "url": "https://slancha.ai/blog/slancha-vs-openrouter-beyond-the-model-marketplace",
+      "title": "Slancha vs OpenRouter: Beyond the Model Marketplace",
+      "summary": "OpenRouter gives you access to every model through one API. Slancha gives you one API that makes model selection irrelevant. A detailed comparison of two fundamentally different approaches to multi-model AI.",
+      "date_published": "2026-03-31T00:00:00.000Z",
+      "authors": [
+        {
+          "name": "Slancha Team"
+        }
+      ],
+      "tags": [
+        "comparison",
+        "routing",
+        "inference",
+        "openrouter"
+      ]
+    },
+    {
+      "id": "https://slancha.ai/blog/how-to-reduce-llm-api-costs",
+      "url": "https://slancha.ai/blog/how-to-reduce-llm-api-costs",
+      "title": "How to Reduce Your LLM API Costs by 60% Without Sacrificing Quality",
+      "summary": "LLM API bills are growing faster than usage. Here are five proven techniques — from intelligent routing to automated fine-tuning — that cut costs dramatically while maintaining or improving output quality.",
+      "date_published": "2026-03-31T00:00:00.000Z",
+      "authors": [
+        {
+          "name": "Slancha Team"
+        }
+      ],
+      "tags": [
+        "cost-optimization",
+        "inference",
+        "routing",
+        "fine-tuning",
+        "guide"
+      ]
+    },
+    {
+      "id": "https://slancha.ai/blog/the-multi-model-future",
+      "url": "https://slancha.ai/blog/the-multi-model-future",
+      "title": "The Multi-Model Future: Why One LLM Won't Rule Them All",
+      "summary": "The era of picking one model and routing everything through it is ending. MoE architectures, task-specific fine-tuning, and intelligent routing are converging on a multi-model future. Here's what that means for your AI stack.",
+      "date_published": "2026-03-31T00:00:00.000Z",
+      "authors": [
+        {
+          "name": "Slancha Team"
+        }
+      ],
+      "tags": [
+        "strategy",
+        "architecture",
+        "inference",
+        "MoE"
+      ]
+    },
+    {
+      "id": "https://slancha.ai/blog/fine-tuning-vs-rag-when-to-use-each",
+      "url": "https://slancha.ai/blog/fine-tuning-vs-rag-when-to-use-each",
+      "title": "Fine-Tuning vs RAG: When to Use Each (And How to Stop Choosing)",
+      "summary": "The fine-tuning vs RAG debate is one of the most common questions in production AI. Here's a practical decision framework based on real workloads — plus why the best systems use both, automatically.",
+      "date_published": "2026-03-31T00:00:00.000Z",
+      "authors": [
+        {
+          "name": "Slancha Engineering"
+        }
+      ],
+      "tags": [
+        "fine-tuning",
+        "RAG",
+        "architecture",
+        "tutorial"
+      ]
+    },
+    {
+      "id": "https://slancha.ai/blog/enterprise-ai-inference-buyers-guide-2026",
+      "url": "https://slancha.ai/blog/enterprise-ai-inference-buyers-guide-2026",
+      "title": "The Enterprise AI Inference Buyer's Guide 2026",
+      "summary": "A practical framework for evaluating AI inference vendors — covering latency architecture, cost transparency, security requirements, TCO calculations, and migration playbooks. No fluff, no vendor bias.",
+      "date_published": "2026-03-31T00:00:00.000Z",
+      "authors": [
+        {
+          "name": "Slancha Team"
+        }
+      ],
+      "tags": [
+        "enterprise",
+        "buyer-guide",
+        "comparison",
+        "TCO",
+        "security",
+        "migration"
+      ]
+    }
+  ]
+}
