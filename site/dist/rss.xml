@@ -5,7 +5,7 @@
     <link>https://slancha.ai/blog</link>
     <description>Technical deep dives, tutorials, and insights on AI engineering: model evaluation, deployment strategies, fine-tuning pipelines, and the eval-deploy-train loop.</description>
     <language>en-us</language>
-    <lastBuildDate>Tue, 31 Mar 2026 11:50:30 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 31 Mar 2026 11:59:44 GMT</lastBuildDate>
     <atom:link href="https://slancha.ai/rss.xml" rel="self" type="application/rss+xml" />
     <image>
       <url>https://slancha.ai/favicon.svg</url>
@@ -266,6 +266,21 @@
       <category>automation</category>
       <category>MLOps</category>
       <category>closed-loop</category>
+    </item>
+    <item>
+      <title>The Complete Guide to LoRA Fine-Tuning: From Data Preparation to Production Deployment</title>
+      <link>https://slancha.ai/blog/lora-fine-tuning-guide</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/lora-fine-tuning-guide</guid>
+      <description>LoRA has become the default fine-tuning method for production LLMs — but most teams get the implementation wrong. This guide covers adapter architecture, data preparation, hyperparameter tuning, evaluation, quantized variants (QLoRA), and deployment patterns with production benchmarks.</description>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate>
+      <author>team@slancha.ai (Slancha Engineering)</author>
+      <category>LoRA</category>
+      <category>fine-tuning</category>
+      <category>QLoRA</category>
+      <category>production</category>
+      <category>MLOps</category>
+      <category>training</category>
+      <category>adapters</category>
     </item>
   </channel>
 </rss>

@@ -387,6 +387,27 @@
         "MLOps",
         "closed-loop"
       ]
+    },
+    {
+      "id": "https://slancha.ai/blog/lora-fine-tuning-guide",
+      "url": "https://slancha.ai/blog/lora-fine-tuning-guide",
+      "title": "The Complete Guide to LoRA Fine-Tuning: From Data Preparation to Production Deployment",
+      "summary": "LoRA has become the default fine-tuning method for production LLMs — but most teams get the implementation wrong. This guide covers adapter architecture, data preparation, hyperparameter tuning, evaluation, quantized variants (QLoRA), and deployment patterns with production benchmarks.",
+      "date_published": "2026-03-31T00:00:00.000Z",
+      "authors": [
+        {
+          "name": "Slancha Engineering"
+        }
+      ],
+      "tags": [
+        "LoRA",
+        "fine-tuning",
+        "QLoRA",
+        "production",
+        "MLOps",
+        "training",
+        "adapters"
+      ]
     }
   ]
 }
