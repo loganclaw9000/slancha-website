@@ -530,7 +530,7 @@ For explicit control, you can still specify any model by name — the request by
     order: 6,
     body: `# API Reference
 
-The Slancha API is compatible with the OpenAI Chat Completions format. If you're already using the OpenAI SDK, switching is a one-line change.
+The Slancha API gives you programmatic access to the full eval → deploy → post-train lifecycle. The inference endpoints are OpenAI-compatible — if you're already using the OpenAI SDK, switching is a one-line change.
 
 ## Base URL
 
@@ -546,21 +546,29 @@ All requests require an API key passed via the \`Authorization\` header:
 Authorization: Bearer sk-sl_your_key_here
 \`\`\`
 
-## Endpoints
+---
+
+## Inference
 
 ### POST /chat/completions
 
-Create a chat completion.
+Create a chat completion. OpenAI-compatible format.
 
 **Request Body:**
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
-| model | string | Yes | Model name or \`"auto"\` for router |
+| model | string | Yes | Model name or \`"auto"\` for smart router |
 | messages | array | Yes | Array of message objects |
 | temperature | number | No | Sampling temperature (0-2). Default: 1 |
 | max_tokens | integer | No | Maximum tokens to generate |
-| stream | boolean | No | Stream response chunks. Default: false |
+| top_p | number | No | Nucleus sampling threshold. Default: 1 |
+| stream | boolean | No | Stream response via SSE. Default: false |
+| stop | string or array | No | Stop sequences |
+| presence_penalty | number | No | Penalize new tokens by presence (-2 to 2) |
+| frequency_penalty | number | No | Penalize new tokens by frequency (-2 to 2) |
+| tools | array | No | Function/tool definitions for tool use |
+| tool_choice | string or object | No | \`"auto"\`, \`"none"\`, or specific tool |
 
 **Example:**
 
@@ -603,29 +611,557 @@ curl https://api.slancha.ai/v1/chat/completions \\
 
 ### GET /models
 
-List available models.
+List all models available in your account, including deployed fine-tunes.
 
 \`\`\`bash
 curl https://api.slancha.ai/v1/models \\
   -H "Authorization: Bearer sk-sl_your_key_here"
 \`\`\`
 
+**Response:**
+
+\`\`\`json
+{
+  "object": "list",
+  "data": [
+    {
+      "id": "llama-3.1-70b",
+      "object": "model",
+      "owned_by": "slancha",
+      "capabilities": ["chat", "function_calling"],
+      "context_length": 131072
+    },
+    {
+      "id": "ft:llama-3.1-8b:my-org:custom-v2",
+      "object": "model",
+      "owned_by": "user",
+      "capabilities": ["chat"],
+      "context_length": 131072,
+      "fine_tune_id": "ft-abc123"
+    }
+  ]
+}
+\`\`\`
+
+---
+
+## Evaluations
+
+### POST /evaluations
+
+Create a new evaluation run against one or more models.
+
+**Request Body:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| name | string | Yes | Human-readable eval name |
+| dataset | string | Yes | Dataset ID or inline test cases |
+| models | array | Yes | Model IDs to evaluate |
+| metrics | array | Yes | Metric names: \`"accuracy"\`, \`"latency"\`, \`"cost"\`, \`"toxicity"\`, \`"coherence"\`, \`"relevance"\`, \`"faithfulness"\` |
+| judge | object | No | LLM-as-judge config. Default: GPT-4o |
+| split | string | No | \`"test"\`, \`"validation"\`, or \`"all"\`. Default: \`"test"\` |
+| concurrency | integer | No | Parallel requests per model. Default: 10 |
+
+**Example:**
+
+\`\`\`bash
+curl https://api.slancha.ai/v1/evaluations \\
+  -H "Authorization: Bearer sk-sl_your_key_here" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "name": "Customer support model comparison",
+    "dataset": "ds-support-v3",
+    "models": ["llama-3.1-70b", "ft:llama-3.1-8b:my-org:support-v2"],
+    "metrics": ["accuracy", "latency", "cost", "relevance"],
+    "judge": {
+      "model": "gpt-4o",
+      "rubric": "Rate the response for helpfulness and accuracy on a 1-5 scale."
+    }
+  }'
+\`\`\`
+
+**Response:**
+
+\`\`\`json
+{
+  "id": "eval-7f3k9x",
+  "object": "evaluation",
+  "status": "running",
+  "name": "Customer support model comparison",
+  "models": ["llama-3.1-70b", "ft:llama-3.1-8b:my-org:support-v2"],
+  "metrics": ["accuracy", "latency", "cost", "relevance"],
+  "created_at": "2026-03-30T12:00:00Z",
+  "progress": { "completed": 0, "total": 500 }
+}
+\`\`\`
+
+### GET /evaluations
+
+List all evaluation runs.
+
+\`\`\`bash
+curl https://api.slancha.ai/v1/evaluations?status=completed&limit=10 \\
+  -H "Authorization: Bearer sk-sl_your_key_here"
+\`\`\`
+
+| Query Param | Type | Description |
+|-------------|------|-------------|
+| status | string | Filter: \`"running"\`, \`"completed"\`, \`"failed"\` |
+| limit | integer | Max results (1-100). Default: 20 |
+| after | string | Cursor for pagination |
+
+### GET /evaluations/:id
+
+Get detailed results for an evaluation run.
+
+\`\`\`bash
+curl https://api.slancha.ai/v1/evaluations/eval-7f3k9x \\
+  -H "Authorization: Bearer sk-sl_your_key_here"
+\`\`\`
+
+**Response:**
+
+\`\`\`json
+{
+  "id": "eval-7f3k9x",
+  "object": "evaluation",
+  "status": "completed",
+  "name": "Customer support model comparison",
+  "results": {
+    "llama-3.1-70b": {
+      "accuracy": 0.87,
+      "latency_p50_ms": 320,
+      "latency_p99_ms": 890,
+      "cost_per_1k_tokens": 0.0009,
+      "relevance": 4.2
+    },
+    "ft:llama-3.1-8b:my-org:support-v2": {
+      "accuracy": 0.93,
+      "latency_p50_ms": 110,
+      "latency_p99_ms": 280,
+      "cost_per_1k_tokens": 0.0003,
+      "relevance": 4.6
+    }
+  },
+  "winner": "ft:llama-3.1-8b:my-org:support-v2",
+  "dataset_size": 500,
+  "completed_at": "2026-03-30T12:04:32Z"
+}
+\`\`\`
+
+### POST /evaluations/:id/promote
+
+Promote the winning model from an eval directly to a deployment.
+
+\`\`\`bash
+curl -X POST https://api.slancha.ai/v1/evaluations/eval-7f3k9x/promote \\
+  -H "Authorization: Bearer sk-sl_your_key_here" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "model": "ft:llama-3.1-8b:my-org:support-v2",
+    "deployment": "dep-prod-support",
+    "strategy": "canary",
+    "canary_percent": 10
+  }'
+\`\`\`
+
+---
+
+## Deployments
+
+### POST /deployments
+
+Create or update a model deployment.
+
+**Request Body:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| name | string | Yes | Deployment name (unique per org) |
+| model | string | Yes | Model ID to deploy |
+| min_replicas | integer | No | Minimum instances. Default: 1 |
+| max_replicas | integer | No | Maximum instances for autoscaling. Default: 1 |
+| gpu_type | string | No | \`"a100"\`, \`"h100"\`, \`"l40s"\`. Default: auto-selected |
+| region | string | No | \`"us-east"\`, \`"us-west"\`, \`"eu-west"\`. Default: \`"us-east"\` |
+| scaling_metric | string | No | \`"requests_per_second"\`, \`"gpu_utilization"\`, \`"queue_depth"\` |
+| scaling_target | number | No | Target value for the scaling metric |
+
+**Example:**
+
+\`\`\`bash
+curl https://api.slancha.ai/v1/deployments \\
+  -H "Authorization: Bearer sk-sl_your_key_here" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "name": "support-prod",
+    "model": "ft:llama-3.1-8b:my-org:support-v2",
+    "min_replicas": 2,
+    "max_replicas": 8,
+    "gpu_type": "h100",
+    "region": "us-east",
+    "scaling_metric": "requests_per_second",
+    "scaling_target": 100
+  }'
+\`\`\`
+
+**Response:**
+
+\`\`\`json
+{
+  "id": "dep-9xk3m7",
+  "object": "deployment",
+  "name": "support-prod",
+  "status": "provisioning",
+  "model": "ft:llama-3.1-8b:my-org:support-v2",
+  "endpoint": "https://dep-9xk3m7.slancha.ai/v1",
+  "replicas": { "desired": 2, "ready": 0 },
+  "gpu_type": "h100",
+  "region": "us-east",
+  "created_at": "2026-03-30T12:10:00Z"
+}
+\`\`\`
+
+### GET /deployments
+
+List all deployments.
+
+\`\`\`bash
+curl https://api.slancha.ai/v1/deployments \\
+  -H "Authorization: Bearer sk-sl_your_key_here"
+\`\`\`
+
+### GET /deployments/:id
+
+Get deployment details including live metrics.
+
+**Response:**
+
+\`\`\`json
+{
+  "id": "dep-9xk3m7",
+  "object": "deployment",
+  "name": "support-prod",
+  "status": "running",
+  "model": "ft:llama-3.1-8b:my-org:support-v2",
+  "endpoint": "https://dep-9xk3m7.slancha.ai/v1",
+  "replicas": { "desired": 2, "ready": 2 },
+  "metrics": {
+    "requests_per_second": 47.3,
+    "latency_p50_ms": 95,
+    "latency_p99_ms": 240,
+    "gpu_utilization": 0.62,
+    "uptime": "99.97%"
+  }
+}
+\`\`\`
+
+### DELETE /deployments/:id
+
+Shut down a deployment and release its resources.
+
+\`\`\`bash
+curl -X DELETE https://api.slancha.ai/v1/deployments/dep-9xk3m7 \\
+  -H "Authorization: Bearer sk-sl_your_key_here"
+\`\`\`
+
+---
+
+## Fine-Tuning
+
+### POST /fine-tuning/jobs
+
+Create a fine-tuning job. Optionally driven by eval results.
+
+**Request Body:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| model | string | Yes | Base model to fine-tune |
+| training_file | string | Yes | Dataset ID (JSONL format) |
+| validation_file | string | No | Validation dataset ID |
+| hyperparameters | object | No | Override defaults (see below) |
+| suffix | string | No | Custom model name suffix |
+| eval_id | string | No | Link to an eval — auto-curate training data from misclassified examples |
+| auto_promote | object | No | Auto-deploy if eval score exceeds threshold |
+
+**Hyperparameters:**
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| n_epochs | integer | auto | Training epochs |
+| batch_size | integer | auto | Batch size |
+| learning_rate_multiplier | number | auto | Learning rate scale factor |
+| lora_rank | integer | 16 | LoRA adapter rank (8, 16, 32, 64) |
+| warmup_ratio | number | 0.1 | Warmup proportion of total steps |
+
+**Example:**
+
+\`\`\`bash
+curl https://api.slancha.ai/v1/fine-tuning/jobs \\
+  -H "Authorization: Bearer sk-sl_your_key_here" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "model": "llama-3.1-8b",
+    "training_file": "ds-support-train-v3",
+    "validation_file": "ds-support-val-v3",
+    "suffix": "support-v3",
+    "hyperparameters": {
+      "n_epochs": 3,
+      "lora_rank": 32
+    },
+    "eval_id": "eval-7f3k9x",
+    "auto_promote": {
+      "deployment": "dep-prod-support",
+      "metric": "accuracy",
+      "threshold": 0.90,
+      "strategy": "canary",
+      "canary_percent": 5
+    }
+  }'
+\`\`\`
+
+**Response:**
+
+\`\`\`json
+{
+  "id": "ft-job-m4x2n8",
+  "object": "fine_tuning.job",
+  "status": "queued",
+  "model": "llama-3.1-8b",
+  "training_file": "ds-support-train-v3",
+  "created_at": "2026-03-30T12:15:00Z",
+  "estimated_completion": "2026-03-30T13:45:00Z",
+  "hyperparameters": {
+    "n_epochs": 3,
+    "batch_size": 16,
+    "learning_rate_multiplier": 1.0,
+    "lora_rank": 32
+  },
+  "auto_promote": {
+    "enabled": true,
+    "deployment": "dep-prod-support",
+    "metric": "accuracy",
+    "threshold": 0.90
+  }
+}
+\`\`\`
+
+### GET /fine-tuning/jobs
+
+List fine-tuning jobs.
+
+\`\`\`bash
+curl https://api.slancha.ai/v1/fine-tuning/jobs?limit=10 \\
+  -H "Authorization: Bearer sk-sl_your_key_here"
+\`\`\`
+
+### GET /fine-tuning/jobs/:id
+
+Get job details and training metrics.
+
+**Response (completed job):**
+
+\`\`\`json
+{
+  "id": "ft-job-m4x2n8",
+  "object": "fine_tuning.job",
+  "status": "succeeded",
+  "model": "llama-3.1-8b",
+  "fine_tuned_model": "ft:llama-3.1-8b:my-org:support-v3",
+  "training_file": "ds-support-train-v3",
+  "created_at": "2026-03-30T12:15:00Z",
+  "completed_at": "2026-03-30T13:42:17Z",
+  "training_metrics": {
+    "train_loss": 0.42,
+    "eval_loss": 0.48,
+    "eval_accuracy": 0.94
+  },
+  "auto_promote": {
+    "triggered": true,
+    "eval_score": 0.94,
+    "deployment": "dep-prod-support",
+    "canary_percent": 5
+  }
+}
+\`\`\`
+
+### POST /fine-tuning/jobs/:id/cancel
+
+Cancel a running fine-tuning job.
+
+\`\`\`bash
+curl -X POST https://api.slancha.ai/v1/fine-tuning/jobs/ft-job-m4x2n8/cancel \\
+  -H "Authorization: Bearer sk-sl_your_key_here"
+\`\`\`
+
+---
+
+## Datasets
+
+### POST /datasets
+
+Upload a dataset for evaluations or fine-tuning.
+
+**Request:** Multipart form upload (JSONL format).
+
+\`\`\`bash
+curl https://api.slancha.ai/v1/datasets \\
+  -H "Authorization: Bearer sk-sl_your_key_here" \\
+  -F "file=@support-train.jsonl" \\
+  -F "name=support-train-v3" \\
+  -F "purpose=fine-tuning"
+\`\`\`
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| file | file | Yes | JSONL file upload |
+| name | string | Yes | Dataset name |
+| purpose | string | Yes | \`"fine-tuning"\`, \`"evaluation"\`, or \`"both"\` |
+
+**Response:**
+
+\`\`\`json
+{
+  "id": "ds-support-train-v3",
+  "object": "dataset",
+  "name": "support-train-v3",
+  "purpose": "fine-tuning",
+  "size_bytes": 4521984,
+  "num_examples": 12500,
+  "created_at": "2026-03-30T11:00:00Z",
+  "status": "processed"
+}
+\`\`\`
+
+### GET /datasets
+
+List uploaded datasets.
+
+### GET /datasets/:id
+
+Get dataset metadata and validation status.
+
+### DELETE /datasets/:id
+
+Delete a dataset.
+
+---
+
+## Router
+
+### GET /router/config
+
+Get current smart router configuration.
+
+\`\`\`bash
+curl https://api.slancha.ai/v1/router/config \\
+  -H "Authorization: Bearer sk-sl_your_key_here"
+\`\`\`
+
+**Response:**
+
+\`\`\`json
+{
+  "object": "router_config",
+  "strategy": "cost_optimized",
+  "rules": [
+    {
+      "condition": "complexity >= 0.8",
+      "route_to": "llama-3.1-70b",
+      "reason": "Complex queries need larger model"
+    },
+    {
+      "condition": "complexity < 0.8",
+      "route_to": "ft:llama-3.1-8b:my-org:support-v2",
+      "reason": "Simple queries use fine-tuned small model"
+    }
+  ],
+  "fallback": "llama-3.1-70b",
+  "cost_savings_30d": "63%"
+}
+\`\`\`
+
+### PUT /router/config
+
+Update router rules.
+
+\`\`\`bash
+curl -X PUT https://api.slancha.ai/v1/router/config \\
+  -H "Authorization: Bearer sk-sl_your_key_here" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "strategy": "quality_first",
+    "rules": [
+      {
+        "condition": "topic == support",
+        "route_to": "ft:llama-3.1-8b:my-org:support-v3"
+      },
+      {
+        "condition": "topic == code",
+        "route_to": "deepseek-coder-33b"
+      }
+    ],
+    "fallback": "llama-3.1-70b"
+  }'
+\`\`\`
+
+---
+
+## Webhooks
+
+### POST /webhooks
+
+Register a webhook for event notifications.
+
+\`\`\`bash
+curl https://api.slancha.ai/v1/webhooks \\
+  -H "Authorization: Bearer sk-sl_your_key_here" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "url": "https://your-app.com/slancha-webhook",
+    "events": ["evaluation.completed", "fine_tuning.completed", "deployment.ready", "deployment.unhealthy"],
+    "secret": "whsec_your_signing_secret"
+  }'
+\`\`\`
+
+**Event types:** \`evaluation.completed\`, \`evaluation.failed\`, \`fine_tuning.completed\`, \`fine_tuning.failed\`, \`deployment.ready\`, \`deployment.unhealthy\`, \`deployment.scaled\`, \`auto_promote.triggered\`
+
+---
+
 ## Rate Limits
 
-| Tier | Requests/min | Tokens/min |
-|------|-------------|------------|
-| Free (Router) | 60 | 100,000 |
-| Platform | 600 | 1,000,000 |
-| Enterprise | Custom | Custom |
+| Tier | Requests/min | Tokens/min | Concurrent Evals | Fine-tune Jobs |
+|------|-------------|------------|-------------------|----------------|
+| Free (Router) | 60 | 100,000 | 1 | 0 |
+| Platform | 600 | 1,000,000 | 5 | 3 |
+| Scale | 3,000 | 10,000,000 | 20 | 10 |
+| Enterprise | Custom | Custom | Custom | Custom |
 
 ## Error Codes
 
 | Code | Meaning |
 |------|---------|
+| 400 | Invalid request body or parameters |
 | 401 | Invalid or missing API key |
-| 429 | Rate limit exceeded |
+| 403 | Insufficient permissions for this operation |
+| 404 | Resource not found |
+| 409 | Conflict (e.g., deployment name already exists) |
+| 422 | Validation error (e.g., invalid dataset format) |
+| 429 | Rate limit exceeded — check \`Retry-After\` header |
 | 500 | Internal server error |
-| 503 | Model temporarily unavailable |`,
+| 503 | Model or service temporarily unavailable |
+
+## Pagination
+
+List endpoints support cursor-based pagination:
+
+\`\`\`bash
+curl "https://api.slancha.ai/v1/evaluations?limit=10&after=eval-abc123" \\
+  -H "Authorization: Bearer sk-sl_your_key_here"
+\`\`\`
+
+All list responses include \`has_more\` and a \`last_id\` field for the next page.`,
   },
   {
     slug: 'models',
