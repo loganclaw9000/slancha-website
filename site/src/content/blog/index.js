@@ -1,5 +1,68 @@
 export const posts = [
   {
+    slug: '5-signs-your-ml-team-needs-an-evaluation-platform',
+    title: '5 Signs Your ML Team Needs an Evaluation Platform',
+    date: '2026-03-30',
+    author: 'Slancha Team',
+    excerpt: 'Spreadsheets, vibes-based deployment, and "it works on my laptop" are not an eval strategy. Here\'s how to know you\'ve outgrown ad-hoc testing.',
+    tags: ['evaluation', 'best-practices', 'team'],
+    body: `If you're shipping AI features, you're evaluating models — whether you realize it or not. The question is whether your evaluation process is deliberate or accidental.
+
+Here are five signs your team has outgrown ad-hoc testing and needs a real evaluation platform.
+
+## 1. You're Choosing Models Based on Vibes
+
+Someone ran a few prompts in a playground, said "this one feels better," and that became the production model. No structured test cases, no scoring rubric, no comparison across candidates.
+
+**Why this hurts:** Vibes don't scale. The model that "feels better" on 10 hand-picked examples might fail systematically on the long tail of production traffic. And when it does, you won't know why — because you never measured it.
+
+**What changes with a platform:** You define test suites with hundreds of cases, score models on specific dimensions (accuracy, latency, cost, safety), and make decisions backed by data instead of intuition.
+
+## 2. Your Eval Results Live in Spreadsheets
+
+After running benchmarks, someone exports results to a Google Sheet. Different team members have different versions. Nobody's sure which sheet has the latest numbers.
+
+**Why this hurts:** Spreadsheets are where eval data goes to die. There's no history, no reproducibility, no way to compare this week's eval to last month's. When a model regresses, you can't trace when or why.
+
+**What changes with a platform:** Every eval run is versioned, timestamped, and linked to the model version that produced it. You can diff any two runs instantly and see exactly what changed.
+
+## 3. You've Been Burned by a Bad Deployment
+
+A model update went to production and broke something. Maybe accuracy dropped on a specific category. Maybe latency spiked. Maybe the model started hallucinating on a class of inputs it used to handle well.
+
+You only found out when users complained.
+
+**Why this hurts:** Every bad deployment erodes trust — with users, with stakeholders, and within the team. Engineers become reluctant to ship model updates, slowing your improvement cycle.
+
+**What changes with a platform:** Pre-deployment eval gates catch regressions before they reach production. Canary rollouts shift traffic gradually. Automated monitoring alerts you the moment metrics degrade — before users notice.
+
+## 4. Your Eval and Training Teams Don't Talk
+
+The evaluation team knows which examples models fail on. The training team needs exactly that data to improve the next version. But the handoff between them is manual — or doesn't happen at all.
+
+**Why this hurts:** You're leaving the most valuable training signal on the table. Eval failures are a curated dataset of exactly what the model needs to learn. When that data doesn't flow into training, every fine-tuning cycle starts from scratch instead of building on what you already know.
+
+**What changes with a platform:** Eval failures automatically become training candidates. The loop between "model fails on X" and "model learns from X" is closed by the platform, not by an engineer copying rows between tools.
+
+## 5. You Can't Answer "Is Our Model Getting Better?"
+
+Leadership asks: "How much has model quality improved this quarter?" You have no answer — or you have an answer that requires 30 minutes of manual data gathering.
+
+**Why this hurts:** Without a clear quality trendline, you can't justify investment in model improvement. You can't prove that fine-tuning is working. You can't set meaningful accuracy targets because you don't have a reliable baseline.
+
+**What changes with a platform:** A single dashboard shows accuracy, latency, and cost trends over time — across every model version, every eval run, every deployment. You can answer "are we getting better?" in 5 seconds.
+
+## The Compound Effect
+
+Each of these signs is manageable on its own. The problem is that they compound. Vibes-based selection leads to bad deployments. Bad deployments lead to deployment fear. Deployment fear leads to slower iteration. Slower iteration means your models fall behind while competitors improve monthly.
+
+An evaluation platform isn't overhead — it's the foundation that makes continuous model improvement possible.
+
+---
+
+*Ready to move beyond spreadsheets? [Start with the free Slancha Router](/signup) and see what structured evaluation looks like.*`,
+  },
+  {
     slug: 'why-eval-data-should-drive-fine-tuning',
     title: 'Why Eval Data Should Drive Fine-Tuning',
     date: '2026-03-29',

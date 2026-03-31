@@ -46,15 +46,433 @@ Visit **Dashboard** → **Usage** to see request counts, model distribution, and
 
 ## What's Next?
 
+- [Developer Quickstart](/docs/quickstart) — full tutorial: install SDK, run evals, deploy a model
 - [Router Configuration](/docs/router) — customize routing rules
 - [API Reference](/docs/api-reference) — full endpoint documentation
 - [Models](/docs/models) — available models and their characteristics`,
   },
   {
+    slug: 'quickstart',
+    title: 'Developer Quickstart',
+    section: 'Introduction',
+    order: 2,
+    body: `# Developer Quickstart
+
+Go from zero to a production-ready AI pipeline in 15 minutes. This guide walks you through installing the Slancha SDK, running your first evaluation, deploying a model, and closing the loop with post-training.
+
+## Prerequisites
+
+- Python 3.9+
+- A Slancha account ([sign up free](/signup))
+- An API key from your [Dashboard](/dashboard)
+
+## Step 1: Install the SDK
+
+\`\`\`bash
+pip install slancha
+\`\`\`
+
+Set your API key as an environment variable:
+
+\`\`\`bash
+export SLANCHA_API_KEY="sk-sl_your_key_here"
+\`\`\`
+
+## Step 2: Route Your First Request
+
+The Slancha client is drop-in compatible with the OpenAI SDK. Switch to intelligent routing with one line:
+
+\`\`\`python
+from slancha import Slancha
+
+client = Slancha()
+
+response = client.chat.completions.create(
+    model="auto",  # router picks the best model
+    messages=[
+        {"role": "system", "content": "You are a helpful coding assistant."},
+        {"role": "user", "content": "Write a Python function to merge two sorted lists."}
+    ]
+)
+
+print(response.choices[0].message.content)
+print(f"Routed to: {response.model}")
+\`\`\`
+
+The \`auto\` model tells the router to pick the best model based on your configured latency, cost, and quality preferences.
+
+## Step 3: Run Your First Evaluation
+
+Evaluations measure how well models perform on your specific use case. Create an eval suite with test cases:
+
+\`\`\`python
+from slancha import Slancha
+
+client = Slancha()
+
+# Define your test cases
+test_cases = [
+    {
+        "input": [{"role": "user", "content": "What is 2+2?"}],
+        "expected": "4",
+        "tags": ["math", "simple"]
+    },
+    {
+        "input": [{"role": "user", "content": "Write a haiku about Python."}],
+        "expected_traits": ["5-7-5 syllable structure", "mentions Python"],
+        "tags": ["creative", "poetry"]
+    },
+    {
+        "input": [{"role": "user", "content": "Explain the GIL in Python in one sentence."}],
+        "expected_traits": ["mentions Global Interpreter Lock", "mentions threading"],
+        "tags": ["technical", "python"]
+    }
+]
+
+# Run the eval across multiple models
+eval_run = client.evals.create(
+    name="coding-assistant-v1",
+    models=["llama-3.1-70b", "gpt-4o", "claude-sonnet-4-20250514"],
+    test_cases=test_cases,
+    scorers=["exact_match", "trait_check", "latency", "cost"]
+)
+
+print(f"Eval run: {eval_run.id}")
+print(f"Dashboard: https://app.slancha.ai/evals/{eval_run.id}")
+\`\`\`
+
+### View Results
+
+Results appear in your [Dashboard](/dashboard) → **Evaluations**, or fetch them programmatically:
+
+\`\`\`python
+results = client.evals.get(eval_run.id)
+
+for model_result in results.models:
+    print(f"{model_result.model}:")
+    print(f"  Accuracy: {model_result.accuracy:.1%}")
+    print(f"  Avg latency: {model_result.avg_latency_ms}ms")
+    print(f"  Cost per 1K: \${model_result.cost_per_1k:.4f}")
+\`\`\`
+
+Example output:
+
+\`\`\`
+llama-3.1-70b:
+  Accuracy: 73.3%
+  Avg latency: 180ms
+  Cost per 1K: $0.0012
+gpt-4o:
+  Accuracy: 93.3%
+  Avg latency: 420ms
+  Cost per 1K: $0.0075
+claude-sonnet-4-20250514:
+  Accuracy: 96.7%
+  Avg latency: 380ms
+  Cost per 1K: $0.0060
+\`\`\`
+
+## Step 4: Deploy the Winner
+
+Once you've found the best model for your use case, deploy it as your production endpoint:
+
+\`\`\`python
+# Deploy the eval winner as a production config
+deployment = client.deployments.create(
+    name="coding-assistant-prod",
+    routing_config={
+        "primary_model": "claude-sonnet-4-20250514",
+        "fallback_model": "gpt-4o",
+        "latency_target_ms": 500,
+        "max_cost_per_1k": 0.01
+    },
+    eval_id=eval_run.id  # link deployment to eval for tracking
+)
+
+print(f"Deployment live: {deployment.endpoint}")
+\`\`\`
+
+Your deployment gets its own endpoint. Route production traffic to it:
+
+\`\`\`python
+# Production requests hit your deployment config
+response = client.chat.completions.create(
+    model=deployment.model_alias,  # "coding-assistant-prod"
+    messages=[{"role": "user", "content": "How do I use asyncio.gather?"}]
+)
+\`\`\`
+
+## Step 5: Close the Loop with Post-Training
+
+This is where Slancha is different. Failed eval cases automatically become training candidates for your next fine-tuning run:
+
+\`\`\`python
+# Get the low-scoring examples from your eval
+failures = client.evals.get_failures(
+    eval_id=eval_run.id,
+    threshold=0.7  # examples scoring below 70%
+)
+
+print(f"Found {len(failures)} improvement candidates")
+
+# Create a fine-tuning job from eval failures
+finetune = client.training.create(
+    name="coding-assistant-v2",
+    base_model="llama-3.1-70b",
+    training_data=failures.to_training_format(),
+    eval_id=eval_run.id  # track which eval drove this training
+)
+
+print(f"Fine-tuning job: {finetune.id}")
+print(f"Status: {finetune.status}")
+\`\`\`
+
+When the fine-tune completes, run the same eval suite against the improved model to measure gains:
+
+\`\`\`python
+# Re-eval with the fine-tuned model
+v2_eval = client.evals.create(
+    name="coding-assistant-v2-verification",
+    models=["coding-assistant-v2-ft", "claude-sonnet-4-20250514"],
+    test_cases=test_cases,
+    scorers=["exact_match", "trait_check", "latency", "cost"],
+    baseline_eval=eval_run.id  # compare against v1
+)
+\`\`\`
+
+## The Full Loop
+
+You've now completed one cycle of the Slancha loop:
+
+1. **Route** — send requests through the intelligent router
+2. **Evaluate** — measure model quality on your use cases
+3. **Deploy** — put the best model in production
+4. **Post-train** — use eval failures to improve the model
+5. **Repeat** — each cycle starts from a higher baseline
+
+This cycle runs continuously. Set up automated evals on a schedule, trigger fine-tuning when accuracy drops below your threshold, and auto-promote models that pass verification.
+
+## What's Next
+
+- [Router Configuration](/docs/router) — fine-tune routing rules and latency targets
+- [Evaluations Guide](/docs/evaluations) — advanced eval patterns, custom scorers, scheduled evals
+- [Deployment Guide](/docs/deployments) — A/B testing, canary rollouts, rollback
+- [API Reference](/docs/api-reference) — full endpoint documentation`,
+  },
+  {
+    slug: 'evaluations',
+    title: 'Evaluations Guide',
+    section: 'Evaluate',
+    order: 3,
+    body: `# Evaluations Guide
+
+Evaluations are the core of Slancha's improvement loop. They measure model performance on your specific use cases and generate the data that drives fine-tuning.
+
+## Core Concepts
+
+### Test Cases
+
+A test case is an input-output pair that defines what "good" looks like:
+
+\`\`\`python
+test_case = {
+    "input": [{"role": "user", "content": "Summarize this article..."}],
+    "expected": "A concise summary...",           # for exact/semantic match
+    "expected_traits": ["under 100 words", "mentions key finding"],  # for trait scoring
+    "tags": ["summarization", "news"],            # for filtering and grouping
+    "weight": 1.0                                 # importance multiplier
+}
+\`\`\`
+
+### Scorers
+
+Scorers evaluate model outputs against your test cases:
+
+| Scorer | What it measures |
+|--------|-----------------|
+| \`exact_match\` | Output matches expected string exactly |
+| \`semantic_match\` | Output is semantically equivalent (uses embeddings) |
+| \`trait_check\` | Output satisfies listed traits (uses an LLM judge) |
+| \`latency\` | Time to first token and total response time |
+| \`cost\` | Token cost at current model pricing |
+| \`toxicity\` | Checks for harmful or inappropriate content |
+| \`json_valid\` | Output is valid JSON matching an optional schema |
+
+### Custom Scorers
+
+Write your own scoring logic in Python:
+
+\`\`\`python
+def code_compiles(output, test_case):
+    """Check if generated code actually runs."""
+    try:
+        compile(output, "<eval>", "exec")
+        return {"score": 1.0, "reason": "Code compiles"}
+    except SyntaxError as e:
+        return {"score": 0.0, "reason": f"SyntaxError: {e}"}
+
+eval_run = client.evals.create(
+    name="code-gen-eval",
+    models=["gpt-4o", "llama-3.1-70b"],
+    test_cases=code_test_cases,
+    scorers=["latency", "cost", code_compiles]  # mix built-in + custom
+)
+\`\`\`
+
+## Eval Patterns
+
+### Scheduled Evaluations
+
+Run evals automatically on a schedule to catch model drift:
+
+\`\`\`python
+schedule = client.evals.schedule(
+    name="daily-regression",
+    test_suite_id="ts_abc123",
+    models=["coding-assistant-prod"],
+    cron="0 6 * * *",  # daily at 6am UTC
+    alert_threshold=0.85  # alert if accuracy drops below 85%
+)
+\`\`\`
+
+### A/B Evaluations
+
+Compare your current production model against a challenger:
+
+\`\`\`python
+ab_eval = client.evals.create(
+    name="v1-vs-v2",
+    models=["coding-assistant-v1", "coding-assistant-v2-ft"],
+    test_cases=test_cases,
+    scorers=["semantic_match", "trait_check", "latency", "cost"],
+    statistical_test="paired_t"  # significance testing
+)
+\`\`\`
+
+### Production Sampling
+
+Evaluate a sample of live production traffic:
+
+\`\`\`python
+prod_eval = client.evals.create_from_production(
+    deployment="coding-assistant-prod",
+    sample_rate=0.05,  # eval 5% of traffic
+    scorers=["trait_check", "toxicity"],
+    duration_hours=24
+)
+\`\`\`
+
+## Best Practices
+
+1. **Start with 20-50 test cases** that cover your core use cases. Grow to 200+ as you learn where models fail.
+2. **Tag everything.** Tags let you slice results by category and find systematic weaknesses.
+3. **Use trait_check over exact_match** for open-ended tasks. Exact matching is too brittle for natural language.
+4. **Run evals before every deployment.** Never promote a model without comparing it to the current production baseline.
+5. **Review failures manually** every week. Automated scoring catches patterns, but human review catches nuance.`,
+  },
+  {
+    slug: 'deployments',
+    title: 'Deployment Guide',
+    section: 'Deploy',
+    order: 4,
+    body: `# Deployment Guide
+
+Deployments are production-ready model configurations. Each deployment gets a stable endpoint, routing rules, and monitoring — connected to the eval that validated it.
+
+## Creating a Deployment
+
+\`\`\`python
+deployment = client.deployments.create(
+    name="support-bot-prod",
+    routing_config={
+        "primary_model": "gpt-4o",
+        "fallback_model": "llama-3.1-70b",
+        "latency_target_ms": 300,
+        "max_cost_per_1k": 0.008
+    },
+    eval_id="eval_abc123"  # optional: link to validation eval
+)
+\`\`\`
+
+## Routing Configuration
+
+Each deployment supports fine-grained routing:
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| \`primary_model\` | string | First-choice model |
+| \`fallback_model\` | string | Used when primary is unavailable or exceeds targets |
+| \`latency_target_ms\` | integer | P99 latency ceiling |
+| \`max_cost_per_1k\` | float | Maximum cost per 1,000 tokens |
+| \`min_accuracy\` | float | Minimum eval accuracy (triggers fallback if degraded) |
+
+## Canary Rollouts
+
+Gradually shift traffic to a new model:
+
+\`\`\`python
+client.deployments.update(
+    deployment_id=deployment.id,
+    canary={
+        "challenger_model": "coding-assistant-v2-ft",
+        "traffic_percent": 10,  # start with 10%
+        "auto_promote": True,   # promote if metrics hold
+        "eval_threshold": 0.90  # accuracy gate
+    }
+)
+\`\`\`
+
+The canary monitor compares challenger performance against the primary model in real time. If the challenger meets all thresholds over 24 hours, it automatically promotes to primary.
+
+## Rollback
+
+If a deployment degrades, roll back instantly:
+
+\`\`\`python
+client.deployments.rollback(
+    deployment_id=deployment.id,
+    to_version=2  # specific version, or omit for previous
+)
+\`\`\`
+
+Rollbacks are instant — they switch the routing config, not the model infrastructure.
+
+## Monitoring
+
+Every deployment tracks:
+
+- **Request volume** — requests/min, token throughput
+- **Latency** — P50, P95, P99 response times
+- **Error rate** — 4xx and 5xx responses
+- **Cost** — running spend vs. budget
+- **Model distribution** — which models are handling traffic
+
+View metrics in **Dashboard** → **Deployments** → your deployment, or query programmatically:
+
+\`\`\`python
+metrics = client.deployments.metrics(
+    deployment_id=deployment.id,
+    period="24h"
+)
+
+print(f"Requests: {metrics.total_requests}")
+print(f"P99 latency: {metrics.p99_latency_ms}ms")
+print(f"Error rate: {metrics.error_rate:.2%}")
+print(f"Cost: \${metrics.total_cost:.2f}")
+\`\`\`
+
+## Best Practices
+
+1. **Always link deployments to evals.** This creates an audit trail of why a model was deployed.
+2. **Use canary rollouts** for any model change in production. Even fine-tuned models can regress on edge cases.
+3. **Set alerts** on latency and error rate — catch degradation before users do.
+4. **Name deployments by use case**, not model name. \`support-bot-prod\` is better than \`gpt4o-v3\` because the model behind it will change.`,
+  },
+  {
     slug: 'router',
     title: 'Router Configuration',
     section: 'Router',
-    order: 2,
+    order: 5,
     body: `# Router Configuration
 
 The Slancha Router automatically selects the optimal model for each request based on your configured preferences.
@@ -109,7 +527,7 @@ For explicit control, you can still specify any model by name — the request by
     slug: 'api-reference',
     title: 'API Reference',
     section: 'API',
-    order: 3,
+    order: 6,
     body: `# API Reference
 
 The Slancha API is compatible with the OpenAI Chat Completions format. If you're already using the OpenAI SDK, switching is a one-line change.
@@ -213,7 +631,7 @@ curl https://api.slancha.ai/v1/models \\
     slug: 'models',
     title: 'Available Models',
     section: 'API',
-    order: 4,
+    order: 7,
     body: `# Available Models
 
 The Slancha Router can route to any of the following models. When using \`model: "auto"\`, the router selects the best fit. You can also specify any model by name.
@@ -255,7 +673,9 @@ You can lock specific models by setting them in your [Router Configuration](/doc
 ];
 
 export const docSections = [
-  { name: 'Introduction', slugs: ['getting-started'] },
+  { name: 'Introduction', slugs: ['getting-started', 'quickstart'] },
+  { name: 'Evaluate', slugs: ['evaluations'] },
+  { name: 'Deploy', slugs: ['deployments'] },
   { name: 'Router', slugs: ['router'] },
   { name: 'API', slugs: ['api-reference', 'models'] },
 ];
