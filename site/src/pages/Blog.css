@@ -43,6 +43,92 @@
   line-height: 1.6;
 }
 
+/* ─── Tag filters ─── */
+.blog-filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.blog-filter-tag {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-full);
+  padding: 6px 16px;
+  cursor: pointer;
+  transition: all 200ms ease;
+}
+.blog-filter-tag:hover {
+  color: var(--text-primary);
+  border-color: var(--accent);
+}
+.blog-filter-tag.active {
+  color: var(--bg-primary);
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+/* ─── Featured post ─── */
+.blog-featured {
+  position: relative;
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  background: linear-gradient(135deg, rgba(10, 132, 255, 0.06), rgba(0, 209, 178, 0.04));
+  border: 1px solid rgba(10, 132, 255, 0.2);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  margin-bottom: 32px;
+  transition: transform 300ms var(--ease-out-expo), box-shadow 300ms ease;
+}
+.blog-featured:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(10, 132, 255, 0.15);
+}
+.blog-featured-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(10, 132, 255, 0.1);
+  border: 1px solid rgba(10, 132, 255, 0.25);
+  border-radius: var(--radius-full);
+  padding: 4px 12px;
+  margin-bottom: 16px;
+}
+.blog-featured-title {
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+.blog-featured-excerpt {
+  font-size: 17px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 16px;
+  max-width: 700px;
+}
+
+/* ─── Empty state ─── */
+.blog-empty {
+  text-align: center;
+  padding: 64px 0;
+  color: var(--text-muted);
+}
+.blog-empty p {
+  margin-bottom: 16px;
+  font-size: 16px;
+}
+
 .blog-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -281,4 +367,8 @@
   .blog-page { padding: 32px 20px 64px; }
   .blog-post-page { padding: 32px 20px 64px; }
   .blog-card { padding: 24px; }
+  .blog-featured { padding: 24px; }
+  .blog-featured-title { font-size: 24px; }
+  .blog-filters { gap: 6px; }
+  .blog-filter-tag { font-size: 12px; padding: 5px 12px; }
 }
