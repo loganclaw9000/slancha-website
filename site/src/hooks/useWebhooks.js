@@ -75,7 +75,7 @@ export function useWebhooks() {
       if (fetchError) throw fetchError;
       setWebhooks(data || []);
     } catch (err) {
-      console.error('Failed to fetch webhooks:', err);
+      if (import.meta.env.DEV) console.error('Failed to fetch webhooks:', err);
       setError(err.message);
       setWebhooks([]);
     } finally {
@@ -122,7 +122,7 @@ export function useWebhooks() {
       setWebhooks(prev => [data, ...prev]);
       return { secret, data, error: null };
     } catch (err) {
-      console.error('Failed to create webhook:', err);
+      if (import.meta.env.DEV) console.error('Failed to create webhook:', err);
       return { secret: null, data: null, error: err.message };
     }
   };
@@ -144,7 +144,7 @@ export function useWebhooks() {
       setWebhooks(prev => prev.map(w => w.id === id ? { ...w, ...updates } : w));
       return { error: null };
     } catch (err) {
-      console.error('Failed to update webhook:', err);
+      if (import.meta.env.DEV) console.error('Failed to update webhook:', err);
       return { error: err.message };
     }
   };
@@ -166,7 +166,7 @@ export function useWebhooks() {
       setWebhooks(prev => prev.filter(w => w.id !== id));
       return { error: null };
     } catch (err) {
-      console.error('Failed to delete webhook:', err);
+      if (import.meta.env.DEV) console.error('Failed to delete webhook:', err);
       return { error: err.message };
     }
   };

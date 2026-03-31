@@ -80,7 +80,7 @@ export function useUsageTracking() {
       if (insertError) throw insertError;
       return { error: null };
     } catch (err) {
-      console.error('Usage tracking failed:', err);
+      if (import.meta.env.DEV) console.error('Usage tracking failed:', err);
       return { error: err.message };
     }
   }, [user]);
@@ -115,7 +115,7 @@ export function useUsageTracking() {
       if (insertError) throw insertError;
       return { error: null };
     } catch (err) {
-      console.error('Batch usage tracking failed:', err);
+      if (import.meta.env.DEV) console.error('Batch usage tracking failed:', err);
       return { error: err.message };
     }
   }, [user]);

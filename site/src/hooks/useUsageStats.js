@@ -222,7 +222,7 @@ export function useUsageStats(period = '30d') {
         byEndpoint: aggregateByEndpoint(logs),
       });
     } catch (err) {
-      console.error('Failed to fetch usage stats:', err);
+      if (import.meta.env.DEV) console.error('Failed to fetch usage stats:', err);
       setError(err.message);
     } finally {
       setLoading(false);

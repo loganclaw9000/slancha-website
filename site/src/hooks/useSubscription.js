@@ -90,7 +90,7 @@ export function useSubscription() {
         setUsage({ requests_this_month: count || 0 });
       }
     } catch (err) {
-      console.error('Failed to fetch subscription:', err);
+      if (import.meta.env.DEV) console.error('Failed to fetch subscription:', err);
       setError(err.message);
     } finally {
       setLoading(false);

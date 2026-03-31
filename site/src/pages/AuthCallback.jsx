@@ -8,7 +8,7 @@ export default function AuthCallback() {
   useEffect(() => {
     supabase.auth.exchangeCodeForSession(window.location.href).then(({ error }) => {
       if (error) {
-        console.error('Auth callback error:', error);
+        if (import.meta.env.DEV) console.error('Auth callback error:', error);
         navigate('/login', { replace: true });
       } else {
         navigate('/dashboard', { replace: true });
