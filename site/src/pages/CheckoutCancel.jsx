@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
+import usePageMeta from '../hooks/usePageMeta';
 
 export default function CheckoutCancel() {
+  usePageMeta({ title: 'Checkout Cancelled', description: 'Your checkout was cancelled. No charges were made. Return to pricing whenever you\'re ready.' });
   return (
     <div className="page">
       <Nav />

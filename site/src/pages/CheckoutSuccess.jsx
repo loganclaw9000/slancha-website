@@ -1,8 +1,10 @@
 import { Link, useSearchParams } from 'react-router-dom';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
+import usePageMeta from '../hooks/usePageMeta';
 
 export default function CheckoutSuccess() {
+  usePageMeta({ title: 'Subscription Active', description: 'Your Slancha subscription is active. Head to the dashboard to create your first API key.' });
   const [params] = useSearchParams();
   const sessionId = params.get('session_id');
 

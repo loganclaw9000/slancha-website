@@ -1,8 +1,10 @@
 import { Link, useLocation } from 'react-router-dom';
 import Nav from '../components/Nav';
+import usePageMeta from '../hooks/usePageMeta';
 import './Auth.css';
 
 export default function VerifyEmail() {
+  usePageMeta({ title: 'Verify Your Email', description: 'Check your email for a confirmation link to activate your Slancha account.' });
   const location = useLocation();
   const email = location.state?.email;
 
