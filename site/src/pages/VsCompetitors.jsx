@@ -1,215 +1,270 @@
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import Nav from '../components/Nav';
+import Footer from '../components/Footer';
 import usePageMeta from '../hooks/usePageMeta';
 import '../components/VsCompetitors.css';
 
-const sections = [
+const competitors = [
   {
-    title: 'Vs. Databricks & Snowflake',
-    keyMessage: 'Databricks manages your data. Slancha manages your AI.',
+    id: 'portkey',
+    name: 'Portkey',
+    tagline: 'AI Gateway & Governance',
+    funding: '$15M Series A (Feb 2026)',
+    keyMessage: 'Portkey governs your AI. Slancha optimizes it.',
     paragraphs: [
-      "Databricks and Snowflake are data platforms that handle ETL, warehouses, and analytics. They're excellent at managing your data infrastructure.",
-      "Slancha is the AI engineering platform. We handle model evaluation, deployment, and continuous learning. We're built for AI teams, not data teams.",
-      "Most enterprise customers use both: Databricks for data, Slancha for AI. They're complementary, not competing."
+      'Portkey is an AI gateway and production control plane. It routes across 1,600+ LLMs with sub-millisecond latency, provides observability, guardrails, governance, prompt management, and cost controls. It processes 1T+ tokens daily across 24,000+ organizations.',
+      "Portkey is an operations and governance layer. It routes, monitors, and controls — but it does not learn, fine-tune, or optimize inference for you. Customers still choose models.",
+      "Slancha closes the loop. Where Portkey makes multi-model management reliable, Slancha makes it invisible. No model selection, no benchmarking, no governance configuration needed.",
     ],
-    callout: {
-      icon: '💡',
-      text: "Most enterprise customers use both: Databricks for data, Slancha for AI. They're complementary, not competing."
-    }
+    strengths: ['Routing across 1,600+ LLMs', 'Enterprise governance (policy-as-code)', 'Open-sourced gateway', 'MCP Gateway for agentic AI'],
+    slanchaAdvantage: 'Portkey manages complexity. Slancha eliminates it.',
   },
   {
-    title: 'Vs. Cloud Providers (AWS SageMaker, GCP Vertex, Azure ML)',
-    keyMessage: 'Cloud providers give you infrastructure. Slancha gives you an automated loop.',
+    id: 'openrouter',
+    name: 'OpenRouter',
+    tagline: 'Unified LLM API Marketplace',
+    funding: 'Private',
+    keyMessage: 'OpenRouter is a marketplace. Slancha is an optimization engine.',
     paragraphs: [
-      'SageMaker, Vertex, and Azure ML give you tools to build your own MLOps pipeline. You still need to build the evaluation, deployment, and post-training manually.',
-      "Slancha gives you the finished product. Automated evaluation, one-click deployment, and continuous learning out of the box.",
-      'The choice: Build your own loop (6-12 months of engineering) or use Slancha and ship faster.'
+      'OpenRouter is a unified API for accessing and routing requests across multiple LLM providers. It aggregates providers behind a single endpoint and scouts for lowest prices and best latencies.',
+      'Users can let the router auto-select or pick models manually. It optimizes for cost, latency, and throughput — but it exposes choice rather than removing it.',
+      "OpenRouter doesn't analyze task patterns, fine-tune models, or improve over time. It's a smarter switchboard. Slancha learns from your traffic, builds custom models, and gets cheaper and better the longer you use it.",
     ],
-    callout: {
-      icon: '⏱️',
-      text: 'Build your own MLOps pipeline: 6-12 months vs. Slancha: Hours'
-    }
+    strengths: ['Wide model selection', 'Price/latency optimization', 'Simple unified API', 'Community-driven model rankings'],
+    slanchaAdvantage: "OpenRouter finds you the best price today. Slancha builds you the best model over time.",
   },
   {
-    title: 'Vs. Infrastructure Players (CoreWeave, Lambda, Modal)',
-    keyMessage: 'Infrastructure is just the foundation. Slancha builds the house.',
+    id: 'not-diamond',
+    name: 'Not Diamond',
+    tagline: 'ML-Based Model Router',
+    funding: 'Private',
+    keyMessage: 'Not Diamond recommends. Slancha builds.',
     paragraphs: [
-      "CoreWeave, Lambda, and Modal give you GPU access. They're essential infrastructure, but you still need to build the platform on top of it.",
-      "Slancha works on any cloud — AWS, GCP, Azure, CoreWeave, Lambda, or your own infrastructure. We're cloud-agnostic; they're cloud-specific.",
-      'We provide: The platform to evaluate, deploy, and improve models on that infrastructure.'
+      'Not Diamond is the closest competitor in philosophy — an AI model router that acts as a "meta-model," recommending the best LLM for each query in under 50ms. It supports custom router training with customer evaluation data.',
+      'The key difference is execution model. Not Diamond requires customers to explicitly provide evaluation data upfront, pay to optimize, and trigger optimization jobs via API. It runs offline and operates as a recommendation layer.',
+      'Slancha learns continuously from live traffic with no explicit action required. More critically, Not Diamond routes to existing models. Slancha creates new ones through automated fine-tuning and serves them with optimized inference.',
     ],
-    callout: {
-      icon: '☁️',
-      text: 'Works on any cloud provider or your own infrastructure'
-    }
+    strengths: ['Per-query model recommendation', 'Client-side execution (data stays local)', 'Custom router training', 'Up to 25% accuracy improvement claims'],
+    slanchaAdvantage: 'Not Diamond optimizes which existing model to call. Slancha builds you a better one.',
   },
   {
-    title: 'Vs. Framework Managers (Anyscale, Hugging Face)',
-    keyMessage: 'Frameworks are tools. Slancha is the platform.',
+    id: 'fireworks',
+    name: 'Fireworks AI',
+    tagline: 'High-Performance Inference Platform',
+    funding: '$254M raised, $4B valuation',
+    keyMessage: 'Fireworks is for AI engineers. Slancha is for everyone else.',
     paragraphs: [
-      "Anyscale manages Ray. Hugging Face manages models. They're excellent tools, but they're framework-specific and don't own the full model lifecycle.",
-      "Slancha manages your entire AI engineering workflow — evaluation, deployment, data capture, and post-training.",
-      "We support all major frameworks (PyTorch, TensorFlow, Hugging Face, Ray). We're framework-agnostic and work with your existing tools."
+      'Fireworks is a high-performance inference platform founded by the team that built PyTorch at Meta. They process 13T+ tokens daily with their proprietary FireAttention engine, achieving 4x higher throughput and 50% lower latency vs. open-source baselines.',
+      'Their CEO said: "We are automated customization." Which validates the thesis — but Fireworks is a tool for sophisticated AI teams who understand the levers: model selection, fine-tuning configuration, deployment management.',
+      'Slancha delivers comparable outcomes without requiring that sophistication. Fireworks customers choose models, configure fine-tuning jobs, and manage deployment. Slancha customers just use an API endpoint.',
     ],
-    callout: {
-      icon: '🔧',
-      text: "Framework-agnostic: Works with PyTorch, TensorFlow, Ray, Hugging Face, and more"
-    }
+    strengths: ['FireAttention engine (4x throughput)', 'Fine-tuning + RLHF support', 'SOC 2 Type II / HIPAA / GDPR', 'BYOW (bring your own weights)'],
+    slanchaAdvantage: 'Fireworks gives engineers powerful tools. Slancha gives teams powerful results.',
   },
   {
-    title: 'Vs. Building In-House',
-    keyMessage: 'You could build this. Should you?',
+    id: 'baseten',
+    name: 'BaseTen',
+    tagline: 'AI Inference Infrastructure',
+    funding: '$300M Series C, $5B valuation (NVIDIA invested $150M)',
+    keyMessage: "BaseTen builds infrastructure. Slancha builds the product on top.",
     paragraphs: [
-      'Top AI teams spend 6-12 months building automated evaluation, deployment, and post-training pipelines.',
-      'Build cost: 10 engineers × 12 months = $12M+ (salaries, infrastructure, opportunity cost)',
-      'Slancha cost: $499-$2,499/month (depending on scale)',
-      'Break-even: 2-3 months of using Slancha',
-      'ROI: 10x more than it costs, starting month one.'
+      'BaseTen calls itself "the AWS of inference." They provide optimized inference infrastructure with custom kernel optimizations, multi-cloud deployment, 99.99% uptime, and sub-10-second cold starts. NVIDIA invested $150M in their January 2026 round.',
+      'Customers still need to select models, run their own fine-tuning, and architect their inference pipeline. Their philosophy is explicitly "we don\'t believe in black boxes."',
+      'Slancha\'s philosophy is the opposite: the black box IS the product. BaseTen is a potential infrastructure partner, not a direct competitor. They provide the GPU layer; Slancha provides the intelligence layer.',
     ],
-    callout: null,
-    showCostComparison: true
-  }
+    strengths: ['225% better cost-performance on Blackwell', 'Sub-10-second cold starts', 'Multi-cloud with no model lock-in', 'vLLM + TensorRT-LLM + SGLang support'],
+    slanchaAdvantage: "BaseTen gives you infrastructure. Slancha gives you outcomes.",
+  },
 ];
 
-const features = [
-  { feature: 'Automated Evaluation', slancha: '✅', databricks: '❌', aws: '⚠️', coreweave: '❌', build: '✅' },
-  { feature: 'A/B Testing', slancha: '✅', databricks: '❌', aws: '⚠️', coreweave: '❌', build: '✅' },
-  { feature: 'One-Click Deploy', slancha: '✅', databricks: '⚠️', aws: '⚠️', coreweave: '❌', build: '✅' },
-  { feature: 'Data Capture', slancha: '✅', databricks: '❌', aws: '❌', coreweave: '❌', build: '✅' },
-  { feature: 'Auto Post-Training', slancha: '✅', databricks: '❌', aws: '⚠️', coreweave: '❌', build: '✅' },
-  { feature: 'Continuous Loop', slancha: '✅', databricks: '❌', aws: '❌', coreweave: '❌', build: '✅' },
-  { feature: 'GPU Infrastructure', slancha: '✅', databricks: '⚠️', aws: '✅', coreweave: '✅', build: '✅' },
-  { feature: 'Time to Value', slancha: 'Hours', databricks: 'Weeks', aws: 'Months', coreweave: 'Weeks', build: '6-12m' }
+const featureMatrix = [
+  { feature: 'Unified API endpoint', portkey: true, openrouter: true, notdiamond: true, fireworks: true, baseten: true, slancha: true },
+  { feature: 'Model routing', portkey: 'Config-based', openrouter: 'Price/latency', notdiamond: 'ML per-query', fireworks: 'Manual', baseten: 'Manual', slancha: 'Automatic, continuous' },
+  { feature: 'Task analysis', portkey: false, openrouter: false, notdiamond: false, fireworks: false, baseten: false, slancha: true },
+  { feature: 'Automated fine-tuning', portkey: false, openrouter: false, notdiamond: false, fireworks: 'Customer-driven', baseten: false, slancha: 'Behind the scenes' },
+  { feature: 'Inference optimization', portkey: false, openrouter: false, notdiamond: false, fireworks: 'Manual', baseten: 'Manual', slancha: 'Automatic' },
+  { feature: 'Continuous redeployment', portkey: false, openrouter: false, notdiamond: false, fireworks: false, baseten: false, slancha: true },
+  { feature: 'Requires ML expertise', portkey: 'Low', openrouter: 'Low', notdiamond: 'Medium', fireworks: 'High', baseten: 'High', slancha: 'None' },
 ];
 
-function ComparisonSection({ title, keyMessage, paragraphs, callout, showCostComparison }) {
-  return (
-    <div className="comparison-section">
-      <h2>{title}</h2>
-      <h3 className="key-message">{keyMessage}</h3>
-      <div className="comparison-text">
-        {paragraphs.map((para, idx) => (
-          <p key={idx}>{para}</p>
-        ))}
-      </div>
-      {callout && (
-        <div className="callout-box">
-          <span className="callout-icon">{callout.icon}</span>
-          <span className="callout-text">{callout.text}</span>
-        </div>
-      )}
-      {showCostComparison && <CostComparison />}
-    </div>
-  );
-}
-
-function CostComparison() {
-  return (
-    <div className="cost-comparison">
-      <div className="cost-column build">
-        <h4>Build In-House</h4>
-        <div className="cost-detail">
-          <span className="cost-label">Engineers</span>
-          <span className="cost-value">10</span>
-        </div>
-        <div className="cost-detail">
-          <span className="cost-label">Timeline</span>
-          <span className="cost-value">12 months</span>
-        </div>
-        <div className="cost-total">
-          <span className="cost-label">Total</span>
-          <span className="cost-value">$12M+</span>
-        </div>
-        <div className="cost-year">
-          <span className="cost-label">First year</span>
-          <span className="cost-value">$12,000,000+</span>
-        </div>
-      </div>
-      <div className="cost-divider" />
-      <div className="cost-column slancha">
-        <h4>Slancha</h4>
-        <div className="cost-detail">
-          <span className="cost-label">Monthly</span>
-          <span className="cost-value">$499-$2,499</span>
-        </div>
-        <div className="cost-detail">
-          <span className="cost-label">Break-even</span>
-          <span className="cost-value">2-3 months</span>
-        </div>
-        <div className="cost-roi">
-          <span className="cost-label">ROI</span>
-          <span className="cost-value">10x</span>
-        </div>
-        <div className="cost-year">
-          <span className="cost-label">First year example</span>
-          <span className="cost-value">$6,000</span>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function FeatureTable() {
-  return (
-    <div className="feature-table-container">
-      <h2>Feature Comparison</h2>
-      <div className="feature-table">
-        <table>
-          <thead>
-            <tr>
-              <th>Capability</th>
-              <th>Slancha</th>
-              <th>Databricks</th>
-              <th>AWS SageMaker</th>
-              <th>CoreWeave</th>
-              <th>Build</th>
-            </tr>
-          </thead>
-          <tbody>
-            {features.map((row, idx) => (
-              <tr key={idx} className={idx % 2 === 0 ? 'zebra' : ''}>
-                <td className="feature-name">{row.feature}</td>
-                <td className="slancha-col">{row.slancha}</td>
-                <td className="databricks-col">{row.databricks}</td>
-                <td className="aws-col">{row.aws}</td>
-                <td className="coreweave-col">{row.coreweave}</td>
-                <td className="build-col">{row.build}</td>
-              </tr>
-            ))}
-          </tbody>
-          <tfoot>
-            <tr>
-              <td colSpan="6" className="table-footer">
-                Bottom line: Only Slancha owns the complete automated loop. Everything else requires you to build pieces.
-              </td>
-            </tr>
-          </tfoot>
-        </table>
-      </div>
-    </div>
-  );
+function CellValue({ value }) {
+  if (value === true) return <span className="cell-yes">Yes</span>;
+  if (value === false) return <span className="cell-no">No</span>;
+  return <span className="cell-text">{value}</span>;
 }
 
 export default function VsCompetitors() {
-  usePageMeta({ title: 'How We Compare', description: 'See how Slancha compares to Databricks, Together AI, Anyscale, Modal, and other platforms. The only tool that closes the eval-deploy-train loop.' });
-  return (
-    <div className="vs-competitors-page">
-      <div className="vs-header">
-        <h1>How We Compare</h1>
-        <p>See why AI teams choose Slancha</p>
-      </div>
+  usePageMeta({
+    title: 'How We Compare',
+    description: 'See how Slancha compares to Portkey, OpenRouter, Not Diamond, Fireworks AI, and BaseTen. The only platform that closes the full route → analyze → fine-tune → optimize → redeploy loop.',
+  });
 
-      <div className="vs-content">
-        {sections.map((section, idx) => (
-          <ComparisonSection
-            key={idx}
-            title={section.title}
-            keyMessage={section.keyMessage}
-            paragraphs={section.paragraphs}
-            callout={section.callout}
-            showCostComparison={section.showCostComparison}
-          />
-        ))}
-        <FeatureTable />
-      </div>
+  const [activeCompetitor, setActiveCompetitor] = useState('portkey');
+  const active = competitors.find(c => c.id === activeCompetitor);
+
+  return (
+    <div className="page">
+      <Nav />
+      <main className="vs-page">
+        <section className="vs-hero">
+          <span className="vs-eyebrow">Competitive Landscape</span>
+          <h1 className="vs-title">
+            How Slancha <span className="gradient-text">compares</span>
+          </h1>
+          <p className="vs-subtitle">
+            Existing routers expose choice. Inference platforms require expertise. Slancha is the only platform that closes the full loop — automatically.
+          </p>
+        </section>
+
+        {/* Competitor tabs */}
+        <section className="vs-competitors-section">
+          <div className="vs-tabs">
+            {competitors.map(c => (
+              <button
+                key={c.id}
+                className={`vs-tab ${activeCompetitor === c.id ? 'active' : ''}`}
+                onClick={() => setActiveCompetitor(c.id)}
+              >
+                <span className="vs-tab-name">{c.name}</span>
+                <span className="vs-tab-tagline">{c.tagline}</span>
+              </button>
+            ))}
+          </div>
+
+          <div className="vs-detail">
+            <div className="vs-detail-header">
+              <div>
+                <h2>Slancha vs. {active.name}</h2>
+                <span className="vs-funding">{active.funding}</span>
+              </div>
+            </div>
+
+            <h3 className="vs-key-message">{active.keyMessage}</h3>
+
+            <div className="vs-detail-body">
+              {active.paragraphs.map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
+            </div>
+
+            <div className="vs-detail-columns">
+              <div className="vs-strengths">
+                <h4>{active.name}'s Strengths</h4>
+                <ul>
+                  {active.strengths.map((s, i) => (
+                    <li key={i}>{s}</li>
+                  ))}
+                </ul>
+              </div>
+              <div className="vs-advantage">
+                <h4>Why Slancha Wins</h4>
+                <p>{active.slanchaAdvantage}</p>
+                <div className="vs-loop-diagram">
+                  <span className="vs-loop-step">Route</span>
+                  <span className="vs-loop-arrow">&rarr;</span>
+                  <span className="vs-loop-step">Analyze</span>
+                  <span className="vs-loop-arrow">&rarr;</span>
+                  <span className="vs-loop-step">Fine-tune</span>
+                  <span className="vs-loop-arrow">&rarr;</span>
+                  <span className="vs-loop-step">Optimize</span>
+                  <span className="vs-loop-arrow">&rarr;</span>
+                  <span className="vs-loop-step">Redeploy</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Feature comparison table */}
+        <section className="vs-matrix-section">
+          <h2 className="vs-matrix-title">Feature Comparison</h2>
+          <p className="vs-matrix-desc">
+            No one else closes the loop from routing to task analysis to automated fine-tuning to inference optimization to continuous redeployment.
+          </p>
+          <div className="vs-table-wrap">
+            <table className="vs-matrix">
+              <thead>
+                <tr>
+                  <th>Capability</th>
+                  <th>Portkey</th>
+                  <th>OpenRouter</th>
+                  <th>Not Diamond</th>
+                  <th>Fireworks</th>
+                  <th>BaseTen</th>
+                  <th className="vs-slancha-col">Slancha</th>
+                </tr>
+              </thead>
+              <tbody>
+                {featureMatrix.map((row, i) => (
+                  <tr key={i}>
+                    <td className="vs-feature-name">{row.feature}</td>
+                    <td><CellValue value={row.portkey} /></td>
+                    <td><CellValue value={row.openrouter} /></td>
+                    <td><CellValue value={row.notdiamond} /></td>
+                    <td><CellValue value={row.fireworks} /></td>
+                    <td><CellValue value={row.baseten} /></td>
+                    <td className="vs-slancha-cell"><CellValue value={row.slancha} /></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        {/* Build in-house comparison */}
+        <section className="vs-build-section">
+          <h2>Vs. Building In-House</h2>
+          <p className="vs-build-desc">
+            You could build the route-analyze-fine-tune-optimize-redeploy loop yourself. But should you?
+          </p>
+          <div className="vs-build-comparison">
+            <div className="vs-build-col vs-build-inhouse">
+              <h3>Build In-House</h3>
+              <div className="vs-build-stat">
+                <span className="vs-build-label">Team size</span>
+                <span className="vs-build-value">10+ engineers</span>
+              </div>
+              <div className="vs-build-stat">
+                <span className="vs-build-label">Timeline</span>
+                <span className="vs-build-value">6-12 months</span>
+              </div>
+              <div className="vs-build-stat">
+                <span className="vs-build-label">First-year cost</span>
+                <span className="vs-build-value vs-build-expensive">$12M+</span>
+              </div>
+              <p className="vs-build-note">Routing, task classification, data curation, fine-tuning pipelines, QAT, MIG serving, continuous redeployment. For context, Fireworks ($4B) and BaseTen ($5B) spent years and hundreds of millions building subsets of this stack.</p>
+            </div>
+            <div className="vs-build-col vs-build-slancha">
+              <h3>Use Slancha</h3>
+              <div className="vs-build-stat">
+                <span className="vs-build-label">Setup time</span>
+                <span className="vs-build-value">Hours</span>
+              </div>
+              <div className="vs-build-stat">
+                <span className="vs-build-label">Break-even</span>
+                <span className="vs-build-value">2-3 months</span>
+              </div>
+              <div className="vs-build-stat">
+                <span className="vs-build-label">First-year cost</span>
+                <span className="vs-build-value vs-build-cheap">$6,000-$30,000</span>
+              </div>
+              <p className="vs-build-note">Single API endpoint. Automatic routing, fine-tuning, and optimization from day one. Gets better the longer you use it.</p>
+            </div>
+          </div>
+        </section>
+
+        {/* CTA */}
+        <section className="vs-cta-section">
+          <h2>Ready to stop managing models?</h2>
+          <p>Start with the free router. See cost savings from your first request. No credit card required.</p>
+          <div className="vs-cta-buttons">
+            <Link to="/signup" className="btn-primary">Start Free</Link>
+            <Link to="/benchmarks" className="btn-secondary">See Benchmarks</Link>
+          </div>
+        </section>
+      </main>
+      <Footer />
     </div>
   );
 }
