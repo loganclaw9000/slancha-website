@@ -1,3 +1,12 @@
 User-agent: *
 Allow: /
+Disallow: /dashboard
+Disallow: /checkout
+Disallow: /auth
+Disallow: /login
+Disallow: /signup
+Disallow: /reset-password
+Disallow: /update-password
+Disallow: /verify-email
+
 Sitemap: https://slancha.ai/sitemap.xml
