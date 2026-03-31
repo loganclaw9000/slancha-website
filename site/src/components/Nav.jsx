@@ -7,6 +7,7 @@ const dropdowns = {
   Product: [
     { to: '/#how-it-works', label: 'How It Works', desc: 'The eval→deploy→optimize loop', anchor: true },
     { to: '/integrations', label: 'Integrations', desc: '31 platforms supported' },
+    { to: '/demo', label: 'Product Demo', desc: '5-step interactive walkthrough' },
     { to: '/playground', label: 'API Playground', desc: 'Try the API interactively' },
     { to: '/security', label: 'Security', desc: 'SOC 2, HIPAA, GDPR ready' },
     { to: '/changelog', label: 'Changelog', desc: 'Latest releases & updates' },
