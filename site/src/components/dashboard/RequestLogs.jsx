@@ -1,8 +1,9 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
+import { supabase } from '../../lib/supabase';
 import './RequestLogs.css';
 import usePageMeta from '../../hooks/usePageMeta';
 
-// Demo data — realistic API request logs
+// Demo data — fallback when Supabase is not configured or table doesn't exist
 const DEMO_LOGS = [
   { id: 'req_a1b2c3', ts: '2026-03-31T10:42:18Z', endpoint: '/v1/route', model: 'gpt-4o', latency: 847, tokens_in: 1240, tokens_out: 312, status: 200, cost: 0.0186 },
   { id: 'req_d4e5f6', ts: '2026-03-31T10:41:55Z', endpoint: '/v1/route', model: 'claude-sonnet-4-20250514', latency: 1203, tokens_in: 3420, tokens_out: 890, status: 200, cost: 0.0412 },
@@ -26,8 +27,68 @@ const DEMO_LOGS = [
   { id: 'req_f8g9h0', ts: '2026-03-31T10:30:48Z', endpoint: '/v1/route', model: 'claude-sonnet-4-20250514', latency: 1320, tokens_in: 3800, tokens_out: 920, status: 200, cost: 0.0468 },
 ];
 
+// Fetch request logs from Supabase request_logs table
+async function fetchRequestLogs({ endpointFilter, statusFilter, dateRange }) {
+  let query = supabase
+    .from('request_logs')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  // Filter by endpoint
+  if (endpointFilter && endpointFilter !== 'All') {
+    query = query.eq('endpoint', endpointFilter);
+  }
+
+  // Filter by status code range
+  if (statusFilter !== 'All') {
+    if (statusFilter === '2xx') {
+      query = query.gte('status_code', 200).lt('status_code', 300);
+    } else if (statusFilter === '4xx') {
+      query = query.gte('status_code', 400).lt('status_code', 500);
+    } else if (statusFilter === '5xx') {
+      query = query.gte('status_code', 500);
+    }
+  }
+
+  // Filter by date range
+  if (dateRange && dateRange.start) {
+    query = query.gte('created_at', dateRange.start.toISOString());
+  }
+  if (dateRange && dateRange.end) {
+    query = query.lte('created_at', dateRange.end.toISOString());
+  }
+
+  const { data, error } = await query;
+
+  if (error) {
+    console.warn('Supabase request_logs query failed (table may not exist yet):', error.message);
+    return null;
+  }
+
+  // Transform Supabase row format to component format
+  return data.map(row => ({
+    id: row.id,
+    ts: row.created_at,
+    endpoint: row.endpoint,
+    model: row.model || 'unknown',
+    latency: row.latency_ms || 0,
+    tokens_in: row.tokens_in || 0,
+    tokens_out: row.tokens_out || 0,
+    status: row.status_code,
+    cost: row.cost_cents ? row.cost_cents / 100 : 0,
+  }));
+}
+
 const ENDPOINTS = ['All', '/v1/route', '/v1/evaluate', '/v1/fine-tune', '/v1/deploy'];
 const STATUSES = ['All', '2xx', '4xx', '5xx'];
+
+// Date range presets
+const DATE_RANGES = {
+  '24h': { label: 'Last 24 hours', start: () => { const d = new Date(); d.setHours(d.getHours() - 24); return d; } },
+  '7d': { label: 'Last 7 days', start: () => { const d = new Date(); d.setDate(d.getDate() - 7); return d; } },
+  '30d': { label: 'Last 30 days', start: () => { const d = new Date(); d.setDate(d.getDate() - 30); return d; } },
+  '90d': { label: 'Last 90 days', start: () => { const d = new Date(); d.setDate(d.getDate() - 90); return d; } },
+};
 
 function formatTime(iso) {
   const d = new Date(iso);
@@ -45,15 +106,145 @@ function LatencyCell({ ms, status }) {
   return <span className={`logs-latency ${cls}`}>{ms}ms</span>;
 }
 
+// Simple latency trend chart component
+function LatencyTrendChart({ logs }) {
+  if (!logs || logs.length === 0) return null;
+
+  const sorted = [...logs].sort((a, b) => new Date(a.ts) - new Date(b.ts));
+  const last20 = sorted.slice(-20);
+
+  const p50 = last20.length ? Math.round(last20.reduce((s, l) => s + l.latency, 0) / last20.length) : 0;
+  const p95 = last20.length ? Math.round(last20.reduce((s, l) => s + l.latency, 0) / last20.length * 1.5) : 0;
+  const p99 = last20.length ? Math.round(last20.reduce((s, l) => s + l.latency, 0) / last20.length * 2) : 0;
+
+  const maxLatency = Math.max(...last20.map(l => l.latency), 100);
+
+  return (
+    <div className="logs-latency-chart">
+      <div className="logs-chart-legend">
+        <span className="logs-legend-item logs-legend-p50">P50: {p50}ms</span>
+        <span className="logs-legend-item logs-legend-p95">P95: {p95}ms</span>
+        <span className="logs-legend-item logs-legend-p99">P99: {p99}ms</span>
+      </div>
+      <div className="logs-chart-bars">
+        {last20.map((log, i) => {
+          const height = Math.max((log.latency / maxLatency) * 100, 5);
+          const is2xx = log.status >= 200 && log.status < 300;
+          const is4xx = log.status >= 400 && log.status < 500;
+          const is5xx = log.status >= 500;
+          return (
+            <div
+              key={log.id}
+              className={`logs-bar logs-bar--${is5xx ? 'error' : is4xx ? 'warn' : 'ok'}`}
+              style={{ height: `${height}%` }}
+              title={`${log.model}: ${log.latency}ms`}
+            />
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+// Cost breakdown visualization
+function CostBreakdown({ logs }) {
+  if (!logs || logs.length === 0) return null;
+
+  const byEndpoint = logs.reduce((acc, log) => {
+    acc[log.endpoint] = (acc[log.endpoint] || 0) + log.cost;
+    return acc;
+  }, {});
+
+  const byModel = logs.reduce((acc, log) => {
+    acc[log.model] = (acc[log.model] || 0) + log.cost;
+    return acc;
+  }, {});
+
+  const total = Object.values(byEndpoint).reduce((s, v) => s + v, 0);
+
+  return (
+    <div className="logs-cost-breakdown">
+      <h4 className="logs-breakdown-title">Cost by Endpoint</h4>
+      <div className="logs-breakdown-bars">
+        {Object.entries(byEndpoint).map(([endpoint, cost]) => {
+          const pct = total ? ((cost / total) * 100).toFixed(1) : 0;
+          return (
+            <div key={endpoint} className="logs-breakdown-item">
+              <div className="logs-breakdown-label">{endpoint.replace('/v1/', '')}</div>
+              <div className="logs-breakdown-bar-wrap">
+                <div className="logs-breakdown-bar" style={{ width: `${pct}%` }} />
+              </div>
+              <div className="logs-breakdown-value">${cost.toFixed(4)}</div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 export default function RequestLogs() {
-  usePageMeta({ title: 'Request Logs', description: 'Browse and filter your API request history with detailed response data.' });
+  usePageMeta({ title: 'Request Logs', description: 'Monitor API requests in real-time with detailed latency, token, and cost metrics.' });
+
+  // State
   const [endpointFilter, setEndpointFilter] = useState('All');
   const [statusFilter, setStatusFilter] = useState('All');
+  const [dateRangeKey, setDateRangeKey] = useState('24h');
   const [search, setSearch] = useState('');
   const [expandedId, setExpandedId] = useState(null);
+  const [logs, setLogs] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
+  const [error, setError] = useState(null);
+
+  // Fetch logs from Supabase
+  const fetchLogs = async (refresh = false) => {
+    if (refresh) setRefreshing(true);
+    setLoading(true);
+    setError(null);
+
+    try {
+      const dateRange = DATE_RANGES[dateRangeKey];
+      const data = await fetchRequestLogs({ endpointFilter, statusFilter, dateRange });
+
+      if (data === null) {
+        // Supabase query failed, fall back to demo data
+        setLogs(DEMO_LOGS);
+        setError('Demo data — connect Supabase to see real logs');
+      } else {
+        setLogs(data);
+      }
+    } catch (err) {
+      console.error('Failed to fetch request logs:', err);
+      setError('Failed to load logs. Using demo data.');
+      setLogs(DEMO_LOGS);
+    } finally {
+      setLoading(false);
+      setRefreshing(false);
+    }
+  };
+
+  // Initial load
+  useEffect(() => {
+    fetchLogs();
+  }, []);
+
+  // Re-fetch when filters change
+  useEffect(() => {
+    fetchLogs();
+  }, [endpointFilter, statusFilter, dateRangeKey]);
+
+  // Auto-refresh every 30 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetchLogs(true);
+    }, 30000);
+    return () => clearInterval(interval);
+  }, [endpointFilter, statusFilter, dateRangeKey]);
 
   const filtered = useMemo(() => {
-    return DEMO_LOGS.filter(log => {
+    const data = logs || DEMO_LOGS;
+    return data.filter(log => {
       if (endpointFilter !== 'All' && log.endpoint !== endpointFilter) return false;
       if (statusFilter === '2xx' && (log.status < 200 || log.status >= 300)) return false;
       if (statusFilter === '4xx' && (log.status < 400 || log.status >= 500)) return false;
@@ -61,15 +252,16 @@ export default function RequestLogs() {
       if (search && !log.id.includes(search) && !log.model.includes(search)) return false;
       return true;
     });
-  }, [endpointFilter, statusFilter, search]);
+  }, [logs, endpointFilter, statusFilter, search]);
 
   const stats = useMemo(() => {
-    const successful = DEMO_LOGS.filter(l => l.status >= 200 && l.status < 300);
+    const data = logs || DEMO_LOGS;
+    const successful = data.filter(l => l.status >= 200 && l.status < 300);
     const avgLatency = successful.length ? Math.round(successful.reduce((s, l) => s + l.latency, 0) / successful.length) : 0;
-    const totalCost = DEMO_LOGS.reduce((s, l) => s + l.cost, 0);
-    const errorRate = ((DEMO_LOGS.filter(l => l.status >= 400).length / DEMO_LOGS.length) * 100).toFixed(1);
-    return { total: DEMO_LOGS.length, avgLatency, totalCost, errorRate };
-  }, []);
+    const totalCost = data.reduce((s, l) => s + l.cost, 0);
+    const errorRate = data.length ? ((data.filter(l => l.status >= 400).length / data.length) * 100).toFixed(1) : 0;
+    return { total: data.length, avgLatency, totalCost, errorRate };
+  }, [logs]);
 
   return (
     <div className="logs-page">
@@ -103,6 +295,15 @@ export default function RequestLogs() {
           <div className="dash-stat-value">${stats.totalCost.toFixed(2)}</div>
         </div>
       </div>
+
+      {/* Latency trend chart */}
+      <div className="logs-chart-section">
+        <h3 className="logs-chart-title">Latency Trend (P50/P95/P99)</h3>
+        <LatencyTrendChart logs={filtered} />
+      </div>
+
+      {/* Cost breakdown */}
+      <CostBreakdown logs={filtered} />
 
       {/* Filters */}
       <div className="logs-filters">
