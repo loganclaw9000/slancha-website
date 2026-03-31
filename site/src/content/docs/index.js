@@ -2212,6 +2212,815 @@ After migrating, verify your integration:
 
 Our team can help with complex migrations involving custom models, fine-tuned weights, or enterprise deployments.`,
   },
+  {
+    slug: 'tutorial-support-bot',
+    title: 'Build a Customer Support Bot',
+    section: 'Tutorials',
+    order: 11,
+    body: `# Tutorial: Build a Customer Support Bot
+
+Build an AI customer support bot that starts with frontier models and automatically improves over time — routing simple queries to fast, cheap fine-tuned models while escalating complex issues to powerful ones.
+
+**Time:** 30 minutes
+**Prerequisites:** Slancha account, Python 3.9+, \`pip install openai\`
+
+---
+
+## What You'll Build
+
+A support bot that:
+1. Answers customer questions using Slancha's intelligent router
+2. Logs interactions for automatic evaluation
+3. Automatically routes simple queries (password reset, order status) to fast 7B models
+4. Escalates complex queries (billing disputes, technical bugs) to frontier models
+5. Continuously improves as Slancha fine-tunes models on your traffic
+
+---
+
+## Step 1: Set Up the Client
+
+\`\`\`python
+import openai
+import json
+from datetime import datetime
+
+client = openai.OpenAI(
+    base_url="https://api.slancha.ai/v1",
+    api_key="sk-sl_your_key_here"
+)
+
+SYSTEM_PROMPT = """You are a helpful customer support agent for Acme Corp.
+You handle questions about orders, billing, accounts, and product issues.
+Be concise, empathetic, and solution-oriented.
+If you can't resolve an issue, offer to escalate to a human agent."""
+\`\`\`
+
+## Step 2: Build the Chat Handler
+
+\`\`\`python
+def handle_support_query(user_message: str, conversation_history: list = None):
+    """Handle a single support query with full conversation context."""
+    if conversation_history is None:
+        conversation_history = []
+
+    messages = [
+        {"role": "system", "content": SYSTEM_PROMPT},
+        *conversation_history,
+        {"role": "user", "content": user_message}
+    ]
+
+    response = client.chat.completions.create(
+        model="auto",  # Slancha picks the optimal model
+        messages=messages,
+        temperature=0.3,  # Lower temperature for consistent support answers
+        max_tokens=512,
+    )
+
+    assistant_message = response.choices[0].message.content
+
+    # Log for analytics
+    log_interaction(user_message, assistant_message, response)
+
+    return assistant_message, response
+
+
+def log_interaction(query, response_text, raw_response):
+    """Log interaction for evaluation and fine-tuning data."""
+    log_entry = {
+        "timestamp": datetime.utcnow().isoformat(),
+        "query": query,
+        "response": response_text,
+        "model": raw_response.model,
+        "tokens": {
+            "prompt": raw_response.usage.prompt_tokens,
+            "completion": raw_response.usage.completion_tokens,
+        },
+        "latency_ms": getattr(raw_response, '_response_ms', None),
+    }
+    # Append to JSONL file for eval dataset
+    with open("support_interactions.jsonl", "a") as f:
+        f.write(json.dumps(log_entry) + "\\n")
+\`\`\`
+
+## Step 3: Add Category Detection
+
+Categorize queries so you can track what types of questions the bot handles:
+
+\`\`\`python
+CATEGORIES = {
+    "order_status": "Order tracking, delivery updates, shipping questions",
+    "billing": "Payment issues, refunds, invoice questions, subscription changes",
+    "account": "Password reset, login issues, profile updates, account deletion",
+    "product": "Feature questions, how-to guides, bug reports, compatibility",
+    "escalation": "Complex complaints, legal requests, VIP customers",
+}
+
+def classify_and_handle(user_message: str, conversation_history: list = None):
+    """Classify the query, then handle it."""
+    # Use Slancha to classify — the router will pick a fast model for this
+    classification = client.chat.completions.create(
+        model="auto",
+        messages=[{
+            "role": "user",
+            "content": f"Classify this support query into exactly one category: "
+                       f"{', '.join(CATEGORIES.keys())}\\n\\n"
+                       f"Query: {user_message}\\n\\nCategory:"
+        }],
+        max_tokens=20,
+        temperature=0,
+    )
+
+    category = classification.choices[0].message.content.strip().lower()
+
+    # Handle the actual query
+    response_text, raw_response = handle_support_query(
+        user_message, conversation_history
+    )
+
+    return {
+        "category": category,
+        "response": response_text,
+        "model_used": raw_response.model,
+    }
+\`\`\`
+
+## Step 4: Add Streaming for Real-Time Responses
+
+\`\`\`python
+def handle_support_streaming(user_message: str, conversation_history: list = None):
+    """Stream responses for real-time chat UI."""
+    if conversation_history is None:
+        conversation_history = []
+
+    messages = [
+        {"role": "system", "content": SYSTEM_PROMPT},
+        *conversation_history,
+        {"role": "user", "content": user_message}
+    ]
+
+    stream = client.chat.completions.create(
+        model="auto",
+        messages=messages,
+        temperature=0.3,
+        max_tokens=512,
+        stream=True,
+    )
+
+    full_response = ""
+    for chunk in stream:
+        if chunk.choices[0].delta.content:
+            token = chunk.choices[0].delta.content
+            full_response += token
+            print(token, end="", flush=True)  # Real-time output
+
+    print()  # Newline after stream completes
+    return full_response
+\`\`\`
+
+## Step 5: Create an Evaluation Dataset
+
+After collecting interactions, create an eval to measure quality:
+
+\`\`\`python
+import json
+
+def create_eval_dataset(interactions_file="support_interactions.jsonl", output="eval_dataset.jsonl"):
+    """Convert logged interactions into an evaluation dataset."""
+    eval_entries = []
+
+    with open(interactions_file) as f:
+        for line in f:
+            entry = json.loads(line)
+            eval_entries.append({
+                "messages": [
+                    {"role": "system", "content": SYSTEM_PROMPT},
+                    {"role": "user", "content": entry["query"]},
+                    {"role": "assistant", "content": entry["response"]},
+                ],
+                "metadata": {
+                    "category": entry.get("category", "unknown"),
+                    "model": entry["model"],
+                }
+            })
+
+    with open(output, "w") as f:
+        for entry in eval_entries:
+            f.write(json.dumps(entry) + "\\n")
+
+    print(f"Created eval dataset with {len(eval_entries)} entries")
+    return output
+\`\`\`
+
+Then upload it to Slancha:
+
+\`\`\`python
+# Upload eval dataset
+dataset = client.post(
+    "/v1/datasets",
+    files={"file": open("eval_dataset.jsonl", "rb")},
+    data={"name": "support-bot-evals", "type": "evaluation"}
+)
+
+# Create evaluation
+evaluation = client.post("/v1/evaluations", json={
+    "dataset_id": dataset["id"],
+    "metrics": ["accuracy", "helpfulness", "conciseness"],
+    "auto_promote": True  # Automatically trigger fine-tuning if quality threshold met
+})
+\`\`\`
+
+## Step 6: Monitor and Improve
+
+Once your bot is live, Slancha's improvement loop kicks in automatically:
+
+1. **Week 1:** All traffic routes through frontier models (GPT-4o, Claude). You get high quality but pay full price.
+
+2. **Week 2-3:** Slancha's eval engine analyzes your traffic patterns. It identifies that ~60% of queries are simple (password resets, order lookups) and can be handled by a smaller model.
+
+3. **Month 1:** Slancha fine-tunes a 7B model on your traffic data. Simple queries start routing to this model — same quality, 80% cheaper.
+
+4. **Ongoing:** The router continuously adjusts. New query types start on frontier models, then get absorbed into fine-tuned models as data accumulates.
+
+\`\`\`
+# Check your optimization progress in the dashboard
+curl -H "Authorization: Bearer $SLANCHA_API_KEY" \\
+  https://api.slancha.ai/v1/deployments/metrics
+
+# Response shows routing distribution:
+# {
+#   "routing": {
+#     "fine_tuned_7b": 0.62,    # 62% of traffic
+#     "llama_70b": 0.23,         # 23% of traffic
+#     "gpt_4o": 0.15             # 15% of traffic (complex only)
+#   },
+#   "cost_savings": "74%",
+#   "quality_score": 0.94
+# }
+\`\`\`
+
+## Full Example: Flask API
+
+\`\`\`python
+from flask import Flask, request, jsonify, Response
+import openai
+import json
+
+app = Flask(__name__)
+client = openai.OpenAI(
+    base_url="https://api.slancha.ai/v1",
+    api_key="sk-sl_your_key_here"
+)
+
+SYSTEM_PROMPT = "You are a helpful customer support agent for Acme Corp."
+
+@app.route("/api/support", methods=["POST"])
+def support():
+    data = request.json
+    user_message = data["message"]
+    history = data.get("history", [])
+
+    messages = [
+        {"role": "system", "content": SYSTEM_PROMPT},
+        *history,
+        {"role": "user", "content": user_message}
+    ]
+
+    response = client.chat.completions.create(
+        model="auto",
+        messages=messages,
+        temperature=0.3,
+        max_tokens=512,
+    )
+
+    return jsonify({
+        "response": response.choices[0].message.content,
+        "model": response.model,
+        "tokens_used": response.usage.total_tokens,
+    })
+
+@app.route("/api/support/stream", methods=["POST"])
+def support_stream():
+    data = request.json
+    messages = [
+        {"role": "system", "content": SYSTEM_PROMPT},
+        *data.get("history", []),
+        {"role": "user", "content": data["message"]}
+    ]
+
+    def generate():
+        stream = client.chat.completions.create(
+            model="auto",
+            messages=messages,
+            temperature=0.3,
+            stream=True,
+        )
+        for chunk in stream:
+            if chunk.choices[0].delta.content:
+                yield f"data: {json.dumps({'token': chunk.choices[0].delta.content})}\\n\\n"
+        yield "data: [DONE]\\n\\n"
+
+    return Response(generate(), mimetype="text/event-stream")
+
+if __name__ == "__main__":
+    app.run(port=5000)
+\`\`\`
+
+## What's Next
+
+- [Cost Optimization Guide](/docs/tutorial-cost-optimization) — maximize savings across workloads
+- [RAG Pipeline Tutorial](/docs/tutorial-rag-pipeline) — add intelligent routing to retrieval-augmented generation
+- [Evaluations](/docs/evaluations) — deep dive into eval metrics and auto-promotion
+- [API Reference](/docs/api-reference) — full endpoint documentation`,
+  },
+  {
+    slug: 'tutorial-rag-pipeline',
+    title: 'Smart RAG Pipeline',
+    section: 'Tutorials',
+    order: 12,
+    body: `# Tutorial: Smart RAG Pipeline with Intelligent Routing
+
+Build a retrieval-augmented generation pipeline that uses Slancha's router to pick the right model for each query — fast models for simple lookups, powerful models for complex synthesis.
+
+**Time:** 25 minutes
+**Prerequisites:** Slancha account, Python 3.9+, \`pip install openai chromadb\`
+
+---
+
+## Why Smart Routing for RAG?
+
+Most RAG pipelines send every query to the same model. But not all queries need the same level of reasoning:
+
+| Query Type | Example | Ideal Model | Why |
+|---|---|---|---|
+| Simple lookup | "What's our refund policy?" | Fast 7B | Answer is directly in the docs |
+| Multi-hop reasoning | "Compare our enterprise and team plans, including hidden costs" | Frontier | Needs to synthesize across multiple chunks |
+| Summarization | "Summarize the Q3 product updates" | Mid-range 13B | Moderate complexity |
+| Creative | "Write a customer-facing announcement about this feature" | Frontier | Quality matters most |
+
+Slancha handles this automatically — you just send requests with \`model: "auto"\`.
+
+---
+
+## Step 1: Set Up Vector Store
+
+\`\`\`python
+import chromadb
+import openai
+
+# Slancha client
+client = openai.OpenAI(
+    base_url="https://api.slancha.ai/v1",
+    api_key="sk-sl_your_key_here"
+)
+
+# Local vector store (swap for Pinecone, Weaviate, etc. in production)
+chroma = chromadb.Client()
+collection = chroma.create_collection("knowledge_base")
+\`\`\`
+
+## Step 2: Index Your Documents
+
+\`\`\`python
+def chunk_document(text: str, chunk_size: int = 500, overlap: int = 50) -> list:
+    """Split document into overlapping chunks."""
+    chunks = []
+    start = 0
+    while start < len(text):
+        end = start + chunk_size
+        chunk = text[start:end]
+        chunks.append(chunk)
+        start = end - overlap
+    return chunks
+
+
+def index_documents(documents: list[dict]):
+    """Index documents into the vector store.
+
+    Each document: {"title": "...", "content": "...", "source": "..."}
+    """
+    all_chunks = []
+    all_ids = []
+    all_metadata = []
+
+    for doc in documents:
+        chunks = chunk_document(doc["content"])
+        for i, chunk in enumerate(chunks):
+            all_chunks.append(chunk)
+            all_ids.append(f"{doc['title']}_{i}")
+            all_metadata.append({
+                "title": doc["title"],
+                "source": doc["source"],
+                "chunk_index": i,
+            })
+
+    collection.add(
+        documents=all_chunks,
+        ids=all_ids,
+        metadatas=all_metadata,
+    )
+    print(f"Indexed {len(all_chunks)} chunks from {len(documents)} documents")
+
+
+# Example: index your docs
+index_documents([
+    {
+        "title": "Refund Policy",
+        "content": "Acme Corp offers a 30-day money-back guarantee on all plans...",
+        "source": "help-center/refunds"
+    },
+    {
+        "title": "Enterprise Plan",
+        "content": "The Enterprise plan includes SSO, dedicated support, custom SLAs...",
+        "source": "pricing/enterprise"
+    },
+    # Add your documents here
+])
+\`\`\`
+
+## Step 3: Build the RAG Query Function
+
+\`\`\`python
+def rag_query(question: str, n_results: int = 5) -> dict:
+    """Answer a question using RAG with Slancha's intelligent routing."""
+
+    # 1. Retrieve relevant chunks
+    results = collection.query(
+        query_texts=[question],
+        n_results=n_results,
+    )
+
+    # 2. Build context from retrieved chunks
+    context_chunks = []
+    sources = set()
+    for i, doc in enumerate(results["documents"][0]):
+        meta = results["metadatas"][0][i]
+        context_chunks.append(f"[{meta['title']}]\\n{doc}")
+        sources.add(f"{meta['title']} ({meta['source']})")
+
+    context = "\\n\\n---\\n\\n".join(context_chunks)
+
+    # 3. Generate answer with Slancha — router picks the right model
+    response = client.chat.completions.create(
+        model="auto",
+        messages=[
+            {
+                "role": "system",
+                "content": (
+                    "You are a knowledgeable assistant. Answer the user's question "
+                    "based ONLY on the provided context. If the context doesn't contain "
+                    "enough information, say so clearly. Cite sources when possible."
+                )
+            },
+            {
+                "role": "user",
+                "content": f"Context:\\n{context}\\n\\n---\\n\\nQuestion: {question}"
+            }
+        ],
+        temperature=0.2,
+        max_tokens=1024,
+    )
+
+    return {
+        "answer": response.choices[0].message.content,
+        "sources": list(sources),
+        "model_used": response.model,
+        "tokens": response.usage.total_tokens,
+    }
+\`\`\`
+
+## Step 4: Add Streaming RAG
+
+\`\`\`python
+def rag_query_stream(question: str, n_results: int = 5):
+    """Stream a RAG response for real-time UIs."""
+
+    results = collection.query(query_texts=[question], n_results=n_results)
+    context = "\\n\\n---\\n\\n".join(results["documents"][0])
+
+    stream = client.chat.completions.create(
+        model="auto",
+        messages=[
+            {
+                "role": "system",
+                "content": "Answer based ONLY on the provided context. Be concise and cite sources."
+            },
+            {
+                "role": "user",
+                "content": f"Context:\\n{context}\\n\\nQuestion: {question}"
+            }
+        ],
+        temperature=0.2,
+        max_tokens=1024,
+        stream=True,
+    )
+
+    for chunk in stream:
+        if chunk.choices[0].delta.content:
+            yield chunk.choices[0].delta.content
+\`\`\`
+
+## Step 5: Evaluate RAG Quality
+
+Create an eval dataset from real queries and measure answer quality:
+
+\`\`\`python
+def evaluate_rag(test_questions: list[dict]):
+    """Run evaluation on RAG pipeline.
+
+    Each entry: {"question": "...", "expected_answer": "...", "category": "..."}
+    """
+    results = []
+
+    for test in test_questions:
+        result = rag_query(test["question"])
+
+        # Use Slancha to judge answer quality
+        judgment = client.chat.completions.create(
+            model="auto",
+            messages=[{
+                "role": "user",
+                "content": (
+                    f"Rate this answer on a scale of 1-5 for accuracy and completeness.\\n\\n"
+                    f"Question: {test['question']}\\n"
+                    f"Expected: {test['expected_answer']}\\n"
+                    f"Actual: {result['answer']}\\n\\n"
+                    f"Score (just the number):"
+                )
+            }],
+            max_tokens=5,
+            temperature=0,
+        )
+
+        score = float(judgment.choices[0].message.content.strip())
+        results.append({
+            "question": test["question"],
+            "score": score,
+            "model": result["model_used"],
+            "category": test.get("category", "general"),
+        })
+
+    avg_score = sum(r["score"] for r in results) / len(results)
+    print(f"Average quality score: {avg_score:.2f}/5.0")
+    print(f"Models used: {set(r['model'] for r in results)}")
+
+    return results
+\`\`\`
+
+## Step 6: Production FastAPI Server
+
+\`\`\`python
+from fastapi import FastAPI
+from fastapi.responses import StreamingResponse
+from pydantic import BaseModel
+
+app = FastAPI()
+
+class Query(BaseModel):
+    question: str
+    n_results: int = 5
+
+@app.post("/api/ask")
+async def ask(query: Query):
+    result = rag_query(query.question, query.n_results)
+    return result
+
+@app.post("/api/ask/stream")
+async def ask_stream(query: Query):
+    async def generate():
+        for token in rag_query_stream(query.question, query.n_results):
+            yield f"data: {json.dumps({'token': token})}\\n\\n"
+        yield "data: [DONE]\\n\\n"
+
+    return StreamingResponse(generate(), media_type="text/event-stream")
+\`\`\`
+
+## How Slancha Optimizes This Over Time
+
+1. **Week 1:** The router learns your query patterns — which questions are simple lookups vs. complex synthesis
+2. **Week 2-4:** Simple factual queries route to fast, cheap models (sub-50ms). Complex queries stay on frontier models
+3. **Month 2+:** Slancha fine-tunes domain-specific models on your RAG interactions, improving answer quality while reducing cost
+
+The result: your RAG pipeline gets faster, cheaper, and more accurate — without any code changes.
+
+## What's Next
+
+- [Customer Support Bot Tutorial](/docs/tutorial-support-bot) — build a full support agent
+- [Cost Optimization Guide](/docs/tutorial-cost-optimization) — maximize cost savings
+- [Router Configuration](/docs/router) — customize routing behavior
+- [Evaluations](/docs/evaluations) — set up automated quality monitoring`,
+  },
+  {
+    slug: 'tutorial-cost-optimization',
+    title: 'Cost Optimization Guide',
+    section: 'Tutorials',
+    order: 13,
+    body: `# Tutorial: Cost Optimization Guide
+
+A practical playbook for reducing AI inference costs by 60-80% using Slancha's intelligent routing and automated fine-tuning — without sacrificing quality.
+
+**Time:** 20 minutes
+**Prerequisites:** Slancha account with at least 1 week of traffic data
+
+---
+
+## The Cost Problem
+
+Most teams overspend on AI inference because they use one model for everything:
+
+\`\`\`
+❌ Typical setup:
+   ALL requests → GPT-4o → $15/M input tokens, $60/M output tokens
+
+✅ With Slancha:
+   Simple queries (60%) → Fine-tuned 7B → $0.20/M tokens
+   Medium queries (25%) → Llama 70B     → $0.90/M tokens
+   Complex queries (15%) → GPT-4o       → $15/$60/M tokens
+
+   Result: 70-80% cost reduction, same quality
+\`\`\`
+
+---
+
+## Step 1: Baseline Your Current Costs
+
+Before optimizing, understand what you're spending:
+
+\`\`\`python
+import openai
+
+client = openai.OpenAI(
+    base_url="https://api.slancha.ai/v1",
+    api_key="sk-sl_your_key_here"
+)
+
+# Check current usage via API
+usage = client.get("/v1/usage/summary?period=30d")
+print(f"Total requests: {usage['total_requests']:,}")
+print(f"Total tokens: {usage['total_tokens']:,}")
+print(f"Total cost: \${usage['total_cost']:.2f}")
+print(f"Avg cost per request: \${usage['avg_cost_per_request']:.4f}")
+print(f"Model distribution: {usage['model_distribution']}")
+\`\`\`
+
+Or check the [Dashboard → Usage](/dashboard/usage) for a visual breakdown.
+
+## Step 2: Understand Your Traffic Mix
+
+Slancha automatically categorizes your requests. Check which types dominate:
+
+\`\`\`python
+# Get routing analytics
+analytics = client.get("/v1/deployments/analytics?period=7d")
+
+for category in analytics["categories"]:
+    print(f"{category['name']:25} {category['percentage']:5.1f}%  "
+          f"avg_tokens: {category['avg_tokens']:5}  "
+          f"complexity: {category['complexity']}")
+
+# Typical output:
+# simple_lookup               42.3%  avg_tokens:   180  complexity: low
+# summarization               18.7%  avg_tokens:   450  complexity: medium
+# code_generation             15.2%  avg_tokens:   680  complexity: high
+# creative_writing             8.4%  avg_tokens:   520  complexity: medium
+# multi_step_reasoning         7.1%  avg_tokens:   890  complexity: high
+# classification               8.3%  avg_tokens:    45  complexity: low
+\`\`\`
+
+## Step 3: Configure Cost-Optimized Routing
+
+Tell the router your cost preferences:
+
+\`\`\`python
+# Set routing preferences
+client.put("/v1/router/config", json={
+    "strategy": "cost_optimized",  # Options: balanced, quality_first, cost_optimized
+    "quality_threshold": 0.90,      # Minimum quality score (0-1) before downgrading
+    "max_latency_ms": 2000,         # Maximum acceptable latency
+    "fallback_model": "gpt-4o",     # Use for requests the router can't classify
+})
+\`\`\`
+
+**Strategy options:**
+
+| Strategy | Behavior | Best For |
+|---|---|---|
+| \`quality_first\` | Always pick the most capable model | Critical applications, low volume |
+| \`balanced\` (default) | Optimize cost while maintaining quality | Most workloads |
+| \`cost_optimized\` | Aggressively route to cheaper models | High volume, cost-sensitive |
+
+## Step 4: Accelerate Fine-Tuning
+
+Slancha fine-tunes automatically, but you can speed it up:
+
+\`\`\`python
+# Upload your existing data to bootstrap fine-tuning
+with open("historical_conversations.jsonl", "rb") as f:
+    dataset = client.post("/v1/datasets", files={"file": f}, data={
+        "name": "historical-support-data",
+        "type": "training",
+    })
+
+# Trigger fine-tuning job manually (usually Slancha does this automatically)
+fine_tune = client.post("/v1/fine-tuning", json={
+    "dataset_id": dataset["id"],
+    "base_model": "qwen-2.5-7b",
+    "task_type": "customer_support",
+    "auto_promote": True,     # Deploy automatically if quality checks pass
+    "eval_split": 0.1,        # Hold out 10% for evaluation
+})
+
+print(f"Fine-tuning job: {fine_tune['id']}")
+print(f"Estimated completion: {fine_tune['estimated_completion']}")
+\`\`\`
+
+## Step 5: Set Up Cost Alerts
+
+\`\`\`python
+# Configure cost alerts and budgets
+client.put("/v1/settings/billing", json={
+    "monthly_budget": 500,          # Hard cap in USD
+    "alert_thresholds": [0.5, 0.8, 0.95],  # Alert at 50%, 80%, 95%
+    "alert_webhook": "https://your-app.com/webhooks/cost-alert",
+    "overage_behavior": "throttle",  # Options: throttle, block, notify_only
+})
+\`\`\`
+
+## Step 6: Optimize Prompt Length
+
+Shorter prompts = lower costs. Use the eval engine to find the minimum effective prompt:
+
+\`\`\`python
+# Example: test progressively shorter system prompts
+prompts = [
+    # Original (long)
+    "You are a helpful, knowledgeable customer support agent for Acme Corp. "
+    "You should always be polite, professional, and empathetic. When answering "
+    "questions, provide clear step-by-step instructions. If you cannot resolve "
+    "an issue, offer to escalate to a human agent...",  # 400 tokens
+
+    # Compressed
+    "You are Acme Corp support. Be concise and helpful. "
+    "Offer escalation if you can't resolve the issue.",  # 25 tokens
+
+    # Minimal
+    "Acme Corp support agent. Be concise. Escalate if needed.",  # 12 tokens
+]
+
+# Test each against your eval dataset
+for i, prompt in enumerate(prompts):
+    eval_result = client.post("/v1/evaluations", json={
+        "dataset_id": "support-eval-dataset",
+        "system_prompt": prompt,
+        "metrics": ["accuracy", "helpfulness"],
+    })
+    print(f"Prompt {i+1} ({len(prompt.split())} words): "
+          f"accuracy={eval_result['scores']['accuracy']:.3f}, "
+          f"helpfulness={eval_result['scores']['helpfulness']:.3f}")
+
+# Often the compressed version scores within 2% of the original
+# but uses 94% fewer prompt tokens
+\`\`\`
+
+## Cost Optimization Checklist
+
+Use this checklist to maximize savings:
+
+### Quick Wins (Day 1)
+- [ ] Switch to \`model: "auto"\` instead of hardcoding a model
+- [ ] Set routing strategy to \`"balanced"\` or \`"cost_optimized"\`
+- [ ] Set a monthly budget and cost alerts
+- [ ] Remove unnecessary instructions from system prompts
+
+### Medium Term (Week 1-2)
+- [ ] Upload historical data to bootstrap fine-tuning
+- [ ] Run prompt compression experiments
+- [ ] Review model distribution in dashboard — ensure simple queries aren't hitting frontier models
+- [ ] Enable \`auto_promote\` for fine-tuning jobs
+
+### Long Term (Month 1+)
+- [ ] Monitor fine-tuned model coverage — target 60%+ of traffic on fine-tuned models
+- [ ] Review eval scores quarterly — quality should hold steady as costs drop
+- [ ] Test new base models when released (Slancha adds them automatically)
+- [ ] Consider dedicated MIG partitions for high-volume, stable workloads
+
+## Expected Savings Timeline
+
+| Timeframe | Typical Savings | What's Happening |
+|---|---|---|
+| Day 1 | 10-20% | Smart routing avoids over-provisioning |
+| Week 2 | 30-40% | Router learns your traffic patterns |
+| Month 1 | 50-65% | First fine-tuned models deployed |
+| Month 3 | 65-80% | Multiple fine-tuned models, optimized routing |
+| Month 6+ | 75-85% | Mature routing + MIG optimization + multi-token prediction |
+
+## What's Next
+
+- [Benchmarks](/benchmarks) — see real performance data
+- [ROI Calculator](/roi-calculator) — model savings for your specific workload
+- [Customer Support Bot Tutorial](/docs/tutorial-support-bot) — build a support bot
+- [RAG Pipeline Tutorial](/docs/tutorial-rag-pipeline) — optimize your RAG pipeline
+- [API Reference](/docs/api-reference) — full endpoint documentation`,
+  },
 ];
 
 export const docSections = [
@@ -2223,4 +3032,5 @@ export const docSections = [
   { name: 'Router', slugs: ['router'] },
   { name: 'API', slugs: ['api-reference', 'models', 'sdks'] },
   { name: 'Migrate', slugs: ['migration'] },
+  { name: 'Tutorials', slugs: ['tutorial-support-bot', 'tutorial-rag-pipeline', 'tutorial-cost-optimization'] },
 ];
