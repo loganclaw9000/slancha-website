@@ -62,3 +62,112 @@
 .hero-cta-primary {
   animation: glow-pulse 3s ease-in-out infinite;
 }
+
+/* Hero Terminal */
+.hero-terminal {
+  position: relative;
+  z-index: 1;
+  margin-top: 56px;
+  width: 100%;
+  max-width: 580px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: var(--bg-card-solid);
+  overflow: hidden;
+  text-align: left;
+  box-shadow: var(--shadow-glow-blue);
+}
+
+.hero-terminal-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: rgba(255,255,255,0.02);
+  border-bottom: 1px solid var(--border);
+}
+
+.hero-terminal-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.hero-terminal-title {
+  margin-left: 8px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.hero-terminal-code {
+  padding: 20px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.7;
+  margin: 0;
+  overflow-x: auto;
+}
+
+.hero-code-line {
+  min-height: 1.7em;
+}
+
+.hero-code-keyword { color: #c678dd; }
+.hero-code-fn { color: var(--text-primary); }
+.hero-code-string { color: #98c379; }
+.hero-code-comment { color: var(--text-muted); font-style: italic; }
+
+.hero-code-cursor {
+  color: var(--accent);
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+.hero-terminal-response {
+  border-top: 1px solid var(--border);
+  padding: 16px 20px;
+  animation: fade-in 0.3s ease;
+}
+
+.hero-response-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--accent-teal);
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.hero-terminal-output {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.hero-output-line {
+  animation: fade-in 0.2s ease;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .hero-terminal {
+    margin-top: 40px;
+    max-width: 100%;
+  }
+  .hero-terminal-code {
+    font-size: 12px;
+    padding: 16px;
+  }
+  .hero-terminal-output {
+    font-size: 11px;
+  }
+}

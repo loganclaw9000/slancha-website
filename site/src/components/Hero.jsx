@@ -1,6 +1,77 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import './Hero.css';
+
+const CODE_LINES = [
+  { text: 'import slancha', color: 'keyword' },
+  { text: '', color: '' },
+  { text: 'response = slancha.complete(', color: 'fn' },
+  { text: '    prompt="Summarize this quarterly report",', color: 'string' },
+  { text: '    # No model selection. No config. Just results.', color: 'comment' },
+  { text: ')', color: 'fn' },
+];
+
+const RESPONSE_LINES = [
+  '{ "status": "ok",',
+  '  "model": "auto-selected",',
+  '  "latency_ms": 142,',
+  '  "cost_saved": "47%",',
+  '  "result": "Q3 revenue grew 34% YoY..." }',
+];
+
+function HeroTerminal() {
+  const [codeIndex, setCodeIndex] = useState(0);
+  const [showResponse, setShowResponse] = useState(false);
+  const [responseIndex, setResponseIndex] = useState(0);
+  const termRef = useRef(null);
+
+  useEffect(() => {
+    if (codeIndex < CODE_LINES.length) {
+      const timer = setTimeout(() => setCodeIndex(i => i + 1), 400);
+      return () => clearTimeout(timer);
+    }
+    if (!showResponse) {
+      const timer = setTimeout(() => setShowResponse(true), 600);
+      return () => clearTimeout(timer);
+    }
+  }, [codeIndex, showResponse]);
+
+  useEffect(() => {
+    if (showResponse && responseIndex < RESPONSE_LINES.length) {
+      const timer = setTimeout(() => setResponseIndex(i => i + 1), 200);
+      return () => clearTimeout(timer);
+    }
+  }, [showResponse, responseIndex]);
+
+  return (
+    <div className="hero-terminal" aria-hidden="true" ref={termRef}>
+      <div className="hero-terminal-bar">
+        <span className="hero-terminal-dot" style={{ background: '#ff5f57' }} />
+        <span className="hero-terminal-dot" style={{ background: '#febc2e' }} />
+        <span className="hero-terminal-dot" style={{ background: '#28c840' }} />
+        <span className="hero-terminal-title">slancha_demo.py</span>
+      </div>
+      <pre className="hero-terminal-code">
+        {CODE_LINES.slice(0, codeIndex).map((line, i) => (
+          <div key={i} className={`hero-code-line hero-code-${line.color}`}>{line.text}</div>
+        ))}
+        {codeIndex >= CODE_LINES.length && !showResponse && (
+          <div className="hero-code-line hero-code-cursor">▌</div>
+        )}
+      </pre>
+      {showResponse && (
+        <div className="hero-terminal-response">
+          <div className="hero-response-label">⚡ Response (142ms)</div>
+          <pre className="hero-terminal-output">
+            {RESPONSE_LINES.slice(0, responseIndex).map((line, i) => (
+              <div key={i} className="hero-output-line">{line}</div>
+            ))}
+          </pre>
+        </div>
+      )}
+    </div>
+  );
+}
 
 const Hero = () => (
   <section className="hero" id="hero">
@@ -25,6 +96,7 @@ const Hero = () => (
       <Link to="/signup" className="btn-primary btn-lg hero-cta-primary">Get Your API Endpoint</Link>
       <a href="#how-it-works" className="btn-secondary btn-lg">See How It Works</a>
     </div>
+    <HeroTerminal />
   </section>
 );
 
