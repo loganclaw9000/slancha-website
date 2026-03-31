@@ -361,6 +361,157 @@
   color: var(--text-muted);
 }
 
+/* ─── CTA Banner ─── */
+.blog-cta-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  margin-top: 64px;
+  padding: 32px 40px;
+  background: linear-gradient(135deg, rgba(10, 132, 255, 0.08), rgba(0, 209, 178, 0.06));
+  border: 1px solid rgba(10, 132, 255, 0.2);
+  border-radius: var(--radius-lg);
+}
+.blog-cta-content h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--text-primary);
+}
+.blog-cta-content p {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+.blog-cta-actions {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.blog-cta-primary {
+  display: inline-block;
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--bg-primary);
+  background: var(--accent);
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  transition: opacity 200ms ease;
+}
+.blog-cta-primary:hover { opacity: 0.85; }
+.blog-cta-secondary {
+  display: inline-block;
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  transition: border-color 200ms ease;
+}
+.blog-cta-secondary:hover { border-color: var(--accent); }
+
+/* ─── Prev / Next navigation ─── */
+.blog-prev-next {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 48px;
+}
+.blog-prev-next-link {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 20px 24px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 200ms ease, transform 200ms ease;
+}
+.blog-prev-next-link:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+.blog-prev-next-right { text-align: right; }
+.blog-prev-next-label {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+.blog-prev-next-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ─── Related Posts ─── */
+.blog-related {
+  margin-top: 64px;
+  padding-top: 48px;
+  border-top: 1px solid var(--glass-border);
+}
+.blog-related-heading {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 24px;
+  color: var(--text-primary);
+}
+.blog-related-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+.blog-related-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  padding: 24px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  transition: transform 200ms ease, border-color 200ms ease;
+}
+.blog-related-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(10, 132, 255, 0.3);
+}
+.blog-related-title {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  line-height: 1.3;
+  color: var(--text-primary);
+}
+.blog-related-excerpt {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.blog-related-meta {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
 @media (max-width: 768px) {
   .blog-title { font-size: 36px; }
   .blog-post-title { font-size: 30px; }
@@ -371,4 +522,8 @@
   .blog-featured-title { font-size: 24px; }
   .blog-filters { gap: 6px; }
   .blog-filter-tag { font-size: 12px; padding: 5px 12px; }
+  .blog-cta-banner { flex-direction: column; padding: 24px; text-align: center; }
+  .blog-cta-actions { justify-content: center; }
+  .blog-prev-next { grid-template-columns: 1fr; }
+  .blog-prev-next-right { text-align: left; }
 }

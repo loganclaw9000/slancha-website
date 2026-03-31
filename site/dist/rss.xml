@@ -5,13 +5,26 @@
     <link>https://slancha.ai/blog</link>
     <description>Technical deep dives, tutorials, and insights on AI engineering: model evaluation, deployment strategies, fine-tuning pipelines, and the eval-deploy-train loop.</description>
     <language>en-us</language>
-    <lastBuildDate>Tue, 31 Mar 2026 10:14:23 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 31 Mar 2026 10:22:26 GMT</lastBuildDate>
     <atom:link href="https://slancha.ai/rss.xml" rel="self" type="application/rss+xml" />
     <image>
       <url>https://slancha.ai/favicon.svg</url>
       <title>Slancha Blog</title>
       <link>https://slancha.ai/blog</link>
     </image>
+    <item>
+      <title>How to Cut LLM Inference Latency in Half: 8 Production Techniques</title>
+      <link>https://slancha.ai/blog/reduce-llm-inference-latency</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/reduce-llm-inference-latency</guid>
+      <description>High latency kills AI products. Here are 8 battle-tested techniques to slash LLM inference latency in production — from speculative decoding to intelligent routing — with code examples, benchmark data, and architecture patterns.</description>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate>
+      <author>team@slancha.ai (Slancha Engineering)</author>
+      <category>latency</category>
+      <category>inference</category>
+      <category>optimization</category>
+      <category>production</category>
+      <category>performance</category>
+    </item>
     <item>
       <title>Build vs Buy: The AI Gateway Decision Framework for Engineering Teams</title>
       <link>https://slancha.ai/blog/build-vs-buy-ai-gateway</link>

@@ -8,6 +8,25 @@
   "language": "en-US",
   "items": [
     {
+      "id": "https://slancha.ai/blog/reduce-llm-inference-latency",
+      "url": "https://slancha.ai/blog/reduce-llm-inference-latency",
+      "title": "How to Cut LLM Inference Latency in Half: 8 Production Techniques",
+      "summary": "High latency kills AI products. Here are 8 battle-tested techniques to slash LLM inference latency in production — from speculative decoding to intelligent routing — with code examples, benchmark data, and architecture patterns.",
+      "date_published": "2026-03-31T00:00:00.000Z",
+      "authors": [
+        {
+          "name": "Slancha Engineering"
+        }
+      ],
+      "tags": [
+        "latency",
+        "inference",
+        "optimization",
+        "production",
+        "performance"
+      ]
+    },
+    {
       "id": "https://slancha.ai/blog/build-vs-buy-ai-gateway",
       "url": "https://slancha.ai/blog/build-vs-buy-ai-gateway",
       "title": "Build vs Buy: The AI Gateway Decision Framework for Engineering Teams",
