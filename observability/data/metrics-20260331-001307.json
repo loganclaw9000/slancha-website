@@ -1,0 +1,136 @@
+{
+  "collectionTimestamp": "2026-03-31T07:13:07Z",
+  "summary": {
+    "totalEvents": 10703,
+    "errorCount": 919,
+    "warnCount": 1536,
+    "infoCount": 8248,
+    "runtimes": [
+      {
+        "runtime": "node",
+        "count": 12769
+      }
+    ],
+    "modules": [],
+    "errorMessages": [
+      {
+        "error": "{\"subsystem\":\"gateway/channels/whatsapp\"}",
+        "count": 193
+      },
+      {
+        "error": "[tools] read failed: ENOENT: no such file or directory, access '/home/admin/.openclaw/workspace-copywriter/site/notes.md'",
+        "count": 34
+      },
+      {
+        "error": "[tools] read failed: ENOENT: no such file or directory, access '/home/admin/.openclaw/workspace-copywriter/site/qa/bugs.md'",
+        "count": 30
+      },
+      {
+        "error": "[tools] web_fetch failed: Blocked hostname or private/internal/special-use IP address",
+        "count": 22
+      },
+      {
+        "error": "[tools] read failed: ENOENT: no such file or directory, access '/home/admin/.openclaw/workspace-finance/MEMORY.md'",
+        "count": 20
+      }
+    ],
+    "hourlyActivity": [
+      {
+        "hour": "00",
+        "count": 473
+      },
+      {
+        "hour": "01",
+        "count": 507
+      },
+      {
+        "hour": "02",
+        "count": 256
+      },
+      {
+        "hour": "03",
+        "count": 354
+      },
+      {
+        "hour": "04",
+        "count": 318
+      },
+      {
+        "hour": "05",
+        "count": 318
+      },
+      {
+        "hour": "06",
+        "count": 315
+      },
+      {
+        "hour": "07",
+        "count": 315
+      },
+      {
+        "hour": "08",
+        "count": 484
+      },
+      {
+        "hour": "09",
+        "count": 720
+      },
+      {
+        "hour": "10",
+        "count": 448
+      },
+      {
+        "hour": "11",
+        "count": 590
+      },
+      {
+        "hour": "12",
+        "count": 554
+      },
+      {
+        "hour": "13",
+        "count": 537
+      },
+      {
+        "hour": "14",
+        "count": 609
+      },
+      {
+        "hour": "15",
+        "count": 626
+      },
+      {
+        "hour": "16",
+        "count": 515
+      },
+      {
+        "hour": "17",
+        "count": 596
+      },
+      {
+        "hour": "18",
+        "count": 668
+      },
+      {
+        "hour": "19",
+        "count": 611
+      },
+      {
+        "hour": "20",
+        "count": 581
+      },
+      {
+        "hour": "21",
+        "count": 607
+      },
+      {
+        "hour": "22",
+        "count": 565
+      },
+      {
+        "hour": "23",
+        "count": 1202
+      }
+    ]
+  }
+}
