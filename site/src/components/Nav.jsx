@@ -1,7 +1,9 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import './Nav.css';
+
+const SearchModal = lazy(() => import('./SearchModal'));
 
 const dropdowns = {
   Product: [
@@ -165,6 +167,10 @@ export default function Nav({ backLink = false }) {
               <DropdownMenu key={label} label={label} items={items} />
             ))}
             <Link to="/pricing" className="nav-link">Pricing</Link>
+            <button className="nav-search-btn" onClick={() => setSearchOpen(true)} aria-label="Search (Ctrl+K)">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="5" stroke="currentColor" strokeWidth="1.5"/><path d="M10.5 10.5L14.5 14.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
+              <span className="nav-search-hint">Ctrl+K</span>
+            </button>
             {user ? (
               <Link to="/dashboard" className="btn-primary btn-sm">Dashboard</Link>
             ) : (
@@ -212,6 +218,11 @@ export default function Nav({ backLink = false }) {
             </div>
           </div>
         </div>
+      )}
+      {searchOpen && (
+        <Suspense fallback={null}>
+          <SearchModal open={searchOpen} onClose={() => setSearchOpen(false)} />
+        </Suspense>
       )}
     </>
   );
