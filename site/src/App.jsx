@@ -31,6 +31,7 @@ const CaseStudies = lazy(() => import('./pages/CaseStudies'));
 const Integrations = lazy(() => import('./pages/Integrations'));
 const RoiCalculator = lazy(() => import('./pages/RoiCalculator'));
 const Changelog = lazy(() => import('./pages/Changelog'));
+const Playground = lazy(() => import('./pages/Playground'));
 
 function Loading() {
   return (
@@ -66,6 +67,7 @@ const App = () => (
           <Route path="/integrations" element={<Integrations />} />
           <Route path="/roi-calculator" element={<RoiCalculator />} />
           <Route path="/changelog" element={<Changelog />} />
+          <Route path="/playground" element={<Playground />} />
 
           {/* Auth */}
           <Route path="/login" element={<Login />} />
