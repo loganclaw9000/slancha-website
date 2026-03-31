@@ -38,6 +38,14 @@
 - **Copy source:** `site/copy/*.md`
 - **Positioning:** Black box AI inference platform (per `~/.openclaw/SLANCHA_BRIEF.md`)
 
+### Stale Files (DO NOT USE for positioning)
+These files contain old "Databricks of AI Engineering" positioning and are NOT authoritative:
+- `positioning/SLANCHA_POSITIONING_STRATEGY.md` — superseded by `~/.openclaw/SLANCHA_BRIEF.md`
+- `site/FUNKY-IMPLEMENTATION-PLAN.md` — old implementation plan
+- `site/site-update-summary.md` — old update notes
+- `design-research/SLANCHA_DESIGN_RESEARCH.md` — old design research
+- `site/BRIEF.md` — old brief
+
 ### Git
 - **Main branch:** `main`
 - **Working branch:** `master`
