@@ -209,6 +209,17 @@
   font-size: 1.05rem;
 }
 
+.enterprise-security-link {
+  color: #0A84FF;
+  text-decoration: none;
+  font-weight: 500;
+  margin-left: 0.25rem;
+}
+
+.enterprise-security-link:hover {
+  text-decoration: underline;
+}
+
 .enterprise-security-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

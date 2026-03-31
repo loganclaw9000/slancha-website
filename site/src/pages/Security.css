@@ -1,0 +1,311 @@
+.security-page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 6rem 1.5rem 4rem;
+}
+
+/* Hero */
+.security-hero {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.security-shield-icon {
+  margin-bottom: 1.5rem;
+}
+
+.security-hero h1 {
+  font-size: 2.75rem;
+  margin-bottom: 1rem;
+  line-height: 1.15;
+}
+
+.security-hero .gradient-text {
+  background: linear-gradient(135deg, #0A84FF, #00D1B2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.security-hero p {
+  color: var(--text-secondary, #94a3b8);
+  font-size: 1.2rem;
+  max-width: 640px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
+}
+
+.security-hero-ctas {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Sections */
+.security-section {
+  margin-bottom: 4rem;
+}
+
+.security-section h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.security-section-sub {
+  text-align: center;
+  color: var(--text-secondary, #94a3b8);
+  margin-bottom: 2.5rem;
+  font-size: 1.05rem;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Certification Cards */
+.security-cert-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.security-cert-card {
+  background: var(--surface, #1a1a2e);
+  border: 1px solid var(--border, #2a2a4a);
+  border-radius: 12px;
+  padding: 1.75rem;
+  transition: border-color 0.2s;
+}
+
+.security-cert-card:hover {
+  border-color: #0A84FF;
+}
+
+.security-cert-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.security-cert-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: linear-gradient(135deg, #0A84FF, #00D1B2);
+  color: #fff;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+}
+
+.security-cert-status {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #00D1B2;
+}
+
+.security-cert-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary, #f1f5f9);
+}
+
+.security-cert-card p {
+  font-size: 0.9rem;
+  color: var(--text-secondary, #94a3b8);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* 3-column grid with check icon */
+.security-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.security-item-card {
+  background: var(--surface, #1a1a2e);
+  border: 1px solid var(--border, #2a2a4a);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: border-color 0.2s;
+}
+
+.security-item-card:hover {
+  border-color: #0A84FF;
+}
+
+.security-check-icon {
+  color: #00D1B2;
+  flex-shrink: 0;
+  margin-bottom: 0.75rem;
+}
+
+.security-item-card h3 {
+  font-size: 1rem;
+  margin-bottom: 0.4rem;
+  color: var(--text-primary, #f1f5f9);
+}
+
+.security-item-card p {
+  font-size: 0.85rem;
+  color: var(--text-secondary, #94a3b8);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Data handling — 2-col highlighted section */
+.security-data-section {
+  background: var(--surface, #1a1a2e);
+  border: 1px solid var(--border, #2a2a4a);
+  border-radius: 16px;
+  padding: 3rem;
+}
+
+.security-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.security-data-card {
+  padding: 1.25rem;
+  border: 1px solid var(--border, #2a2a4a);
+  border-radius: 10px;
+  background: rgba(10, 132, 255, 0.04);
+  transition: border-color 0.2s;
+}
+
+.security-data-card:hover {
+  border-color: #0A84FF;
+}
+
+.security-data-card h3 {
+  font-size: 1rem;
+  margin-bottom: 0.4rem;
+  color: var(--text-primary, #f1f5f9);
+}
+
+.security-data-card p {
+  font-size: 0.85rem;
+  color: var(--text-secondary, #94a3b8);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Access Control Table */
+.security-table-wrap {
+  overflow-x: auto;
+}
+
+.security-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--surface, #1a1a2e);
+  border: 1px solid var(--border, #2a2a4a);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.security-table th,
+.security-table td {
+  padding: 0.85rem 1.25rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border, #2a2a4a);
+}
+
+.security-table th {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary, #94a3b8);
+  font-weight: 600;
+}
+
+.security-table td {
+  font-size: 0.9rem;
+  color: var(--text-primary, #f1f5f9);
+}
+
+.security-table tr:last-child td {
+  border-bottom: none;
+}
+
+.security-tier-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  margin-right: 0.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.security-tier-badge.all {
+  background: rgba(0, 209, 178, 0.15);
+  color: #00D1B2;
+}
+
+.security-tier-badge.platform {
+  background: rgba(10, 132, 255, 0.15);
+  color: #0A84FF;
+}
+
+.security-tier-badge.enterprise {
+  background: rgba(168, 85, 247, 0.15);
+  color: #a855f7;
+}
+
+/* CTA */
+.security-cta-section {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: var(--surface, #1a1a2e);
+  border: 1px solid var(--border, #2a2a4a);
+  border-radius: 16px;
+}
+
+.security-cta-section h2 {
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.security-cta-section p {
+  color: var(--text-secondary, #94a3b8);
+  font-size: 1.05rem;
+  margin-bottom: 2rem;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.security-cta-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .security-hero h1 {
+    font-size: 2rem;
+  }
+
+  .security-cert-grid,
+  .security-grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .security-grid-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .security-data-section {
+    padding: 2rem 1.5rem;
+  }
+}
