@@ -1807,6 +1807,411 @@ curl https://api.slancha.ai/v1/chat/completions \\
   }'
 \`\`\``,
   },
+  {
+    slug: 'migration',
+    title: 'Migration Guide',
+    section: 'Getting Started',
+    order: 10,
+    body: `# Migration Guide
+
+Slancha exposes a fully **OpenAI-compatible API**. If your application already uses the OpenAI SDK or any OpenAI-compatible client, migrating takes minutes — not weeks.
+
+This guide covers migration from the most common platforms.
+
+---
+
+## From OpenAI
+
+**Time to migrate: ~5 minutes**
+
+Slancha's API is wire-compatible with OpenAI's Chat Completions endpoint. Change two values:
+
+### Python
+
+\`\`\`python
+import openai
+
+# Before (OpenAI)
+client = openai.OpenAI(
+    api_key="sk-..."
+)
+
+# After (Slancha) — change base_url and api_key
+client = openai.OpenAI(
+    base_url="https://api.slancha.ai/v1",
+    api_key="sk-sl_your_key_here"
+)
+
+# Everything else stays exactly the same
+response = client.chat.completions.create(
+    model="auto",  # Slancha routes to the optimal model
+    messages=[{"role": "user", "content": "Summarize this document..."}],
+    temperature=0.7,
+    max_tokens=1024,
+)
+print(response.choices[0].message.content)
+\`\`\`
+
+### TypeScript / Node.js
+
+\`\`\`typescript
+import OpenAI from 'openai';
+
+// Before
+const client = new OpenAI({ apiKey: 'sk-...' });
+
+// After
+const client = new OpenAI({
+  baseURL: 'https://api.slancha.ai/v1',
+  apiKey: 'sk-sl_your_key_here',
+});
+
+// Streaming works identically
+const stream = await client.chat.completions.create({
+  model: 'auto',
+  messages: [{ role: 'user', content: 'Write a summary.' }],
+  stream: true,
+});
+\`\`\`
+
+### What changes
+
+| Feature | OpenAI | Slancha |
+|---|---|---|
+| Endpoint | \`api.openai.com/v1\` | \`api.slancha.ai/v1\` |
+| API key prefix | \`sk-\` | \`sk-sl_\` |
+| Model parameter | \`gpt-4o\`, \`gpt-4o-mini\`, etc. | \`auto\` (recommended) or specify a model |
+| Streaming | ✅ Supported | ✅ Supported |
+| Function calling | ✅ Supported | ✅ Supported |
+| JSON mode | ✅ Supported | ✅ Supported |
+| Response format | Identical | Identical |
+
+**Why \`model: "auto"\`?** Slancha's router analyzes your request and picks the optimal model for accuracy, latency, and cost. You can also specify a model name if you prefer.
+
+---
+
+## From Anthropic (Claude API)
+
+**Time to migrate: ~10 minutes**
+
+Anthropic uses a different API format than OpenAI. Slancha uses the OpenAI format, so you'll switch from the Anthropic SDK to the OpenAI SDK.
+
+### Before (Anthropic)
+
+\`\`\`python
+import anthropic
+
+client = anthropic.Anthropic(api_key="sk-ant-...")
+
+response = client.messages.create(
+    model="claude-sonnet-4-20250514",
+    max_tokens=1024,
+    messages=[{"role": "user", "content": "Summarize this..."}]
+)
+print(response.content[0].text)
+\`\`\`
+
+### After (Slancha)
+
+\`\`\`python
+import openai
+
+client = openai.OpenAI(
+    base_url="https://api.slancha.ai/v1",
+    api_key="sk-sl_your_key_here"
+)
+
+response = client.chat.completions.create(
+    model="auto",
+    max_tokens=1024,
+    messages=[{"role": "user", "content": "Summarize this..."}]
+)
+print(response.choices[0].message.content)
+\`\`\`
+
+### Key differences
+
+- Replace \`anthropic.Anthropic()\` with \`openai.OpenAI()\`
+- \`response.content[0].text\` becomes \`response.choices[0].message.content\`
+- System messages go in the \`messages\` array as \`{"role": "system", ...}\` instead of the \`system\` parameter
+- Tool/function calling uses OpenAI's format (\`tools\` parameter)
+
+---
+
+## From Portkey
+
+**Time to migrate: ~5 minutes**
+
+Portkey acts as a gateway that proxies to underlying providers. Since Slancha also provides a single API endpoint, migration is straightforward — you're replacing one gateway with another.
+
+### Before (Portkey)
+
+\`\`\`python
+from portkey_ai import Portkey
+
+client = Portkey(
+    api_key="pk-...",
+    virtual_key="openai-key-abc123"
+)
+
+response = client.chat.completions.create(
+    model="gpt-4o",
+    messages=[{"role": "user", "content": "Hello"}]
+)
+\`\`\`
+
+### After (Slancha)
+
+\`\`\`python
+import openai
+
+client = openai.OpenAI(
+    base_url="https://api.slancha.ai/v1",
+    api_key="sk-sl_your_key_here"
+)
+
+# No virtual keys, no provider config — just send requests
+response = client.chat.completions.create(
+    model="auto",
+    messages=[{"role": "user", "content": "Hello"}]
+)
+\`\`\`
+
+### What you gain
+
+- **No provider key management** — Slancha handles model selection and serving, no virtual keys needed
+- **Automatic optimization** — Portkey routes but doesn't learn from your traffic; Slancha continuously improves
+- **Fine-tuned models** — Over time, Slancha creates task-specific models trained on your usage patterns
+- **Simpler config** — No routing rules, fallback chains, or load balancer configs to maintain
+
+### What to consider
+
+- If you use Portkey's guardrails or prompt management features, you'll want to handle those at the application layer
+- Portkey's observability dashboards are replaced by Slancha's built-in usage analytics
+
+---
+
+## From OpenRouter
+
+**Time to migrate: ~5 minutes**
+
+OpenRouter also exposes an OpenAI-compatible API, so this is a drop-in swap.
+
+### Before (OpenRouter)
+
+\`\`\`python
+import openai
+
+client = openai.OpenAI(
+    base_url="https://openrouter.ai/api/v1",
+    api_key="sk-or-..."
+)
+
+response = client.chat.completions.create(
+    model="anthropic/claude-3.5-sonnet",  # you pick the model
+    messages=[{"role": "user", "content": "Hello"}]
+)
+\`\`\`
+
+### After (Slancha)
+
+\`\`\`python
+import openai
+
+client = openai.OpenAI(
+    base_url="https://api.slancha.ai/v1",
+    api_key="sk-sl_your_key_here"
+)
+
+response = client.chat.completions.create(
+    model="auto",  # Slancha picks the optimal model
+    messages=[{"role": "user", "content": "Hello"}]
+)
+\`\`\`
+
+### What you gain
+
+- **Stop choosing models** — OpenRouter is a marketplace where you pick providers; Slancha picks the best model for each request automatically
+- **Continuous improvement** — OpenRouter's routing is static; Slancha learns from your traffic and fine-tunes models for your specific workloads
+- **Cost optimization** — Beyond finding cheap providers, Slancha actually creates cheaper-to-serve fine-tuned models matched to your tasks
+
+---
+
+## From Fireworks AI
+
+**Time to migrate: ~10 minutes**
+
+Fireworks provides an OpenAI-compatible API, but you may also use Fireworks-specific features.
+
+### Before (Fireworks)
+
+\`\`\`python
+import openai
+
+client = openai.OpenAI(
+    base_url="https://api.fireworks.ai/inference/v1",
+    api_key="fw_..."
+)
+
+response = client.chat.completions.create(
+    model="accounts/fireworks/models/llama-v3p1-70b-instruct",
+    messages=[{"role": "user", "content": "Hello"}]
+)
+\`\`\`
+
+### After (Slancha)
+
+\`\`\`python
+import openai
+
+client = openai.OpenAI(
+    base_url="https://api.slancha.ai/v1",
+    api_key="sk-sl_your_key_here"
+)
+
+response = client.chat.completions.create(
+    model="auto",
+    messages=[{"role": "user", "content": "Hello"}]
+)
+\`\`\`
+
+### What you gain
+
+- **No model management** — Fireworks requires you to select specific models and manage deployments; Slancha handles this automatically
+- **Automatic fine-tuning** — Fireworks offers fine-tuning as a tool you run; Slancha runs it continuously behind the scenes based on your traffic
+- **Zero ML expertise required** — Fireworks is built for sophisticated AI teams; Slancha delivers comparable outcomes without the complexity
+
+### What to consider
+
+- If you use Fireworks BYOW (bring-your-own-weights), contact us about importing your custom models
+- Fireworks-specific features like grammar-based structured outputs use Slancha's JSON mode instead
+
+---
+
+## From Not Diamond
+
+**Time to migrate: ~15 minutes**
+
+Not Diamond uses a custom API rather than the OpenAI format.
+
+### Before (Not Diamond)
+
+\`\`\`python
+from notdiamond import NotDiamond
+
+client = NotDiamond(api_key="nd-...")
+
+result, session_id, provider = client.chat.completions.create(
+    messages=[{"role": "user", "content": "Hello"}],
+    model=["openai/gpt-4o", "anthropic/claude-3.5-sonnet"],
+    tradeoff="cost"
+)
+\`\`\`
+
+### After (Slancha)
+
+\`\`\`python
+import openai
+
+client = openai.OpenAI(
+    base_url="https://api.slancha.ai/v1",
+    api_key="sk-sl_your_key_here"
+)
+
+response = client.chat.completions.create(
+    model="auto",
+    messages=[{"role": "user", "content": "Hello"}]
+)
+\`\`\`
+
+### What you gain
+
+- **No model list required** — Not Diamond needs you to specify which models to choose from; Slancha's router knows the full model landscape
+- **No explicit evaluation data** — Not Diamond requires you to provide eval data upfront and trigger optimization; Slancha learns continuously from live traffic
+- **Fine-tuned models** — Not Diamond routes to existing models; Slancha creates new task-specific models through automated fine-tuning
+- **Standard API** — Not Diamond uses a custom SDK; Slancha uses the OpenAI-compatible format you already know
+
+---
+
+## Environment Variables
+
+For any migration, set these environment variables:
+
+\`\`\`bash
+# Replace your existing provider key
+export SLANCHA_API_KEY="sk-sl_your_key_here"
+
+# Optional: if using the OpenAI SDK
+export OPENAI_API_KEY="sk-sl_your_key_here"
+export OPENAI_BASE_URL="https://api.slancha.ai/v1"
+\`\`\`
+
+Setting \`OPENAI_BASE_URL\` and \`OPENAI_API_KEY\` means any code using \`openai.OpenAI()\` with no arguments will automatically hit Slancha.
+
+---
+
+## Framework Integration
+
+### LangChain
+
+\`\`\`python
+from langchain_openai import ChatOpenAI
+
+llm = ChatOpenAI(
+    base_url="https://api.slancha.ai/v1",
+    api_key="sk-sl_your_key_here",
+    model="auto",
+)
+\`\`\`
+
+### LlamaIndex
+
+\`\`\`python
+from llama_index.llms.openai import OpenAI
+
+llm = OpenAI(
+    api_base="https://api.slancha.ai/v1",
+    api_key="sk-sl_your_key_here",
+    model="auto",
+)
+\`\`\`
+
+### Vercel AI SDK
+
+\`\`\`typescript
+import { createOpenAI } from '@ai-sdk/openai';
+
+const slancha = createOpenAI({
+  baseURL: 'https://api.slancha.ai/v1',
+  apiKey: 'sk-sl_your_key_here',
+});
+
+const model = slancha('auto');
+\`\`\`
+
+---
+
+## Verification Checklist
+
+After migrating, verify your integration:
+
+1. **Basic request** — Send a simple chat completion and confirm a valid response
+2. **Streaming** — If you use streaming, verify chunks arrive correctly
+3. **Function calling** — If you use tools/functions, verify they work with Slancha's format
+4. **Error handling** — Slancha returns standard OpenAI-format errors (400, 401, 429, 500)
+5. **Check the dashboard** — Log in to [dashboard.slancha.ai](https://dashboard.slancha.ai) to see your requests, latency, and cost metrics
+
+---
+
+## Need Help?
+
+- **Docs:** [slancha.ai/docs](https://slancha.ai/docs)
+- **API Reference:** [slancha.ai/docs/api-reference](https://slancha.ai/docs/api-reference)
+- **Email:** support@slancha.ai
+- **Discord:** [discord.gg/slancha](https://discord.gg/slancha)
+
+Our team can help with complex migrations involving custom models, fine-tuned weights, or enterprise deployments.`,
+  },
 ];
 
 export const docSections = [
@@ -1817,4 +2222,5 @@ export const docSections = [
   { name: 'Post-Train', slugs: ['post-training'] },
   { name: 'Router', slugs: ['router'] },
   { name: 'API', slugs: ['api-reference', 'models', 'sdks'] },
+  { name: 'Migrate', slugs: ['migration'] },
 ];
