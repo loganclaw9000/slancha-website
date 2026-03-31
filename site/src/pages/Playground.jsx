@@ -109,7 +109,7 @@ const ENDPOINTS = [
       status: "active",
       name: "coding-assistant-prod",
       model: "ft:gpt-4o:slancha:coding-v3",
-      endpoint: "https://api.slancha.com/v1/serve/coding-assistant-prod",
+      endpoint: "https://api.slancha.ai/v1/serve/coding-assistant-prod",
       replicas: { current: 2, min: 2, max: 8 },
       traffic: { canary_percent: 10, production_percent: 90 },
       health: { status: "healthy", uptime: "99.97%", requests_per_minute: 0 },
@@ -314,7 +314,7 @@ export default function Playground() {
         <div className="playground-run-bar">
           <div className="endpoint-url">
             <span className={`endpoint-method ${endpoint.method.toLowerCase()}`}>{endpoint.method}</span>
-            <span className="endpoint-path">https://api.slancha.com{endpoint.path}</span>
+            <span className="endpoint-path">https://api.slancha.ai{endpoint.path}</span>
           </div>
           <button
             className={`btn-run${running ? ' running' : ''}`}
