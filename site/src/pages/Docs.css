@@ -153,6 +153,9 @@
   border-collapse: collapse;
   margin: 20px 0;
   font-size: 14px;
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .docs-article th {

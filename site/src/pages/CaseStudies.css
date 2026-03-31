@@ -273,6 +273,9 @@
   width: 100%;
   border-collapse: collapse;
   font-size: 0.85rem;
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .casestudy-economics th {
