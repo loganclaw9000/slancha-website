@@ -250,6 +250,7 @@ export default function Resources() {
             <input
               type="text"
               placeholder="Search resources..."
+              aria-label="Search resources"
               value={search}
               onChange={e => setSearch(e.target.value)}
               className="search-input"

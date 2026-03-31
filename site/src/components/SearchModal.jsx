@@ -292,6 +292,7 @@ export default function SearchModal({ open, onClose }) {
             className="search-input"
             type="text"
             placeholder="Search pages, docs, blog, or jump to..."
+            aria-label="Search site"
             value={query}
             onChange={e => { setQuery(e.target.value); setSelected(0); }}
             onKeyDown={handleKeyDown}

@@ -378,6 +378,7 @@ export default function Glossary() {
             <input
               type="text"
               placeholder="Search terms, definitions, or tags..."
+              aria-label="Search glossary terms"
               value={search}
               onChange={e => { setSearch(e.target.value); setActiveLetter(null); }}
             />

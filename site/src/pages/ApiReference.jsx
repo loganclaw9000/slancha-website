@@ -949,6 +949,7 @@ export default function ApiReference() {
             <input
               type="text"
               placeholder="Filter endpoints..."
+              aria-label="Filter API endpoints"
               value={search}
               onChange={e => setSearch(e.target.value)}
             />

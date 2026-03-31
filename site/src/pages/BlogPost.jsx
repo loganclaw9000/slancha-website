@@ -232,6 +232,7 @@ function BlogSubscribe() {
         <input
           type="email"
           placeholder="you@company.com"
+          aria-label="Email address for blog subscription"
           value={email}
           onChange={e => setEmail(e.target.value)}
           required
