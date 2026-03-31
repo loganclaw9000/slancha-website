@@ -51,15 +51,15 @@ export const Hero = () => {
             WebkitTextFillColor: 'transparent',
             textShadow: '0 0 40px rgba(124, 58, 237, 0.3)',
           }}>
-            Evaluate models. <br />
-            Deploy the winner. <br />
+            One API endpoint. <br />
+            Every model, optimized. <br />
             <span style={{
               background: 'linear-gradient(135deg, #14B8A6, #7C3AED)',
               backgroundClip: 'text',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
             }}>
-              Repeat.
+              Automatically.
             </span>
           </h1>
 
@@ -72,8 +72,8 @@ export const Hero = () => {
             maxWidth: '700px',
             marginInline: 'auto',
           }}>
-            Automated model evaluation, one-click deployment, and continuous 
-            post-training for AI teams shipping production systems.
+            Slancha routes, fine-tunes, and optimizes your AI inference
+            behind a single endpoint. No model selection. No infrastructure. It just gets better.
           </p>
 
           {/* CTAs */}
