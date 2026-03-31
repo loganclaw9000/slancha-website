@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
+import usePageMeta from '../hooks/usePageMeta';
 import './UseCases.css';
 
 const useCases = [
@@ -79,6 +80,7 @@ const useCases = [
 ];
 
 export default function UseCases() {
+  usePageMeta({ title: 'Use Cases', description: 'See how enterprise ML teams, AI startups, platform teams, and consultancies use Slancha to automate model evaluation, deployment, and continuous improvement.' });
   return (
     <div className="page">
       <Nav />

@@ -2,9 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
+import usePageMeta from '../hooks/usePageMeta';
 import './NotFound.css';
 
 export default function NotFound() {
+  usePageMeta({ title: 'Page Not Found' });
   return (
     <div className="page">
       <a href="#main-content" className="skip-link">Skip to main content</a>

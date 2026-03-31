@@ -10,8 +10,10 @@ import TechStack from '../components/TechStack';
 import About from '../components/About';
 import PilotCTA from '../components/PilotCTA';
 import Footer from '../components/Footer';
+import usePageMeta from '../hooks/usePageMeta';
 
 export default function Home() {
+  usePageMeta();
   return (
     <div className="page">
       <a href="#main-content" className="skip-link">Skip to main content</a>

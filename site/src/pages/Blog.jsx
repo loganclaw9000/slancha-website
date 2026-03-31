@@ -3,9 +3,11 @@ import { Link } from 'react-router-dom';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
 import { posts } from '../content/blog';
+import usePageMeta from '../hooks/usePageMeta';
 import './Blog.css';
 
 export default function Blog() {
+  usePageMeta({ title: 'Blog', description: 'Technical deep dives, tutorials, and insights on AI engineering: model evaluation, deployment strategies, fine-tuning pipelines, and the eval-deploy-train loop.' });
   return (
     <div className="page">
       <a href="#main-content" className="skip-link">Skip to main content</a>

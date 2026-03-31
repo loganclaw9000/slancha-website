@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
+import usePageMeta from '../hooks/usePageMeta';
 import './Integrations.css';
 
 const categories = [
@@ -76,6 +77,7 @@ const categories = [
 const badgeLabels = { native: 'Native', sdk: 'SDK', compatible: 'Compatible', webhook: 'Webhook' };
 
 export default function Integrations() {
+  usePageMeta({ title: 'Integrations', description: 'Connect Slancha to 30+ tools: OpenAI, Anthropic, AWS, GCP, Hugging Face, LangChain, Weights & Biases, and more. Native, SDK, and webhook integrations.' });
   return (
     <div className="page">
       <Nav />

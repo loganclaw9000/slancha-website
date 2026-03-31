@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import usePageMeta from '../hooks/usePageMeta';
 import '../components/Faq.css';
 
 const faqData = [
@@ -153,6 +154,7 @@ function AccordionItem({ question, answer, isOpen, onToggle, hasSeparator }) {
 }
 
 export default function FAQ() {
+  usePageMeta({ title: 'FAQ', description: 'Frequently asked questions about Slancha. Learn about pricing, supported frameworks, security, migration, and how Slancha compares to existing tools.' });
   const [openIndex, setOpenIndex] = useState(null);
 
   const handleToggle = (index) => {

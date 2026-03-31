@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
+import usePageMeta from '../hooks/usePageMeta';
 import './CaseStudies.css';
 
 const caseStudies = [
@@ -64,6 +65,7 @@ const caseStudies = [
 ];
 
 export default function CaseStudies() {
+  usePageMeta({ title: 'Case Studies', description: 'Real results from AI teams using Slancha. See how companies reduced eval cycles, cut costs, and improved model accuracy with the eval-deploy-train loop.' });
   return (
     <div className="page">
       <a href="#main-content" className="skip-link">Skip to main content</a>

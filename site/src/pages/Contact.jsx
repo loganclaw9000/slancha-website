@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
+import usePageMeta from '../hooks/usePageMeta';
 import '../components/Contact.css';
 
 export default function Contact() {
+  usePageMeta({ title: 'Contact', description: 'Get in touch with the Slancha team. Ask about our platform, request a demo, or apply for the enterprise pilot program.' });
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState({});
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });

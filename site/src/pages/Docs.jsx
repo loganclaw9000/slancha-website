@@ -4,12 +4,14 @@ import ReactMarkdown from 'react-markdown';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
 import { docs, docSections } from '../content/docs';
+import usePageMeta from '../hooks/usePageMeta';
 import './Docs.css';
 
 export default function Docs() {
   const { slug } = useParams();
   const currentSlug = slug || 'getting-started';
   const doc = docs.find(d => d.slug === currentSlug);
+  usePageMeta(doc ? { title: `${doc.title} — Docs`, description: `Slancha documentation: ${doc.title}. Learn how to evaluate, deploy, and improve AI models with the Slancha platform.` } : {});
 
   if (slug && !doc) return <Navigate to="/docs" replace />;
 

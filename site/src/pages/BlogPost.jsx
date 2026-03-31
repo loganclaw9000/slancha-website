@@ -4,11 +4,13 @@ import ReactMarkdown from 'react-markdown';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
 import { posts } from '../content/blog';
+import usePageMeta from '../hooks/usePageMeta';
 import './Blog.css';
 
 export default function BlogPost() {
   const { slug } = useParams();
   const post = posts.find(p => p.slug === slug);
+  usePageMeta(post ? { title: post.title, description: post.excerpt || post.title } : {});
 
   if (!post) return <Navigate to="/blog" replace />;
 

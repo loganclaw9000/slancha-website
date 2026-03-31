@@ -1,3 +1,4 @@
+import usePageMeta from '../hooks/usePageMeta';
 import '../components/VsCompetitors.css';
 
 const sections = [
@@ -188,6 +189,7 @@ function FeatureTable() {
 }
 
 export default function VsCompetitors() {
+  usePageMeta({ title: 'How We Compare', description: 'See how Slancha compares to Databricks, Together AI, Anyscale, Modal, and other platforms. The only tool that closes the eval-deploy-train loop.' });
   return (
     <div className="vs-competitors-page">
       <div className="vs-header">
