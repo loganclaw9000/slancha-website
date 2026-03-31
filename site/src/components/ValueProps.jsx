@@ -3,16 +3,16 @@ import { useScrollReveal } from '../utils/useScrollReveal';
 
 const props = [
   {
-    title: 'Latency‑first, cost‑smart.',
-    body: 'We start with your SLA target and work backward, delivering the lowest‑cost inference that still meets latency goals.',
+    title: 'Instant cost savings.',
+    body: 'The router sends every request to the right-sized model. Stop paying frontier prices for tasks a smaller model handles identically.',
   },
   {
-    title: 'Hardware‑agnostic mastery.',
-    body: 'Whether you run on AWS Inferentia, NVIDIA L40S, or a B200, Slancha auto‑selects the optimal stack so you never worry about vendor lock‑in.',
+    title: 'Compounding improvement.',
+    body: 'Slancha fine-tunes task-specific models on your actual usage data. The longer you use it, the better and cheaper it gets. Automatically.',
   },
   {
-    title: 'Zero‑team inference ops.',
-    body: 'No dedicated ML engineers needed – our platform becomes your inference team, handling scaling, tuning, and monitoring for you.',
+    title: 'Zero technical overhead.',
+    body: 'No model selection. No benchmarking. No fine-tuning teams. No architecture decisions. You just use the API.',
   },
 ];
 

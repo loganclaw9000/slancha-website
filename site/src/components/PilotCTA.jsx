@@ -8,13 +8,12 @@ export default function PilotCTA() {
   return (
     <section ref={ref} className="pilot-cta reveal">
       <div className="pilot-cta-inner">
-        <h2 className="pilot-cta-headline">Running your AI engineering loop across 4+ tools? There's a better way.</h2>
+        <h2 className="pilot-cta-headline">Paying frontier prices for every request? There's a better way.</h2>
         <p className="pilot-cta-body">
-          If your team is manually stitching together eval, inference, and fine-tuning today, our pilot program
-          is built for you. We'll instrument your existing workloads, run your first eval-deploy-post-train cycle,
-          and show you the baseline metrics before you commit to anything.
+          Slancha gives you a single API endpoint that continuously gets smarter, faster, and cheaper.
+          No model selection. No fine-tuning teams. No infrastructure decisions. Just better inference.
         </p>
-        <Link to="/signup" className="btn-primary btn-lg">Create Your Account</Link>
+        <Link to="/signup" className="btn-primary btn-lg">Get Your Endpoint</Link>
         <a href="mailto:contact@slancha.ai" className="pilot-cta-email">contact@slancha.ai</a>
       </div>
     </section>

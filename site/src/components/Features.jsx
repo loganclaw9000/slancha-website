@@ -5,33 +5,33 @@ import './Features.css';
 const features = [
   {
     icon: '⚡',
-    title: 'Real Production Benchmarking',
-    body: 'Evaluate models against your actual workloads, not synthetic benchmarks. Slancha scores cost, latency, and task accuracy on real traffic so you know which model earns its place before you deploy.',
+    title: 'Intelligent Model Routing',
+    body: 'Every request goes to the right-sized model. Easy tasks hit efficient models. Hard tasks hit capable ones. The router uses semantic similarity for sub-millisecond classification — no LLM overhead.',
   },
   {
-    icon: '🎯',
-    title: 'Multi-Target Deployment',
-    body: 'Ship to API, managed hosting, or on-prem — or all three. Slancha routes traffic optimally across inference targets, adjusting in real-time as costs and latency profiles shift.',
+    icon: '🔍',
+    title: 'Automatic Task Analysis',
+    body: 'Slancha continuously analyzes what you send — summarization, code gen, QA, retrieval. This task data becomes the foundation for everything that follows.',
   },
   {
     icon: '🔄',
-    title: 'Post-Training Automation',
-    body: 'Production signal captured during inference automatically becomes fine-tuning data. No manual exports, no data wrangling, no broken handoffs between eval and training teams.',
+    title: 'Behind-the-Scenes Fine-Tuning',
+    body: 'Task-specific models are fine-tuned on your actual usage patterns. Smaller models that match or outperform frontier generalists on your workloads. You never see it happen.',
   },
   {
-    icon: '🔗',
-    title: 'Unified Data Layer',
-    body: 'Eval output flows directly into fine-tuning input. Your data never leaves the platform, and every iteration builds on the signal from the last.',
+    icon: '🚀',
+    title: 'Inference Optimization',
+    body: 'Quantization-aware training to 4-bit precision. Multi-Instance GPU packing on B200/B300 hardware. Multi-token prediction. More throughput, less cost.',
   },
   {
-    icon: '🤖',
-    title: 'Autonomous SRE Agent',
-    body: '24/7 monitoring of your inference fleet with automatic tuning of hardware allocation, cost routing, and SLA compliance. Available as an add-on to any plan.',
+    icon: '♻️',
+    title: 'Continuous Redeployment',
+    body: 'When new open-source architectures drop, Slancha re-fine-tunes using your existing curated data. Performance improves automatically. Zero action required.',
   },
   {
-    icon: '📊',
-    title: 'Cost Transparency & Optimization',
-    body: 'Track cost-per-task across models, deployments, and cycles. Slancha optimizes on cost, latency, and accuracy simultaneously — not just one dimension in isolation.',
+    icon: '🔒',
+    title: 'Future-Proof Against Price Hikes',
+    body: 'Frontier providers are selling at a loss. When prices rise, Slancha customers are already on optimized, fine-tuned models that cost a fraction of frontier inference.',
   },
 ];
 
@@ -39,7 +39,7 @@ export default function Features() {
   const ref = useScrollReveal();
   return (
     <section ref={ref} className="features section-padded reveal" id="features">
-      <h2 className="section-title">Everything you need to close the AI engineering loop</h2>
+      <h2 className="section-title">The full loop, behind one endpoint</h2>
       <div className="features-grid">
         {features.map(f => (
           <div className="feature-card" key={f.title}>

@@ -5,23 +5,23 @@ import './HowItWorks.css';
 const steps = [
   {
     num: '01',
-    title: 'Evaluate',
-    body: 'Benchmark models against your real production workloads. Slancha evaluates cost, latency, and task accuracy on actual traffic — not synthetic benchmarks. Compare candidates side-by-side before you commit.',
+    title: 'Route',
+    body: 'Your request hits the Slancha API endpoint. A semantic router classifies the task in sub-millisecond time and sends it to the right-sized model — no frontier pricing for simple tasks.',
   },
   {
     num: '02',
-    title: 'Deploy',
-    body: 'Ship the winner to the right inference layer: API, managed hosting, or on-prem. Slancha handles routing, scaling, and optimization across all three dimensions simultaneously.',
+    title: 'Analyze',
+    body: 'Behind the scenes, Slancha categorizes your traffic: summarization, code gen, QA, retrieval. This builds a picture of your actual workloads and curates training data from real usage.',
   },
   {
     num: '03',
-    title: 'Post-train',
-    body: 'Production signal captured during inference automatically becomes fine-tuning data. No manual exports, no data wrangling, no broken handoffs between eval and training teams.',
+    title: 'Fine-tune',
+    body: 'Task-specific models are automatically fine-tuned on your curated data. Smaller models that match or outperform frontier generalists — on your tasks specifically. You never lift a finger.',
   },
   {
     num: '04',
-    title: 'Repeat',
-    body: 'Run the loop again with a better model. Track accuracy gains and cost-per-task across cycles. The compounding effect starts immediately — and widens the longer you run.',
+    title: 'Optimize & Redeploy',
+    body: 'Quantization-aware training, MIG GPU packing, multi-token prediction. Your fine-tuned models are optimized and redeployed continuously. New architectures drop? Auto-upgrade.',
   },
 ];
 
@@ -29,7 +29,7 @@ export default function HowItWorks() {
   const ref = useScrollReveal();
   return (
     <section ref={ref} className="how-it-works section-padded reveal" id="how-it-works">
-      <h2 className="section-title">Eval. Deploy. Post-train. Repeat.</h2>
+      <h2 className="section-title">Route. Analyze. Fine-tune. Optimize. Repeat.</h2>
       <div className="step-grid">
         {steps.map(step => (
           <div className="step-card" key={step.num}>

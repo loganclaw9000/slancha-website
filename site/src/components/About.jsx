@@ -7,21 +7,21 @@ export default function About() {
   return (
     <section ref={ref} className="about section-padded reveal" id="about">
       <div className="about-inner">
-        <h2 className="section-title">The platform that closes the AI engineering loop.</h2>
+        <h2 className="section-title">The black box is the product.</h2>
         <div className="about-body">
           <p>
-            Mature AI teams run the same cycle manually: benchmark models against production workloads, deploy the winner, collect signal, fine-tune, and repeat. The problem isn't that they don't know the process — it's that their tools don't talk to each other. Eval data doesn't reach fine-tuning. Deployment decisions aren't backed by real benchmarks. Signal gets lost at every handoff.
+            Existing routers expose model choice and don't improve. Existing optimization platforms are tools for engineers who understand the levers. Slancha is neither.
           </p>
           <p>
-            Slancha owns the full cycle through a single platform with a shared data layer: evaluate, deploy, post-train, repeat. Every iteration makes your models better and cheaper to run.
+            Behind a single API endpoint, Slancha runs a closed loop: route requests to the right model, analyze task patterns, fine-tune smaller specialist models on your actual usage, optimize inference with quantization and GPU packing, and redeploy — continuously, with zero customer involvement.
           </p>
           <ul className="about-reasons">
-            <li><strong>The full loop, not point tools</strong> — one platform covers eval, inference, and post-training with data flowing natively between them.</li>
-            <li><strong>No dedicated inference team required</strong> — Slancha handles hardware selection, cost routing, and SLA compliance automatically.</li>
-            <li><strong>Compounding improvement by design</strong> — your models get better over time without manual intervention.</li>
+            <li><strong>The router captures the easy wins</strong> — a small model handles summarization identically to GPT-4. Stop overpaying.</li>
+            <li><strong>Fine-tuning captures the hard wins</strong> — task-specific models match or outperform frontier generalists on your workloads.</li>
+            <li><strong>The loop compounds</strong> — the longer you use Slancha, the more data is curated, the better your models get. That advantage is yours alone.</li>
           </ul>
           <p>
-            If you're managing 4–6 tools to approximate what Slancha does natively, let's talk.
+            If a customer wanted to replicate this internally, they'd need to build routing, task classification, data curation, fine-tuning pipelines, quantization-aware training, MIG-based serving, and continuous redeployment. That's a full ML engineering team. Slancha does it behind one endpoint.
           </p>
         </div>
       </div>
