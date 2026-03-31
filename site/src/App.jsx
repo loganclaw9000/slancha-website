@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import ErrorBoundary from './components/ErrorBoundary';
+import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
 
 // Lazy load all non-landing pages for smaller initial bundle
@@ -72,6 +73,7 @@ function Loading() {
 const App = () => (
   <AuthProvider>
     <Router>
+      <ScrollToTop />
       <ErrorBoundary>
       <Suspense fallback={<Loading />}>
         <Routes>
