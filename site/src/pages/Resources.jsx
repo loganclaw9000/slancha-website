@@ -56,7 +56,7 @@ const resources = [
     type: 'guides',
     title: 'Tutorials: Build Your First Eval Suite',
     description: 'Three hands-on tutorials: custom eval metrics, automated deployment gates, and fine-tuning from eval failures.',
-    link: '/docs/tutorials',
+    link: '/docs/tutorial-support-bot',
     date: '2026-03-31',
     tags: ['tutorial', 'eval'],
   },

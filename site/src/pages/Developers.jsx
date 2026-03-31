@@ -103,7 +103,7 @@ const quickLinks = [
   {
     title: 'Tutorials',
     desc: 'Build your first eval suite, set up deployment gates, and automate fine-tuning from eval failures.',
-    link: '/docs/tutorials',
+    link: '/docs/tutorial-support-bot',
     icon: '📖',
     tag: '3 guides',
   },
