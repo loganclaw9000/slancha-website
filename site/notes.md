@@ -9,6 +9,17 @@ Recent changes and deployment notes.
 
 ## Latest Changes
 
+**Commit:** `4a219b4`  
+**Date:** 2026-03-31 02:22 UTC
+
+**Added missing Twitter Card image tag**
+
+Complete social sharing metadata for OG image:
+- Updated `index.html` to include `twitter:image` meta tag
+- Ensures proper rendering on Twitter/X when sharing Slancha website
+
+**Previous Changes**
+
 **Commit:** `c935ea1`  
 **Date:** 2026-03-31 20:30 UTC
 
