@@ -47,6 +47,8 @@ const dropdowns = {
 function DropdownMenu({ label, items, onNavigate }) {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
+  const triggerRef = useRef(null);
+  const itemRefs = useRef([]);
   const timeout = useRef(null);
 
   const handleEnter = () => {
@@ -59,6 +61,47 @@ function DropdownMenu({ label, items, onNavigate }) {
 
   useEffect(() => () => clearTimeout(timeout.current), []);
 
+  const focusItem = (index) => {
+    const clamped = Math.max(0, Math.min(index, items.length - 1));
+    itemRefs.current[clamped]?.focus();
+  };
+
+  const handleTriggerKeyDown = (e) => {
+    if (e.key === 'ArrowDown' || (e.key === 'Enter' && !open)) {
+      e.preventDefault();
+      setOpen(true);
+      setTimeout(() => focusItem(0), 0);
+    } else if (e.key === 'Escape' && open) {
+      setOpen(false);
+    }
+  };
+
+  const handleMenuKeyDown = (e) => {
+    const currentIndex = itemRefs.current.indexOf(document.activeElement);
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      focusItem(currentIndex + 1);
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (currentIndex <= 0) {
+        setOpen(false);
+        triggerRef.current?.focus();
+      } else {
+        focusItem(currentIndex - 1);
+      }
+    } else if (e.key === 'Escape') {
+      e.preventDefault();
+      setOpen(false);
+      triggerRef.current?.focus();
+    } else if (e.key === 'Home') {
+      e.preventDefault();
+      focusItem(0);
+    } else if (e.key === 'End') {
+      e.preventDefault();
+      focusItem(items.length - 1);
+    }
+  };
+
   return (
     <div
       className="nav-dropdown"
@@ -68,9 +111,11 @@ function DropdownMenu({ label, items, onNavigate }) {
     >
       <button
         className="nav-link nav-dropdown-trigger"
+        ref={triggerRef}
         onClick={() => setOpen(o => !o)}
+        onKeyDown={handleTriggerKeyDown}
         aria-expanded={open}
-        aria-haspopup="true"
+        aria-haspopup="menu"
       >
         {label}
         <svg className="nav-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none">
@@ -78,13 +123,15 @@ function DropdownMenu({ label, items, onNavigate }) {
         </svg>
       </button>
       {open && (
-        <div className="nav-dropdown-panel">
-          {items.map(item => (
+        <div className="nav-dropdown-panel" role="menu" aria-label={label} onKeyDown={handleMenuKeyDown}>
+          {items.map((item, i) => (
             item.anchor ? (
               <a
                 key={item.to}
                 href={item.to}
                 className="nav-dropdown-item"
+                role="menuitem"
+                ref={el => itemRefs.current[i] = el}
                 onClick={() => { setOpen(false); onNavigate?.(); }}
               >
                 <span className="nav-dropdown-label">{item.label}</span>
@@ -95,6 +142,8 @@ function DropdownMenu({ label, items, onNavigate }) {
                 key={item.to}
                 to={item.to}
                 className="nav-dropdown-item"
+                role="menuitem"
+                ref={el => itemRefs.current[i] = el}
                 onClick={() => { setOpen(false); onNavigate?.(); }}
               >
                 <span className="nav-dropdown-label">{item.label}</span>
