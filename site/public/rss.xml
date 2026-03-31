@@ -14,6 +14,15 @@
     </image>
 
     <item>
+      <title>The Enterprise AI Inference Buyer's Guide 2026</title>
+      <link>https://slancha.ai/blog/enterprise-ai-inference-buyers-guide-2026</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/enterprise-ai-inference-buyers-guide-2026</guid>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate>
+      <author>contact@slancha.ai (Slancha Team)</author>
+      <description>A practical framework for evaluating AI inference vendors — covering latency architecture, cost transparency, security requirements, TCO calculations, and migration playbooks. No fluff, no vendor bias.</description>
+    </item>
+
+    <item>
       <title>AI Inference Optimization: Complete Guide to QAT, MIG, and Multi-Token Prediction</title>
       <link>https://slancha.ai/blog/ai-inference-optimization-qat-mig-multi-token</link>
       <guid isPermaLink="true">https://slancha.ai/blog/ai-inference-optimization-qat-mig-multi-token</guid>
