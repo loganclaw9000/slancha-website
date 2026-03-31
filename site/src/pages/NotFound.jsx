@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
@@ -6,6 +7,15 @@ import './NotFound.css';
 
 export default function NotFound() {
   usePageMeta({ title: 'Page Not Found', description: 'The page you are looking for does not exist. Return to Slancha to explore our AI inference platform.' });
+
+  useEffect(() => {
+    const meta = document.createElement('meta');
+    meta.name = 'robots';
+    meta.content = 'noindex';
+    document.head.appendChild(meta);
+    return () => meta.remove();
+  }, []);
+
   return (
     <div className="page">
       <Nav />
