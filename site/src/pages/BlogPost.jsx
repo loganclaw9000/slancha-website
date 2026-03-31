@@ -7,6 +7,43 @@ import { posts } from '../content/blog';
 import usePageMeta from '../hooks/usePageMeta';
 import './Blog.css';
 
+function ArticleJsonLd({ post }) {
+  const wordCount = post.body.split(/\s+/).length;
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: post.title,
+    description: post.excerpt,
+    author: {
+      '@type': 'Person',
+      name: post.author,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Slancha',
+      url: 'https://slancha.ai',
+    },
+    datePublished: post.date,
+    dateModified: post.date,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `https://slancha.ai/blog/${post.slug}`,
+    },
+    url: `https://slancha.ai/blog/${post.slug}`,
+    wordCount,
+    keywords: post.tags.join(', '),
+    articleSection: 'AI Engineering',
+    inLanguage: 'en-US',
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
+  );
+}
+
 export default function BlogPost() {
   const { slug } = useParams();
   const post = posts.find(p => p.slug === slug);
@@ -16,6 +53,7 @@ export default function BlogPost() {
 
   return (
     <div className="page">
+      <ArticleJsonLd post={post} />
       <Nav />
       <main className="blog-post-page">
         <article className="blog-post">
