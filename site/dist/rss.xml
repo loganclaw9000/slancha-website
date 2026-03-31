@@ -3,9 +3,9 @@
   <channel>
     <title>Slancha Blog</title>
     <link>https://slancha.ai/blog</link>
-    <description>Technical deep dives, tutorials, and insights on AI engineering: model evaluation, deployment strategies, fine-tuning pipelines, and the eval-deploy-train loop.</description>
+    <description>Technical deep dives, tutorials, and insights on AI inference: intelligent routing, automated fine-tuning, inference optimization, and the closed-loop AI pipeline.</description>
     <language>en-us</language>
-    <lastBuildDate>Tue, 31 Mar 2026 21:02:42 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 31 Mar 2026 21:15:29 GMT</lastBuildDate>
     <atom:link href="https://slancha.ai/rss.xml" rel="self" type="application/rss+xml" />
     <image>
       <url>https://slancha.ai/favicon.svg</url>

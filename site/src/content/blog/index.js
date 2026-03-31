@@ -2219,7 +2219,7 @@ Production traffic patterns shift. A routing configuration that's optimal in Jan
 
 ## Getting Started with Slancha Router
 
-The Slancha Router is **free** — no usage limits, no time trial. It's our entry point because we believe that once you see what intelligent routing does to your inference bill, you'll want the full eval→deploy→train platform.
+The Slancha Router is **free** — no usage limits, no time trial. It's our entry point because we believe that once you see what intelligent routing does to your inference bill, you'll want the full route→analyze→fine-tune→optimize platform.
 
 \`\`\`python
 # 3 lines to start routing
@@ -2588,7 +2588,7 @@ The dollar cost is the obvious part. The real damage is:
 
 **Signal loss.** When eval results live in one system and training data lives in another, the handoff loses information. Every manual export is an opportunity for data to get stale, filtered wrong, or dropped entirely.
 
-**Slow iteration.** A connected eval→deploy→train cycle takes days when it crosses 4 tool boundaries. On a single platform, the same cycle takes hours.
+**Slow iteration.** A connected route→analyze→fine-tune→optimize cycle takes days when it crosses 4 tool boundaries. On a single platform, the same cycle takes hours.
 
 ## What a Platform Approach Changes
 

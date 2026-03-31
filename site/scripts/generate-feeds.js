@@ -18,7 +18,7 @@ const posts = blogModule.posts;
 
 const SITE_URL = 'https://slancha.ai';
 const SITE_TITLE = 'Slancha Blog';
-const SITE_DESC = 'Technical deep dives, tutorials, and insights on AI engineering: model evaluation, deployment strategies, fine-tuning pipelines, and the eval-deploy-train loop.';
+const SITE_DESC = 'Technical deep dives, tutorials, and insights on AI inference: intelligent routing, automated fine-tuning, inference optimization, and the closed-loop AI pipeline.';
 
 function escapeXml(str) {
   return str

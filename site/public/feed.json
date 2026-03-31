@@ -3,7 +3,7 @@
   "title": "Slancha Blog",
   "home_page_url": "https://slancha.ai/blog",
   "feed_url": "https://slancha.ai/feed.json",
-  "description": "Technical deep dives, tutorials, and insights on AI inference: model routing, fine-tuning, optimization, and the eval-deploy-train loop.",
+  "description": "Technical deep dives, tutorials, and insights on AI inference: intelligent routing, automated fine-tuning, inference optimization, and the closed-loop AI pipeline.",
   "icon": "https://slancha.ai/favicon.svg",
   "language": "en-US",
   "items": [
