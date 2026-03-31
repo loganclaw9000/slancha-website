@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Slancha Blog</title>
+    <link>https://slancha.ai/blog</link>
+    <description>Technical deep dives, tutorials, and insights on AI engineering: model evaluation, deployment strategies, fine-tuning pipelines, and the eval-deploy-train loop.</description>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 31 Mar 2026 08:17:29 GMT</lastBuildDate>
+    <atom:link href="https://slancha.ai/rss.xml" rel="self" type="application/rss+xml" />
+    <image>
+      <url>https://slancha.ai/favicon.svg</url>
+      <title>Slancha Blog</title>
+      <link>https://slancha.ai/blog</link>
+    </image>
+    <item>
+      <title>The Case for Black Box AI Inference: Why Your Team Should Stop Picking Models</title>
+      <link>https://slancha.ai/blog/the-case-for-black-box-ai-inference</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/the-case-for-black-box-ai-inference</guid>
+      <description>Every AI platform promises transparency and control. Slancha bets on the opposite: a black box that handles everything. Here&apos;s why that&apos;s the right call for 90% of teams using LLM APIs.</description>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate>
+      <author>team@slancha.ai (Slancha Team)</author>
+      <category>philosophy</category>
+      <category>inference</category>
+      <category>platform</category>
+      <category>strategy</category>
+    </item>
+    <item>
+      <title>Slancha vs. Databricks: The AI Infrastructure Showdown</title>
+      <link>https://slancha.ai/blog/slancha-vs-databricks-ai-infrastructure-comparison</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/slancha-vs-databricks-ai-infrastructure-comparison</guid>
+      <description>Databricks gives you the tools. Slancha does the work. A detailed comparison of two fundamentally different approaches to AI infrastructure — full control vs. automatic results.</description>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate>
+      <author>team@slancha.ai (Slancha Team)</author>
+      <category>comparison</category>
+      <category>infrastructure</category>
+      <category>enterprise</category>
+    </item>
+    <item>
+      <title>From Prototype to Production: The AI Deployment Checklist</title>
+      <link>https://slancha.ai/blog/from-prototype-to-production-ai-deployment-checklist</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/from-prototype-to-production-ai-deployment-checklist</guid>
+      <description>Most AI projects that &quot;work&quot; in prototype never make it to production. This checklist covers what actually breaks and how to fix it — routing, data curation, quantization, GPU efficiency, and more.</description>
+      <pubDate>Mon, 30 Mar 2026 00:00:00 GMT</pubDate>
+      <author>team@slancha.ai (Slancha Team)</author>
+      <category>production</category>
+      <category>deployment</category>
+      <category>checklist</category>
+      <category>engineering</category>
+    </item>
+    <item>
+      <title>Building a Production AI Router: Architecture Patterns That Scale</title>
+      <link>https://slancha.ai/blog/building-a-production-ai-router-architecture-patterns</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/building-a-production-ai-router-architecture-patterns</guid>
+      <description>Routing requests to the right model is the easy part. The hard part is doing it at scale with sub-millisecond overhead, graceful degradation, and zero downtime deploys. Here are the architecture patterns that make it work.</description>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate>
+      <author>team@slancha.ai (Slancha Team)</author>
+      <category>router</category>
+      <category>architecture</category>
+      <category>infrastructure</category>
+      <category>engineering</category>
+    </item>
+    <item>
+      <title>The Complete Guide to AI Model Routing: Strategies, Architecture, and Cost Optimization</title>
+      <link>https://slancha.ai/blog/the-complete-guide-to-ai-model-routing</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/the-complete-guide-to-ai-model-routing</guid>
+      <description>Not every request needs GPT-4. Learn how intelligent model routing cuts inference costs 40-70% while maintaining quality — with architecture patterns, routing strategies, and real benchmarks.</description>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate>
+      <author>team@slancha.ai (Slancha Team)</author>
+      <category>router</category>
+      <category>architecture</category>
+      <category>cost-optimization</category>
+      <category>tutorial</category>
+    </item>
+    <item>
+      <title>How Eval Data Should Drive Fine-Tuning: A Technical Deep Dive</title>
+      <link>https://slancha.ai/blog/how-eval-data-should-drive-fine-tuning-technical-deep-dive</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/how-eval-data-should-drive-fine-tuning-technical-deep-dive</guid>
+      <description>A hands-on guide to building a closed-loop pipeline where evaluation failures automatically become training examples — with code, architecture patterns, and real metrics.</description>
+      <pubDate>Mon, 30 Mar 2026 00:00:00 GMT</pubDate>
+      <author>team@slancha.ai (Slancha Team)</author>
+      <category>post-training</category>
+      <category>fine-tuning</category>
+      <category>engineering</category>
+      <category>tutorial</category>
+    </item>
+    <item>
+      <title>5 Signs Your ML Team Needs an Evaluation Platform</title>
+      <link>https://slancha.ai/blog/5-signs-your-ml-team-needs-an-evaluation-platform</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/5-signs-your-ml-team-needs-an-evaluation-platform</guid>
+      <description>Spreadsheets, vibes-based deployment, and &quot;it works on my laptop&quot; are not an eval strategy. Here&apos;s how to know you&apos;ve outgrown ad-hoc testing.</description>
+      <pubDate>Mon, 30 Mar 2026 00:00:00 GMT</pubDate>
+      <author>team@slancha.ai (Slancha Team)</author>
+      <category>evaluation</category>
+      <category>best-practices</category>
+      <category>team</category>
+    </item>
+    <item>
+      <title>Why Eval Data Should Drive Fine-Tuning</title>
+      <link>https://slancha.ai/blog/why-eval-data-should-drive-fine-tuning</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/why-eval-data-should-drive-fine-tuning</guid>
+      <description>Most teams treat evaluation and fine-tuning as separate workflows. That disconnect is costing you model quality and engineering hours.</description>
+      <pubDate>Sun, 29 Mar 2026 00:00:00 GMT</pubDate>
+      <author>team@slancha.ai (Slancha Team)</author>
+      <category>post-training</category>
+      <category>evaluation</category>
+      <category>fine-tuning</category>
+    </item>
+    <item>
+      <title>The Real Cost of Stitching AI Tools Together</title>
+      <link>https://slancha.ai/blog/the-real-cost-of-stitching-ai-tools-together</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/the-real-cost-of-stitching-ai-tools-together</guid>
+      <description>You&apos;re paying for 4-6 tools that don&apos;t talk to each other. The integration tax is higher than you think.</description>
+      <pubDate>Sat, 28 Mar 2026 00:00:00 GMT</pubDate>
+      <author>team@slancha.ai (Slancha Team)</author>
+      <category>platform</category>
+      <category>infrastructure</category>
+      <category>cost</category>
+    </item>
+    <item>
+      <title>Introducing the Slancha Router: Free Intelligent Model Routing</title>
+      <link>https://slancha.ai/blog/introducing-the-slancha-router</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/introducing-the-slancha-router</guid>
+      <description>Route requests to the best model for the job — automatically. Free to use, no lock-in.</description>
+      <pubDate>Fri, 27 Mar 2026 00:00:00 GMT</pubDate>
+      <author>team@slancha.ai (Slancha Team)</author>
+      <category>router</category>
+      <category>product</category>
+      <category>launch</category>
+    </item>
+    <item>
+      <title>How to Reduce Your LLM API Costs by 60% Without Sacrificing Quality</title>
+      <link>https://slancha.ai/blog/how-to-reduce-llm-api-costs</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/how-to-reduce-llm-api-costs</guid>
+      <description>LLM API bills are growing faster than usage. Here are five proven techniques — from intelligent routing to automated fine-tuning — that cut costs dramatically while maintaining or improving output quality.</description>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate>
+      <author>team@slancha.ai (Slancha Team)</author>
+      <category>cost-optimization</category>
+      <category>inference</category>
+      <category>routing</category>
+      <category>fine-tuning</category>
+      <category>guide</category>
+    </item>
+  </channel>
+</rss>
