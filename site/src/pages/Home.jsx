@@ -5,6 +5,7 @@ import Hero from '../components/Hero';
 import ValueProps from '../components/ValueProps';
 import Features from '../components/Features';
 import HowItWorks from '../components/HowItWorks';
+import TierCards from '../components/TierCards';
 import TechStack from '../components/TechStack';
 import About from '../components/About';
 import Waitlist from '../components/Waitlist';
@@ -26,6 +27,8 @@ export default function Home() {
         <Features />
         <hr className="section-divider" />
         <HowItWorks />
+        <hr className="section-divider" />
+        <TierCards />
         <TechStack />
         <hr className="section-divider" />
         <About />
