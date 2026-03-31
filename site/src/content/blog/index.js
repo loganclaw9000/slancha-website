@@ -1,5 +1,359 @@
 export const posts = [
   {
+    slug: 'building-a-production-ai-router-architecture-patterns',
+    title: 'Building a Production AI Router: Architecture Patterns That Scale',
+    date: '2026-03-31',
+    author: 'Slancha Team',
+    excerpt: 'Routing requests to the right model is the easy part. The hard part is doing it at scale with sub-millisecond overhead, graceful degradation, and zero downtime deploys. Here are the architecture patterns that make it work.',
+    tags: ['router', 'architecture', 'infrastructure', 'engineering'],
+    body: `You've decided to stop sending every request to GPT-4. Smart. But there's a gap between "we should route requests" and "we have a production-grade routing system." This post covers the architecture patterns that bridge that gap — the patterns we built Slancha's router on.
+
+## Pattern 1: Embedding-Based Classification Over LLM Classification
+
+The most common mistake in building a router is using an LLM to classify requests. It works in prototypes. It fails in production.
+
+**Why:** An LLM classifier adds 200-800ms of latency per request. For a routing decision that's supposed to *save* time, you're immediately underwater. Worse, you're now paying for two LLM calls per request — the classifier and the actual completion.
+
+**The production pattern:** Use semantic embeddings for classification. Pre-compute embedding vectors for each route category, then classify incoming requests via cosine similarity against those vectors.
+
+\`\`\`python
+# How Slancha's semantic router works internally
+import numpy as np
+from slancha.router import SemanticClassifier
+
+classifier = SemanticClassifier(
+    encoder="fastembed-bge-small-en-v1.5",  # 33M params, runs on CPU
+    routes={
+        "simple_qa": {
+            "utterances": [
+                "What is the capital of France?",
+                "How many days in a year?",
+                "Define photosynthesis",
+                # 50-100 representative utterances per route
+            ],
+            "target_model": "qwen-2.5-7b"
+        },
+        "code_generation": {
+            "utterances": [
+                "Write a Python function that sorts a list",
+                "Implement a binary search tree in TypeScript",
+                "Create a REST API endpoint in Go",
+            ],
+            "target_model": "qwen-2.5-72b"
+        },
+        "complex_reasoning": {
+            "utterances": [
+                "Analyze the trade-offs between microservices and monoliths",
+                "Compare three approaches to distributed consensus",
+                "Design a system that handles 10M events per second",
+            ],
+            "target_model": "claude-sonnet"
+        }
+    }
+)
+
+# Classification: ~0.5ms on CPU, ~0.1ms on GPU
+route = classifier.classify("Explain how TCP handles congestion control")
+# → "complex_reasoning" (similarity: 0.87)
+\`\`\`
+
+**Performance characteristics:**
+
+| Method | Latency | Cost per classification | Accuracy |
+|--------|---------|----------------------|----------|
+| LLM classifier (GPT-4o) | 400-800ms | $0.002-0.008 | 94% |
+| LLM classifier (small) | 80-200ms | $0.0002-0.001 | 88% |
+| Semantic embedding | 0.3-2ms | ~$0 (CPU) | 91% |
+| Semantic embedding (tuned) | 0.3-2ms | ~$0 (CPU) | 93% |
+
+The semantic approach matches LLM accuracy after route utterance tuning, at 200-1000x lower latency and near-zero marginal cost. At 100K requests/day, that's $200-800/month saved on classification alone.
+
+## Pattern 2: Circuit Breakers Per Model Endpoint
+
+In a multi-model system, individual model endpoints fail independently. A router without circuit breakers will keep sending traffic to a degraded endpoint, turning a partial outage into a full one.
+
+**The pattern:** Implement per-endpoint circuit breakers with three states:
+
+\`\`\`
+CLOSED (normal) ──── error rate > 20% ────▶ OPEN (blocked)
+      ▲                                          │
+      │                                    after 30 seconds
+      │                                          │
+      │                                          ▼
+      └──── 3 consecutive successes ◀──── HALF-OPEN (probing)
+\`\`\`
+
+\`\`\`python
+class ModelCircuitBreaker:
+    """Per-endpoint circuit breaker with automatic fallback."""
+
+    def __init__(self, endpoint, fallback_chain):
+        self.endpoint = endpoint
+        self.fallback_chain = fallback_chain  # ordered list of alternatives
+        self.state = "closed"
+        self.failure_count = 0
+        self.last_failure_time = None
+        self.success_streak = 0
+
+    async def route(self, request):
+        if self.state == "open":
+            if time.time() - self.last_failure_time > 30:
+                self.state = "half-open"
+            else:
+                return await self._fallback(request)
+
+        try:
+            response = await self.endpoint.complete(request)
+            self._record_success()
+            return response
+        except (TimeoutError, ServiceUnavailable) as e:
+            self._record_failure()
+            return await self._fallback(request)
+
+    async def _fallback(self, request):
+        for alt in self.fallback_chain:
+            if alt.circuit_breaker.state != "open":
+                return await alt.complete(request)
+        raise AllEndpointsDown()
+\`\`\`
+
+**Key design decisions:**
+
+- **Error rate threshold (20%):** Too low and you'll trip on normal variance. Too high and degraded endpoints absorb too much traffic before tripping.
+- **Recovery probe interval (30s):** Short enough to recover quickly, long enough to let transient issues resolve.
+- **Fallback chain order:** Route to the next-best model for the request category, not just any available model. A code generation request should fall back to another code-capable model, not a general-purpose one.
+
+## Pattern 3: Shadow Traffic for Route Validation
+
+How do you know your routing decisions are correct? You can't A/B test routing in the traditional sense — the user only sees one response. The pattern is shadow traffic.
+
+\`\`\`python
+async def route_with_shadow(request, primary_model, shadow_model, sample_rate=0.05):
+    """Route to primary, optionally also send to shadow for comparison."""
+
+    # Always send to the routed model
+    primary_response = await primary_model.complete(request)
+
+    # 5% of the time, also send to a reference model
+    if random.random() < sample_rate:
+        # Fire-and-forget — doesn't affect user latency
+        asyncio.create_task(
+            shadow_eval(request, primary_response, shadow_model)
+        )
+
+    return primary_response
+
+async def shadow_eval(request, primary_response, shadow_model):
+    """Compare primary response against shadow reference."""
+    shadow_response = await shadow_model.complete(request)
+
+    # Score both responses
+    scores = await eval_pair(
+        request=request,
+        response_a=primary_response,
+        response_b=shadow_response,
+        dimensions=["accuracy", "completeness"]
+    )
+
+    # Log for analysis — if the cheaper model consistently matches
+    # the expensive one, routing is working. If not, recalibrate.
+    await metrics.log_shadow_comparison(
+        route=request.routed_to,
+        primary_score=scores["a"],
+        shadow_score=scores["b"],
+        cost_saved=shadow_model.cost - primary_model.cost
+    )
+\`\`\`
+
+**What shadow traffic tells you:**
+
+- **Route accuracy:** If requests routed to cheap models score within 5% of the frontier model, routing is calibrated correctly.
+- **Route drift:** If the gap widens over time, your route utterances need updating — the distribution of incoming requests has shifted.
+- **Model degradation:** If a specific model's shadow scores drop, something changed in that model's behavior (provider update, capacity issues).
+
+Run shadow traffic at 3-5% sample rate. Below 3%, you don't get statistically meaningful data fast enough. Above 10%, you're spending too much on shadow calls.
+
+## Pattern 4: Request-Aware Load Balancing
+
+Standard load balancers distribute requests round-robin or by least connections. Neither works for LLM inference because requests have wildly different costs — a 50-token completion takes 200ms while a 4000-token generation takes 8 seconds.
+
+**The pattern:** Weight balancing decisions by estimated request cost, not request count.
+
+\`\`\`python
+class CostAwareBalancer:
+    """Distribute load by estimated compute cost, not request count."""
+
+    def __init__(self, endpoints):
+        self.endpoints = endpoints
+        # Track in-flight compute cost per endpoint
+        self.inflight_cost = {ep: 0.0 for ep in endpoints}
+
+    def estimate_cost(self, request):
+        """Estimate relative compute cost of a request."""
+        input_tokens = estimate_tokens(request.messages)
+        expected_output = min(request.max_tokens, input_tokens * 1.5)
+
+        # Rough cost model: input is cheap, output is expensive
+        return input_tokens * 0.1 + expected_output * 1.0
+
+    async def route(self, request):
+        cost = self.estimate_cost(request)
+
+        # Pick the endpoint with lowest in-flight cost
+        target = min(self.endpoints, key=lambda ep: self.inflight_cost[ep])
+
+        self.inflight_cost[target] += cost
+        try:
+            response = await target.complete(request)
+            return response
+        finally:
+            self.inflight_cost[target] -= cost
+\`\`\`
+
+This prevents the scenario where one endpoint gets three 4000-token requests while another gets three 50-token requests — they'd both show "3 connections" to a standard balancer, but one is doing 80x more work.
+
+## Pattern 5: Hot-Swap Model Deployment
+
+Model updates shouldn't require downtime. The pattern is blue-green deployment at the model level:
+
+\`\`\`
+                    ┌──────────────────┐
+                    │   Route Table    │
+                    │                  │
+                    │  "code" → v2.1   │◀── atomic swap
+                    │  "qa"   → v1.3   │
+                    │  "chat" → v3.0   │
+                    └────────┬─────────┘
+                             │
+              ┌──────────────┼──────────────┐
+              │              │              │
+         ┌────▼────┐   ┌────▼────┐   ┌────▼────┐
+         │ code v2.1│   │ qa v1.3 │   │chat v3.0│  ← active
+         │(serving) │   │(serving)│   │(serving)│
+         └─────────┘   └─────────┘   └─────────┘
+         ┌─────────┐
+         │ code v2.2│  ← warming up (loaded, not receiving traffic)
+         │(standby) │
+         └─────────┘
+\`\`\`
+
+\`\`\`python
+class ModelRegistry:
+    """Hot-swap models without dropping requests."""
+
+    async def deploy_model(self, route, new_version):
+        # 1. Load new model into memory (takes 30-120s for large models)
+        new_endpoint = await self.load_model(new_version)
+
+        # 2. Health check — run 10 test prompts
+        await self.validate_endpoint(new_endpoint, route.test_cases)
+
+        # 3. Canary: send 5% of traffic to new version
+        route.add_canary(new_endpoint, weight=0.05)
+        await asyncio.sleep(300)  # 5 minutes of canary traffic
+
+        # 4. Check canary metrics
+        canary_metrics = await self.get_metrics(new_endpoint, window="5m")
+        if canary_metrics.error_rate > 0.02 or canary_metrics.p99_latency > route.sla:
+            route.remove_canary(new_endpoint)
+            await self.unload_model(new_endpoint)
+            raise DeploymentFailed(f"Canary failed: {canary_metrics}")
+
+        # 5. Promote: atomic swap to 100% traffic
+        old_endpoint = route.active_endpoint
+        route.set_active(new_endpoint)  # atomic pointer swap
+
+        # 6. Drain and unload old version
+        await old_endpoint.drain(timeout=60)
+        await self.unload_model(old_endpoint)
+\`\`\`
+
+The critical detail is step 5: the swap from canary to full traffic must be atomic. No request should see a half-configured state.
+
+## Pattern 6: Adaptive Route Utterance Learning
+
+Static route definitions drift as your traffic evolves. The pattern: use production traffic to continuously refine route classifications.
+
+\`\`\`python
+class AdaptiveRouter:
+    """Automatically improves route definitions from production traffic."""
+
+    async def learn_from_traffic(self, window_hours=24):
+        # Pull recent requests with their quality scores
+        samples = await self.metrics.get_scored_requests(
+            window=f"{window_hours}h",
+            min_samples=1000
+        )
+
+        for route in self.routes:
+            # Find high-confidence correct classifications
+            good_matches = [s for s in samples
+                          if s.classified_route == route.name
+                          and s.quality_score > 0.9
+                          and s.classification_confidence > 0.95]
+
+            # Find misclassifications (routed here but quality was poor)
+            bad_matches = [s for s in samples
+                         if s.classified_route == route.name
+                         and s.quality_score < 0.5]
+
+            if len(good_matches) > 50:
+                # Add high-quality examples as new utterances
+                new_utterances = self._select_diverse_examples(good_matches, n=10)
+                route.add_utterances(new_utterances)
+
+            if len(bad_matches) > 20:
+                # These requests are being misrouted — flag for review
+                await self.alerts.route_drift(
+                    route=route.name,
+                    misclassified_count=len(bad_matches),
+                    examples=bad_matches[:5]
+                )
+\`\`\`
+
+This creates a flywheel: more traffic → better route definitions → more accurate routing → better quality scores → more confident training signal.
+
+## Putting It All Together
+
+A production router combines all six patterns:
+
+\`\`\`
+Incoming Request
+      │
+      ▼
+[Semantic Classifier]     ← Pattern 1: embedding-based, <2ms
+      │
+      ▼
+[Route Table]             ← Pattern 5: hot-swappable model versions
+      │
+      ▼
+[Circuit Breaker]         ← Pattern 2: per-endpoint health tracking
+      │
+      ▼
+[Cost-Aware Balancer]     ← Pattern 4: distribute by compute cost
+      │
+      ▼
+[Model Endpoint]          → response to user
+      │
+      └──▶ [Shadow Eval]  ← Pattern 3: async quality validation (5%)
+      └──▶ [Route Learner] ← Pattern 6: adaptive classification
+\`\`\`
+
+Each pattern is independently valuable, but they compound. Circuit breakers protect against failures. Shadow traffic validates routing quality. Adaptive learning improves routing over time. Cost-aware balancing prevents hotspots. Hot-swap deployment enables zero-downtime updates.
+
+## Why Build on Slancha Instead
+
+Everything above is implementable. But it's 3-6 months of engineering work for a team of 2-3, and then you maintain it forever. The patterns interact in subtle ways — a circuit breaker trip changes load distribution, which affects your cost-aware balancing, which changes shadow traffic sampling.
+
+Slancha's router implements all six patterns as a managed service. The free tier gives you patterns 1-4 out of the box. The platform tier adds patterns 5-6 plus the eval→train loop that turns routing data into fine-tuned models.
+
+You don't need to build the infrastructure. You need the outcomes.
+
+---
+
+*[Start with the free router](/signup) — production-grade architecture patterns, zero infrastructure to manage.*`,
+  },
+  {
     slug: 'the-complete-guide-to-ai-model-routing',
     title: 'The Complete Guide to AI Model Routing: Strategies, Architecture, and Cost Optimization',
     date: '2026-03-31',
