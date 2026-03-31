@@ -5,13 +5,26 @@
     <link>https://slancha.ai/blog</link>
     <description>Technical deep dives, tutorials, and insights on AI engineering: model evaluation, deployment strategies, fine-tuning pipelines, and the eval-deploy-train loop.</description>
     <language>en-us</language>
-    <lastBuildDate>Tue, 31 Mar 2026 09:59:04 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 31 Mar 2026 10:14:23 GMT</lastBuildDate>
     <atom:link href="https://slancha.ai/rss.xml" rel="self" type="application/rss+xml" />
     <image>
       <url>https://slancha.ai/favicon.svg</url>
       <title>Slancha Blog</title>
       <link>https://slancha.ai/blog</link>
     </image>
+    <item>
+      <title>Build vs Buy: The AI Gateway Decision Framework for Engineering Teams</title>
+      <link>https://slancha.ai/blog/build-vs-buy-ai-gateway</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/build-vs-buy-ai-gateway</guid>
+      <description>Your team needs an AI gateway. Should you build one in-house or use a managed platform? We break down the true cost, timeline, and complexity of both paths — with real code, architecture decisions, and a decision matrix.</description>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate>
+      <author>team@slancha.ai (Slancha Engineering)</author>
+      <category>ai-gateway</category>
+      <category>build-vs-buy</category>
+      <category>architecture</category>
+      <category>engineering</category>
+      <category>decision-framework</category>
+    </item>
     <item>
       <title>AI Inference Optimization: Complete Guide to QAT, MIG, and Multi-Token Prediction</title>
       <link>https://slancha.ai/blog/ai-inference-optimization-qat-mig-multi-token</link>

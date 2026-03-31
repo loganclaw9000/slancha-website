@@ -32,6 +32,7 @@ const dropdowns = {
     { to: '/docs', label: 'Documentation', desc: 'Guides, API ref, SDKs' },
     { to: '/docs/quickstart', label: 'Quickstart', desc: 'First API call in 5 min' },
     { to: '/blog', label: 'Blog', desc: 'Technical deep dives' },
+    { to: '/resources', label: 'Resources', desc: 'Guides, tools & case studies' },
     { to: '/faq', label: 'FAQ', desc: 'Common questions answered' },
   ],
 };

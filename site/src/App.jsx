@@ -44,6 +44,7 @@ const Status = lazy(() => import('./pages/Status'));
 const PricingCompare = lazy(() => import('./pages/PricingCompare'));
 const VerticalLanding = lazy(() => import('./pages/VerticalLanding'));
 const CompetitorCompare = lazy(() => import('./pages/CompetitorCompare'));
+const Resources = lazy(() => import('./pages/Resources'));
 
 function Loading() {
   return (
@@ -90,6 +91,7 @@ const App = () => (
           <Route path="/pricing/compare" element={<PricingCompare />} />
           <Route path="/solutions/:vertical" element={<VerticalLanding />} />
           <Route path="/vs/:competitor" element={<CompetitorCompare />} />
+          <Route path="/resources" element={<Resources />} />
 
           {/* Auth */}
           <Route path="/login" element={<Login />} />

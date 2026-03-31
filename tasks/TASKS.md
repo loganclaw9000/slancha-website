@@ -9,6 +9,13 @@ Tasks are assigned to agents using owner tags:
 
 ## Unclaimed Tasks
 
+[ ] TASK-103: Restore Claude API access [owner:claw]
+  - Source: Gmail heartbeat (Mar 23 - critical)
+  - Context: 3 emails indicate Claude API turned off, blocking agent operations
+  - Action: Login to claude.ai dashboard, verify/re-enable API access
+  - Priority: CRITICAL (blocking operations)
+  - Timestamp: 1743447240
+
 [ ] Pilot onboarding follow-up [owner:me]
   - From: Slancha team (pilot-program@slancha.ai)
   - Subject: Pilot Onboarding - Next Steps for Q2

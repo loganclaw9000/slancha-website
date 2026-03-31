@@ -8,6 +8,25 @@
   "language": "en-US",
   "items": [
     {
+      "id": "https://slancha.ai/blog/build-vs-buy-ai-gateway",
+      "url": "https://slancha.ai/blog/build-vs-buy-ai-gateway",
+      "title": "Build vs Buy: The AI Gateway Decision Framework for Engineering Teams",
+      "summary": "Your team needs an AI gateway. Should you build one in-house or use a managed platform? We break down the true cost, timeline, and complexity of both paths — with real code, architecture decisions, and a decision matrix.",
+      "date_published": "2026-03-31T00:00:00.000Z",
+      "authors": [
+        {
+          "name": "Slancha Engineering"
+        }
+      ],
+      "tags": [
+        "ai-gateway",
+        "build-vs-buy",
+        "architecture",
+        "engineering",
+        "decision-framework"
+      ]
+    },
+    {
       "id": "https://slancha.ai/blog/ai-inference-optimization-qat-mig-multi-token",
       "url": "https://slancha.ai/blog/ai-inference-optimization-qat-mig-multi-token",
       "title": "AI Inference Optimization: Complete Guide to QAT, MIG, and Multi-Token Prediction",
