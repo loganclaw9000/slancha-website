@@ -1,6 +1,6 @@
 ---
-lastCommit: dffcf8b
-timestamp: 2026-03-31T09:31:00Z
+lastCommit: 22b15a4813d7af8a3adc4ee9f955a1a02d0423e8
+timestamp: 2026-03-31T17:41:00Z
 ---
 
 # Site Notes
@@ -8,6 +8,20 @@ timestamp: 2026-03-31T09:31:00Z
 Recent changes and deployment notes.
 
 ## Latest Changes
+
+**Commit:** `22b15a4813d7af8a3adc4ee9f955a1a02d0423e8`  
+**Date:** 2026-03-31 17:41 UTC
+
+**Updated blog feed with new CFO guide article**
+
+Build artifacts updated with the newly published "AI Inference Cost Optimization: A CFO's Guide to GPU Economics" article:
+- Updated `dist/feed.json` - New summary and tags for the CFO guide
+- Updated `dist/rss.xml` - Feed with new publication date
+- Updated `dist/sitemap.xml` - Removed `architecture` path, replaced with `docs/architecture`
+- Updated `dist/index.html` - New build asset hashes
+- Build completed and pushed to production
+
+**Previous Changes**
 
 **Commit:** `dffcf8b`  
 **Date:** 2026-03-31 09:31 UTC

@@ -29,5 +29,5 @@
     "Cannot truncate prompt with n_keep (23339) >= n_ctx (4096)": 1,
     "400 \"auto\" tool choice requires --enable-auto-tool-choice and --tool-call-parser to be set": 1
   },
-  "generated": "2026-03-31T15:01:16.213Z"
+  "generated": "2026-03-31T17:43:00.184Z"
 }
