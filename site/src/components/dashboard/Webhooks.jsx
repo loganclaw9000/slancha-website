@@ -246,7 +246,7 @@ export default function Webhooks() {
             <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
           </svg>
           Payloads are signed with HMAC-SHA256. Verify using the <code>X-Slancha-Signature</code> header.{' '}
-          <Link to="/docs#webhooks">View docs</Link>
+          <Link to="/docs/webhooks">View docs</Link>
         </div>
       )}
     </div>
