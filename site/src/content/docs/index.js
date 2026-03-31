@@ -260,10 +260,286 @@ This cycle runs continuously. Set up automated evals on a schedule, trigger fine
 - [API Reference](/docs/api-reference) — full endpoint documentation`,
   },
   {
+    slug: 'architecture',
+    title: 'Architecture Overview',
+    section: 'Concepts',
+    order: 3,
+    body: `# Architecture Overview
+
+Slancha is an end-to-end AI inference platform built on four layers that work together in a continuous improvement loop. This page explains how each layer operates and how they connect.
+
+## The Four-Layer Pipeline
+
+Every API request flows through a pipeline that gets smarter over time:
+
+\`\`\`
+Request → [Router] → [Task Analysis] → [Fine-Tuning] → [Inference Optimization]
+   ↑                                                              |
+   └──────────────── continuous redeployment ──────────────────────┘
+\`\`\`
+
+The first two layers operate on every request in real time. The last two operate asynchronously in the background, continuously improving the models that serve future requests.
+
+---
+
+## Layer 1: The Model Router
+
+The router is the customer-facing gateway. It receives every API request through a single endpoint and decides which model should handle it.
+
+**How it works:**
+
+1. Your request arrives at \`api.slancha.ai/v1/chat/completions\`
+2. The Semantic Router (powered by [Aurelio Labs' open-source library](https://github.com/aurelio-labs/semantic-router)) embeds the query using a fast encoder
+3. It compares the embedding against pre-defined route utterances using cosine similarity
+4. The best-matching route determines which model handles the request — all in **sub-millisecond** time
+
+**Why this matters:** Most customers send a mix of easy and hard tasks to the same expensive frontier model. A book synopsis doesn't need GPT-4o. The router captures this savings immediately — no fine-tuning required.
+
+\`\`\`python
+# You send this:
+response = client.chat.completions.create(
+    model="auto",          # Slancha picks the best model
+    messages=[{"role": "user", "content": "Summarize this document..."}]
+)
+# Router decides: summarization task → routes to efficient 7B model
+# Result: same quality, 78% lower cost, 3x lower latency
+\`\`\`
+
+**Key technology:** [vLLM](https://github.com/vllm-project/vllm) (v0.18.0) powers the serving layer. Its PagedAttention algorithm manages GPU memory with near-zero waste, enabling continuous batching, FP8 inference on H100/Blackwell GPUs, speculative decoding, and structured outputs.
+
+---
+
+## Layer 2: Task Analysis & Data Curation
+
+Behind the router, every request is analyzed and classified. This layer builds the dataset that powers fine-tuning.
+
+**Task categories:**
+
+| Category | Example | Typical Model Route |
+|----------|---------|-------------------|
+| Summarization | Document summaries, book synopses | Efficient 7B model |
+| Content generation | Writing, reports, creative text | Mid-range 13-30B model |
+| Code generation | Functions, refactoring, debugging | Code-specialized model |
+| Question answering | Factual retrieval, knowledge queries | General-purpose model |
+| Needle-in-a-haystack | Extracting specific data from long context | Long-context model |
+
+**How data curation works:**
+
+1. Requests are classified by task type and complexity
+2. Model responses are scored against internal quality metrics
+3. High-quality request-response pairs are curated into training datasets
+4. Datasets are customer-specific — your data trains your models
+
+This happens automatically. You don't upload datasets, label data, or trigger any curation process. The system learns from your real usage patterns.
+
+---
+
+## Layer 3: Automated Fine-Tuning
+
+Using the curated task data, Slancha fine-tunes smaller, task-specific models for each customer's common workloads.
+
+**The core insight:** For hard tasks (long-form code generation, complex analysis), smaller models struggle — but smaller models **fine-tuned specifically for that task** can match or outperform frontier generalist models.
+
+**How it works:**
+
+1. When enough high-quality examples accumulate for a task category, a fine-tuning job is triggered automatically
+2. Slancha selects the optimal base model architecture (typically 7B-30B parameters)
+3. LoRA-based fine-tuning runs on the curated dataset
+4. The fine-tuned model is evaluated against the customer's validation set
+5. If it meets or exceeds the frontier model's quality, it's promoted to production
+
+**Automatic upgrades:** When a new open-source architecture drops (e.g., a new Llama or Qwen release), Slancha re-fine-tunes on the existing curated data. Your models get better without any action on your part.
+
+**What you don't need:**
+- No data curation team
+- No fine-tuning engineers
+- No hyperparameter tuning
+- No model architecture selection
+- No training infrastructure
+
+---
+
+## Layer 4: Inference Optimization
+
+Even without fine-tuning, there's significant performance gain from optimizing how models are served.
+
+### Quantization-Aware Training (QAT)
+
+Models are quantized to **4-bit** (INT4/FP4) precision during training, not after. This preserves quality while reducing memory requirements by ~4x compared to FP16.
+
+Post-training quantization (what most teams do manually) degrades quality. QAT integrates quantization into the training process so the model learns to maintain accuracy at lower precision.
+
+### Multi-Instance GPU (MIG)
+
+Using NVIDIA's MIG technology on Blackwell B200/B300 GPUs, a single GPU is partitioned into multiple hardware-isolated instances. Each instance has dedicated compute, memory, and cache resources.
+
+**Result:** Multiple customer models run on a single GPU with full hardware isolation — no noisy-neighbor problems, no resource contention.
+
+### Multi-Token Prediction
+
+Instead of predicting one token at a time (standard autoregressive decoding), models predict multiple tokens per forward pass. This increases tokens-per-second throughput significantly.
+
+**Combined impact:** These three techniques together deliver:
+- **3-5x lower latency** compared to unoptimized serving
+- **4-8x lower cost** through memory and compute efficiency
+- **Full hardware isolation** between customer workloads
+
+---
+
+## The Closed Loop
+
+The key differentiator is that these layers don't operate independently — they form a continuous improvement loop:
+
+1. **Route** — Send requests to the best available model
+2. **Analyze** — Classify tasks, curate training data
+3. **Fine-tune** — Train task-specific models on real usage
+4. **Optimize** — Quantize, partition, and accelerate inference
+5. **Redeploy** — Promote improved models back into the router
+
+The loop closes automatically. No human intervention. No model selection decisions. The longer you use Slancha, the better it gets at serving your specific workloads.
+
+---
+
+## What This Means for You
+
+| If you currently... | Slancha gives you... |
+|---|---|
+| Send everything to GPT-4o | Automatic routing to appropriately-sized models |
+| Pay per-token at frontier prices | Fine-tuned models at a fraction of the cost |
+| Accept whatever latency you get | Optimized inference with 3-5x lower latency |
+| Manually evaluate and select models | Continuous, automatic model improvement |
+| Worry about provider price increases | Independence from any single model provider |
+
+## Next Steps
+
+- [Getting Started](/docs/getting-started) — Create an account and make your first API call
+- [Router Configuration](/docs/router) — Customize routing rules
+- [Evaluations Guide](/docs/evaluations) — Run evaluations on your workloads
+- [Benchmarks](/benchmarks) — See real performance numbers`,
+  },
+  {
+    slug: 'how-routing-works',
+    title: 'How Routing Works',
+    section: 'Concepts',
+    order: 4,
+    body: `# How Routing Works
+
+This page explains the technical details of Slancha's model routing — how requests are classified, how models are selected, and how routing improves over time.
+
+## Semantic Routing vs. LLM-Based Routing
+
+Most "AI routers" use an LLM to classify incoming requests. This is slow (100-500ms per classification) and expensive (you're paying for an inference call just to decide where to route).
+
+Slancha uses **semantic vector routing**: incoming queries are embedded and compared against pre-computed route vectors using cosine similarity. This happens in **sub-millisecond** time with no LLM inference in the routing path.
+
+\`\`\`
+Traditional routing:
+  Request → [LLM classifier] → Model selection → [Target model] → Response
+  Total overhead: 100-500ms per request
+
+Slancha routing:
+  Request → [Embedding + cosine similarity] → Model selection → [Target model] → Response
+  Total overhead: <1ms per request
+\`\`\`
+
+## Route Configuration
+
+Routes map task types to model pools. Each route defines:
+
+- **Utterances** — Example queries that characterize the task type
+- **Model pool** — The set of models eligible to handle this route
+- **Priority rules** — Cost, latency, or quality optimization preference
+
+\`\`\`python
+# You can customize routing via the API:
+client.router.update({
+    "routes": [
+        {
+            "name": "summarization",
+            "utterances": [
+                "Summarize this document",
+                "Give me a brief overview",
+                "TL;DR this article"
+            ],
+            "model_pool": ["llama-3.1-8b-ft", "qwen-2.5-7b-ft"],
+            "optimize": "cost"
+        },
+        {
+            "name": "code-generation",
+            "utterances": [
+                "Write a function that",
+                "Debug this code",
+                "Refactor this class"
+            ],
+            "model_pool": ["codellama-34b-ft", "deepseek-coder-33b"],
+            "optimize": "quality"
+        }
+    ]
+})
+\`\`\`
+
+## How Routes Improve
+
+Routes are not static. The system continuously refines routing accuracy:
+
+1. **Utterance expansion** — As more requests are classified, new representative utterances are added to each route, improving classification accuracy
+2. **Model pool updates** — When fine-tuned models pass evaluation, they're automatically added to the relevant route's model pool
+3. **Threshold tuning** — Confidence thresholds are adjusted based on observed routing accuracy
+
+## Fallback Behavior
+
+When the router can't confidently classify a request (similarity score below threshold), it falls back to a frontier model. This ensures quality is never sacrificed for cost savings.
+
+\`\`\`
+Routing decision flow:
+
+1. Embed incoming query
+2. Compute similarity against all route utterances
+3. If max similarity > confidence threshold:
+   → Route to matched model pool
+   → Select specific model based on optimize preference
+4. If max similarity < confidence threshold:
+   → Fall back to frontier model (GPT-4o class)
+   → Log the request for future route training
+\`\`\`
+
+Fallback requests are valuable signals — they represent task types the router hasn't learned yet. Over time, as these requests accumulate, new routes are created automatically.
+
+## Monitoring Routing Performance
+
+Track routing behavior through the [Dashboard](/dashboard):
+
+- **Route distribution** — What percentage of requests go to each route
+- **Fallback rate** — How often the router falls back to frontier models (lower is better)
+- **Cost savings** — Per-route and aggregate cost savings vs. frontier-only
+- **Latency impact** — Per-route latency compared to baseline
+
+## OpenAI Compatibility
+
+The router is fully compatible with the OpenAI API format. Use \`model: "auto"\` to let Slancha route automatically, or specify a model name to bypass routing:
+
+\`\`\`python
+# Auto-routing (recommended)
+client.chat.completions.create(model="auto", messages=[...])
+
+# Bypass routing — use a specific model
+client.chat.completions.create(model="llama-3.1-70b", messages=[...])
+
+# Route to a specific route by name
+client.chat.completions.create(model="route:summarization", messages=[...])
+\`\`\`
+
+## Next Steps
+
+- [Architecture Overview](/docs/architecture) — See how routing fits into the four-layer pipeline
+- [Router Configuration](/docs/router) — Full API reference for router endpoints
+- [Evaluations](/docs/evaluations) — Measure model performance on your workloads`,
+  },
+  {
     slug: 'evaluations',
     title: 'Evaluations Guide',
     section: 'Evaluate',
-    order: 3,
+    order: 5,
     body: `# Evaluations Guide
 
 Evaluations are the core of Slancha's improvement loop. They measure model performance on your specific use cases and generate the data that drives fine-tuning.
@@ -1535,6 +1811,7 @@ curl https://api.slancha.ai/v1/chat/completions \\
 
 export const docSections = [
   { name: 'Introduction', slugs: ['getting-started', 'quickstart'] },
+  { name: 'Concepts', slugs: ['architecture', 'how-routing-works'] },
   { name: 'Evaluate', slugs: ['evaluations'] },
   { name: 'Deploy', slugs: ['deployments'] },
   { name: 'Post-Train', slugs: ['post-training'] },
