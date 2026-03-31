@@ -4245,643 +4245,44 @@ No infrastructure to manage. No eval pipelines to build. No fine-tuning schedule
 *Building a self-improving AI pipeline is a significant engineering investment — or one API call. [Try the closed-loop approach](/signup) and see your eval scores improve within a week.*`,
   },
   {
-    slug: 'lora-fine-tuning-guide',
-    title: 'The Complete Guide to LoRA Fine-Tuning: From Data Preparation to Production Deployment',
-    date: '2026-03-31',
-    author: 'Slancha Engineering',
-    excerpt: 'LoRA has become the default fine-tuning method for production LLMs — but most teams get the implementation wrong. This guide covers adapter architecture, data preparation, hyperparameter tuning, evaluation, quantized variants (QLoRA), and deployment patterns with production benchmarks.',
-    tags: ['LoRA', 'fine-tuning', 'QLoRA', 'production', 'MLOps', 'training', 'adapters'],
-    body: `LoRA (Low-Rank Adaptation) has become the default method for fine-tuning large language models in production. Instead of updating all model parameters — which requires massive GPU memory and risks catastrophic forgetting — LoRA trains small adapter matrices that modify the model's behavior with 0.1-1% of the parameters.
-
-But most teams get the implementation wrong. They pick arbitrary rank values, prepare data poorly, skip evaluation, and deploy without quantization. The result: fine-tuned models that are slower, less accurate, and more expensive than the base model.
-
-This guide covers everything you need to get LoRA right — from the math behind adapter architecture to production deployment patterns with benchmarks at every step.
-
----
-
-## How LoRA Works (The Intuition)
-
-In a standard transformer, each attention layer has weight matrices (Q, K, V, O) of dimension \`d × d\`. For a 70B model, \`d = 8192\`, so each matrix has 67 million parameters. Full fine-tuning updates all of them.
-
-LoRA's insight: the weight changes during fine-tuning have **low intrinsic rank**. Instead of updating the full \`d × d\` matrix, LoRA decomposes the update into two small matrices:
-
-\`\`\`
-Original weight: W (8192 × 8192) — 67M params, frozen
-LoRA update:     ΔW = A × B
-                 A: (8192 × r) — 131K params (r=16)
-                 B: (r × 8192) — 131K params (r=16)
-
-Total trainable: 262K vs 67M (0.4%)
-\`\`\`
-
-During inference, the adapter merges seamlessly:
-
-\`\`\`python
-# Forward pass with LoRA
-output = x @ W + x @ A @ B * (alpha / r)
-#        └ base ┘  └ adapter ──┘  └ scaling ┘
-\`\`\`
-
-The \`alpha / r\` scaling factor controls how much the adapter affects the output. Higher alpha = stronger adaptation.
-
-### Why This Works
-
-Weight matrices in fine-tuned models differ from the base model by a low-rank perturbation. Research shows that for most tasks, a rank of 8-64 captures 95%+ of the fine-tuning effect. You're not losing information — you're exploiting the structure of what changes during training.
-
----
-
-## Choosing the Right Rank and Alpha
-
-The rank (\`r\`) and scaling factor (\`alpha\`) are the two most important hyperparameters. Get them wrong and you either underfit (rank too low) or waste compute (rank too high).
-
-### Rank Selection Guidelines
-
-| Task Complexity | Recommended Rank | Trainable Params (70B model) | Example |
-|---|---|---|---|
-| Style transfer | 4-8 | 0.05-0.1% | Formal → casual tone |
-| Domain adaptation | 16-32 | 0.2-0.4% | Medical terminology, legal language |
-| New capability | 32-64 | 0.4-0.8% | Code generation, function calling |
-| Significant behavior change | 64-128 | 0.8-1.5% | New language, safety alignment |
-
-### The Rank-Performance Curve
-
-We benchmarked rank values on a domain adaptation task (medical Q&A, llama-3.3-70b):
-
-\`\`\`
-Rank  | Accuracy | Training Time | Memory (GB)
-------+----------+---------------+------------
-4     | 82.3%    | 1h 10m        | 24
-8     | 85.1%    | 1h 15m        | 25
-16    | 88.4%    | 1h 22m        | 27
-32    | 89.1%    | 1h 38m        | 31
-64    | 89.4%    | 2h 05m        | 38
-128   | 89.5%    | 3h 12m        | 52
-\`\`\`
-
-**Diminishing returns after rank 32.** Going from 16 to 32 gets you +0.7% accuracy for +16 minutes. Going from 32 to 128 gets you +0.4% for +94 minutes. For most production workloads, **rank 16-32 is the sweet spot**.
-
-### Alpha: The Scaling Factor
-
-Common practice: set \`alpha = 2 * rank\`. This gives a scaling factor of 2.0, which works well for most tasks.
-
-\`\`\`python
-# Good defaults
-rank = 16
-alpha = 32  # alpha / rank = 2.0
-
-# For subtle adaptation (style, tone)
-rank = 8
-alpha = 8   # alpha / rank = 1.0
-
-# For aggressive adaptation (new capabilities)
-rank = 32
-alpha = 64  # alpha / rank = 2.0
-\`\`\`
-
-If you set alpha too high, the adapter overwhelms the base model's knowledge. Too low, and the fine-tuning barely takes effect. Start with \`alpha = 2 * rank\` and only adjust if evaluation shows issues.
-
----
-
-## Data Preparation: Where Most Teams Fail
-
-The quality of your fine-tuning data matters more than any hyperparameter. A model fine-tuned on 500 excellent examples outperforms one trained on 5,000 mediocre ones.
-
-### Dataset Structure
-
-LoRA fine-tuning uses the standard chat format:
-
-\`\`\`json
-[
-  {
-    "messages": [
-      {"role": "system", "content": "You are a medical assistant..."},
-      {"role": "user", "content": "What are the symptoms of Type 2 diabetes?"},
-      {"role": "assistant", "content": "Type 2 diabetes presents with..."}
-    ]
-  }
-]
-\`\`\`
-
-### Data Quality Checklist
-
-Before training, validate every example against these criteria:
-
-\`\`\`python
-def validate_training_example(example):
-    messages = example["messages"]
-    issues = []
-
-    # 1. Must have at least one user and one assistant message
-    roles = [m["role"] for m in messages]
-    if "user" not in roles or "assistant" not in roles:
-        issues.append("Missing user or assistant message")
-
-    # 2. Assistant responses should be substantive (not "OK" or "Sure")
-    for m in messages:
-        if m["role"] == "assistant" and len(m["content"].split()) < 10:
-            issues.append(f"Short assistant response: {len(m['content'].split())} words")
-
-    # 3. No duplicate examples (check content hash)
-    content_hash = hashlib.md5(
-        json.dumps(messages, sort_keys=True).encode()
-    ).hexdigest()
-    if content_hash in seen_hashes:
-        issues.append("Duplicate example")
-    seen_hashes.add(content_hash)
-
-    # 4. Token count within bounds (not too short, not too long)
-    total_tokens = count_tokens(messages)
-    if total_tokens < 50:
-        issues.append(f"Too short: {total_tokens} tokens")
-    if total_tokens > 4096:
-        issues.append(f"Too long: {total_tokens} tokens (will be truncated)")
-
-    # 5. No PII or sensitive data in training examples
-    for m in messages:
-        if contains_pii(m["content"]):
-            issues.append("Contains PII — redact before training")
-
-    return issues
-\`\`\`
-
-### How Much Data Do You Need?
-
-| Use Case | Minimum Examples | Recommended | Diminishing Returns |
-|---|---|---|---|
-| Style/tone | 100 | 300-500 | >1,000 |
-| Domain vocabulary | 200 | 500-1,000 | >2,000 |
-| Task-specific behavior | 500 | 1,000-2,000 | >5,000 |
-| Complex reasoning | 1,000 | 2,000-5,000 | >10,000 |
-
-**Quality over quantity.** 500 carefully curated examples consistently outperform 5,000 scraped/generated ones. Spend time on data curation, not data volume.
-
-### The Data Mix Strategy
-
-For production fine-tuning, don't train exclusively on your target task. Mix in general-purpose examples to prevent catastrophic forgetting:
-
-\`\`\`python
-def create_training_mix(target_data, general_data, mix_ratio=0.7):
-    """
-    Mix target task data with general-purpose data.
-    Default: 70% target, 30% general.
-    """
-    target_count = int(len(target_data) * mix_ratio / mix_ratio)
-    general_count = int(target_count * (1 - mix_ratio) / mix_ratio)
-
-    # Ensure we don't exceed available data
-    target_sample = random.sample(target_data, min(target_count, len(target_data)))
-    general_sample = random.sample(general_data, min(general_count, len(general_data)))
-
-    dataset = target_sample + general_sample
-    random.shuffle(dataset)
-    return dataset
-
-# Example: fine-tuning for legal document analysis
-legal_data = load_legal_examples()      # 1,200 examples
-general_data = load_general_examples()  # OpenAssistant, Dolly, etc.
-training_set = create_training_mix(legal_data, general_data, mix_ratio=0.7)
-# Result: 1,200 legal + ~514 general = 1,714 total
-\`\`\`
-
----
-
-## Training Configuration
-
-Here's a production-ready LoRA training script using the PEFT library:
-
-\`\`\`python
-from transformers import AutoModelForCausalLM, AutoTokenizer, TrainingArguments
-from peft import LoraConfig, get_peft_model, TaskType
-from trl import SFTTrainer
-import torch
-
-# Load base model
-model = AutoModelForCausalLM.from_pretrained(
-    "meta-llama/Llama-3.3-70B-Instruct",
-    torch_dtype=torch.bfloat16,
-    device_map="auto",
-    attn_implementation="flash_attention_2",
-)
-tokenizer = AutoTokenizer.from_pretrained("meta-llama/Llama-3.3-70B-Instruct")
-tokenizer.pad_token = tokenizer.eos_token
-
-# LoRA configuration
-lora_config = LoraConfig(
-    task_type=TaskType.CAUSAL_LM,
-    r=16,                    # Rank — start here, increase if underfitting
-    lora_alpha=32,           # Scaling — 2x rank is a safe default
-    lora_dropout=0.05,       # Light dropout to prevent overfitting
-    target_modules=[
-        "q_proj", "k_proj", "v_proj", "o_proj",  # Attention
-        "gate_proj", "up_proj", "down_proj",       # MLP (FFN)
-    ],
-    bias="none",             # Don't train bias terms
-)
-
-# Apply LoRA to model
-model = get_peft_model(model, lora_config)
-model.print_trainable_parameters()
-# → trainable params: 83M / 70B total (0.12%)
-
-# Training arguments
-training_args = TrainingArguments(
-    output_dir="./lora-medical-v1",
-    num_train_epochs=3,              # 3-5 epochs for most tasks
-    per_device_train_batch_size=4,
-    gradient_accumulation_steps=4,   # Effective batch size = 16
-    learning_rate=2e-5,              # Lower than full fine-tuning
-    lr_scheduler_type="cosine",
-    warmup_ratio=0.1,
-    weight_decay=0.01,
-    bf16=True,
-    logging_steps=10,
-    eval_strategy="steps",
-    eval_steps=50,
-    save_strategy="steps",
-    save_steps=100,
-    load_best_model_at_end=True,
-    metric_for_best_model="eval_loss",
-    gradient_checkpointing=True,     # Saves ~40% memory
-    max_grad_norm=1.0,
-)
-
-# Train
-trainer = SFTTrainer(
-    model=model,
-    args=training_args,
-    train_dataset=train_dataset,
-    eval_dataset=eval_dataset,
-    tokenizer=tokenizer,
-    max_seq_length=2048,
-    packing=True,                    # Pack short examples together
-)
-
-trainer.train()
-
-# Save adapter weights (not the full model — just ~160MB)
-model.save_pretrained("./lora-medical-v1/adapter")
-\`\`\`
-
-### Which Layers to Target
-
-Not all layers benefit equally from LoRA adaptation:
-
-| Target | Params Added | Best For | Notes |
-|---|---|---|---|
-| \`q_proj, v_proj\` only | Minimal | Style/tone changes | Original LoRA paper default |
-| \`q_proj, k_proj, v_proj, o_proj\` | Medium | Domain adaptation | Good balance |
-| Attention + MLP (\`gate_proj, up_proj, down_proj\`) | Maximum | New capabilities | Our recommended default |
-
-**Recommendation:** Target all attention projections plus MLP layers. The marginal memory cost is small (LoRA params are tiny), and MLP layers encode factual knowledge that benefits from domain-specific fine-tuning.
-
-### Epochs: When to Stop
-
-| Epoch | Train Loss | Eval Loss | Notes |
-|---|---|---|---|
-| 1 | 1.82 | 1.74 | Still learning |
-| 2 | 0.91 | 0.88 | Good convergence |
-| 3 | 0.54 | 0.62 | Slight overfitting begins |
-| 4 | 0.31 | 0.71 | Overfitting — stop here |
-| 5 | 0.18 | 0.85 | Significant overfitting |
-
-**3 epochs is usually optimal.** If eval loss starts rising while train loss keeps falling, you're overfitting. Use early stopping based on eval loss.
-
----
-
-## QLoRA: LoRA on a Budget
-
-QLoRA combines 4-bit quantization with LoRA, allowing you to fine-tune a 70B model on a single 24GB GPU. The base model is loaded in 4-bit precision (NF4), while LoRA adapters train in full precision.
-
-\`\`\`python
-from transformers import BitsAndBytesConfig
-
-# 4-bit quantization config
-quantization_config = BitsAndBytesConfig(
-    load_in_4bit=True,
-    bnb_4bit_quant_type="nf4",          # NormalFloat4 — better than FP4
-    bnb_4bit_compute_dtype=torch.bfloat16,
-    bnb_4bit_use_double_quant=True,     # Double quantization saves ~0.4 bits/param
-)
-
-# Load model in 4-bit
-model = AutoModelForCausalLM.from_pretrained(
-    "meta-llama/Llama-3.3-70B-Instruct",
-    quantization_config=quantization_config,
-    device_map="auto",
-)
-
-# Apply LoRA on top (same config as before)
-model = get_peft_model(model, lora_config)
-\`\`\`
-
-### LoRA vs QLoRA: The Trade-offs
-
-| Metric | LoRA (BF16) | QLoRA (NF4) | Difference |
-|---|---|---|---|
-| Memory (70B model) | 140GB | 35GB | **-75%** |
-| GPUs needed | 4× A100 80GB | 1× A100 80GB | **-75%** |
-| Training speed | 1.0x (baseline) | 0.7x | **-30% slower** |
-| Final accuracy | 89.1% | 88.4% | **-0.7%** |
-| Cost (cloud GPU) | $12/hr | $3/hr | **-75%** |
-
-**When to use QLoRA:** Single-GPU setups, cost-constrained experiments, rapid prototyping. The 0.7% accuracy difference is negligible for most production tasks.
-
-**When to use full LoRA:** Maximum accuracy matters, multi-GPU setup available, final production model.
-
----
-
-## Evaluation: Before You Deploy
-
-Never deploy a fine-tuned model without rigorous evaluation. Here's a production evaluation framework:
-
-\`\`\`python
-class LoRAEvaluator:
-    def __init__(self, base_model, finetuned_model, eval_dataset):
-        self.base = base_model
-        self.finetuned = finetuned_model
-        self.eval_dataset = eval_dataset
-
-    def run_eval(self):
-        """Compare fine-tuned model against base on all dimensions."""
-        results = {
-            "target_task": self._eval_target_task(),
-            "general_capability": self._eval_general(),
-            "safety": self._eval_safety(),
-            "latency": self._benchmark_latency(),
-            "regression": self._check_regression(),
-        }
-
-        # Promotion decision
-        promote = (
-            results["target_task"]["improvement"] > 3.0 and  # >3% improvement
-            results["general_capability"]["regression"] < 2.0 and  # <2% regression
-            results["safety"]["pass_rate"] > 0.99 and  # >99% safety pass
-            results["latency"]["increase_pct"] < 5.0  # <5% latency increase
-        )
-
-        results["promote"] = promote
-        return results
-
-    def _eval_target_task(self):
-        """Evaluate on the specific task the model was fine-tuned for."""
-        base_scores = []
-        ft_scores = []
-
-        for example in self.eval_dataset:
-            base_output = self.base.generate(example["messages"][:-1])
-            ft_output = self.finetuned.generate(example["messages"][:-1])
-            expected = example["messages"][-1]["content"]
-
-            base_scores.append(score_response(base_output, expected))
-            ft_scores.append(score_response(ft_output, expected))
-
-        return {
-            "base_accuracy": sum(base_scores) / len(base_scores),
-            "finetuned_accuracy": sum(ft_scores) / len(ft_scores),
-            "improvement": (sum(ft_scores) - sum(base_scores)) / len(base_scores) * 100,
-        }
-
-    def _check_regression(self):
-        """Check performance on tasks the model WASN'T fine-tuned on."""
-        # Use a general benchmark (MMLU, HellaSwag, etc.)
-        general_benchmarks = load_general_benchmarks()
-        regressions = {}
-
-        for bench_name, bench_data in general_benchmarks.items():
-            base_score = evaluate_benchmark(self.base, bench_data)
-            ft_score = evaluate_benchmark(self.finetuned, bench_data)
-            regressions[bench_name] = {
-                "base": base_score,
-                "finetuned": ft_score,
-                "delta": ft_score - base_score,
-            }
-
-        return regressions
-\`\`\`
-
-### The Evaluation Matrix
-
-Before promoting any fine-tuned model to production, verify all of these:
-
-| Check | Threshold | Action if Failed |
-|---|---|---|
-| Target task accuracy | >3% improvement over base | Increase training data or rank |
-| General capability | <2% regression on MMLU | Add more general data to mix |
-| Safety scores | >99% pass rate | Check training data for harmful patterns |
-| Latency | <5% increase vs base | Ensure adapter merging is done correctly |
-| Consistency | <3% variance across 5 runs | Reduce learning rate, increase data |
-
----
-
-## Deployment: From Adapter to Production
-
-### Adapter Merging
-
-For production serving, merge the LoRA adapter into the base model. This eliminates the runtime overhead of the adapter forward pass:
-
-\`\`\`python
-from peft import PeftModel
-
-# Load base model + adapter
-base_model = AutoModelForCausalLM.from_pretrained(
-    "meta-llama/Llama-3.3-70B-Instruct",
-    torch_dtype=torch.bfloat16,
-)
-model = PeftModel.from_pretrained(base_model, "./lora-medical-v1/adapter")
-
-# Merge adapter weights into base model
-merged_model = model.merge_and_unload()
-
-# Save the merged model
-merged_model.save_pretrained("./llama-3.3-70b-medical-merged")
-tokenizer.save_pretrained("./llama-3.3-70b-medical-merged")
-\`\`\`
-
-**After merging:** The model behaves exactly like a standard model. No adapter overhead, no extra memory, no latency impact. This is the recommended approach for production.
-
-### Multi-Adapter Serving
-
-If you need to serve multiple LoRA adapters (e.g., different models for different customers), vLLM supports dynamic adapter loading:
-
-\`\`\`python
-from vllm import LLM, SamplingParams
-from vllm.lora.request import LoRARequest
-
-# Load base model with LoRA support
-llm = LLM(
-    model="meta-llama/Llama-3.3-70B-Instruct",
-    enable_lora=True,
-    max_loras=4,           # Up to 4 adapters simultaneously
-    max_lora_rank=32,      # Maximum rank across all adapters
-)
-
-# Serve different adapters per request
-medical_adapter = LoRARequest("medical-v1", 1, "./adapters/medical")
-legal_adapter = LoRARequest("legal-v1", 2, "./adapters/legal")
-
-# Medical request
-medical_output = llm.generate(
-    "What are the contraindications for metformin?",
-    SamplingParams(max_tokens=256),
-    lora_request=medical_adapter,
-)
-
-# Legal request (same base model, different adapter)
-legal_output = llm.generate(
-    "Analyze this indemnification clause...",
-    SamplingParams(max_tokens=512),
-    lora_request=legal_adapter,
-)
-\`\`\`
-
-This approach is **significantly cheaper** than deploying separate models. One base model instance with 4 adapters uses ~5% more memory than the base model alone, vs 4x memory for 4 separate models.
-
-### Post-Training Quantization
-
-After merging the adapter, apply QAT for inference optimization:
-
-\`\`\`python
-# Quantize the merged model for production serving
-from slancha import Slancha
-
-client = Slancha(api_key="sk-...")
-
-# Upload merged model and apply QAT
-job = client.optimization.quantize(
-    model_path="./llama-3.3-70b-medical-merged",
-    method="qat",           # Quantization-Aware Training
-    target_dtype="int8",    # INT8 for quality, INT4 for maximum speed
-    calibration_dataset="./eval_dataset.jsonl",
-    calibration_samples=1000,
-)
-
-# The quantized model serves 2-3x faster with <1% quality loss
-\`\`\`
-
----
-
-## Production Checklist
-
-Before deploying a LoRA fine-tuned model to production:
-
-**Data:**
-- [ ] Dataset has 500+ high-quality examples (1,000+ for complex tasks)
-- [ ] Data is deduplicated and PII-free
-- [ ] 70/30 mix of target task and general-purpose examples
-- [ ] 20% held out for evaluation (never seen during training)
-
-**Training:**
-- [ ] Rank 16-32 for most tasks (increase only if underfitting)
-- [ ] Alpha = 2 × rank
-- [ ] Target all attention + MLP layers
-- [ ] 3 epochs with early stopping on eval loss
-- [ ] Gradient checkpointing enabled for memory efficiency
-
-**Evaluation:**
-- [ ] >3% improvement on target task vs base model
-- [ ] <2% regression on general benchmarks
-- [ ] >99% safety pass rate
-- [ ] Latency increase <5% after adapter merging
-- [ ] Tested on 5 independent runs for consistency
-
-**Deployment:**
-- [ ] Adapter merged into base model (no runtime overhead)
-- [ ] Post-merge quantization applied (QAT recommended)
-- [ ] Shadow deployment for 24-48 hours before full promotion
-- [ ] Rollback procedure tested and documented
-- [ ] Monitoring configured for accuracy and latency drift
-
----
-
-## Or Let Slancha Handle It
-
-Everything in this guide — data curation from production eval data, LoRA training with optimal hyperparameters, evaluation against all dimensions, QAT quantization, shadow deployment, auto-promotion — runs automatically in Slancha's fine-tuning pipeline:
-
-\`\`\`python
-from slancha import Slancha
-
-client = Slancha(api_key="sk-...")
-
-# That's it. The closed loop handles fine-tuning automatically:
-# 1. Eval pipeline identifies weak task categories
-# 2. Training data curated from high-scoring production examples
-# 3. LoRA fine-tuning with auto-selected hyperparameters
-# 4. Evaluation against base model + current production model
-# 5. QAT quantization for optimized inference
-# 6. Shadow deploy → auto-promote if performance improves
-
-response = client.chat.completions.create(
-    messages=[{"role": "user", "content": "Your prompt here"}]
-)
-# Models improve automatically with every request
-\`\`\`
-
-No GPU provisioning. No hyperparameter tuning. No evaluation pipelines. The loop closes itself.
-
-[Start free →](/signup) — your first fine-tuning job triggers automatically once you hit 500 requests.
-
----
-
-*LoRA makes fine-tuning accessible, but production deployment still requires data curation, evaluation, quantization, and monitoring. [Try Slancha](/signup) to skip the infrastructure and get straight to better models.*`,
-  },
-  {
     slug: 'ai-inference-cost-optimization-cfo-guide',
-    title: "AI Inference Cost Optimization: A CFO's Guide to GPU Economics",
+    title: 'AI Inference Cost Optimization: A CFO\'s Guide to GPU Economics',
     date: '2026-03-31',
     author: 'Slancha Team',
-    excerpt: "Your API bill is the tip of the iceberg. This guide breaks down the real total cost of ownership for AI inference — build vs. buy analysis with concrete numbers, ROI framework for the board, and three real-world scenarios showing what happens when you get optimization right (or wrong).",
-    tags: ['cost-optimization', 'business', 'cfo', 'gpu-economics', 'build-vs-buy', 'roi'],
-    body: `## Who This Is For
+    excerpt: 'Your API bill went from $5K to $47K in six months. This guide gives CFOs and finance leaders the TCO breakdown, build vs. buy analysis, and ROI framework they need to make the right inference infrastructure decision — no technical jargon.',
+    tags: ['cost-optimization', 'CFO', 'ROI', 'TCO', 'build-vs-buy', 'enterprise', 'economics'],
+    body: \`Your API bill went from $5,000/month to $47,000/month in six months. Your ML team says "optimization is hard," but you need answers for the board. This isn't about "AI being expensive." It's about **inefficient inference infrastructure**.
 
-If you're reading this, you're probably one of:
+## Who This Is For
 
-- A **CFO or finance leader** at an AI startup, trying to understand your growing inference costs
-- A **CTO or VP Engineering** who's been handed an API bill that's climbing faster than revenue
-- A **founder** who raised money for product development, not GPU costs
-
-You've deployed LLMs to production. Your users are happy. Your features are shipping.
-
-**But your inference costs are spiraling.**
-
-- Your API bill went from $5,000/month to $47,000/month in six months
-- You're pricing your product assuming $0.01/token, but you're actually paying $0.03/token
-- Your ML team says "optimization is hard," but you need answers for the board
-
-This isn't about "AI being expensive." It's about **inefficient inference infrastructure**.
-
-In this guide, you'll get:
-
-- **A TCO breakdown** that shows the real cost of building vs. buying inference optimization
-- **A build vs. buy analysis** with concrete numbers, not vendor marketing
-- **An ROI framework** you can use to justify investment in optimization platforms
-- **Three scenarios** that show what happens when you get this right (or wrong)
-
-No fluff. No technical jargon. Just the economics you need to make decisions.
+- **CFOs and finance leaders** trying to understand growing inference costs
+- **CTOs and VPs of Engineering** handed an API bill climbing faster than revenue
+- **Founders** who raised money for product development, not GPU costs
 
 ---
 
 ## Part 1: The Hidden Economics of AI Inference
 
-Let's start with what most people get wrong: **API costs are only part of the story.**
+**API costs are only part of the story.**
 
 ### The Direct Costs (What You See)
 
 | Cost Item | Typical Range | What It Includes |
 |-----------|---------------|------------------|
-| API calls (per 1M tokens) | $2-$10 | Base model pricing (OpenAI, Anthropic, etc.) |
-| Routing overhead | $0.50-$2 | Multi-model routing, failover logic |
-| Logging & monitoring | $1-$3 | Request/response storage, metrics |
-| **Total direct** | **$3.50-$15 / 1M tokens** | What appears on your invoice |
+| API calls (per 1M tokens) | $2–$10 | Base model pricing (OpenAI, Anthropic, etc.) |
+| Routing overhead | $0.50–$2 | Multi-model routing, failover logic |
+| Logging & monitoring | $1–$3 | Request/response storage, metrics |
+| **Total direct** | **$3.50–$15 / 1M tokens** | What appears on your invoice |
 
 ### The Hidden Costs (What You Don't See)
 
 | Cost Item | Typical Range | Why It Exists |
 |-----------|---------------|---------------|
-| Model benchmarking | $5,000-$20,000/month | ML engineers testing different models |
-| Fallback logic development | $10,000-$40,000/month | Custom infrastructure for reliability |
-| Quality monitoring | $3,000-$15,000/month | Evals, red-teaming, drift detection |
-| Fine-tuning operations | $5,000-$30,000/month | Training smaller models, managing jobs |
-| **Total hidden** | **$23,000-$105,000/month** | What appears on your payroll |
+| Model benchmarking | $5,000–$20,000/month | ML engineers testing different models |
+| Fallback logic development | $10,000–$40,000/month | Custom infrastructure for reliability |
+| Quality monitoring | $3,000–$15,000/month | Evals, red-teaming, drift detection |
+| Fine-tuning operations | $5,000–$30,000/month | Training smaller models, managing jobs |
+| **Total hidden** | **$23,000–$105,000/month** | What appears on your payroll |
 
 **The insight:** Your API bill is the tip of the iceberg. The real cost is your team solving problems that optimization platforms already solved.
 
@@ -4889,164 +4290,141 @@ Let's start with what most people get wrong: **API costs are only part of the st
 
 ## Part 2: TCO Calculator — Build vs. Buy
 
-Let's build a model you can actually use. Three scenarios at 50M tokens/month.
+Three scenarios at 50M tokens/month with peak load of 1,000 concurrent requests.
 
 ### Scenario A: Do It Yourself (The "Build" Option)
 
-**Assumptions:** 50M tokens/month, 3 FTEs dedicated to inference, $200K blended salary.
-
-| Category | Cost/month | Details |
-|----------|------------|---------|
-| API calls (50M tokens @ $5/1M) | $250,000 | Mid-range model pricing |
-| GPU instances (fine-tuning) | $15,000 | A100 instances |
-| Monitoring & logging | $5,000 | Datadog, Sentry, custom dashboards |
-| Model benchmarking | $40,000 | 120 hours/month |
-| Fallback logic (custom) | $66,667 | 200 hours/month |
-| Quality monitoring | $40,000 | Evals, re-testing |
-| Fine-tuning ops | $40,000 | Training, managing jobs |
-| **Total** | **$456,667** | 59% direct, 41% engineering |
-
-### Scenario B: Governance Layer (Portkey)
-
-**Assumptions:** Same volume, Portkey for routing, still building own fine-tuning.
+3 dedicated ML FTEs (ML engineer + MLOps engineer + data scientist) at $200K/year blended.
 
 | Category | Cost/month |
 |----------|------------|
-| Portkey API | $25,000 |
-| API calls | $250,000 |
-| GPU instances | $15,000 |
-| Reduced monitoring | $3,000 |
-| Engineering (still custom) | $163,333 |
+| API calls (50M tokens @ $5/1M) | $250,000 |
+| GPU instances (fine-tuning) | $15,000 |
+| Monitoring & logging | $5,000 |
+| Model benchmarking (120 hrs) | $40,000 |
+| Fallback logic (200 hrs) | $66,667 |
+| Quality monitoring (120 hrs) | $40,000 |
+| Fine-tuning ops (120 hrs) | $40,000 |
+| **Total** | **$456,667** |
+
+Engineering overhead: 41% of total cost. Direct costs: 59%.
+
+### Scenario B: Governance Layer (e.g., Portkey)
+
+Same team, add Portkey for routing — but still building your own optimization.
+
+| Category | Cost/month |
+|----------|------------|
+| API calls + Portkey | $293,000 |
+| Engineering (490 hrs) | $163,333 |
 | **Total** | **$456,333** |
 
-**Key insight:** Portkey doesn't reduce your TCO much because you're still doing the optimization work yourself.
+**Key insight:** A governance layer doesn't reduce your TCO much — you're still doing the optimization work yourself.
 
 ### Scenario C: Black Box Optimization (Slancha)
 
-**Assumptions:** Same volume, Slancha handles everything, no dedicated ML team for inference.
+No dedicated ML team for inference. Platform handles routing, evals, fine-tuning, optimization.
 
 | Category | Cost/month |
 |----------|------------|
 | Slancha API ($7.50/1M tokens) | $375,000 |
-| Setup + monitoring (60 hrs) | $20,000 |
+| Engineering (60 hrs setup/monitoring) | $20,000 |
 | **Total** | **$395,000** |
 
-**Savings: $61,667/month vs. build. 95% direct costs, 5% engineering.**
+Engineering overhead drops from 41% to 5%. **TCO is 14% lower than building.**
 
 ---
 
 ## Part 3: The Build vs. Buy Decision Matrix
 
-### TCO at Different Scales
+### Your TCO at Different Scales
 
-| Monthly Volume | DIY TCO | Portkey TCO | Slancha TCO | Savings vs. DIY |
-|----------------|---------|-------------|-------------|-----------------|
+| Monthly Volume | DIY TCO | Governance Layer | Black Box (Slancha) | Savings vs. DIY |
+|----------------|---------|------------------|---------------------|-----------------|
 | 10M tokens | $150K | $145K | $125K | 17% |
 | 50M tokens | $457K | $456K | $395K | 14% |
 | 100M tokens | $850K | $840K | $750K | 12% |
 | 500M tokens | $4M | $3.8M | $3.5M | 13% |
 
-### When to Build
-
-You should build if you meet **ALL** of these:
+### Choose Build If (ALL must apply):
 - 500M+ tokens/month
 - 5+ dedicated ML FTEs
-- Highly customized use cases
+- Highly customized, non-standard use cases
 - 2+ years of stable workload
 - $5M+/year infrastructure budget
 
-**You're probably not this company.** This is for Meta, Google, and companies with massive scale.
+**You're probably not this company.** This is for Meta, Google, or enterprises with massive scale.
 
-### When to Buy a Black Box
-
-You should buy if:
-- < 500M tokens/month
-- < 5 ML FTEs
-- Standard LLM use cases (chat, summarization, code generation)
-- You want predictable costs and fast time-to-value
+### Choose Black Box If:
+- Under 500M tokens/month
+- Fewer than 5 ML FTEs
+- Standard LLM use cases (chat, summarization, code)
+- Want predictable costs and fast time-to-value
 
 **This is 90%+ of AI companies.**
 
 ---
 
-## Part 4: Three Real-World Scenarios
+## Part 4: ROI Framework for the Board
 
-### The Company That Built (Startup X)
+### The Investment (Slancha at $7.50/1M tokens)
 
-- AI startup, $10M Series A, 50M tokens/month
+| Year | Token Volume | Slancha Cost | Engineering Saved | Net Savings |
+|------|-------------|-------------|-------------------|-------------|
+| Year 1 | 100M/mo | $750K | $600K | $150K |
+| Year 2 | 300M/mo | $2.25M | $1.8M | $450K |
+| Year 3 | 750M/mo | $5.6M | $4.5M | $1.1M |
+
+**Year 1 ROI:** 20%. **Payback period:** Immediate — you save on the first invoice.
+
+---
+
+## Part 5: Three Real-World Scenarios
+
+### Startup X — Built Their Own Stack
+- 50M tokens/month, $10M Series A
 - Hired 3 ML engineers, built custom routing + eval + fine-tuning
 - **Year 1 cost:** $2.1M
-- **Month 6:** Latency spikes during peak load (fallback logic broken)
-- **Month 8:** Quality degradation detected weeks late
-- **Month 12:** Board asks "Why are inference costs 3x our product revenue?"
+- **Result:** Month 6 latency spikes (broken fallback logic), Month 8 quality degradation (undetected until support tickets spiked), Month 10 ML team overwhelmed
+- **Lesson:** $2.1M for something still brittle. Slancha would have cost ~$800K.
 
-**Slancha would have cost ~$800K and handled all of this automatically.**
+### Fintech Y — Used a Governance Layer
+- 200M tokens/month, 500K active users
+- Portkey for routing + custom fine-tuning pipeline + 2 ML engineers
+- **Year 1 cost:** $1.2M, only $200K actual savings
+- **Lesson:** Governance layer without optimization = partial savings at best.
 
-### The Company That Bought Governance (Fintech Y)
-
-- Fintech, 200M tokens/month, 500K active users
-- Used Portkey for routing, built own fine-tuning pipeline
-- **Year 1 cost:** $1.2M
-- **Real savings:** Only $200K/year from better routing
-- Still had 2 ML engineers on inference work
-
-**Slancha would have cost ~$1.5M but eliminated the need for 2 ML engineers. True savings: $400K/year + engineering capacity.**
-
-### The Company That Went Black Box (E-commerce Z)
-
-- E-commerce platform, 75M tokens/month, customer-facing chat
-- Migrated to Slancha in 2 weeks, no dedicated ML team
+### E-commerce Z — Used Slancha
+- 75M tokens/month, customer-facing chat
+- Migrated in 2 weeks, no dedicated ML team
 - **Year 1 cost:** $562K
-- **Month 1:** P99 latency dropped 35%
-- **Month 3:** Quality scores up 20%
-- **Month 6:** Inference costs down 25%
-- **Total savings: $187K/year vs. build alternative**
+- **Results:** P99 latency -35% (Month 1), quality +20% (Month 3), costs -25% (Month 6)
+- **Lesson:** The platform frees your team for higher-value product work.
 
 ---
 
-## Part 5: The CFO's Checklist
+## Part 6: The CFO's Vendor Evaluation Checklist
 
-### Questions to Ask Any Vendor
-
-**Cost transparency:**
+### Cost Transparency
 1. What's the actual cost per 1M tokens at my expected throughput?
-2. Do you charge for routing decisions, eval runs, or underlying API calls?
-3. What's the cost of fine-tuning? How often will I need to do it?
+2. Are routing decisions, eval runs, or underlying API calls charged separately?
+3. What's the cost of fine-tuning? How often will I need it?
 4. Do you offer committed use discounts or volume tiers?
+5. What's the cost of data egress?
 
-**Engineering overhead:**
-5. How many ML FTEs does a typical customer need for inference?
-6. What's the time to migration?
-7. What ongoing tuning is required?
-8. What happens when a model degrades — is it detected and fixed automatically?
+### Engineering Overhead
+6. How many ML FTEs does a typical customer need?
+7. What's the time to migration?
+8. What ongoing tuning is required?
+9. Do you handle model benchmarking, or do I?
+10. What happens when a model degrades — is it detected and fixed automatically?
 
-**Security & compliance:**
-9. Where is my data stored? Can I guarantee regional confinement?
-10. Do you sign BAAs for healthcare? SOC 2 Type II?
-11. Do you retain my prompts for model improvement?
-12. Can you deploy in my VPC with no public exposure?
-
----
-
-## Part 6: ROI Framework for the Board
-
-### The Executive Summary (100M tokens/month)
-
-| Option | Year 1 Cost | Year 3 Cost | ML FTEs Needed |
-|--------|-------------|-------------|----------------|
-| Build | $920K | $1.2M + API | 3 FTEs |
-| Slancha | $750K | $750K (API only) | 0 FTEs |
-| **Savings** | **$170K** | **$1.2M/year** | **3 FTEs freed** |
-
-**Payback period:** Immediate. You save on the first invoice.
-
-### Year-Over-Year ROI
-
-| Year | Token Volume | Slancha Cost | Build Cost | Net Savings |
-|------|--------------|--------------|------------|-------------|
-| Year 1 | 100M/mo | $750K | $920K | $170K |
-| Year 2 | 300M/mo | $2.25M | $2.85M | $600K |
-| Year 3 | 750M/mo | $5.6M | $6.8M | $1.2M |
+### Security & Compliance
+11. Where is my data stored? Can I guarantee regional confinement?
+12. Do you sign BAAs for healthcare? SOC 2 Type II?
+13. Do you retain my prompts for model improvement?
+14. What's your incident response SLA?
+15. Can you deploy in my VPC with no public exposure?
 
 ---
 
@@ -5058,35 +4436,21 @@ You should buy if:
 | Engineering | 41% | 36% | 5% |
 | **TCO per 1M tokens** | **$9.10** | **$9.05** | **$7.50** |
 
-The black box platform looks expensive on a per-token basis, but the TCO is **18% lower** than building.
+The black box platform looks expensive per-token, but the **TCO is 18% lower** than building.
 
-AI inference optimization isn't a technical problem. It's an **economic decision.** At most scales, you're paying engineers to solve problems platforms already solved.
+### Your Action Items This Quarter
+1. Calculate your current TCO (API + engineering overhead)
+2. Get quotes from optimization platforms
+3. Model your growth trajectory for the next 24 months
+4. Present the ROI framework to your board
 
-**If you're under 500M tokens/month:** The math says buy.
-**If you're over 500M tokens/month:** The math gets closer, but most companies are still better off using a platform.
-
-**Slancha costs more per token, but it's cheaper total.** You get automatic optimization, zero ML team required, and predictable costs.
-
-Choose wisely. Your P&L will thank you.
+### Next Quarter
+1. Pilot a black box platform ([Slancha offers a free tier](/pricing))
+2. Measure latency, quality, and cost improvements against baseline
+3. Decide on long-term strategy based on actual data
 
 ---
 
-### ROI Calculator Template
-
-| Variable | Your Value |
-|----------|------------|
-| Monthly tokens | [Input] |
-| Growth rate (monthly) | [Input] |
-| Current API cost (per 1M tokens) | [Input] |
-| Current ML team size | [Input] |
-| Average salary (blended) | $200,000 |
-
-**Formulas:**
-- Current monthly TCO = (tokens / 1M × API cost) + (ML FTEs × salary / 12)
-- Slancha monthly TCO = tokens / 1M × $7.50
-- Monthly savings = Current TCO - Slancha TCO
-- Year 1 ROI = (Annual savings / Slancha annual cost) × 100
-
-[Try our interactive ROI Calculator →](/roi-calculator) | [Contact us](mailto:contact@slancha.ai) for the Excel template.`,
+*AI inference optimization isn't a technical problem. It's an economic decision. At most scales, you're paying engineers to solve problems platforms already solved. [Start your free pilot](/signup) and see the TCO difference in your first month.*\`,
   },
 ];
