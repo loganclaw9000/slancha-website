@@ -1,6 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import './Notifications.css';
-import usePageMeta from '../../hooks/usePageMeta';
 
 const MOCK_NOTIFICATIONS = [
   {
@@ -140,7 +139,6 @@ const FILTERS = [
 ];
 
 export default function Notifications() {
-  usePageMeta({ title: 'Notifications', description: 'View and manage your Slancha notification preferences and history.' });
   const [open, setOpen] = useState(false);
   const [notifications, setNotifications] = useState(MOCK_NOTIFICATIONS);
   const [filter, setFilter] = useState('all');
