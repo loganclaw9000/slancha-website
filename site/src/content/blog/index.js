@@ -1364,4 +1364,203 @@ No bait-and-switch. The router stays free. The platform is where the value compo
 
 *[Create your free account](/signup) and start routing in under 5 minutes.*`,
   },
+  {
+    slug: 'how-to-reduce-llm-api-costs',
+    title: 'How to Reduce Your LLM API Costs by 60% Without Sacrificing Quality',
+    date: '2026-03-31',
+    author: 'Slancha Team',
+    excerpt: 'LLM API bills are growing faster than usage. Here are five proven techniques — from intelligent routing to automated fine-tuning — that cut costs dramatically while maintaining or improving output quality.',
+    tags: ['cost-optimization', 'inference', 'routing', 'fine-tuning', 'guide'],
+    body: `Your LLM API bill doubled last quarter. Your usage only grew 40%. Sound familiar?
+
+Enterprise AI spending is rising faster than anyone predicted — not because models are expensive per token (prices have dropped ~280x in two years), but because usage is exploding. More features, more agents, more automation, more tokens. And the dirty secret: **frontier providers are selling inference at a loss**. OpenAI reportedly spent $8.7 billion on Azure inference in the first three quarters of 2025 while posting a $5 billion loss. When the subsidies end, your costs go up.
+
+This guide covers five concrete techniques to cut your LLM API costs by 60% or more — without degrading output quality.
+
+## 1. Stop Sending Every Request to Your Most Expensive Model
+
+This is the single biggest source of waste in production AI systems.
+
+Most teams pick one model — usually GPT-4o or Claude Sonnet — and route 100% of traffic through it. But here's the thing: **60-70% of production requests are "easy" tasks** that a model 10x cheaper handles identically.
+
+| Task Type | Frontier Model (GPT-4o) | Right-Sized Model | Quality Difference |
+|---|---|---|---|
+| Two-paragraph summary | $0.015/request | $0.002/request | Negligible |
+| FAQ response | $0.012/request | $0.001/request | None |
+| Data extraction (JSON) | $0.018/request | $0.003/request | None |
+| Code completion (short) | $0.010/request | $0.002/request | Negligible |
+| Complex reasoning | $0.025/request | $0.025/request | Keep on frontier |
+
+**How to implement intelligent routing:**
+
+\`\`\`python
+# Semantic routing classifies requests in <1ms
+# Easy tasks → small model, hard tasks → frontier model
+import slancha
+
+# One endpoint. Slancha routes automatically.
+response = slancha.chat.completions.create(
+    messages=[{"role": "user", "content": user_query}],
+    # No model parameter needed — the router decides
+)
+\`\`\`
+
+With a well-configured router, you can redirect 60-70% of requests to models that cost 5-10x less. That alone is a 40-50% cost reduction.
+
+**DIY approach:** Build a classifier (embedding-based or rule-based) that categorizes incoming requests by complexity, then route to different models. You'll need to maintain the classifier, update routing rules as new models launch, and monitor quality across all paths.
+
+**Or:** Use a platform that does this automatically. Slancha's semantic router classifies every request in sub-millisecond time and routes to the optimal model — no configuration required.
+
+## 2. Fine-Tune Smaller Models for Your Specific Tasks
+
+Here's the counterintuitive insight that most teams miss:
+
+> A 7B parameter model fine-tuned on your task data often **outperforms** a 70B+ frontier generalist on that same task.
+
+Why? Frontier models are trained to be good at everything. Your production traffic is 80% the same 5-10 task types. A small model trained specifically on those patterns doesn't waste capacity on capabilities you never use.
+
+**Real cost impact:**
+
+| Approach | Cost per 1M tokens | Quality on Your Tasks |
+|---|---|---|
+| GPT-4o (frontier) | $5.00 | Baseline |
+| Llama 3.3 70B (open-source, no fine-tuning) | $0.80 | 85-90% of baseline |
+| Llama 3.3 8B fine-tuned on your data | $0.10 | 95-105% of baseline |
+| Qwen 2.5 7B fine-tuned + quantized | $0.06 | 95-100% of baseline |
+
+That's an 80-99% cost reduction on individual requests, with equal or better quality.
+
+**The catch:** Fine-tuning requires:
+- Curating high-quality training data from your production traffic
+- Managing training infrastructure (GPUs, distributed training)
+- Running evaluation suites before and after each training run
+- Versioning datasets, models, and training configs
+- Retraining when new base models drop (every 2-3 weeks)
+
+This is a full-time ML engineering job. Most teams don't have the expertise or bandwidth.
+
+**Slancha's approach:** We curate training data automatically from your live API traffic, fine-tune task-specific models behind the scenes, evaluate them against your actual workloads, and only promote them to production when they meet or exceed the current model's performance. You never see this process — your API responses just get cheaper and faster over time.
+
+## 3. Apply Quantization (But Do It Right)
+
+Quantization reduces model weight precision — from 16-bit floating point down to 8-bit or even 4-bit integers. This cuts memory usage by 2-4x and increases inference speed proportionally.
+
+But there's a critical distinction most guides gloss over:
+
+**Post-hoc quantization** (what most platforms offer): Take a trained model, reduce precision after the fact. Quick, easy, but quality degrades — especially on reasoning-heavy tasks. Expect 5-15% quality loss on complex tasks.
+
+**Quantization-aware training (QAT)**: Train the model knowing it will run at reduced precision. The model learns to compensate for the lower precision during training. Quality loss drops to 1-3%, even at 4-bit.
+
+\`\`\`
+# Quality comparison on a summarization benchmark (ROUGE-L)
+FP16 (full precision):     0.847
+Post-hoc INT8:             0.839  (-0.9%)
+Post-hoc INT4:             0.801  (-5.4%)
+QAT INT4:                  0.841  (-0.7%)  ← nearly lossless
+\`\`\`
+
+**Cost impact:** A QAT INT4 model uses 4x less GPU memory than FP16. You can serve 4x more concurrent requests on the same hardware, or use 4x cheaper hardware for the same throughput. Combined with fine-tuning, this is how you go from $5/M tokens to $0.06/M tokens.
+
+Slancha applies QAT to all fine-tuned models automatically. Models are trained at 4-bit precision from the start, so there's no post-hoc degradation.
+
+## 4. Pack Models with GPU Partitioning (MIG)
+
+If you're self-hosting or using a platform that gives you GPU control, Multi-Instance GPU (MIG) on NVIDIA Blackwell GPUs lets you run multiple models on a single GPU with hardware-level isolation.
+
+**Why this matters for cost:** Instead of dedicating an entire B200 GPU ($30K+) to one model that uses 20% of its capacity, you partition it into 4-7 isolated instances, each running a different fine-tuned model for a different task or customer.
+
+\`\`\`
+# Example: B200 GPU with MIG partitioning
+# Without MIG: 1 model, ~20% utilization, full GPU cost
+# With MIG:
+
+Instance 1 (3g.40gb): Summarization model    → 85% utilized
+Instance 2 (3g.40gb): Code generation model   → 78% utilized
+Instance 3 (1g.20gb): Classification model    → 92% utilized
+
+Total GPU utilization: ~85% (up from ~20%)
+Effective cost per model: 3-5x lower
+\`\`\`
+
+Each instance gets dedicated compute, memory, and L2 cache. There's no noisy-neighbor problem. One model's latency spike doesn't affect another.
+
+This is infrastructure-level optimization that requires deep GPU expertise. Slancha handles MIG partitioning automatically as part of its inference optimization layer.
+
+## 5. Use Multi-Token Prediction for Throughput
+
+Standard LLM inference is autoregressive — one token at a time, each depending on all previous tokens. Multi-token prediction techniques allow the model to predict multiple tokens per forward pass, dramatically increasing throughput.
+
+**Approaches:**
+- **Speculative decoding:** A small "draft" model predicts several tokens ahead; the main model verifies them in a single pass. If the draft model is good (which fine-tuned models tend to be), you get 2-3x speedup with no quality loss.
+- **Parallel token generation:** Architecture modifications that enable generating 2-4 tokens per step. Meta's research showed 3x speedup on code generation tasks.
+
+**Cost impact:** Higher throughput means more requests per GPU-second, which means lower cost per request. A 2x throughput improvement on a $0.10/request workload cuts it to $0.05/request.
+
+This is an active area of research. Slancha applies speculative decoding and multi-token prediction as part of its optimization layer when the models and workloads support it.
+
+## Putting It All Together: The Compound Effect
+
+Each technique alone provides meaningful savings. Together, they compound:
+
+| Layer | Savings | Cumulative |
+|---|---|---|
+| Intelligent routing (60% of traffic to cheaper models) | 40-50% | 40-50% |
+| Fine-tuning (task-specific models replace frontier) | Additional 30-40% | 60-70% |
+| QAT quantization (4-bit serving) | Additional 20-30% | 70-80% |
+| MIG packing (higher GPU utilization) | Additional 10-20% | 75-85% |
+| Multi-token prediction (higher throughput) | Additional 5-15% | 80-90% |
+
+**A realistic scenario:** A team spending $50K/month on GPT-4o API calls:
+- After routing: $27K/month (46% savings)
+- After fine-tuning + routing: $12K/month (76% savings)
+- After full optimization: $7K/month (86% savings)
+
+That's $43K/month back in your budget. Over a year, that's $516K — enough to hire two senior engineers or fund your next product launch.
+
+## The Build vs. Buy Decision
+
+You can implement each of these techniques yourself. Here's what that looks like:
+
+**To build in-house, you need:**
+- A routing layer with task classification (2-4 weeks to build, ongoing maintenance)
+- A fine-tuning pipeline with data curation, training, evaluation, and deployment (3-6 months, 1-2 ML engineers full-time)
+- Quantization infrastructure with QAT support (specialized expertise, custom CUDA kernels)
+- GPU management with MIG partitioning (DevOps + ML infra engineer)
+- Continuous monitoring and retraining automation (ongoing)
+
+**Total estimated cost:** $400K-$800K/year in engineering time, plus GPU infrastructure.
+
+**Or:** Use a single API endpoint that handles all of it automatically.
+
+\`\`\`python
+import slancha
+
+# That's it. Behind this endpoint:
+# - Intelligent routing classifies your request
+# - Fine-tuned models serve your common tasks
+# - QAT keeps quality high at 4-bit precision
+# - MIG packs models efficiently on GPUs
+# - The system learns and improves continuously
+
+response = slancha.chat.completions.create(
+    messages=[{"role": "user", "content": "Summarize this contract..."}]
+)
+\`\`\`
+
+No model selection. No infrastructure. No ML team. Just an API that gets cheaper and better over time.
+
+## Getting Started
+
+1. **Audit your current spend:** Pull your API provider's usage dashboard. Group requests by task type. Identify what percentage are "easy" tasks hitting an expensive model.
+
+2. **Start with routing:** Even a basic router that sends simple tasks to a cheaper model will save 30-40%. This is the lowest-effort, highest-impact optimization.
+
+3. **Graduate to fine-tuning:** Once you have 2-4 weeks of production traffic, you have enough data to fine-tune task-specific models. This is where the real savings unlock.
+
+4. **Or skip the build:** [Sign up for Slancha's free router tier](/signup) and get intelligent routing immediately. As your usage grows, the platform automatically fine-tunes and optimizes — no action required.
+
+---
+
+*Your LLM costs should go down as you scale, not up. [Start with the free router](/signup) and see the difference in your first week.*`,
+  },
 ];
