@@ -15,7 +15,8 @@
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-lg);
   padding: 36px;
-  min-height: 260px;
+  display: flex;
+  flex-direction: column;
   transition: transform 300ms var(--ease-out-expo), box-shadow 300ms ease;
 }
 
@@ -68,6 +69,16 @@
   border-radius: var(--radius-full);
 }
 
+.tier-subtitle {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 4px;
+}
+
 .tier-name {
   font-size: 22px;
   font-weight: 700;
@@ -92,12 +103,62 @@
   font-size: 15px;
   color: var(--text-secondary);
   line-height: 1.7;
+  flex: 1;
+}
+
+.tier-footer {
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
 }
 
 .tier-price {
-  margin-top: 20px;
-  font-size: 16px;
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.tier-amount {
+  font-size: 20px;
   font-weight: 700;
   color: var(--text-primary);
   letter-spacing: -0.01em;
+}
+
+.tier-period {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.tier-cta {
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: var(--radius);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform 200ms var(--ease-out-expo), box-shadow 200ms ease, border-color 200ms ease, background 200ms ease;
+}
+
+.tier-cta.btn-secondary {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tier-cta.btn-secondary:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+@media (max-width: 480px) {
+  .tier-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .tier-cta {
+    text-align: center;
+  }
 }

@@ -2,7 +2,24 @@
 
 ## Status: No open bugs
 
-Last QA run: 2026-03-24T12:06Z
+Last QA run: 2026-03-30T23:33Z
+
+### Checks performed
+
+- ✓ Build passes (290 modules, vite 5.4.21)
+- ✓ Homepage sections present (Nav, Hero, ValueProps, SocialProof, Features, HowItWorks, TierCards, TechStack, About, PilotCTA, Footer)
+- ✓ SocialProof component verified (logo grid + 3 testimonial cards)
+- ✓ SocialProof CSS implementation matches spec
+- ✓ About section present on homepage
+- ✓ Features section present on homepage with 6 feature cards
+- ✓ Contact page with form (4 fields: name, email, subject, message)
+- ✓ Form validation working (client-side)
+- ✓ Form submission with VITE_FORM_ENDPOINT + mailto fallback
+- ✓ No placeholder/COPY_PENDING comments
+- ✓ No JS console errors
+- ✓ No CORS errors
+- ✓ Nav has 5 links
+- ✓ Mobile responsive (responsive breakpoints verified in CSS)
 
 ### Checks performed
 

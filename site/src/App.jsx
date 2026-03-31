@@ -4,6 +4,9 @@ import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import Home from './pages/Home';
 import Contact from './pages/Contact';
+import Pricing from './pages/Pricing';
+import CheckoutSuccess from './pages/CheckoutSuccess';
+import CheckoutCancel from './pages/CheckoutCancel';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import ResetPassword from './pages/ResetPassword';
@@ -14,6 +17,7 @@ import Dashboard from './pages/Dashboard';
 import Overview from './components/dashboard/Overview';
 import ApiKeys from './components/dashboard/ApiKeys';
 import UsageStats from './components/dashboard/UsageStats';
+import Billing from './components/dashboard/Billing';
 import AccountSettings from './components/dashboard/AccountSettings';
 import NotFound from './pages/NotFound';
 
@@ -36,7 +40,10 @@ const App = () => (
         <Routes>
           {/* Public marketing */}
           <Route path="/" element={<Home />} />
+          <Route path="/pricing" element={<Pricing />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/checkout/success" element={<CheckoutSuccess />} />
+          <Route path="/checkout/cancel" element={<CheckoutCancel />} />
 
           {/* Blog & Docs (lazy loaded) */}
           <Route path="/blog" element={<Blog />} />
@@ -59,6 +66,7 @@ const App = () => (
             <Route index element={<Overview />} />
             <Route path="keys" element={<ApiKeys />} />
             <Route path="usage" element={<UsageStats />} />
+            <Route path="billing" element={<Billing />} />
             <Route path="settings" element={<AccountSettings />} />
           </Route>
 
