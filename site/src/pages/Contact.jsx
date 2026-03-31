@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { supabase } from '../lib/supabase';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
 import usePageMeta from '../hooks/usePageMeta';
@@ -6,8 +7,9 @@ import '../components/Contact.css';
 
 export default function Contact() {
   usePageMeta({ title: 'Contact', description: 'Get in touch with the Slancha team. Ask about our platform, request a demo, or apply for the enterprise pilot program.' });
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState('idle'); // idle | submitting | success | error
   const [errors, setErrors] = useState({});
+  const [submitError, setSubmitError] = useState('');
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
 
   const handleChange = (e) => {
@@ -26,6 +28,14 @@ export default function Contact() {
     return newErrors;
   };
 
+  const fallbackMailto = () => {
+    const subject = encodeURIComponent(form.subject || `Pilot request from ${form.name}`);
+    const body = encodeURIComponent(
+      `Name: ${form.name}\nEmail: ${form.email}\nSubject: ${form.subject}\n\n${form.message}`
+    );
+    window.location.href = `mailto:contact@slancha.ai?subject=${subject}&body=${body}`;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validate();
@@ -34,34 +44,32 @@ export default function Contact() {
       return;
     }
 
-    const endpoint = import.meta.env.VITE_FORM_ENDPOINT;
+    setStatus('submitting');
+    setSubmitError('');
 
-    if (endpoint) {
-      try {
-        const res = await fetch(endpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-          body: JSON.stringify(form),
-        });
-        if (!res.ok) throw new Error('Form API error');
-      } catch (err) {
-        console.error('Form submission failed, falling back to mailto:', err);
-        const subject = encodeURIComponent(form.subject || `Pilot request from ${form.name}`);
-        const body = encodeURIComponent(
-          `Name: ${form.name}\nEmail: ${form.email}\nSubject: ${form.subject}\n\n${form.message}`
-        );
-        window.location.href = `mailto:contact@slancha.ai?subject=${subject}&body=${body}`;
-        return;
+    try {
+      const { error } = await supabase
+        .from('contact_submissions')
+        .insert([{
+          name: form.name.trim(),
+          email: form.email.trim().toLowerCase(),
+          subject: form.subject.trim() || null,
+          message: form.message.trim(),
+        }]);
+
+      if (error) throw error;
+      setStatus('success');
+    } catch (err) {
+      console.error('Contact form submission failed:', err);
+      // If Supabase isn't configured or table doesn't exist, fall back to mailto
+      if (err.message?.includes('placeholder') || err.code === '42P01' || err.message?.includes('relation')) {
+        fallbackMailto();
+        setStatus('success');
+      } else {
+        setStatus('error');
+        setSubmitError('Something went wrong. Please try again or email us at contact@slancha.ai.');
       }
-    } else {
-      const subject = encodeURIComponent(form.subject || `Pilot request from ${form.name}`);
-      const body = encodeURIComponent(
-        `Name: ${form.name}\nEmail: ${form.email}\nSubject: ${form.subject}\n\n${form.message}`
-      );
-      window.location.href = `mailto:contact@slancha.ai?subject=${subject}&body=${body}`;
     }
-
-    setSubmitted(true);
   };
 
   return (
@@ -79,7 +87,7 @@ export default function Contact() {
 
       {/* Main two-column section */}
       <div className="contact-main" aria-live="polite">
-        {submitted ? (
+        {status === 'success' ? (
           <div className="contact-success">
             <div className="contact-success-icon">✓</div>
             <h2 className="contact-success-heading">Thanks — we'll be in touch.</h2>
@@ -155,7 +163,10 @@ export default function Contact() {
                   {errors.message && <span id="message-error" className="contact-error" role="alert">{errors.message}</span>}
                 </div>
 
-                <button className="contact-submit-btn" type="submit">Send Message</button>
+                <button className="contact-submit-btn" type="submit" disabled={status === 'submitting'}>
+                  {status === 'submitting' ? 'Sending...' : 'Send Message'}
+                </button>
+                {status === 'error' && <p className="contact-error contact-submit-error">{submitError}</p>}
               </form>
             </div>
 

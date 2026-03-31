@@ -134,6 +134,17 @@
   transform: scale(0.98);
 }
 
+.contact-submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.contact-submit-error {
+  margin-top: 12px;
+  text-align: center;
+}
+
 /* ─── Info column ──────────────────────────────────────── */
 .contact-info-col {
   background: var(--glass-bg);
