@@ -24,6 +24,11 @@ export default function Footer() {
             <Link to="/contact" className="footer-link">Contact</Link>
             <a href="mailto:contact@slancha.ai" className="footer-link">contact@slancha.ai</a>
           </div>
+          <div className="footer-col">
+            <h4 className="footer-col-title">Legal</h4>
+            <Link to="/terms" className="footer-link">Terms of Service</Link>
+            <Link to="/privacy" className="footer-link">Privacy Policy</Link>
+          </div>
         </div>
       </div>
       <div className="footer-bottom">

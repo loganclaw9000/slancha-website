@@ -33,6 +33,8 @@ const Integrations = lazy(() => import('./pages/Integrations'));
 const RoiCalculator = lazy(() => import('./pages/RoiCalculator'));
 const Changelog = lazy(() => import('./pages/Changelog'));
 const Playground = lazy(() => import('./pages/Playground'));
+const Terms = lazy(() => import('./pages/Terms'));
+const Privacy = lazy(() => import('./pages/Privacy'));
 
 function Loading() {
   return (
@@ -69,6 +71,8 @@ const App = () => (
           <Route path="/roi-calculator" element={<RoiCalculator />} />
           <Route path="/changelog" element={<Changelog />} />
           <Route path="/playground" element={<Playground />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/privacy" element={<Privacy />} />
 
           {/* Auth */}
           <Route path="/login" element={<Login />} />
