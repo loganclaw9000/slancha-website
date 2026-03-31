@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { posts } from '../content/blog/index';
 import { useScrollReveal } from '../utils/useScrollReveal';

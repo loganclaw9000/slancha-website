@@ -1,4 +1,3 @@
-import React from 'react';
 import { useUsageStats } from '../../hooks/useUsageStats';
 import { useApiKeys } from '../../hooks/useApiKeys';
 import Onboarding from './Onboarding';

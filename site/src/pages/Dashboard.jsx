@@ -1,4 +1,3 @@
-import React from 'react';
 import { Outlet } from 'react-router-dom';
 import usePageMeta from '../hooks/usePageMeta';
 import DashboardNav from '../components/dashboard/DashboardNav';

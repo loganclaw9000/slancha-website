@@ -1,4 +1,3 @@
-import React from 'react';
 import usePageMeta from '../hooks/usePageMeta';
 import Nav from '../components/Nav';
 import Hero from '../components/Hero';

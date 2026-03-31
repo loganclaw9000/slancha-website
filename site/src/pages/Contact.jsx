@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { supabase } from '../lib/supabase';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';

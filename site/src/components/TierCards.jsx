@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { useScrollReveal } from '../utils/useScrollReveal';
 import { pricingTiers } from '../lib/stripe';

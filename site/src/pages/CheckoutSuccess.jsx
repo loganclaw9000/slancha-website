@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';

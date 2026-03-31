@@ -1,4 +1,3 @@
-import React from 'react';
 import { useScrollReveal } from '../utils/useScrollReveal';
 import './About.css';
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import Nav from '../components/Nav';
