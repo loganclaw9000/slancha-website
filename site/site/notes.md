@@ -1,9 +1,9 @@
 # Site Notes
 
 ## Last Commit
-- Hash: eaab58c
-- Timestamp: 2026-03-30 20:44 UTC
-- Message: [agent:frontend] Add SocialProof component with testimonials and logo grid
+- Hash: 7857608
+- Timestamp: 2026-03-31 13:25 UTC
+- Message: [frontend] Add LoRA fine-tuning guide to blog
 
 ## Preview URL
 https://slancha-website-git-master-loganclaws-projects.vercel.app/
