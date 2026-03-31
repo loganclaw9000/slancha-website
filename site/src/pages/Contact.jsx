@@ -5,6 +5,8 @@ import Footer from '../components/Footer';
 import usePageMeta from '../hooks/usePageMeta';
 import '../components/Contact.css';
 
+const FORMSPREE_ID = import.meta.env.VITE_FORMSPREE_ID;
+
 export default function Contact() {
   usePageMeta({ title: 'Contact', description: 'Get in touch with the Slancha team. Ask about our platform, request a demo, or apply for the enterprise pilot program.' });
   const [status, setStatus] = useState('idle'); // idle | submitting | success | error
@@ -47,15 +49,35 @@ export default function Contact() {
     setStatus('submitting');
     setSubmitError('');
 
+    const payload = {
+      name: form.name.trim(),
+      email: form.email.trim().toLowerCase(),
+      subject: form.subject.trim() || `Pilot request from ${form.name.trim()}`,
+      message: form.message.trim(),
+    };
+
     try {
+      // Primary: Formspree (delivers email to contact@slancha.ai)
+      if (FORMSPREE_ID) {
+        const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({ ...payload, _replyto: payload.email }),
+        });
+        if (!res.ok) {
+          const data = await res.json().catch(() => ({}));
+          throw new Error(data.error || `Formspree error: ${res.status}`);
+        }
+        // Also save to Supabase for records (best-effort, don't block on failure)
+        supabase.from('contact_submissions').insert([payload]).then(() => {}).catch(() => {});
+        setStatus('success');
+        return;
+      }
+
+      // Fallback: Supabase only
       const { error } = await supabase
         .from('contact_submissions')
-        .insert([{
-          name: form.name.trim(),
-          email: form.email.trim().toLowerCase(),
-          subject: form.subject.trim() || null,
-          message: form.message.trim(),
-        }]);
+        .insert([payload]);
 
       if (error) throw error;
       setStatus('success');
