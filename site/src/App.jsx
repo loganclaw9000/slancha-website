@@ -29,6 +29,7 @@ const VsCompetitors = lazy(() => import('./pages/VsCompetitors'));
 const UseCases = lazy(() => import('./pages/UseCases'));
 const CaseStudies = lazy(() => import('./pages/CaseStudies'));
 const Integrations = lazy(() => import('./pages/Integrations'));
+const RoiCalculator = lazy(() => import('./pages/RoiCalculator'));
 
 function Loading() {
   return (
@@ -62,6 +63,7 @@ const App = () => (
           <Route path="/use-cases" element={<UseCases />} />
           <Route path="/case-studies" element={<CaseStudies />} />
           <Route path="/integrations" element={<Integrations />} />
+          <Route path="/roi-calculator" element={<RoiCalculator />} />
 
           {/* Auth */}
           <Route path="/login" element={<Login />} />

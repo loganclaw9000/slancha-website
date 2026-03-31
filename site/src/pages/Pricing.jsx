@@ -3,9 +3,11 @@ import { Link } from 'react-router-dom';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
 import { pricingTiers, handleCheckout } from '../lib/stripe';
+import usePageMeta from '../hooks/usePageMeta';
 import './Pricing.css';
 
 export default function Pricing() {
+  usePageMeta({ title: 'Pricing', description: 'Plans built for AI engineering teams. Free router, Platform for growing teams, and Enterprise for custom deployments. Start free, scale as you grow.' });
   return (
     <div className="page">
       <Nav />
@@ -83,7 +85,7 @@ export default function Pricing() {
 
         <section className="pricing-cta-section">
           <h2>Not sure which plan is right?</h2>
-          <p>Talk to our team. We'll help you find the right fit for your workloads.</p>
+          <p>Talk to our team — or <Link to="/roi-calculator" style={{ color: 'var(--primary-light)', textDecoration: 'underline' }}>calculate your ROI</Link> to see how much you'll save.</p>
           <div className="pricing-cta-buttons">
             <Link to="/contact" className="btn-primary btn-lg">Talk to Sales</Link>
             <Link to="/signup" className="btn-secondary btn-lg">Start Free Trial</Link>

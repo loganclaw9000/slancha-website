@@ -14,6 +14,7 @@ export default function Footer() {
           <div className="footer-col">
             <h4 className="footer-col-title">Product</h4>
             <Link to="/pricing" className="footer-link">Pricing</Link>
+            <Link to="/roi-calculator" className="footer-link">ROI Calculator</Link>
             <Link to="/docs" className="footer-link">Docs</Link>
             <Link to="/blog" className="footer-link">Blog</Link>
           </div>
