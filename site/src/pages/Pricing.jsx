@@ -85,7 +85,7 @@ export default function Pricing() {
 
         <section className="pricing-cta-section">
           <h2>Not sure which plan is right?</h2>
-          <p>Talk to our team — or <Link to="/roi-calculator" style={{ color: 'var(--primary-light)', textDecoration: 'underline' }}>calculate your ROI</Link> to see how much you'll save.</p>
+          <p>Talk to our team, <Link to="/pricing/compare" style={{ color: 'var(--primary-light)', textDecoration: 'underline' }}>compare us to competitors</Link>, or <Link to="/roi-calculator" style={{ color: 'var(--primary-light)', textDecoration: 'underline' }}>calculate your ROI</Link> to see how much you'll save.</p>
           <div className="pricing-cta-buttons">
             <Link to="/contact" className="btn-primary btn-lg">Talk to Sales</Link>
             <Link to="/signup" className="btn-secondary btn-lg">Start Free Trial</Link>

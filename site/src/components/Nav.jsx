@@ -19,6 +19,7 @@ const dropdowns = {
     { to: '/case-studies', label: 'Case Studies', desc: 'Real customer results' },
     { to: '/enterprise', label: 'Enterprise', desc: 'Cloud, VPC, or on-prem' },
     { to: '/roi-calculator', label: 'ROI Calculator', desc: 'Estimate your savings' },
+    { to: '/pricing/compare', label: 'Pricing Compare', desc: 'Side-by-side competitor pricing' },
     { to: '/vs-competitors', label: 'Compare', desc: 'See how we stack up' },
   ],
   Developers: [
