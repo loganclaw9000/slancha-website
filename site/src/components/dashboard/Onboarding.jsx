@@ -193,7 +193,7 @@ export default function Onboarding() {
 
           return (
             <div key={step.id} className={`onb-step${isDone ? ' done' : ''}${isExpanded ? ' expanded' : ''}`}>
-              <div className="onb-step-header" onClick={() => toggleExpand(step.id)}>
+              <div className="onb-step-header" onClick={() => toggleExpand(step.id)} onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), toggleExpand(step.id))} role="button" tabIndex={0} aria-expanded={isExpanded}>
                 <button
                   className={`onb-check${isDone ? ' checked' : ''}`}
                   onClick={(e) => { e.stopPropagation(); toggleComplete(step.id); }}

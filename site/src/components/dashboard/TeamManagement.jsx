@@ -200,7 +200,7 @@ export default function TeamManagement() {
                     <td className="team-meta">{formatDate(inv.expiresAt)}</td>
                     <td>
                       <div className="team-actions">
-                        <button className="team-action-btn" title="Resend invite">
+                        <button className="team-action-btn" title="Resend invite" aria-label="Resend invite">
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <polyline points="1 4 1 10 7 10"/>
                             <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
@@ -209,6 +209,7 @@ export default function TeamManagement() {
                         <button
                           className="team-action-btn danger"
                           title="Revoke invite"
+                          aria-label="Revoke invite"
                           onClick={() => handleRevokeInvite(inv.id)}
                         >
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -289,6 +290,7 @@ export default function TeamManagement() {
                         <button
                           className="team-action-btn danger"
                           title="Remove member"
+                          aria-label="Remove member"
                           onClick={() => handleRemoveMember(member.id)}
                         >
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
