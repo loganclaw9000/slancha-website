@@ -1,5 +1,444 @@
 export const posts = [
   {
+    slug: 'reduce-llm-inference-latency',
+    title: 'How to Cut LLM Inference Latency in Half: 8 Production Techniques',
+    date: '2026-03-31',
+    author: 'Slancha Engineering',
+    excerpt: 'High latency kills AI products. Here are 8 battle-tested techniques to slash LLM inference latency in production — from speculative decoding to intelligent routing — with code examples, benchmark data, and architecture patterns.',
+    tags: ['latency', 'inference', 'optimization', 'production', 'performance'],
+    body: `Latency is the silent killer of AI products. Your model might be brilliant, but if it takes 3 seconds to respond, users leave. In production, **every 100ms of latency costs you conversions, user satisfaction, and ultimately revenue**.
+
+We've compiled 8 techniques that real engineering teams use to cut LLM inference latency — often by 50% or more — without sacrificing output quality. Each technique includes code, benchmarks, and when to use it.
+
+## The Latency Stack: Where Time Goes
+
+Before optimizing, understand where latency hides:
+
+\`\`\`
+Total Latency = Network + Queue + Prefill + Decode + Post-processing
+                ~10ms    ~50ms   ~200ms   ~800ms   ~20ms
+\`\`\`
+
+For a typical 200-token response on a 70B model:
+- **Network hop:** 5-20ms (depends on region)
+- **Queue wait:** 0-500ms (depends on load)
+- **Prefill (prompt processing):** 50-500ms (scales with input length)
+- **Decode (token generation):** 400-2000ms (scales with output length)
+- **Post-processing:** 5-50ms (parsing, validation)
+
+Decode dominates. Most optimization effort should target decode time and queue wait. Here's how.
+
+---
+
+## 1. Multi-Token Prediction (MTP)
+
+**Impact: 2-3x faster decode | Complexity: Medium**
+
+Standard autoregressive decoding generates one token per forward pass. Multi-token prediction generates 2-4 tokens per pass using auxiliary prediction heads.
+
+\`\`\`python
+# Standard decoding: 1 token per step
+# Step 1: "The" → Step 2: "quick" → Step 3: "brown" → Step 4: "fox"
+# 4 forward passes for 4 tokens
+
+# Multi-token prediction (2-ahead): 2 tokens per step
+# Step 1: "The quick" → Step 2: "brown fox"
+# 2 forward passes for 4 tokens
+\`\`\`
+
+### How It Works
+
+The model trains extra "heads" that predict tokens 2, 3, or 4 positions ahead. At inference time, the main head predicts the next token while auxiliary heads predict subsequent tokens. If the auxiliary predictions pass a confidence threshold, they're accepted — otherwise, the model falls back to standard decoding.
+
+\`\`\`python
+# vLLM with multi-token prediction (speculative decoding variant)
+from vllm import LLM, SamplingParams
+
+llm = LLM(
+    model="meta-llama/Llama-3.1-70B-Instruct",
+    speculative_model="meta-llama/Llama-3.1-8B-Instruct",
+    num_speculative_tokens=4,
+    tensor_parallel_size=4,
+)
+
+params = SamplingParams(temperature=0.7, max_tokens=512)
+output = llm.generate("Explain quantum computing", params)
+\`\`\`
+
+### Benchmarks
+
+| Model | Standard (tok/s) | MTP 2-ahead (tok/s) | Speedup |
+|-------|-----------------|---------------------|---------|
+| Llama 3.1 70B | 42 | 89 | 2.1x |
+| Mistral 7B | 156 | 312 | 2.0x |
+| Qwen 2.5 72B | 38 | 82 | 2.2x |
+
+**When to use:** Always, if your serving framework supports it. The quality trade-off is negligible (<0.5% on most benchmarks).
+
+---
+
+## 2. Quantization-Aware Training (QAT)
+
+**Impact: 2-4x faster, 50-75% less memory | Complexity: High**
+
+Post-training quantization (PTQ) is quick but lossy. QAT fine-tunes the model *with* quantization in the training loop, learning to compensate for precision loss.
+
+\`\`\`python
+# INT4 QAT with GPTQ
+from transformers import AutoModelForCausalLM, GPTQConfig
+
+quantization_config = GPTQConfig(
+    bits=4,
+    dataset="c4",
+    tokenizer=tokenizer,
+    group_size=128,
+    desc_act=True,
+)
+
+model = AutoModelForCausalLM.from_pretrained(
+    "meta-llama/Llama-3.1-70B-Instruct",
+    quantization_config=quantization_config,
+    device_map="auto",
+)
+\`\`\`
+
+### FP16 vs INT8 vs INT4
+
+| Precision | Memory (70B) | Latency (p50) | Quality (MMLU) |
+|-----------|-------------|---------------|----------------|
+| FP16 | 140 GB | 23ms/tok | 82.0% |
+| INT8 (PTQ) | 70 GB | 14ms/tok | 81.4% |
+| INT4 (PTQ) | 35 GB | 9ms/tok | 79.1% |
+| INT4 (QAT) | 35 GB | 9ms/tok | 81.7% |
+
+QAT at INT4 recovers nearly all the quality loss of naive INT4 quantization while keeping the full speed benefit. The 2.6x latency improvement with <0.4% quality loss is one of the best trade-offs in production ML.
+
+**When to use:** When you control your model weights and need to run larger models on fewer GPUs.
+
+---
+
+## 3. Intelligent Request Routing
+
+**Impact: 30-70% latency reduction on average | Complexity: Medium**
+
+Not every request needs a 70B model. A request classifier routes simple tasks to small, fast models and reserves large models for complex tasks.
+
+\`\`\`python
+import numpy as np
+from sentence_transformers import SentenceTransformer
+
+# Semantic router: classify request complexity
+router_model = SentenceTransformer("all-MiniLM-L6-v2")
+
+# Define route embeddings (pre-computed)
+routes = {
+    "simple": {  # → 7B model, ~15ms/tok
+        "examples": [
+            "What's the capital of France?",
+            "Convert 5 miles to kilometers",
+            "Write a greeting email",
+        ],
+    },
+    "moderate": {  # → 30B model, ~25ms/tok
+        "examples": [
+            "Explain the trade-offs between SQL and NoSQL",
+            "Write a Python function to parse CSV files",
+            "Summarize this 2-page document",
+        ],
+    },
+    "complex": {  # → 70B model, ~45ms/tok
+        "examples": [
+            "Design a distributed caching architecture",
+            "Analyze this legal contract for risks",
+            "Write a multi-step data pipeline with error handling",
+        ],
+    },
+}
+
+def classify_request(prompt: str) -> str:
+    prompt_emb = router_model.encode(prompt)
+    best_route, best_score = "complex", -1
+
+    for route, config in routes.items():
+        route_embs = router_model.encode(config["examples"])
+        similarity = np.max(np.dot(route_embs, prompt_emb))
+        if similarity > best_score:
+            best_score = similarity
+            best_route = route
+
+    return best_route
+\`\`\`
+
+### The Math
+
+If 60% of your traffic is simple, 25% moderate, and 15% complex:
+
+\`\`\`
+Before routing (all → 70B):
+  Average latency = 45ms/tok
+
+After routing:
+  Average latency = (0.60 × 15) + (0.25 × 25) + (0.15 × 45)
+                  = 9 + 6.25 + 6.75
+                  = 22ms/tok  → 51% reduction
+\`\`\`
+
+The classification itself adds ~2ms (embedding + cosine similarity), so the net improvement is 49%.
+
+**When to use:** Any multi-model deployment. The ROI is immediate. This is exactly what Slancha's router does automatically — classifying and routing happens behind a single endpoint with no configuration required.
+
+---
+
+## 4. KV Cache Optimization
+
+**Impact: 20-40% prefill reduction | Complexity: Low-Medium**
+
+The key-value cache stores attention state for previously processed tokens. Optimizing it reduces redundant computation.
+
+### Prefix Caching
+
+If many requests share a common system prompt, cache the KV state for that prefix:
+
+\`\`\`python
+# vLLM automatic prefix caching
+llm = LLM(
+    model="meta-llama/Llama-3.1-70B-Instruct",
+    enable_prefix_caching=True,
+    # Shared system prompt KV state is cached and reused
+)
+
+# First request: computes full KV cache (system + user prompt)
+# Subsequent requests with same system prompt: skips system prompt computation
+\`\`\`
+
+### Benchmarks
+
+| System Prompt Length | Without Caching | With Caching | Savings |
+|---------------------|----------------|-------------|---------|
+| 500 tokens | 180ms prefill | 120ms prefill | 33% |
+| 2000 tokens | 520ms prefill | 140ms prefill | 73% |
+| 8000 tokens | 1800ms prefill | 160ms prefill | 91% |
+
+The longer your system prompt, the bigger the win. RAG applications with large context windows benefit enormously.
+
+**When to use:** Any application with repeated system prompts or structured prefixes. Enable it — it's free performance.
+
+---
+
+## 5. Multi-Instance GPU (MIG) Partitioning
+
+**Impact: 2-7x throughput per GPU | Complexity: Medium**
+
+NVIDIA's MIG technology splits a single GPU into isolated instances. Instead of running one large model, you run multiple smaller models simultaneously.
+
+\`\`\`bash
+# Split an A100/H100 into partitions
+sudo nvidia-smi mig -cgi 9,9,9 -C  # 3 equal partitions
+
+# Each partition runs its own model instance
+# Partition 0: Llama 3.1 8B (simple requests)
+# Partition 1: Llama 3.1 8B (simple requests)
+# Partition 2: Mistral 7B (code tasks)
+\`\`\`
+
+### Why This Reduces Latency
+
+Without MIG, a single large model on a full GPU might be 70% idle between requests. With MIG:
+
+- **Queue depth drops** — 3 instances handle 3x concurrent requests
+- **Small models fit** — 7-8B models run fast on 1/3 of an A100
+- **Isolation** — one busy partition doesn't starve others
+
+| Setup | p50 Latency | p99 Latency | Throughput |
+|-------|------------|------------|------------|
+| 1x 70B on full H100 | 45ms/tok | 180ms/tok | 42 req/s |
+| 3x 8B on MIG (3 partitions) | 8ms/tok | 22ms/tok | 156 req/s |
+
+Combined with routing (technique #3), MIG lets you serve most traffic on small, fast model instances and only route complex requests to larger models.
+
+**When to use:** When most of your traffic can be handled by smaller models. Pairs perfectly with intelligent routing.
+
+---
+
+## 6. Streaming + Early Termination
+
+**Impact: 50-80% perceived latency reduction | Complexity: Low**
+
+Streaming doesn't reduce actual compute time, but it dramatically reduces *perceived* latency — the time until the user sees the first token (Time to First Token, or TTFT).
+
+\`\`\`python
+# Streaming with the Slancha SDK
+import slancha
+
+client = slancha.Client(api_key="sk-...")
+
+# Non-streaming: user waits for full response
+response = client.route(
+    messages=[{"role": "user", "content": "Explain TCP/IP"}],
+    stream=False,
+)
+# User sees nothing for ~2 seconds, then full response
+
+# Streaming: user sees tokens as they generate
+stream = client.route(
+    messages=[{"role": "user", "content": "Explain TCP/IP"}],
+    stream=True,
+)
+for chunk in stream:
+    print(chunk.content, end="", flush=True)
+# User sees first token in ~200ms
+\`\`\`
+
+### Early Termination
+
+For classification and extraction tasks, you often don't need the full response:
+
+\`\`\`python
+# Stop generation as soon as we have the answer
+response = client.route(
+    messages=[{"role": "user", "content": "Classify: positive or negative"}],
+    stop=["\\n"],  # Stop at first newline
+    max_tokens=10,  # Hard cap
+)
+\`\`\`
+
+This prevents the model from generating unnecessary explanation text after the answer, saving 50-90% of decode time for structured output tasks.
+
+**When to use:** Always stream for user-facing applications. Use early termination for classification, extraction, and structured output.
+
+---
+
+## 7. Batching Strategies
+
+**Impact: 2-8x throughput, lower p99 | Complexity: Medium**
+
+Continuous batching (also called iteration-level batching) processes multiple requests simultaneously, sharing GPU compute across them.
+
+\`\`\`python
+# vLLM handles continuous batching automatically
+llm = LLM(
+    model="meta-llama/Llama-3.1-70B-Instruct",
+    max_num_batched_tokens=32768,
+    max_num_seqs=256,  # Max concurrent sequences
+)
+
+# Requests are automatically batched at the iteration level
+# New requests join the batch immediately, no waiting
+\`\`\`
+
+### Static vs Continuous Batching
+
+| Strategy | p50 | p99 | Throughput | Queue Time |
+|----------|-----|-----|-----------|------------|
+| No batching | 45ms/tok | 45ms/tok | 22 req/s | 0ms |
+| Static batch (size 8) | 48ms/tok | 180ms/tok | 120 req/s | 50-200ms |
+| Continuous batching | 46ms/tok | 55ms/tok | 168 req/s | 0-5ms |
+
+Continuous batching is strictly superior: higher throughput with almost no latency penalty. The key insight is that new requests can join the batch between decode steps, so there's no queuing delay.
+
+**When to use:** Always. If your serving framework supports continuous batching (vLLM, TensorRT-LLM, TGI), enable it. It's the single biggest throughput win with minimal latency cost.
+
+---
+
+## 8. Regional Deployment + Edge Caching
+
+**Impact: 50-200ms reduction per request | Complexity: High**
+
+A request from Tokyo to a US-East GPU cluster adds 150-200ms of network latency. Regional deployment eliminates this.
+
+\`\`\`
+                    ┌──────────────┐
+                    │  Edge Cache  │ ← Cache frequent responses
+                    │  (Cloudflare)│
+                    └──────┬───────┘
+                           │
+              ┌────────────┼────────────┐
+              │            │            │
+        ┌─────┴─────┐ ┌───┴────┐ ┌────┴─────┐
+        │  US-East   │ │ EU-West│ │ AP-Tokyo │
+        │  GPU Pool  │ │ GPU    │ │ GPU Pool │
+        │ (primary)  │ │ Pool   │ │          │
+        └────────────┘ └────────┘ └──────────┘
+\`\`\`
+
+### Edge Caching for Common Queries
+
+For classification and extraction tasks, many inputs produce identical outputs. Cache them at the edge:
+
+\`\`\`python
+# Semantic cache: if a similar question was asked recently, return cached answer
+import hashlib
+
+def get_cache_key(messages, similarity_threshold=0.95):
+    """Generate cache key from message content."""
+    content = str(messages)
+    # For exact matches
+    exact_key = hashlib.sha256(content.encode()).hexdigest()
+    # For semantic matches (embedding-based)
+    embedding = embed_model.encode(content)
+    return exact_key, embedding
+
+# Cache hit rate depends on your traffic:
+# Customer support bots: 40-60% cache hit rate
+# Code generation: 5-10% cache hit rate
+# Classification APIs: 70-90% cache hit rate
+\`\`\`
+
+For a customer support bot with 50% cache hit rate, half your responses are served in <5ms instead of ~2000ms. That's a **massive** average latency reduction.
+
+**When to use:** Multi-region deployments with latency SLAs, or any application with repetitive queries.
+
+---
+
+## Combining Techniques: The Compound Effect
+
+These techniques stack. Here's a realistic production setup:
+
+| Technique | Latency Impact | Running Total |
+|-----------|---------------|---------------|
+| Baseline (70B, FP16, single GPU, no routing) | 45ms/tok | 45ms/tok |
+| + Intelligent routing (60% → 8B) | -51% | 22ms/tok |
+| + QAT INT4 on all models | -55% | 10ms/tok |
+| + Multi-token prediction | -40% | 6ms/tok |
+| + KV cache (2K system prompt) | -20% prefill | 5.5ms/tok |
+| + Continuous batching | -5% at load | 5.2ms/tok |
+| + Edge caching (30% hit rate) | -30% average | 3.6ms/tok |
+
+**From 45ms/tok to 3.6ms/tok — a 12x improvement.** The individual gains are 20-55%, but they compound multiplicatively.
+
+## The Easy Path
+
+Implementing all 8 techniques requires expertise in model serving, GPU optimization, quantization, and distributed systems. Most teams don't have that — and shouldn't need to.
+
+**Slancha applies these techniques automatically.** When you send a request to the Slancha Router:
+
+1. **Routing** classifies your request and picks the optimal model
+2. **Quantized models** (QAT INT4) serve most traffic
+3. **MIG partitioning** runs small models on GPU slices
+4. **Multi-token prediction** accelerates decode on supported models
+5. **KV caching** is always on
+6. **Continuous batching** handles load spikes
+7. **The optimization loop** continuously fine-tunes and re-quantizes based on your traffic patterns
+
+You get compound latency reduction behind a single API endpoint. No GPU configuration, no model selection, no infrastructure management.
+
+\`\`\`python
+# All 8 optimizations, applied automatically
+import slancha
+
+client = slancha.Client(api_key="sk-...")
+
+response = client.route(
+    messages=[{"role": "user", "content": "Explain TCP/IP"}],
+    stream=True,
+)
+# Slancha handles routing, quantization, caching,
+# batching, and MIG partitioning behind the scenes.
+\`\`\`
+
+[Start for free](/signup) — the router tier includes intelligent routing, automatic optimization, and real-time latency metrics. See your p50 and p99 drop in the dashboard within minutes.`,
+  },
+  {
     slug: 'build-vs-buy-ai-gateway',
     title: 'Build vs Buy: The AI Gateway Decision Framework for Engineering Teams',
     date: '2026-03-31',
