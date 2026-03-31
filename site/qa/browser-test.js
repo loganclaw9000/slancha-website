@@ -11,7 +11,7 @@
  *   Exit code 0 = all pass, 1 = failures found
  */
 
-const { chromium } = require('playwright');
+import { chromium } from 'playwright';
 
 const BASE_URL = (() => {
   const i = process.argv.indexOf('--url');
