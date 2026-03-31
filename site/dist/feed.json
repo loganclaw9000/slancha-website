@@ -8,6 +8,23 @@
   "language": "en-US",
   "items": [
     {
+      "id": "https://slancha.ai/blog/introducing-slancha",
+      "url": "https://slancha.ai/blog/introducing-slancha",
+      "title": "Introducing Slancha: The AI Inference Platform That Gets Better While You Sleep",
+      "summary": "Today we're opening early access to Slancha — an end-to-end AI inference platform that routes, fine-tunes, and optimizes your LLM workloads behind a single API endpoint. No model selection, no benchmarking, no ML team required.",
+      "date_published": "2026-03-31T00:00:00.000Z",
+      "authors": [
+        {
+          "name": "Paul Logan"
+        }
+      ],
+      "tags": [
+        "launch",
+        "announcement",
+        "platform"
+      ]
+    },
+    {
       "id": "https://slancha.ai/blog/the-case-for-black-box-ai-inference",
       "url": "https://slancha.ai/blog/the-case-for-black-box-ai-inference",
       "title": "The Case for Black Box AI Inference: Why Your Team Should Stop Picking Models",

@@ -5,13 +5,24 @@
     <link>https://slancha.ai/blog</link>
     <description>Technical deep dives, tutorials, and insights on AI engineering: model evaluation, deployment strategies, fine-tuning pipelines, and the eval-deploy-train loop.</description>
     <language>en-us</language>
-    <lastBuildDate>Tue, 31 Mar 2026 08:42:56 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 31 Mar 2026 08:46:40 GMT</lastBuildDate>
     <atom:link href="https://slancha.ai/rss.xml" rel="self" type="application/rss+xml" />
     <image>
       <url>https://slancha.ai/favicon.svg</url>
       <title>Slancha Blog</title>
       <link>https://slancha.ai/blog</link>
     </image>
+    <item>
+      <title>Introducing Slancha: The AI Inference Platform That Gets Better While You Sleep</title>
+      <link>https://slancha.ai/blog/introducing-slancha</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/introducing-slancha</guid>
+      <description>Today we&apos;re opening early access to Slancha — an end-to-end AI inference platform that routes, fine-tunes, and optimizes your LLM workloads behind a single API endpoint. No model selection, no benchmarking, no ML team required.</description>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate>
+      <author>team@slancha.ai (Paul Logan)</author>
+      <category>launch</category>
+      <category>announcement</category>
+      <category>platform</category>
+    </item>
     <item>
       <title>The Case for Black Box AI Inference: Why Your Team Should Stop Picking Models</title>
       <link>https://slancha.ai/blog/the-case-for-black-box-ai-inference</link>
