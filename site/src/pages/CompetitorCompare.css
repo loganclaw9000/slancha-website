@@ -1,0 +1,437 @@
+.cc-page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 5rem 1.5rem 4rem;
+}
+
+/* Hero */
+.cc-hero {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.cc-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.3rem 1rem;
+  border-radius: 999px;
+  background: rgba(10, 132, 255, 0.15);
+  color: #0A84FF;
+  margin-bottom: 1.25rem;
+}
+
+.cc-title {
+  font-size: 2.75rem;
+  line-height: 1.15;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #0A84FF, #00D1B2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.cc-subtitle {
+  color: var(--text-secondary, #94a3b8);
+  font-size: 1.2rem;
+  max-width: 640px;
+  margin: 0 auto 2rem;
+}
+
+.cc-hero-meta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  font-size: 1rem;
+  color: var(--text-secondary, #94a3b8);
+}
+
+.cc-meta-item {
+  padding: 0.4rem 1rem;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-weight: 500;
+}
+
+.cc-meta-slancha {
+  background: rgba(10, 132, 255, 0.15);
+  border-color: rgba(10, 132, 255, 0.3);
+  color: #0A84FF;
+}
+
+.cc-meta-sep {
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Sections */
+.cc-section {
+  margin-bottom: 3.5rem;
+}
+
+.cc-section-title {
+  font-size: 1.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.cc-overview {
+  color: var(--text-secondary, #94a3b8);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  max-width: 720px;
+}
+
+.cc-funding {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  color: var(--text-tertiary, #64748b);
+}
+
+/* Philosophy */
+.cc-philosophy-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.cc-philosophy-card {
+  padding: 1.5rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cc-philosophy-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-secondary, #94a3b8);
+}
+
+.cc-philosophy-card p {
+  color: var(--text-secondary, #94a3b8);
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.cc-philosophy-slancha {
+  background: rgba(10, 132, 255, 0.06);
+  border-color: rgba(10, 132, 255, 0.2);
+}
+
+.cc-philosophy-slancha h3 {
+  color: #0A84FF;
+}
+
+/* Table */
+.cc-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.cc-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+.cc-table th,
+.cc-table td {
+  padding: 0.85rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.cc-table th {
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-tertiary, #64748b);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.cc-feature-name {
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.cc-slancha-col {
+  color: #0A84FF !important;
+}
+
+.cc-slancha-cell {
+  color: #0A84FF;
+  font-weight: 500;
+}
+
+/* Loop */
+.cc-loop-section {
+  text-align: center;
+  padding: 2.5rem 0;
+}
+
+.cc-loop-desc {
+  color: var(--text-secondary, #94a3b8);
+  max-width: 560px;
+  margin: 0 auto 2rem;
+}
+
+.cc-loop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.cc-loop-step {
+  padding: 0.5rem 1.25rem;
+  border-radius: 8px;
+  background: rgba(10, 132, 255, 0.12);
+  color: #0A84FF;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.cc-loop-arrow {
+  color: var(--text-tertiary, #64748b);
+  font-size: 1.2rem;
+}
+
+.cc-loop-return {
+  color: #00D1B2;
+  font-size: 1.4rem;
+  margin-left: 0.25rem;
+}
+
+/* Choose grid */
+.cc-choose-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.cc-choose-card {
+  padding: 1.5rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cc-choose-card h3 {
+  font-size: 1.15rem;
+  margin-bottom: 1rem;
+}
+
+.cc-choose-card h4 {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-tertiary, #64748b);
+  margin: 1.25rem 0 0.75rem;
+}
+
+.cc-choose-card p {
+  color: var(--text-secondary, #94a3b8);
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.cc-choose-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cc-choose-card li {
+  padding: 0.35rem 0;
+  color: var(--text-secondary, #94a3b8);
+  font-size: 0.9rem;
+}
+
+.cc-choose-card li::before {
+  content: '✓ ';
+  color: #00D1B2;
+  font-weight: 600;
+}
+
+.cc-choose-slancha {
+  background: rgba(10, 132, 255, 0.06);
+  border-color: rgba(10, 132, 255, 0.2);
+}
+
+.cc-bottom-line {
+  font-weight: 600;
+  color: #0A84FF !important;
+  font-size: 1.05rem !important;
+  line-height: 1.5 !important;
+}
+
+/* Code blocks */
+.cc-migration-desc {
+  color: var(--text-secondary, #94a3b8);
+  margin-bottom: 1.5rem;
+}
+
+.cc-code-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.cc-code-block {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cc-code-header {
+  padding: 0.6rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.cc-code-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-tertiary, #64748b);
+}
+
+.cc-code-block pre {
+  padding: 1rem;
+  margin: 0;
+  overflow-x: auto;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.cc-code-block code {
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--text-secondary, #94a3b8);
+  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+}
+
+.cc-code-slancha {
+  border-color: rgba(10, 132, 255, 0.2);
+}
+
+.cc-code-slancha .cc-code-header {
+  background: rgba(10, 132, 255, 0.08);
+}
+
+.cc-code-slancha .cc-code-label {
+  color: #0A84FF;
+}
+
+/* CTA */
+.cc-cta {
+  text-align: center;
+  padding: 3rem 0;
+  margin: 2rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.cc-cta h2 {
+  font-size: 1.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.cc-cta p {
+  color: var(--text-secondary, #94a3b8);
+  margin-bottom: 1.5rem;
+}
+
+.cc-cta-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+/* Other comparisons */
+.cc-others {
+  padding-top: 1rem;
+}
+
+.cc-others-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.cc-other-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 1rem 1.25rem;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  text-decoration: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.cc-other-card:hover {
+  border-color: rgba(10, 132, 255, 0.3);
+  background: rgba(10, 132, 255, 0.06);
+}
+
+.cc-other-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text-primary, #e2e8f0);
+}
+
+.cc-other-tagline {
+  font-size: 0.8rem;
+  color: var(--text-tertiary, #64748b);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .cc-title {
+    font-size: 2rem;
+  }
+
+  .cc-philosophy-grid,
+  .cc-choose-grid,
+  .cc-code-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cc-hero-meta {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .cc-loop {
+    gap: 0.35rem;
+  }
+
+  .cc-loop-step {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.8rem;
+  }
+
+  .cc-others-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .cc-page {
+    padding: 4rem 1rem 3rem;
+  }
+
+  .cc-others-grid {
+    grid-template-columns: 1fr;
+  }
+}

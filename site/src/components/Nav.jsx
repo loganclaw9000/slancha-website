@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import SearchModal from './SearchModal';
 import './Nav.css';
 
 const dropdowns = {
@@ -23,7 +24,9 @@ const dropdowns = {
     { to: '/enterprise', label: 'Enterprise', desc: 'Cloud, VPC, or on-prem' },
     { to: '/roi-calculator', label: 'ROI Calculator', desc: 'Estimate your savings' },
     { to: '/pricing/compare', label: 'Pricing Compare', desc: 'Side-by-side competitor pricing' },
-    { to: '/vs-competitors', label: 'Compare', desc: 'See how we stack up' },
+    { to: '/vs-competitors', label: 'Compare All', desc: 'All competitors side-by-side' },
+    { to: '/vs/portkey', label: 'vs Portkey', desc: 'Gateway vs optimization engine' },
+    { to: '/vs/fireworks', label: 'vs Fireworks AI', desc: 'Engineer tools vs team results' },
   ],
   Developers: [
     { to: '/docs', label: 'Documentation', desc: 'Guides, API ref, SDKs' },
@@ -100,12 +103,24 @@ function DropdownMenu({ label, items, onNavigate }) {
 export default function Nav({ backLink = false }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const { user, signOut } = useAuth();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => {
+    const onKeyDown = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setSearchOpen(o => !o);
+      }
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
   }, []);
 
   const closeMenu = () => setMenuOpen(false);
