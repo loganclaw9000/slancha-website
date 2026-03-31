@@ -58,7 +58,7 @@ Visit **Dashboard** → **Usage** to see request counts, model distribution, and
     order: 2,
     body: `# Developer Quickstart
 
-Go from zero to a production-ready AI pipeline in 15 minutes. This guide walks you through installing the Slancha SDK, running your first evaluation, deploying a model, and closing the loop with post-training.
+Go from zero to a production-ready AI pipeline in 15 minutes. This guide walks you through installing the Slancha SDK, sending your first request, and seeing how Slancha automatically routes, analyzes, and optimizes your inference.
 
 ## Prerequisites
 

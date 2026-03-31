@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: Slancha API
   description: |
-    The Slancha API gives you programmatic access to the full eval → deploy → post-train lifecycle.
+    The Slancha API gives you programmatic access to Slancha's AI inference platform.
 
     Inference endpoints are OpenAI-compatible — if you're already using the OpenAI SDK, switching is a one-line change.
 
@@ -16,7 +16,7 @@ info:
     name: Proprietary
     url: https://slancha.ai/terms
   x-logo:
-    url: https://slancha.ai/slancha-logo.svg
+    url: https://slancha.ai/favicon.svg
 
 servers:
   - url: https://api.slancha.ai/v1

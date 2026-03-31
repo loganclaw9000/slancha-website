@@ -4,7 +4,6 @@ Disallow: /dashboard
 Disallow: /checkout
 Disallow: /auth
 Disallow: /login
-Disallow: /signup
 Disallow: /reset-password
 Disallow: /update-password
 Disallow: /verify-email
