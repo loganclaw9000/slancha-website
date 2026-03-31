@@ -6,9 +6,11 @@
 
 ## Context
 
-Building **Slancha** — an AI engineering platform positioned as "The Databricks of AI Engineering." The core loop: evaluate models against production workloads, deploy the winner, post-train on captured signal, repeat.
+Building **Slancha** — an end-to-end AI inference platform with a **black box approach**. Single API endpoint — customers don't pick models, don't benchmark, don't manage anything. Slancha routes, analyzes, fine-tunes, optimizes, and redeploys behind the scenes.
 
-Currently in **pilot onboarding phase** (through Q2 2026). The product has three tiers: Eval+Deploy, Full Loop, and Enterprise Self-Hosted, plus an Autonomous SRE Agent add-on.
+**Source of truth:** `~/.openclaw/SLANCHA_BRIEF.md` — ALWAYS reference this for positioning. Never invent positioning.
+
+**Co-founders:** Paul Logan (positioning, GTM) + James Maki (architecture, fine-tuning). Pre-launch, building pilot pipeline.
 
 Uses **OpenClaw** as the agent workspace/infrastructure layer. Runs multiple Claude agents concurrently — at least one dedicated to frontend/observability, potentially others for different workstreams.
 

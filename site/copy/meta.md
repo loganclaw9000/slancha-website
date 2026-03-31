@@ -1,6 +1,16 @@
-# Meta Copy for Slancha
+# Page Metadata
 
-- **HTML `<title>`**: Slancha — Pick your latency, we handle the rest.
-- **Meta description** (150 chars): Optimize inference with Slancha’s latency‑first platform. Reduce cloud costs, boost performance, and simplify model deployment.
-- **OG title**: Slancha — Pick your latency, we handle the rest.
-- **OG description**: Optimize inference with Slancha’s latency‑first platform. Reduce cloud costs, boost performance, and simplify model deployment.
+**HTML `<title>`:**
+Slancha — AI Inference That Improves Itself
+
+**Meta description:**
+End-to-end AI inference platform. One API endpoint — Slancha automatically routes, fine-tunes, and optimizes your models behind the scenes. Better accuracy, lower cost, zero ML overhead.
+
+**OG title:**
+Slancha — AI Inference That Improves Itself
+
+**OG description:**
+End-to-end AI inference platform. One API endpoint — Slancha automatically routes, fine-tunes, and optimizes your models behind the scenes. Better accuracy, lower cost, zero ML overhead.
+
+**Twitter card:**
+Summary with image

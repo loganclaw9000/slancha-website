@@ -1,16 +1,16 @@
 # Why Slancha
 
-- **Evaluate, deploy, improve — automated**
-  The complete AI engineering loop: automated model evaluation, one-click deployment, and continuous post-training. Ship better models faster.
+- **One endpoint, zero decisions**
+  Stop picking models. Slancha gives you a single API endpoint and handles everything behind it — routing, fine-tuning, optimization, redeployment. You just send requests.
 
-- **2.5x faster model selection**
-  Stop guessing. Run models against standardized benchmarks or your own datasets, get detailed metrics in minutes, and always deploy the winner.
+- **60% lower inference costs**
+  The router sends simple requests to smaller models instead of always hitting expensive frontier APIs. Fine-tuned models are even cheaper to serve. Savings compound over time.
 
-- **40% lower inference costs**
-  Automatic model optimization, quantization, and hardware selection deliver predictable performance without the overhead of specialist teams.
+- **Accuracy that improves automatically**
+  Slancha fine-tunes task-specific models on your actual usage data. For your workloads, these models match or outperform frontier generalists — and they keep getting better.
 
-- **Continuous learning, zero maintenance**
-  Models improve automatically on captured production data. No manual pipelines, no scheduled retraining — just continuous improvement.
+- **Future-proof against price hikes**
+  Frontier API pricing is subsidized and unsustainable. When providers raise prices, Slancha customers are already running on optimized, fine-tuned models that cost a fraction as much.
 
-- **All frameworks, all providers**
-  PyTorch, TensorFlow, Hugging Face, Ray — we work with your existing models and infrastructure. Cloud-agnostic, not vendor-locked.
+- **No ML team required**
+  No benchmarking, no model selection, no fine-tuning pipelines, no hyperparameter tuning, no data curation. Slancha does it all behind the scenes. Your team just uses the API.

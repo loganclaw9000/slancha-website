@@ -8,7 +8,7 @@ export default function Footer() {
       <div className="footer-top">
         <div className="footer-brand">
           <Link to="/" className="footer-logo">Slancha</Link>
-          <p className="footer-tagline">The Databricks of AI Engineering.</p>
+          <p className="footer-tagline">AI inference that improves itself.</p>
         </div>
         <div className="footer-links">
           <div className="footer-col">

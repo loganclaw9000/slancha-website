@@ -1,8 +1,8 @@
-EYEBROW: AI ENGINEERING PLATFORM
+EYEBROW: END-TO-END AI INFERENCE
 
-H1: Evaluate models. Deploy the winner. Repeat.
+H1: One API. Your models get better automatically.
 
-SUBTITLE: Automated model evaluation, one-click deployment, and continuous post-training for AI teams shipping production systems.
+SUBTITLE: Slancha routes your requests to the right model, fine-tunes task-specific models on your usage data, and optimizes inference — all behind a single endpoint. Better accuracy, lower cost, zero ML overhead.
 
 PRIMARY CTA: Start Free Trial
 

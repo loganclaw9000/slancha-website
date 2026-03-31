@@ -1,67 +1,55 @@
-# The AI Engineering Loop
+# How Slancha Works
 
-From evaluation to improvement, automated end-to-end.
-
----
-
-## 1. EVALUATE
-**Run models against benchmarks**
-
-Evaluate models against 50+ pre-built benchmarks or your own custom datasets. Get detailed performance metrics in minutes, not days.
-
-- 50+ pre-built evals (accuracy, latency, cost)
-- Custom benchmark definition
-- Parallel evaluation of multiple models
-- Statistical significance testing
+Four layers, one endpoint. Everything happens behind the scenes.
 
 ---
 
-## 2. DEPLOY
-**Ship the winner**
+## 1. ROUTE
+**Requests go to the right model, automatically**
 
-Ship the winning model with one click. A/B test multiple versions simultaneously and let data decide.
+Every request hits a single API endpoint. Slancha's semantic router classifies the task in sub-millisecond time and routes it to the optimal model — no model selection required.
 
-- One-click deployment
-- A/B test multiple versions
-- Statistical significance built-in
-- Instant rollback if needed
-
----
-
-## 3. CAPTURE
-**Collect production signal**
-
-Automatically capture production data, user interactions, and model outputs for continuous learning.
-
-- Real-time data pipelines
-- User feedback collection
-- Model output logging
-- Performance metrics tracking
+- Single OpenAI-compatible API endpoint
+- Sub-millisecond semantic routing
+- Automatic cost/quality optimization
+- Simple tasks go to efficient models, complex ones to frontier models
 
 ---
 
-## 4. POST-TRAIN
-**Automatically improve**
+## 2. ANALYZE
+**Your usage patterns become training data**
 
-Automatically retrain models on captured signal. Models get better over time, without manual intervention.
+Behind the router, Slancha continuously analyzes the tasks you're sending — summarization, code generation, QA, retrieval. This data is automatically curated for fine-tuning.
 
-- Scheduled or event-driven retraining
-- Automatic model versioning
-- A/B testing for improvements
-- Zero downtime deployments
-
----
-
-## 5. REPEAT
-**The loop never stops**
-
-New data → new training → new deployments → better models. Your models keep improving as your business grows.
-
-- Continuous improvement
-- Automated optimization
-- Performance monitoring
-- Cost optimization
+- Automatic task classification
+- Real-time data curation from live traffic
+- No customer-provided datasets needed
+- Usage patterns improve routing over time
 
 ---
 
-**Start your 14-day free trial today.** No credit card required.
+## 3. FINE-TUNE
+**Task-specific models, built for you**
+
+Using your curated task data, Slancha fine-tunes smaller models that match or outperform frontier generalists on your specific workloads. This happens behind the scenes — you never see it.
+
+- Automated fine-tuning on your usage data
+- Smaller models that beat frontier on your tasks
+- Automatic re-fine-tuning when better architectures drop
+- No ML engineers, no hyperparameter tuning, no data wrangling
+
+---
+
+## 4. OPTIMIZE
+**Faster, cheaper inference**
+
+Fine-tuned models are served with 4-bit quantization (QAT), multi-instance GPU packing, and multi-token prediction. The result: dramatically lower cost and latency.
+
+- Quantization-aware training (4-bit, no quality loss)
+- Multi-Instance GPU for efficient hardware utilization
+- Multi-token prediction for higher throughput
+- Continuous redeployment of improved models
+
+---
+
+**The loop closes automatically.** Route → Analyze → Fine-tune → Optimize → Redeploy. Your models get better every day without you doing anything.

@@ -17,7 +17,7 @@ export default function Pricing() {
             Plans built for <span className="gradient-text">AI engineering teams</span>
           </h1>
           <p className="pricing-subtitle">
-            From eval-and-deploy to full autonomous operations. Start with what you need, scale when you're ready.
+            From a smart router to full autonomous inference optimization. Start with what you need, scale when you're ready.
           </p>
         </section>
 
@@ -70,7 +70,7 @@ export default function Pricing() {
             </div>
             <div className="pricing-faq-item">
               <h3>What's included in the pilot?</h3>
-              <p>We'll instrument your existing workloads, run your first eval-deploy-post-train cycle, and show you baseline metrics before you commit.</p>
+              <p>We'll connect your existing workloads, route traffic through Slancha, and show you cost savings and accuracy metrics before you commit.</p>
             </div>
             <div className="pricing-faq-item">
               <h3>Do you offer annual billing?</h3>

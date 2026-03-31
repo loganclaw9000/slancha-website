@@ -65,7 +65,7 @@ const caseStudies = [
 ];
 
 export default function CaseStudies() {
-  usePageMeta({ title: 'Case Studies', description: 'Real results from AI teams using Slancha. See how companies reduced eval cycles, cut costs, and improved model accuracy with the eval-deploy-train loop.' });
+  usePageMeta({ title: 'Case Studies', description: 'Real results from AI teams using Slancha. See how companies cut inference costs, improved accuracy, and eliminated ML overhead with one API endpoint.' });
   return (
     <div className="page">
       <a href="#main-content" className="skip-link">Skip to main content</a>

@@ -1,74 +1,54 @@
-# Choose Your Loop
+# Plans
 
-## Eval + Deploy
-**Best for:** AI teams evaluating and deploying models
+## Router
+**Best for:** Teams that want immediate cost savings from intelligent routing
+
+**Price:** Free / usage-based
+
+**Includes:**
+- Single API endpoint (OpenAI-compatible)
+- Semantic model routing
+- Cost/quality optimization
+- Basic usage analytics
+- Community support
+
+**Start here.** The router alone saves money by not sending everything to GPT-4.
+
+---
+
+## Platform
+**Best for:** Teams that want the full loop — routing + fine-tuning + optimization
 
 **Price:** $499/month or usage-based
 
 **Includes:**
-- 100 model evaluations/month
-- 5 active deployments
-- Basic A/B testing
-- 10GB data capture/month
-- Framework support (PyTorch, TensorFlow, Hugging Face)
-- SOC 2 compliance
-
-**Perfect for:** Teams getting started with automated evaluation
-
----
-
-## Full Loop
-**Best for:** AI teams shipping production models
-
-**Price:** $2,499/month or usage-based
-
-**Includes:**
-- Unlimited evaluations
-- Unlimited deployments
-- Advanced A/B testing with statistical significance
-- 100GB data capture/month
-- Auto post-training
+- Everything in Router
+- Automatic task analysis and data curation
+- Behind-the-scenes fine-tuning on your usage data
+- Inference optimization (QAT, multi-token prediction)
+- Continuous redeployment of improved models
 - Priority support
-- Real-time monitoring & alerts
-- Custom eval definition
+- Performance dashboard
 
-**Perfect for:** Production AI teams needing the complete loop
+**This is where models start getting better automatically.**
 
 ---
 
-## Enterprise Self-Hosted
-**Best for:** Organizations with custom requirements
+## Enterprise
+**Best for:** Organizations with compliance, data residency, or scale requirements
 
 **Price:** Custom
 
 **Includes:**
-- All Full Loop features
-- Self-hosted deployment option
+- Everything in Platform
+- Self-hosted / VPC deployment
+- Dedicated GPU instances (MIG isolation on B200/B300)
 - SSO/SAML integration
 - Custom SLAs (99.9%, 99.95%, 99.99%)
 - Dedicated success manager
-- Custom integrations
-- VPC deployment
-- White-label options
+- Full audit logging and data isolation
 
-**Perfect for:** Enterprises needing full control and compliance
-
----
-
-## Autonomous SRE Agent (Add-on)
-**Best for:** Teams running 100+ models at scale
-
-**Price:** +$5,000/month
-
-**Includes:**
-- AI-driven operations layer
-- Continuous performance monitoring
-- Auto-scaling and cost optimization
-- Incident resolution before users notice
-- Predictive capacity planning
-- Custom SLA enforcement
-
-**Perfect for:** Production environments needing hands-off operations
+**Complete control, zero overhead.**
 
 ---
 

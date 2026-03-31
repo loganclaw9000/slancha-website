@@ -1,10 +1,10 @@
 ## Pilot CTA
 
 **Headline:**
-Running production inference with a growing cloud bill? Let’s talk.
+Sending every request to GPT-4? There's a better way.
 
 **Body:**
-If you’re scaling AI workloads and need cost‑effective latency, our pilot gets you started fast. We’ll assess your stack, set up a proof‑of‑concept, and show savings in weeks.
+If your inference bill is growing and you know smaller models could handle most of your traffic, Slancha is built for you. We'll connect your workloads, route traffic through the platform, and show you cost savings and accuracy metrics before you commit to anything.
 
 **CTA Button Text:**
 Start My Pilot

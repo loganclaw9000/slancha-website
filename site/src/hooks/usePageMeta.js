@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 const SITE_NAME = 'Slancha';
-const DEFAULT_DESCRIPTION = 'The only platform that closes the AI engineering loop: benchmark models against production workloads, deploy the winner, post-train on what you learn, and repeat.';
+const DEFAULT_DESCRIPTION = 'End-to-end AI inference platform. One API endpoint — Slancha automatically routes, fine-tunes, and optimizes your models behind the scenes. Better accuracy, lower cost, zero ML overhead.';
 
 /**
  * Sets document title and meta description for the current page.
@@ -9,7 +9,7 @@ const DEFAULT_DESCRIPTION = 'The only platform that closes the AI engineering lo
  */
 export default function usePageMeta({ title, description } = {}) {
   useEffect(() => {
-    const fullTitle = title ? `${title} — ${SITE_NAME}` : `${SITE_NAME} — The Databricks of AI Engineering`;
+    const fullTitle = title ? `${title} — ${SITE_NAME}` : `${SITE_NAME} — AI Inference That Improves Itself`;
     document.title = fullTitle;
 
     const desc = description || DEFAULT_DESCRIPTION;

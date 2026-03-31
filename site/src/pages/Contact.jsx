@@ -72,8 +72,8 @@ export default function Contact() {
       <div className="contact-hero">
         <div className="contact-hero-overlay" />
         <div className="contact-hero-content">
-          <h1 className="contact-hero-heading">Talk to us about your AI engineering stack.</h1>
-          <p className="contact-hero-sub">If your team is managing 4–6 tools to approximate what Slancha does natively, let's talk. We're onboarding pilots through Q2 2026.</p>
+          <h1 className="contact-hero-heading">Talk to us about your AI inference costs.</h1>
+          <p className="contact-hero-sub">If your team is sending every request to expensive frontier models, let's talk. Slancha cuts inference costs while improving accuracy — automatically. We're onboarding pilots through Q2 2026.</p>
         </div>
       </div>
 
@@ -84,7 +84,7 @@ export default function Contact() {
             <div className="contact-success-icon">✓</div>
             <h2 className="contact-success-heading">Thanks — we'll be in touch.</h2>
             <p className="contact-success-body">
-              We review all pilot applications within 48 hours. If your use case fits, we'll schedule a technical deep dive to instrument your first eval-deploy-post-train cycle.
+              We review all pilot applications within 48 hours. If your use case fits, we'll schedule a technical deep dive to connect your workloads and show you what Slancha can save.
             </p>
           </div>
         ) : (

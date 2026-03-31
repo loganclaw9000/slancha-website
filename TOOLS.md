@@ -32,9 +32,11 @@
 - **Data:** 129 sessions tracked, 6 models monitored, currently 0% success rate (network/credit issues)
 
 ### Slancha Site
-- **Stack:** React + Vite + React Router
-- **Copy source:** `site/copy/*.md` (hero, about, features, offerings, etc.)
-- **Status:** Copy written, positioning locked ("Databricks of AI Engineering")
+- **Stack:** React + Vite + React Router + Supabase Auth
+- **Source repo:** `~/Desktop/workspace/site/` (build here)
+- **Deploy repo:** `~/.openclaw/workspace/site/` (dist copied here)
+- **Copy source:** `site/copy/*.md`
+- **Positioning:** Black box AI inference platform (per `~/.openclaw/SLANCHA_BRIEF.md`)
 
 ### Git
 - **Main branch:** `main`
