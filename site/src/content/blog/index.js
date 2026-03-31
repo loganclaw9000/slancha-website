@@ -1,5 +1,297 @@
 export const posts = [
   {
+    slug: 'build-vs-buy-ai-gateway',
+    title: 'Build vs Buy: The AI Gateway Decision Framework for Engineering Teams',
+    date: '2026-03-31',
+    author: 'Slancha Engineering',
+    excerpt: 'Your team needs an AI gateway. Should you build one in-house or use a managed platform? We break down the true cost, timeline, and complexity of both paths — with real code, architecture decisions, and a decision matrix.',
+    tags: ['ai-gateway', 'build-vs-buy', 'architecture', 'engineering', 'decision-framework'],
+    body: `Every team running LLMs in production eventually hits the same question: **should we build our own AI gateway, or buy one?**
+
+The answer isn't obvious. Building gives you control. Buying gives you speed. The wrong choice costs you 3-6 months of engineering time or locks you into a vendor that doesn't fit.
+
+This guide walks through both paths with real code, architecture decisions, and honest cost analysis. By the end, you'll have a framework to make the right call for your team.
+
+## What an AI Gateway Actually Does
+
+Before comparing build vs buy, let's define what a production AI gateway needs to do:
+
+1. **Request routing** — send each request to the best model for the task
+2. **Failover & retries** — handle provider outages without user impact
+3. **Rate limiting & auth** — protect your API and track per-customer usage
+4. **Cost tracking** — log tokens, latency, and spend per request
+5. **Model abstraction** — let application code call one endpoint, not five providers
+6. **Caching** — deduplicate identical or semantically similar requests
+7. **Observability** — latency percentiles, error rates, model performance metrics
+
+A minimal gateway handles items 1-5. A production gateway handles all seven. A *good* gateway also handles fine-tuning feedback loops and automatic model optimization — but let's start with the basics.
+
+## Path 1: Build It Yourself
+
+### The Architecture
+
+Here's what a self-built AI gateway looks like in practice:
+
+\`\`\`
+┌─────────────────────────────────────────────────┐
+│                   API Gateway                     │
+│   (FastAPI / Express / Go net/http)               │
+│                                                   │
+│  ┌──────────┐  ┌──────────┐  ┌───────────────┐  │
+│  │ Auth &    │  │ Router   │  │ Retry &       │  │
+│  │ Rate Limit│→ │ Logic    │→ │ Failover      │  │
+│  └──────────┘  └──────────┘  └───────────────┘  │
+│                     │                │            │
+│              ┌──────┴──────┐   ┌────┴────┐      │
+│              │ Provider    │   │ Logger  │      │
+│              │ Adapters    │   │ (async) │      │
+│              │ ┌─────────┐ │   └─────────┘      │
+│              │ │ OpenAI  │ │                     │
+│              │ │ Anthropic│ │                     │
+│              │ │ Mistral  │ │                     │
+│              │ │ Custom   │ │                     │
+│              │ └─────────┘ │                     │
+│              └─────────────┘                     │
+└─────────────────────────────────────────────────┘
+\`\`\`
+
+### Minimum Viable Gateway: The Code
+
+Here's a functional Python gateway that routes between OpenAI and Anthropic:
+
+\`\`\`python
+# gateway.py — ~200 lines gets you a working prototype
+from fastapi import FastAPI, HTTPException, Depends
+from pydantic import BaseModel
+import httpx
+import hashlib
+import time
+
+app = FastAPI()
+client = httpx.AsyncClient(timeout=60.0)
+
+class ChatRequest(BaseModel):
+    messages: list[dict]
+    model: str = "auto"  # "auto" enables routing
+    max_tokens: int = 1024
+
+ROUTES = {
+    "code": "gpt-4o",
+    "creative": "claude-sonnet-4-6-20250514",
+    "default": "gpt-4o-mini",
+}
+
+async def classify_task(messages: list[dict]) -> str:
+    """Keyword-based routing — production needs embeddings."""
+    last_msg = messages[-1].get("content", "").lower()
+    if any(kw in last_msg for kw in ["code", "function", "debug", "api"]):
+        return "code"
+    if any(kw in last_msg for kw in ["write", "creative", "story", "email"]):
+        return "creative"
+    return "default"
+
+async def call_openai(request: ChatRequest, model: str):
+    resp = await client.post(
+        "https://api.openai.com/v1/chat/completions",
+        headers={"Authorization": f"Bearer {OPENAI_KEY}"},
+        json={"model": model, "messages": request.messages,
+              "max_tokens": request.max_tokens},
+    )
+    resp.raise_for_status()
+    return resp.json()
+
+async def call_anthropic(request: ChatRequest, model: str):
+    resp = await client.post(
+        "https://api.anthropic.com/v1/messages",
+        headers={"x-api-key": ANTHROPIC_KEY,
+                 "anthropic-version": "2023-06-01"},
+        json={"model": model,
+              "messages": request.messages,
+              "max_tokens": request.max_tokens},
+    )
+    resp.raise_for_status()
+    data = resp.json()
+    # Normalize to OpenAI format
+    return {
+        "choices": [{"message": {"content": data["content"][0]["text"]}}],
+        "usage": {"prompt_tokens": data["usage"]["input_tokens"],
+                  "completion_tokens": data["usage"]["output_tokens"]},
+    }
+
+@app.post("/v1/chat/completions")
+async def route(request: ChatRequest):
+    start = time.monotonic()
+    task = await classify_task(request.messages)
+    model = ROUTES.get(task, ROUTES["default"])
+
+    provider = call_anthropic if "claude" in model else call_openai
+    try:
+        result = await provider(request, model)
+    except httpx.HTTPStatusError:
+        # Failover to alternative provider
+        alt_model = "gpt-4o" if "claude" in model else "claude-sonnet-4-6-20250514"
+        alt_provider = call_openai if "claude" in model else call_anthropic
+        result = await alt_provider(request, alt_model)
+
+    latency_ms = (time.monotonic() - start) * 1000
+    # TODO: log to database, track costs, check rate limits
+    return result
+\`\`\`
+
+**This works for a demo.** But look at all the TODOs hiding in that code:
+
+### What the Prototype Doesn't Handle
+
+| Capability | Prototype | Production |
+|---|---|---|
+| Routing | Keyword matching | Embedding-based semantic classification |
+| Auth | None | API key management, per-key rate limits, team roles |
+| Logging | Print statements | Async pipeline → time-series DB + analytics |
+| Failover | Try/catch with one fallback | Circuit breaker, weighted fallback chains, health checks |
+| Caching | None | Semantic dedup, exact match, TTL policies |
+| Cost tracking | None | Per-request, per-customer, per-model attribution |
+| Streaming | None | SSE proxy with token counting mid-stream |
+| Rate limiting | None | Token bucket per key, global quotas, burst handling |
+| Model updates | Redeploy | Config-driven, hot-swap, shadow traffic testing |
+
+Each row is 1-3 weeks of engineering work. Production-grade implementations of all ten capabilities take **3-6 months** for a senior backend team.
+
+### The Real Cost of Building
+
+Let's put numbers to it:
+
+| Phase | Duration | Team | Cost (@ $200K/yr avg) |
+|---|---|---|---|
+| Prototype gateway | 2 weeks | 1 senior eng | $8K |
+| Auth + rate limiting | 3 weeks | 1 senior eng | $12K |
+| Logging + analytics | 3 weeks | 1 eng + 1 data | $12K |
+| Semantic routing | 4 weeks | 1 ML eng | $16K |
+| Caching layer | 2 weeks | 1 eng | $8K |
+| Streaming support | 2 weeks | 1 eng | $8K |
+| Monitoring + alerting | 2 weeks | 1 SRE | $8K |
+| Load testing + hardening | 2 weeks | 1 SRE | $8K |
+| **Total build cost** | **~5 months** | **2-3 engineers** | **$80-120K** |
+
+Then add ongoing maintenance:
+
+| Annual Item | Cost |
+|---|---|
+| Provider API changes (2-3/year each) | $15K eng time |
+| New model integration (6-8/year) | $20K eng time |
+| Incident response + on-call | $25K eng time |
+| Infrastructure (compute, DB, monitoring) | $12-24K |
+| **Total annual maintenance** | **$72-84K/year** |
+
+**Year 1 total: $152-204K.** And that's before you build the optimization layer — fine-tuning pipelines, quantization, automatic model selection based on eval data.
+
+## Path 2: Use a Managed Platform
+
+### What You Get Immediately
+
+A managed AI gateway like Slancha provides the full stack from day one:
+
+\`\`\`python
+# That's it. One endpoint.
+import slancha
+
+client = slancha.Client(api_key="sk-...")
+
+response = client.chat.completions.create(
+    messages=[{"role": "user", "content": "Optimize this SQL query..."}],
+    # No model parameter — the router picks the best one
+)
+
+# You get back:
+# - The response (OpenAI-compatible format)
+# - model_routed: which model actually handled it
+# - latency_ms: end-to-end latency
+# - cost_cents: what this request cost
+# - routing_reason: why this model was chosen
+\`\`\`
+
+Behind that single endpoint:
+- **Semantic routing** using embedding vectors (not keyword matching)
+- **Automatic failover** with circuit breakers and health scoring
+- **Usage tracking** with per-request cost, latency, and model attribution
+- **API key management** with per-key rate limits and team roles
+- **Streaming** with mid-stream token counting
+- **The optimization loop** — eval data drives fine-tuning, fine-tuned models get deployed, costs drop automatically over time
+
+### The Cost Comparison
+
+| Item | Build In-House | Managed Platform |
+|---|---|---|
+| Time to production | 4-6 months | Same day |
+| Year 1 engineering cost | $80-120K | $0 |
+| Annual maintenance | $72-84K | $0 |
+| Infrastructure | $12-24K/year | Included |
+| Platform cost | — | 10% of API spend |
+| **Break-even API spend** | — | **$900K-2M/year** |
+
+The math: if you spend less than $900K/year on LLM APIs, the 10% platform fee is cheaper than building and maintaining your own gateway. Most teams spend $50K-200K/year — **the managed platform is 5-10x cheaper.**
+
+If you spend $2M+/year on APIs, the calculus shifts — but at that scale, you're also saving 60-75% on inference costs through the optimization loop, which more than offsets the platform fee.
+
+## The Decision Matrix
+
+Here's how to make the call for your team:
+
+### Build if:
+
+- **You have 2+ dedicated ML infrastructure engineers** with nothing else to ship for 6 months
+- **Your API spend exceeds $2M/year** AND you don't need optimization (just routing)
+- **You need fully air-gapped, on-premises inference** with no external dependencies
+- **Your routing logic is deeply domain-specific** and changes weekly based on proprietary signals
+
+### Buy if:
+
+- **You want to ship in days, not months** — your competitive advantage is your product, not your AI plumbing
+- **Your team's ML engineers should work on product features**, not infrastructure
+- **You want the optimization loop** — automatic fine-tuning and cost reduction without building an ML pipeline
+- **You need enterprise features** (SOC 2, HIPAA, team management, audit logs) without building them
+- **Your API spend is under $1M/year** — building is objectively more expensive
+
+### The Hybrid Path
+
+Some teams start with a managed platform and bring specific pieces in-house as they scale:
+
+1. **Month 1-6:** Use Slancha for everything. Focus engineering on product features.
+2. **Month 6-12:** Evaluate usage patterns. Identify if any routing decisions need custom logic.
+3. **Month 12+:** If you've hit $2M+ API spend and have dedicated infra eng, consider building routing in-house while keeping the optimization loop managed.
+
+This is the lowest-risk approach: you get immediate value, learn your actual usage patterns with real data, and make the build decision with evidence instead of assumptions.
+
+## Common Objections
+
+**"We lose control with a managed platform."**
+
+You control your models, your routing preferences, your API keys, and your data. The platform handles the plumbing. You don't build your own database — this is the same tradeoff.
+
+**"We can build a simpler version in a week."**
+
+You can build a *prototype* in a week. Production-grade routing, failover, cost tracking, auth, and monitoring takes months. The prototype will work until it doesn't — usually during an outage at 2am.
+
+**"Vendor lock-in concerns."**
+
+The Slancha API is OpenAI-compatible. Switching away means changing one base URL. Your application code, prompts, and model preferences don't change. The switching cost is measured in minutes, not months.
+
+**"Our security team won't approve a third-party in the inference path."**
+
+Valid concern. Check: SOC 2 compliance, data retention policies, encryption at rest and in transit, whether the platform stores prompts/completions (Slancha doesn't by default), and whether you can run in your own VPC. Security is a checklist, not a blocker.
+
+## The Real Question
+
+The build-vs-buy decision isn't really about AI gateways. It's about **where your engineering team creates the most value.**
+
+If your competitive advantage is AI infrastructure, build it. If your competitive advantage is your product, your domain expertise, or your go-to-market — use a platform and spend your engineering cycles where they matter.
+
+Most teams don't need to build their own database, their own auth system, or their own payment processor. AI inference routing is the same category of solved infrastructure problem.
+
+---
+
+*[Try Slancha free](/signup) — see routing decisions, cost tracking, and latency metrics on your actual traffic in under 5 minutes. No credit card required.*`,
+  },
+  {
     slug: 'ai-inference-optimization-qat-mig-multi-token',
     title: 'AI Inference Optimization: Complete Guide to QAT, MIG, and Multi-Token Prediction',
     date: '2026-03-31',
