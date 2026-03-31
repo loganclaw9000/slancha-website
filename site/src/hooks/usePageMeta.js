@@ -30,5 +30,12 @@ export default function usePageMeta({ title, description } = {}) {
 
     const twDesc = document.querySelector('meta[name="twitter:description"]');
     if (twDesc) twDesc.setAttribute('content', desc);
+
+    const currentUrl = `https://slancha.ai${window.location.pathname}`;
+    const ogUrl = document.querySelector('meta[property="og:url"]');
+    if (ogUrl) ogUrl.setAttribute('content', currentUrl);
+
+    const canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) canonical.setAttribute('href', currentUrl);
   }, [title, description]);
 }
