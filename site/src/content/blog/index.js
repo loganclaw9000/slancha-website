@@ -4245,7 +4245,7 @@ No infrastructure to manage. No eval pipelines to build. No fine-tuning schedule
 *Building a self-improving AI pipeline is a significant engineering investment — or one API call. [Try the closed-loop approach](/signup) and see your eval scores improve within a week.*`,
   },
   {
-      {
+    {
     slug: 'lora-fine-tuning-guide',
     title: 'The Complete Guide to LoRA Fine-Tuning: From Data Preparation to Production Deployment',
     date: '2026-03-31',
@@ -4675,13 +4675,14 @@ With the right approach, LoRA makes fine-tuning accessible to teams that don't h
 
 *Ready to fine-tune without the infrastructure? [Apply for Slancha's pilot](/contact) — we'll set up your first LoRA fine-tuning in a 30-minute onboarding call.*`,
   },
-slug: 'ai-inference-cost-optimization-cfo-guide',
+  {
+    slug: 'ai-inference-cost-optimization-cfo-guide',
     title: 'AI Inference Cost Optimization: A CFO\'s Guide to GPU Economics',
     date: '2026-03-31',
     author: 'Slancha Team',
     excerpt: 'Your API bill went from $5K to $47K in six months. This guide gives CFOs and finance leaders the TCO breakdown, build vs. buy analysis, and ROI framework they need to make the right inference infrastructure decision — no technical jargon.',
     tags: ['cost-optimization', 'CFO', 'ROI', 'TCO', 'build-vs-buy', 'enterprise', 'economics'],
-    body: \`Your API bill went from $5,000/month to $47,000/month in six months. Your ML team says "optimization is hard," but you need answers for the board. This isn't about "AI being expensive." It's about **inefficient inference infrastructure**.
+    body: `Your API bill went from $5,000/month to $47,000/month in six months. Your ML team says "optimization is hard," but you need answers for the board. This isn't about "AI being expensive." It's about **inefficient inference infrastructure**.
 
 ## Who This Is For
 
@@ -4881,6 +4882,6 @@ The black box platform looks expensive per-token, but the **TCO is 18% lower** t
 
 ---
 
-*AI inference optimization isn't a technical problem. It's an economic decision. At most scales, you're paying engineers to solve problems platforms already solved. [Start your free pilot](/signup) and see the TCO difference in your first month.*\`,
+*AI inference optimization isn't a technical problem. It's an economic decision. At most scales, you're paying engineers to solve problems platforms already solved. [Start your free pilot](/signup) and see the TCO difference in your first month.*`,
   },
 ];

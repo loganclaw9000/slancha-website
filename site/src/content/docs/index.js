@@ -2213,6 +2213,561 @@ After migrating, verify your integration:
 Our team can help with complex migrations involving custom models, fine-tuned weights, or enterprise deployments.`,
   },
   {
+    slug: 'webhooks',
+    title: 'Webhooks & Events',
+    section: 'API',
+    order: 7.5,
+    body: `# Webhooks & Events
+
+Slancha sends webhook notifications when key events happen in your pipeline — evaluations complete, fine-tuning finishes, deployments change state, and models auto-promote. Use webhooks to trigger downstream workflows without polling.
+
+## Registering a Webhook
+
+\`\`\`bash
+curl https://api.slancha.ai/v1/webhooks \\
+  -H "Authorization: Bearer sk-sl_your_key_here" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "url": "https://your-app.com/slancha-webhook",
+    "events": ["evaluation.completed", "fine_tuning.completed"],
+    "secret": "whsec_your_signing_secret"
+  }'
+\`\`\`
+
+**Parameters:**
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| url | string | Yes | HTTPS endpoint that receives POST requests |
+| events | array | Yes | Event types to subscribe to (see below) |
+| secret | string | No | Signing secret for payload verification. If omitted, Slancha generates one |
+| description | string | No | Human-readable label for this webhook |
+| active | boolean | No | Whether the webhook is enabled. Default: true |
+
+**Response:**
+
+\`\`\`json
+{
+  "id": "whk_abc123",
+  "url": "https://your-app.com/slancha-webhook",
+  "events": ["evaluation.completed", "fine_tuning.completed"],
+  "secret": "whsec_abc123xyz",
+  "active": true,
+  "created_at": "2026-03-31T12:00:00Z"
+}
+\`\`\`
+
+---
+
+## Event Types
+
+| Event | Trigger |
+|-------|---------|
+| \`evaluation.completed\` | An evaluation run finishes successfully with scores |
+| \`evaluation.failed\` | An evaluation run fails (timeout, invalid dataset, model error) |
+| \`fine_tuning.started\` | A fine-tuning job begins training |
+| \`fine_tuning.completed\` | A fine-tuning job finishes and the model is ready |
+| \`fine_tuning.failed\` | A fine-tuning job fails (OOM, data error, training divergence) |
+| \`deployment.ready\` | A deployment is live and serving traffic |
+| \`deployment.unhealthy\` | A deployment fails health checks (latency spike, error rate) |
+| \`deployment.scaled\` | A deployment auto-scales up or down |
+| \`auto_promote.triggered\` | A fine-tuned model automatically promoted to production based on eval scores |
+
+Use \`["*"]\` to subscribe to all event types.
+
+---
+
+## Payload Format
+
+Every webhook delivery is a POST request with a JSON body. All payloads share this envelope:
+
+\`\`\`json
+{
+  "id": "evt_abc123",
+  "type": "evaluation.completed",
+  "created_at": "2026-03-31T14:30:00Z",
+  "api_version": "2026-03-01",
+  "data": { ... }
+}
+\`\`\`
+
+| Field | Description |
+|-------|-------------|
+| id | Unique event ID. Use this for idempotency checks |
+| type | Event type string |
+| created_at | ISO 8601 timestamp |
+| api_version | API version the payload conforms to |
+| data | Event-specific payload (see below) |
+
+---
+
+### evaluation.completed
+
+\`\`\`json
+{
+  "id": "evt_eval_001",
+  "type": "evaluation.completed",
+  "created_at": "2026-03-31T14:30:00Z",
+  "api_version": "2026-03-01",
+  "data": {
+    "evaluation_id": "eval-abc123",
+    "name": "support-bot-v2-eval",
+    "dataset_id": "ds-xyz789",
+    "models": [
+      {
+        "model": "gpt-4o",
+        "scores": { "accuracy": 0.921, "latency_p50_ms": 320, "cost_per_1k": 0.045 }
+      },
+      {
+        "model": "llama-3.1-70b",
+        "scores": { "accuracy": 0.894, "latency_p50_ms": 180, "cost_per_1k": 0.012 }
+      }
+    ],
+    "winner": "gpt-4o",
+    "duration_seconds": 142,
+    "sample_count": 500
+  }
+}
+\`\`\`
+
+### evaluation.failed
+
+\`\`\`json
+{
+  "id": "evt_eval_002",
+  "type": "evaluation.failed",
+  "created_at": "2026-03-31T15:00:00Z",
+  "api_version": "2026-03-01",
+  "data": {
+    "evaluation_id": "eval-def456",
+    "name": "code-gen-nightly",
+    "error": {
+      "code": "DATASET_INVALID",
+      "message": "Dataset ds-bad789 contains 3 rows with missing 'expected' field",
+      "details": { "invalid_rows": [12, 45, 89] }
+    }
+  }
+}
+\`\`\`
+
+### fine_tuning.started
+
+\`\`\`json
+{
+  "id": "evt_ft_001",
+  "type": "fine_tuning.started",
+  "created_at": "2026-03-31T16:00:00Z",
+  "api_version": "2026-03-01",
+  "data": {
+    "job_id": "ft-abc123",
+    "base_model": "llama-3.1-8b",
+    "dataset_id": "ds-train456",
+    "training_samples": 2400,
+    "estimated_duration_minutes": 45,
+    "hyperparameters": {
+      "epochs": 3,
+      "learning_rate": 2e-5,
+      "lora_rank": 16,
+      "lora_alpha": 32
+    }
+  }
+}
+\`\`\`
+
+### fine_tuning.completed
+
+\`\`\`json
+{
+  "id": "evt_ft_002",
+  "type": "fine_tuning.completed",
+  "created_at": "2026-03-31T16:45:00Z",
+  "api_version": "2026-03-01",
+  "data": {
+    "job_id": "ft-abc123",
+    "base_model": "llama-3.1-8b",
+    "fine_tuned_model": "ft:llama-3.1-8b:acme:support-v2:abc123",
+    "training_samples": 2400,
+    "duration_seconds": 2640,
+    "final_loss": 0.342,
+    "eval_scores": {
+      "accuracy": 0.948,
+      "improvement_over_base": "+5.4%"
+    }
+  }
+}
+\`\`\`
+
+### fine_tuning.failed
+
+\`\`\`json
+{
+  "id": "evt_ft_003",
+  "type": "fine_tuning.failed",
+  "created_at": "2026-03-31T17:00:00Z",
+  "api_version": "2026-03-01",
+  "data": {
+    "job_id": "ft-def456",
+    "base_model": "qwen-2.5-7b",
+    "error": {
+      "code": "TRAINING_DIVERGED",
+      "message": "Loss exceeded threshold at epoch 2 (loss: 4.21, threshold: 3.0)",
+      "suggestion": "Reduce learning rate or increase training data volume"
+    }
+  }
+}
+\`\`\`
+
+### deployment.ready
+
+\`\`\`json
+{
+  "id": "evt_dep_001",
+  "type": "deployment.ready",
+  "created_at": "2026-03-31T17:30:00Z",
+  "api_version": "2026-03-01",
+  "data": {
+    "deployment_id": "dep-abc123",
+    "name": "support-bot-prod",
+    "model": "ft:llama-3.1-8b:acme:support-v2:abc123",
+    "replicas": 2,
+    "gpu_type": "B200",
+    "mig_partition": "3g.40gb",
+    "endpoint": "https://api.slancha.ai/v1/deployments/dep-abc123/infer",
+    "health_check_url": "https://api.slancha.ai/v1/deployments/dep-abc123/health"
+  }
+}
+\`\`\`
+
+### deployment.unhealthy
+
+\`\`\`json
+{
+  "id": "evt_dep_002",
+  "type": "deployment.unhealthy",
+  "created_at": "2026-03-31T18:00:00Z",
+  "api_version": "2026-03-01",
+  "data": {
+    "deployment_id": "dep-abc123",
+    "name": "support-bot-prod",
+    "issue": {
+      "type": "LATENCY_SPIKE",
+      "p99_latency_ms": 4200,
+      "threshold_ms": 2000,
+      "error_rate": 0.02,
+      "since": "2026-03-31T17:55:00Z"
+    },
+    "action_taken": "Traffic rerouted to fallback model (llama-3.1-70b)"
+  }
+}
+\`\`\`
+
+### deployment.scaled
+
+\`\`\`json
+{
+  "id": "evt_dep_003",
+  "type": "deployment.scaled",
+  "created_at": "2026-03-31T19:00:00Z",
+  "api_version": "2026-03-01",
+  "data": {
+    "deployment_id": "dep-abc123",
+    "name": "support-bot-prod",
+    "previous_replicas": 2,
+    "new_replicas": 4,
+    "reason": "Request queue depth exceeded threshold (150 > 100)",
+    "estimated_cost_change": "+$0.12/hr"
+  }
+}
+\`\`\`
+
+### auto_promote.triggered
+
+\`\`\`json
+{
+  "id": "evt_ap_001",
+  "type": "auto_promote.triggered",
+  "created_at": "2026-03-31T20:00:00Z",
+  "api_version": "2026-03-01",
+  "data": {
+    "fine_tuned_model": "ft:llama-3.1-8b:acme:support-v3:def456",
+    "previous_model": "ft:llama-3.1-8b:acme:support-v2:abc123",
+    "deployment_id": "dep-abc123",
+    "promotion_reason": "Eval scores exceeded threshold",
+    "eval_comparison": {
+      "accuracy": { "previous": 0.948, "new": 0.962 },
+      "latency_p50_ms": { "previous": 48, "new": 45 },
+      "cost_per_1k": { "previous": 0.008, "new": 0.008 }
+    },
+    "rollback_window_hours": 24
+  }
+}
+\`\`\`
+
+---
+
+## Verifying Webhook Signatures
+
+Every webhook request includes a signature header so you can verify it came from Slancha. The signature uses HMAC-SHA256 with the signing secret from your webhook registration.
+
+**Headers sent with every delivery:**
+
+| Header | Description |
+|--------|-------------|
+| \`X-Slancha-Signature\` | HMAC-SHA256 hex digest of the raw request body |
+| \`X-Slancha-Event\` | Event type (e.g., \`evaluation.completed\`) |
+| \`X-Slancha-Delivery\` | Unique delivery ID for this attempt |
+| \`X-Slancha-Timestamp\` | Unix timestamp of when the request was sent |
+
+**Verification algorithm:**
+
+1. Concatenate the timestamp and raw body: \`{timestamp}.{body}\`
+2. Compute HMAC-SHA256 using your webhook secret as the key
+3. Compare the hex digest with the \`X-Slancha-Signature\` header
+4. Reject if the timestamp is more than 5 minutes old (replay protection)
+
+### Python
+
+\`\`\`python
+import hmac
+import hashlib
+import time
+
+def verify_webhook(request, secret):
+    signature = request.headers.get("X-Slancha-Signature")
+    timestamp = request.headers.get("X-Slancha-Timestamp")
+    body = request.get_data(as_text=True)
+
+    # Replay protection
+    if abs(time.time() - int(timestamp)) > 300:
+        return False
+
+    expected = hmac.new(
+        secret.encode(),
+        f"{timestamp}.{body}".encode(),
+        hashlib.sha256
+    ).hexdigest()
+
+    return hmac.compare_digest(signature, expected)
+\`\`\`
+
+### TypeScript / Node.js
+
+\`\`\`typescript
+import crypto from 'crypto';
+
+function verifyWebhook(req: Request, secret: string): boolean {
+  const signature = req.headers['x-slancha-signature'] as string;
+  const timestamp = req.headers['x-slancha-timestamp'] as string;
+  const body = req.body;
+
+  // Replay protection
+  if (Math.abs(Date.now() / 1000 - parseInt(timestamp)) > 300) {
+    return false;
+  }
+
+  const expected = crypto
+    .createHmac('sha256', secret)
+    .update(\`\${timestamp}.\${body}\`)
+    .digest('hex');
+
+  return crypto.timingSafeEqual(
+    Buffer.from(signature),
+    Buffer.from(expected)
+  );
+}
+\`\`\`
+
+---
+
+## Retry Policy
+
+If your endpoint returns a non-2xx status code or times out, Slancha retries with exponential backoff:
+
+| Attempt | Delay | Total elapsed |
+|---------|-------|--------------|
+| 1st retry | 30 seconds | 30s |
+| 2nd retry | 2 minutes | 2.5 min |
+| 3rd retry | 10 minutes | 12.5 min |
+| 4th retry | 30 minutes | 42.5 min |
+| 5th retry | 2 hours | 2h 42min |
+
+After 5 failed retries, the delivery is marked as failed. Failed deliveries are visible in your dashboard under **Webhooks → Delivery Log**.
+
+**Timeout:** Your endpoint must respond within **30 seconds**. For long-running workflows, return \`200\` immediately and process asynchronously.
+
+**Idempotency:** Deliveries may arrive more than once. Use the \`id\` field in the event payload to deduplicate.
+
+---
+
+## Example: Full Webhook Handler
+
+### Python (Flask)
+
+\`\`\`python
+from flask import Flask, request, jsonify
+import hmac, hashlib, time
+
+app = Flask(__name__)
+WEBHOOK_SECRET = "whsec_your_signing_secret"
+
+@app.route("/slancha-webhook", methods=["POST"])
+def handle_webhook():
+    # 1. Verify signature
+    sig = request.headers.get("X-Slancha-Signature")
+    ts = request.headers.get("X-Slancha-Timestamp")
+    body = request.get_data(as_text=True)
+
+    if abs(time.time() - int(ts)) > 300:
+        return jsonify({"error": "stale timestamp"}), 401
+
+    expected = hmac.new(
+        WEBHOOK_SECRET.encode(),
+        f"{ts}.{body}".encode(),
+        hashlib.sha256
+    ).hexdigest()
+
+    if not hmac.compare_digest(sig, expected):
+        return jsonify({"error": "invalid signature"}), 401
+
+    # 2. Parse event
+    event = request.json
+    event_type = event["type"]
+    data = event["data"]
+
+    # 3. Handle by type
+    if event_type == "evaluation.completed":
+        winner = data["winner"]
+        print(f"Eval done — winner: {winner}")
+        # Trigger deployment pipeline
+
+    elif event_type == "fine_tuning.completed":
+        model = data["fine_tuned_model"]
+        print(f"Fine-tuning done — model: {model}")
+        # Run eval suite on new model
+
+    elif event_type == "deployment.unhealthy":
+        print(f"Alert: {data['name']} is unhealthy — {data['issue']['type']}")
+        # Page oncall, open incident
+
+    elif event_type == "auto_promote.triggered":
+        print(f"Auto-promoted: {data['fine_tuned_model']}")
+        # Log promotion, notify team
+
+    return jsonify({"received": True}), 200
+\`\`\`
+
+### TypeScript (Express)
+
+\`\`\`typescript
+import express from 'express';
+import crypto from 'crypto';
+
+const app = express();
+app.use(express.json({ verify: (req, res, buf) => { req.rawBody = buf; } }));
+
+const WEBHOOK_SECRET = 'whsec_your_signing_secret';
+
+app.post('/slancha-webhook', (req, res) => {
+  const sig = req.headers['x-slancha-signature'] as string;
+  const ts = req.headers['x-slancha-timestamp'] as string;
+  const body = req.rawBody.toString();
+
+  if (Math.abs(Date.now() / 1000 - parseInt(ts)) > 300) {
+    return res.status(401).json({ error: 'stale timestamp' });
+  }
+
+  const expected = crypto
+    .createHmac('sha256', WEBHOOK_SECRET)
+    .update(\`\${ts}.\${body}\`)
+    .digest('hex');
+
+  if (!crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(expected))) {
+    return res.status(401).json({ error: 'invalid signature' });
+  }
+
+  const { type, data } = req.body;
+
+  switch (type) {
+    case 'evaluation.completed':
+      console.log(\`Eval done — winner: \${data.winner}\`);
+      break;
+    case 'fine_tuning.completed':
+      console.log(\`Fine-tuning done — model: \${data.fine_tuned_model}\`);
+      break;
+    case 'deployment.unhealthy':
+      console.log(\`Alert: \${data.name} unhealthy — \${data.issue.type}\`);
+      break;
+    case 'auto_promote.triggered':
+      console.log(\`Auto-promoted: \${data.fine_tuned_model}\`);
+      break;
+  }
+
+  res.json({ received: true });
+});
+
+app.listen(3000);
+\`\`\`
+
+---
+
+## Managing Webhooks
+
+### List Webhooks
+
+\`\`\`bash
+curl https://api.slancha.ai/v1/webhooks \\
+  -H "Authorization: Bearer sk-sl_your_key_here"
+\`\`\`
+
+### Update a Webhook
+
+\`\`\`bash
+curl -X PATCH https://api.slancha.ai/v1/webhooks/whk_abc123 \\
+  -H "Authorization: Bearer sk-sl_your_key_here" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "events": ["evaluation.completed", "auto_promote.triggered"],
+    "active": true
+  }'
+\`\`\`
+
+### Delete a Webhook
+
+\`\`\`bash
+curl -X DELETE https://api.slancha.ai/v1/webhooks/whk_abc123 \\
+  -H "Authorization: Bearer sk-sl_your_key_here"
+\`\`\`
+
+### Test a Webhook
+
+Send a test event to verify your endpoint is receiving and processing correctly:
+
+\`\`\`bash
+curl -X POST https://api.slancha.ai/v1/webhooks/whk_abc123/test \\
+  -H "Authorization: Bearer sk-sl_your_key_here" \\
+  -H "Content-Type: application/json" \\
+  -d '{ "event_type": "evaluation.completed" }'
+\`\`\`
+
+---
+
+## Best Practices
+
+- **Respond quickly.** Return \`200\` within 30 seconds and process asynchronously. Long-running handlers will time out and trigger retries.
+- **Implement idempotency.** Store processed event IDs and skip duplicates. Retries and network issues can cause repeated deliveries.
+- **Verify signatures.** Always validate the \`X-Slancha-Signature\` header before processing. This prevents spoofed requests.
+- **Use specific events.** Subscribe only to events you handle. Subscribing to \`["*"]\` creates unnecessary load.
+- **Monitor delivery health.** Check your webhook delivery log in the dashboard. If success rate drops below 95%, investigate your endpoint.
+- **Handle unknown events gracefully.** New event types may be added. Return \`200\` for unrecognized types instead of erroring.
+
+## Related
+
+- [API Reference](/docs/api-reference) — full endpoint docs including webhook registration
+- [Dashboard Webhooks](/dashboard/webhooks) — manage webhooks and view delivery logs
+- [Evaluations](/docs/evaluations) — understand eval events
+- [Deployments](/docs/deployments) — understand deployment lifecycle events`,
+  },
+  {
     slug: 'tutorial-support-bot',
     title: 'Build a Customer Support Bot',
     section: 'Tutorials',
