@@ -2554,7 +2554,7 @@ That's not a nice-to-have. That's your competition pulling ahead while you're co
 
 ---
 
-*Want to see this in practice? [Apply for the Slancha pilot](/contact) — we'll instrument your first connected eval-deploy-post-train cycle.*`,
+*Want to see this in practice? [Apply for the Slancha pilot](/contact) — we'll instrument your first connected route-analyze-fine-tune-optimize cycle.*`,
   },
   {
     slug: 'the-real-cost-of-stitching-ai-tools-together',

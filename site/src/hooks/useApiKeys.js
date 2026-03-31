@@ -68,7 +68,7 @@ export function useApiKeys() {
       if (fetchError) throw fetchError;
       setKeys(data || []);
     } catch (err) {
-      console.error('Failed to fetch API keys:', err);
+      if (import.meta.env.DEV) console.error('Failed to fetch API keys:', err);
       setError(err.message);
       setKeys([]);
     } finally {
@@ -117,7 +117,7 @@ export function useApiKeys() {
       setKeys(prev => [data, ...prev]);
       return { key: rawKey, data, error: null };
     } catch (err) {
-      console.error('Failed to create API key:', err);
+      if (import.meta.env.DEV) console.error('Failed to create API key:', err);
       return { key: null, data: null, error: err.message };
     }
   };
@@ -143,7 +143,7 @@ export function useApiKeys() {
       ));
       return { error: null };
     } catch (err) {
-      console.error('Failed to revoke API key:', err);
+      if (import.meta.env.DEV) console.error('Failed to revoke API key:', err);
       return { error: err.message };
     }
   };

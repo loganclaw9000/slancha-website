@@ -152,7 +152,7 @@ export async function handleCheckout(tierId, { interval = 'monthly', userId, ema
         }
       }
     } catch (err) {
-      console.warn('[stripe] Checkout session failed, falling back:', err.message);
+      if (import.meta.env.DEV) console.warn('[stripe] Checkout session failed, falling back:', err.message);
     }
   }
 

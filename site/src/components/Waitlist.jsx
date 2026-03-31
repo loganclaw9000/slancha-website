@@ -35,7 +35,7 @@ export default function Waitlist() {
         trackWaitlistJoined(email.split('@')[1] || 'unknown');
       }
     } catch (err) {
-      console.error('Waitlist error:', err);
+      if (import.meta.env.DEV) console.error('Waitlist error:', err);
       setStatus('error');
       setErrorMsg('Something went wrong. Try again or email us directly.');
     }

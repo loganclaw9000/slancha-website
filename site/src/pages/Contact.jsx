@@ -85,7 +85,7 @@ export default function Contact() {
       trackCtaClick('contact_form_submit', 'contact_page');
       setStatus('success');
     } catch (err) {
-      console.error('Contact form submission failed:', err);
+      if (import.meta.env.DEV) console.error('Contact form submission failed:', err);
       // If Supabase isn't configured or table doesn't exist, fall back to mailto
       if (err.message?.includes('placeholder') || err.code === '42P01' || err.message?.includes('relation')) {
         fallbackMailto();

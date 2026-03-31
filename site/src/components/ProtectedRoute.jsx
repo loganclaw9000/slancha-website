@@ -7,8 +7,9 @@ export default function ProtectedRoute({ children }) {
 
   if (loading) {
     return (
-      <div className="auth-loading">
-        <div className="auth-spinner" />
+      <div className="auth-loading" role="status" aria-label="Authenticating">
+        <div className="auth-spinner" aria-hidden="true" />
+        <span className="sr-only">Checking authentication…</span>
       </div>
     );
   }

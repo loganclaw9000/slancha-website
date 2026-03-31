@@ -61,7 +61,7 @@ async function fetchRequestLogs({ endpointFilter, statusFilter, dateRange }) {
   const { data, error } = await query;
 
   if (error) {
-    console.warn('Supabase request_logs query failed (table may not exist yet):', error.message);
+    if (import.meta.env.DEV) console.warn('Supabase request_logs query failed (table may not exist yet):', error.message);
     return null;
   }
 
@@ -215,7 +215,7 @@ export default function RequestLogs() {
         setLogs(data);
       }
     } catch (err) {
-      console.error('Failed to fetch request logs:', err);
+      if (import.meta.env.DEV) console.error('Failed to fetch request logs:', err);
       setError('Failed to load logs. Using demo data.');
       setLogs(DEMO_LOGS);
     } finally {
