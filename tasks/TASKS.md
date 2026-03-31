@@ -16,6 +16,13 @@ Tasks are assigned to agents using owner tags:
   - Priority: CRITICAL (blocking operations)
   - Timestamp: 1743447240
 
+[ ] Review InferenceLabs Google Doc [owner:me]
+  - Source: Paul Logan shared (Mar 7)
+  - Context: Google Doc shared with you, pre-launch positioning context
+  - Action: Read and extract relevant Slancha context
+  - Priority: Medium (pre-launch intel)
+  - Timestamp: 1743438720
+
 [ ] Pilot onboarding follow-up [owner:me]
   - From: Slancha team (pilot-program@slancha.ai)
   - Subject: Pilot Onboarding - Next Steps for Q2

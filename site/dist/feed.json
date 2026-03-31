@@ -367,6 +367,26 @@
         "security",
         "migration"
       ]
+    },
+    {
+      "id": "https://slancha.ai/blog/how-to-build-a-self-improving-ai-pipeline",
+      "url": "https://slancha.ai/blog/how-to-build-a-self-improving-ai-pipeline",
+      "title": "How to Build a Self-Improving AI Pipeline (Eval → Fine-Tune → Deploy Loop)",
+      "summary": "Most AI pipelines are static: deploy a model, hope it works, manually retrain when it drifts. Here's how to build a pipeline that evaluates, fine-tunes, and redeploys automatically — closing the loop so your models get better with every request.",
+      "date_published": "2026-03-31T00:00:00.000Z",
+      "authors": [
+        {
+          "name": "Slancha Engineering"
+        }
+      ],
+      "tags": [
+        "pipeline",
+        "fine-tuning",
+        "evaluation",
+        "automation",
+        "MLOps",
+        "closed-loop"
+      ]
     }
   ]
 }

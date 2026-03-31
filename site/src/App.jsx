@@ -28,6 +28,7 @@ const Evaluations = lazy(() => import('./components/dashboard/Evaluations'));
 const FineTuning = lazy(() => import('./components/dashboard/FineTuning'));
 const Optimization = lazy(() => import('./components/dashboard/Optimization'));
 const TeamManagement = lazy(() => import('./components/dashboard/TeamManagement'));
+const Deployments = lazy(() => import('./components/dashboard/Deployments'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 const Blog = lazy(() => import('./pages/Blog'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
@@ -125,6 +126,7 @@ const App = () => (
             <Route path="fine-tuning" element={<FineTuning />} />
             <Route path="optimization" element={<Optimization />} />
             <Route path="team" element={<TeamManagement />} />
+            <Route path="deployments" element={<Deployments />} />
             <Route path="webhooks" element={<Webhooks />} />
             <Route path="settings" element={<AccountSettings />} />
           </Route>

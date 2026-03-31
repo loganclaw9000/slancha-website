@@ -5,7 +5,7 @@
     <link>https://slancha.ai/blog</link>
     <description>Technical deep dives, tutorials, and insights on AI engineering: model evaluation, deployment strategies, fine-tuning pipelines, and the eval-deploy-train loop.</description>
     <language>en-us</language>
-    <lastBuildDate>Tue, 31 Mar 2026 11:28:05 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 31 Mar 2026 11:46:29 GMT</lastBuildDate>
     <atom:link href="https://slancha.ai/rss.xml" rel="self" type="application/rss+xml" />
     <image>
       <url>https://slancha.ai/favicon.svg</url>
@@ -252,6 +252,20 @@
       <category>TCO</category>
       <category>security</category>
       <category>migration</category>
+    </item>
+    <item>
+      <title>How to Build a Self-Improving AI Pipeline (Eval → Fine-Tune → Deploy Loop)</title>
+      <link>https://slancha.ai/blog/how-to-build-a-self-improving-ai-pipeline</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/how-to-build-a-self-improving-ai-pipeline</guid>
+      <description>Most AI pipelines are static: deploy a model, hope it works, manually retrain when it drifts. Here&apos;s how to build a pipeline that evaluates, fine-tunes, and redeploys automatically — closing the loop so your models get better with every request.</description>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate>
+      <author>team@slancha.ai (Slancha Engineering)</author>
+      <category>pipeline</category>
+      <category>fine-tuning</category>
+      <category>evaluation</category>
+      <category>automation</category>
+      <category>MLOps</category>
+      <category>closed-loop</category>
     </item>
   </channel>
 </rss>
