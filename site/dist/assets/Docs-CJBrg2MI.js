@@ -1,4 +1,4 @@
-import{a as c,u,j as e,b as d,N as p,L as m,F as h}from"./index-d1QLyhJT.js";import{M as y}from"./index-D_H5imid.js";const r=[{slug:"getting-started",title:"Getting Started",section:"Introduction",order:1,body:`# Getting Started with Slancha
+import{f as c,u,j as e,g as d,N as p,L as m,F as h}from"./index-PBUS0op2.js";import{M as y}from"./index-d3_IRjXw.js";const r=[{slug:"getting-started",title:"Getting Started",section:"Introduction",order:1,body:`# Getting Started with Slancha
 
 Welcome to Slancha — the platform that closes the AI engineering loop.
 
