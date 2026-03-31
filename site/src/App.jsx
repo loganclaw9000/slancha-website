@@ -36,6 +36,7 @@ const Playground = lazy(() => import('./pages/Playground'));
 const Enterprise = lazy(() => import('./pages/Enterprise'));
 const Terms = lazy(() => import('./pages/Terms'));
 const Privacy = lazy(() => import('./pages/Privacy'));
+const Security = lazy(() => import('./pages/Security'));
 
 function Loading() {
   return (
@@ -75,6 +76,7 @@ const App = () => (
           <Route path="/enterprise" element={<Enterprise />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/privacy" element={<Privacy />} />
+          <Route path="/security" element={<Security />} />
 
           {/* Auth */}
           <Route path="/login" element={<Login />} />

@@ -144,7 +144,7 @@ export default function Enterprise() {
         {/* Security & Compliance */}
         <section className="enterprise-security">
           <h2>Security & compliance</h2>
-          <p>We take security seriously so you can focus on building.</p>
+          <p>We take security seriously so you can focus on building. <Link to="/security" className="enterprise-security-link">Visit our Trust Center &rarr;</Link></p>
           <div className="enterprise-security-grid">
             {securityItems.map((item, i) => (
               <div className="enterprise-security-item" key={i}>
