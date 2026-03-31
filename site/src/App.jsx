@@ -33,6 +33,7 @@ const Integrations = lazy(() => import('./pages/Integrations'));
 const RoiCalculator = lazy(() => import('./pages/RoiCalculator'));
 const Changelog = lazy(() => import('./pages/Changelog'));
 const Playground = lazy(() => import('./pages/Playground'));
+const Enterprise = lazy(() => import('./pages/Enterprise'));
 const Terms = lazy(() => import('./pages/Terms'));
 const Privacy = lazy(() => import('./pages/Privacy'));
 
@@ -71,6 +72,7 @@ const App = () => (
           <Route path="/roi-calculator" element={<RoiCalculator />} />
           <Route path="/changelog" element={<Changelog />} />
           <Route path="/playground" element={<Playground />} />
+          <Route path="/enterprise" element={<Enterprise />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/privacy" element={<Privacy />} />
 

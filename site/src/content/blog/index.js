@@ -1,5 +1,218 @@
 export const posts = [
   {
+    slug: 'slancha-vs-databricks-ai-infrastructure-comparison',
+    title: 'Slancha vs. Databricks: The AI Infrastructure Showdown',
+    date: '2026-03-31',
+    author: 'Slancha Team',
+    excerpt: 'Databricks gives you the tools. Slancha does the work. A detailed comparison of two fundamentally different approaches to AI infrastructure — full control vs. automatic results.',
+    tags: ['comparison', 'infrastructure', 'enterprise'],
+    body: `## The Quick Answer
+
+**Databricks** is a general-purpose AI platform for building, training, and deploying ML models at enterprise scale. It's powerful, flexible, and requires a dedicated ML team to operate.
+
+**Slancha** is a black-box AI inference platform that gives you a single API endpoint. Behind it, we route, analyze, fine-tune, optimize, and redeploy automatically. You get better, faster, cheaper inference without making any technical decisions.
+
+**Choose Databricks if:** You have a sophisticated ML engineering team, you need full control over your infrastructure, and you're building custom ML workflows that require extensive customization.
+
+**Choose Slancha if:** You're using LLM APIs, you want to reduce cost and improve performance, and you don't want to build or manage ML infrastructure.
+
+---
+
+## The Fundamental Difference
+
+### Databricks: The Full Control Platform
+
+Databricks is built for teams that want to own their entire ML stack. You get model training infrastructure (Spark-based distributed training), model registry and versioning, MLOps pipelines for deployment, custom infrastructure configuration, and full visibility into every layer of the stack.
+
+But "full control" means you're the one making decisions. You select models. You configure fine-tuning. You manage deployment. You optimize inference. You hire the team that knows how to do all of this.
+
+### Slancha: The Black Box Platform
+
+Slancha is built for teams that want results without the work. A single API endpoint, automatic model routing, continuous task analysis, automated fine-tuning, inference optimization (quantization, MIG, multi-token prediction), and automatic model upgrades. The loop closes automatically: route → analyze → fine-tune → optimize → redeploy.
+
+---
+
+## Feature Comparison
+
+| Feature | Databricks | Slancha |
+|---------|------------|---------|
+| **Unified API endpoint** | Yes (but you configure it) | Yes (plug and play) |
+| **Model selection** | Your choice (or bring your own) | Ours (automatic) |
+| **Model routing** | Manual configuration | Automatic, continuous |
+| **Task analysis** | No (you build it) | Yes (built-in) |
+| **Fine-tuning** | You run the jobs | Yes (automatic) |
+| **Inference optimization** | Manual (you configure) | Yes (automatic) |
+| **Quantization** | You enable it | Yes (QAT, 4-bit) |
+| **GPU partitioning (MIG)** | You configure | Yes (automatic) |
+| **ML expertise required** | High | None |
+| **Team size** | 5-10+ ML engineers | 0 |
+| **Time to production** | Weeks to months | Hours to days |
+
+---
+
+## Cost Comparison
+
+### Databricks Pricing Model
+
+Databricks charges for compute clusters ($2-8/hour per node), storage, jobs runtime, serverless SQL per DBU, and enterprise support starting at ~$50K/year.
+
+**Hidden costs:** ML engineering salaries ($150K-300K/year per engineer), infrastructure management overhead, fine-tuning job costs (GPU hours), inference optimization effort, and model selection/benchmarking time.
+
+### Slancha Pricing Model
+
+Slancha charges per 1M tokens processed, with usage tiers based on monthly volume. No cluster overhead, no ML team required.
+
+**Savings:** 30-50% immediate cost reduction from model routing. Compounding savings from fine-tuned models. Zero infrastructure management. Zero ML team.
+
+**The reality:** A team using Databricks for LLM workloads typically needs 3-5 ML engineers. That's $500K-1.5M/year in salaries alone. Slancha eliminates that cost entirely.
+
+---
+
+## When Databricks Makes Sense
+
+1. **You have a sophisticated ML team** — 10+ ML engineers who know how to train, fine-tune, and deploy at scale
+2. **You need full infrastructure control** — on-prem deployment, custom hardware, specific compliance requirements
+3. **You're building custom ML workflows** — novel architectures, domain-specific pipelines
+4. **You have a long-term ML roadmap** — multi-year initiative with proprietary model development
+
+---
+
+## When Slancha Makes Sense
+
+1. **You're using LLM APIs today** — paying for OpenAI, Anthropic, or other frontier model APIs and frustrated by costs
+2. **You don't have an ML team** — application developers who know APIs but not fine-tuning
+3. **You want automatic improvements** — inference that gets better over time without action on your part
+4. **You need speed to production** — deploy LLM inference today, not in months
+
+---
+
+## Migration Path: From Databricks to Slancha
+
+**What you change:** Swap your Databricks endpoint for Slancha's single endpoint. Stop selecting models, running fine-tuning jobs, and managing serving infrastructure.
+
+**What stays the same:** Your application code (OpenAI-compatible API), your existing training data, your business logic.
+
+**Timeline:** 1 month — integrate in parallel (week 1), compare performance (week 2), gradual traffic shift (week 3), full migration (week 4).
+
+---
+
+## Bottom Line
+
+**Databricks** is for teams that want to build their own AI infrastructure — a platform for ML engineers who need full control and are willing to do the work.
+
+**Slancha** is for teams that want to use AI infrastructure without building it — a product for application developers who want results without the work.
+
+Choose based on what you actually need, not what sounds cool on a pitch deck.
+
+---
+
+*Need inference that just works? [Request a pilot](/contact) and see the difference.*`,
+  },
+  {
+    slug: 'from-prototype-to-production-ai-deployment-checklist',
+    title: 'From Prototype to Production: The AI Deployment Checklist',
+    date: '2026-03-30',
+    author: 'Slancha Team',
+    excerpt: 'Most AI projects that "work" in prototype never make it to production. This checklist covers what actually breaks and how to fix it — routing, data curation, quantization, GPU efficiency, and more.',
+    tags: ['production', 'deployment', 'checklist', 'engineering'],
+    body: `## The Gap Nobody Talks About
+
+You've trained your model. It works on your validation set. The accuracy looks good. So you deploy it to production, right?
+
+Wrong. Most AI projects that "work" in prototype never make it to production — not because the model is bad, but because teams don't understand what production actually requires. A notebook that returns the right answer when you click "run" is fundamentally different from a system that serves the right answer to 10,000 users simultaneously.
+
+---
+
+## 1. The Router Problem: You're Using the Wrong Model
+
+Most teams start with one model, then deploy that same model for everything. Customer support summarization, code generation, and marketing copy all hit the same model. Three different workloads, three different optimal models, three different cost profiles.
+
+**Production fix:** Implement model routing. A router that analyzes incoming requests and sends them to the appropriate model saves 30-50% on inference costs before you even fine-tune anything.
+
+**What to measure:** Average latency per task type, cost per request by task type, accuracy variance, router decision time (<1ms).
+
+---
+
+## 2. Data That Actually Matters
+
+Your model was trained on static data. But production doesn't stay static. Users ask questions you didn't predict. They push edge cases.
+
+**Production fix:** Curate training data from actual usage, not from a dataset you downloaded. The models that win in production are the ones that get fine-tuned on actual user requests.
+
+The loop: Route → Analyze task patterns → Curate training data → Fine-tune task-specific models → Optimize inference → Redeploy → Repeat.
+
+---
+
+## 3. Quantization: The 4x Memory Savings You're Ignoring
+
+A 7B parameter model at FP16 takes ~14GB for weights. A 70B model takes ~140GB. You're spending more on GPU memory than you need to.
+
+**Production fix:** Apply quantization-aware training (QAT). Train with quantization built in for 4-bit INT4/FP4 models that maintain accuracy but use 4x less memory. That's 4x the traffic on the same hardware.
+
+**What to measure:** Size before/after, accuracy drop (<1-2% with QAT), throughput improvement, memory usage under load.
+
+---
+
+## 4. GPU Efficiency: Stop Wasting Hardware
+
+You bought a B200 GPU for $30,000 with 192GB of memory. And you're running one model on it.
+
+**Production fix:** Use Multi-Instance GPU (MIG) to partition your GPU. Each instance gets dedicated compute, memory, and cache resources. Pack multiple fine-tuned models onto one GPU with hardware-level isolation.
+
+That B200 isn't $30,000 per model. It's $30,000 divided by however many models you can fit.
+
+---
+
+## 5. Multi-Token Prediction: Speed Up Without Training
+
+Standard autoregressive decoding predicts one token per forward pass. Multi-token prediction predicts multiple tokens per pass. Go from 1 to 4 tokens/pass and you've increased throughput by 4x without changing the model architecture.
+
+**What to measure:** Tokens per second before/after, quality degradation (negligible), memory impact per batch, latency distribution.
+
+---
+
+## 6. Latency Targets: Know Your SLA
+
+500ms average latency — is that good? Depends. User-facing chat? Terrible. Batch summarization overnight? Perfect.
+
+**Production fix:** Define latency SLAs for each workload and route accordingly. Real-time chat needs <200ms. Document summarization can take 2-3 seconds. Code generation might be fine at 500ms.
+
+**What to measure:** P50, P95, P99 latency per task type, SLA compliance rate, latency vs. cost tradeoffs.
+
+---
+
+## 7. The Upgrade Problem: Models Get Better Automatically
+
+Llama 3.2 drops with 15% better performance. Your customers expect that improvement. But you don't want to re-fine-tune everything manually.
+
+**Production fix:** Automate model upgrades. When a new architecture drops, re-fine-tune on your existing curated data. Customers get automatic improvements without any action on their part.
+
+---
+
+## 8. The Black Box Option: Do It All
+
+Building a production AI deployment system that routes, analyzes, fine-tunes, quantizes, partitions GPUs, and automatically upgrades is a full-time job for a team of ML engineers.
+
+**Production fix:** Use a platform that does this automatically. Slancha gives you a single API endpoint — automatic routing, continuous analysis, automated fine-tuning, quantization-aware serving, GPU partitioning, and model upgrades. The loop closes itself.
+
+---
+
+## Checklist Summary
+
+- [ ] Implement model routing based on task type
+- [ ] Set up task analysis and data curation pipeline
+- [ ] Apply quantization-aware training for 4-bit serving
+- [ ] Configure GPU partitioning (MIG) for efficiency
+- [ ] Enable multi-token prediction for throughput
+- [ ] Define latency SLAs per workload
+- [ ] Automate model upgrades
+- [ ] Evaluate platform vs. DIY for ongoing maintenance
+
+---
+
+*Need help deploying AI at scale? Slancha gives you all of this behind a single API endpoint. [Request a pilot](/contact).*`,
+  },
+  {
     slug: 'building-a-production-ai-router-architecture-patterns',
     title: 'Building a Production AI Router: Architecture Patterns That Scale',
     date: '2026-03-31',

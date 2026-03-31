@@ -21,6 +21,7 @@ export default function Footer() {
           </div>
           <div className="footer-col">
             <h4 className="footer-col-title">Company</h4>
+            <Link to="/enterprise" className="footer-link">Enterprise</Link>
             <Link to="/contact" className="footer-link">Contact</Link>
             <a href="mailto:contact@slancha.ai" className="footer-link">contact@slancha.ai</a>
           </div>

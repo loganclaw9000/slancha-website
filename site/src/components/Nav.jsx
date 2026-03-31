@@ -46,8 +46,9 @@ export default function Nav({ backLink = false }) {
         ) : (
           <div className="nav-links">
             <a href="/#how-it-works" className="nav-link">How It Works</a>
+            <Link to="/pricing" className="nav-link">Pricing</Link>
             <Link to="/docs" className="nav-link">Docs</Link>
-            <Link to="/blog" className="nav-link">Blog</Link>
+            <Link to="/enterprise" className="nav-link">Enterprise</Link>
             {user ? (
               <Link to="/dashboard" className="btn-primary btn-sm">Dashboard</Link>
             ) : (
@@ -67,8 +68,9 @@ export default function Nav({ backLink = false }) {
       {menuOpen && (
         <div className="nav-overlay" onClick={closeMenu}>
           <a href="/#how-it-works" className="nav-overlay-link" onClick={closeMenu}>How It Works</a>
+          <Link to="/pricing" className="nav-overlay-link" onClick={closeMenu}>Pricing</Link>
           <Link to="/docs" className="nav-overlay-link" onClick={closeMenu}>Docs</Link>
-          <Link to="/blog" className="nav-overlay-link" onClick={closeMenu}>Blog</Link>
+          <Link to="/enterprise" className="nav-overlay-link" onClick={closeMenu}>Enterprise</Link>
           {user ? (
             <>
               <Link to="/dashboard" className="nav-overlay-link" onClick={closeMenu}>Dashboard</Link>
