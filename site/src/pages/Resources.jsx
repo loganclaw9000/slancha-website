@@ -47,7 +47,7 @@ const resources = [
   {
     type: 'guides',
     title: 'Post-Training Guide',
-    description: 'How to use eval data to drive fine-tuning, auto-promote models, and close the eval-deploy-train loop.',
+    description: 'How Slancha automatically uses production data to drive fine-tuning, promote top-performing models, and continuously improve inference quality.',
     link: '/docs/post-training',
     date: '2026-03-30',
     tags: ['fine-tuning', 'training'],

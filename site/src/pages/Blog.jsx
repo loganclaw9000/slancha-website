@@ -24,7 +24,7 @@ function BlogJsonLd() {
     '@context': 'https://schema.org',
     '@type': 'Blog',
     name: 'Slancha Blog',
-    description: 'Technical deep dives, tutorials, and insights on AI engineering: model evaluation, deployment strategies, fine-tuning pipelines, and the eval-deploy-train loop.',
+    description: 'Technical deep dives, tutorials, and insights on AI engineering: intelligent routing, automated fine-tuning, inference optimization, and cost reduction.',
     url: 'https://slancha.ai/blog',
     publisher: {
       '@type': 'Organization',
@@ -75,7 +75,7 @@ export default function Blog() {
   const featured = filteredPosts[0];
   const rest = filteredPosts.slice(1);
 
-  usePageMeta({ title: 'Blog', description: 'Technical deep dives, tutorials, and insights on AI engineering: model evaluation, deployment strategies, fine-tuning pipelines, and the eval-deploy-train loop.' });
+  usePageMeta({ title: 'Blog', description: 'Technical deep dives, tutorials, and insights on AI engineering: intelligent routing, automated fine-tuning, inference optimization, and cost reduction.' });
   return (
     <div className="page">
       <BlogJsonLd />
