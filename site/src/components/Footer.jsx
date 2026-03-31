@@ -14,20 +14,30 @@ export default function Footer() {
           <div className="footer-col">
             <h4 className="footer-col-title">Product</h4>
             <Link to="/pricing" className="footer-link">Pricing</Link>
+            <Link to="/integrations" className="footer-link">Integrations</Link>
+            <Link to="/playground" className="footer-link">API Playground</Link>
             <Link to="/roi-calculator" className="footer-link">ROI Calculator</Link>
-            <Link to="/docs" className="footer-link">Docs</Link>
-            <Link to="/blog" className="footer-link">Blog</Link>
             <Link to="/changelog" className="footer-link">Changelog</Link>
+            <Link to="/security" className="footer-link">Security</Link>
+          </div>
+          <div className="footer-col">
+            <h4 className="footer-col-title">Solutions</h4>
+            <Link to="/use-cases" className="footer-link">Use Cases</Link>
+            <Link to="/case-studies" className="footer-link">Case Studies</Link>
+            <Link to="/enterprise" className="footer-link">Enterprise</Link>
+            <Link to="/vs-competitors" className="footer-link">Compare</Link>
+          </div>
+          <div className="footer-col">
+            <h4 className="footer-col-title">Developers</h4>
+            <Link to="/docs" className="footer-link">Documentation</Link>
+            <Link to="/docs/quickstart" className="footer-link">Quickstart</Link>
+            <Link to="/blog" className="footer-link">Blog</Link>
+            <Link to="/faq" className="footer-link">FAQ</Link>
           </div>
           <div className="footer-col">
             <h4 className="footer-col-title">Company</h4>
-            <Link to="/enterprise" className="footer-link">Enterprise</Link>
-            <Link to="/security" className="footer-link">Security</Link>
             <Link to="/contact" className="footer-link">Contact</Link>
             <a href="mailto:contact@slancha.ai" className="footer-link">contact@slancha.ai</a>
-          </div>
-          <div className="footer-col">
-            <h4 className="footer-col-title">Legal</h4>
             <Link to="/terms" className="footer-link">Terms of Service</Link>
             <Link to="/privacy" className="footer-link">Privacy Policy</Link>
           </div>
