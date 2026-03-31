@@ -4,7 +4,8 @@ import { useAuth } from '../contexts/AuthContext';
 
 /**
  * Hook for fetching API usage stats from Supabase.
- * Falls back to empty state when Supabase is not configured.
+ * Falls back to demo data when Supabase is not configured,
+ * so the dashboard looks populated for demos and previews.
  *
  * Supabase table required:
  * See migrations: 002_api_keys_and_usage.sql (base table)
@@ -15,6 +16,70 @@ const isSupabaseConfigured = () => {
   const url = import.meta.env.VITE_SUPABASE_URL;
   return url && !url.includes('placeholder');
 };
+
+function generateDemoData(period) {
+  const days = period === '7d' ? 7 : period === '90d' ? 90 : 30;
+  const now = new Date();
+  const daily = [];
+  const models = ['gpt-4o', 'claude-sonnet-4-20250514', 'llama-3.1-70b', 'mixtral-8x22b', 'gemini-2.0-flash'];
+  const endpoints = ['/v1/route', '/v1/evaluate', '/v1/deploy', '/v1/fine-tune', '/v1/datasets'];
+
+  // Generate daily data with realistic growth curve
+  for (let i = days - 1; i >= 0; i--) {
+    const d = new Date(now);
+    d.setDate(d.getDate() - i);
+    const dateStr = d.toISOString().slice(0, 10);
+    const dayOfWeek = d.getDay();
+    const weekdayMultiplier = (dayOfWeek === 0 || dayOfWeek === 6) ? 0.6 : 1;
+    const growthMultiplier = 1 + ((days - i) / days) * 0.4;
+    const baseRequests = Math.round((800 + Math.random() * 400) * weekdayMultiplier * growthMultiplier);
+    const tokens = Math.round(baseRequests * (1200 + Math.random() * 600));
+    const cost = Math.round(baseRequests * (0.8 + Math.random() * 0.4));
+
+    daily.push({
+      date: dateStr,
+      requests: baseRequests,
+      tokens,
+      cost,
+      avg_latency: Math.round(45 + Math.random() * 35),
+    });
+  }
+
+  const totalRequests = daily.reduce((s, d) => s + d.requests, 0);
+  const totalTokens = daily.reduce((s, d) => s + d.tokens, 0);
+  const totalCost = daily.reduce((s, d) => s + d.cost, 0);
+  const avgLatency = Math.round(daily.reduce((s, d) => s + d.avg_latency, 0) / daily.length);
+
+  // Model distribution (weighted)
+  const modelWeights = [0.35, 0.25, 0.2, 0.12, 0.08];
+  const byModel = models.map((model, i) => ({
+    model,
+    requests: Math.round(totalRequests * modelWeights[i]),
+    tokens: Math.round(totalTokens * modelWeights[i]),
+    cost: Math.round(totalCost * modelWeights[i]),
+  }));
+
+  // Endpoint distribution
+  const epWeights = [0.55, 0.2, 0.12, 0.08, 0.05];
+  const byEndpoint = endpoints.map((endpoint, i) => ({
+    endpoint,
+    requests: Math.round(totalRequests * epWeights[i]),
+    avg_latency: Math.round(avgLatency * (0.8 + i * 0.15)),
+    error_rate: (Math.random() * (i === 0 ? 0.3 : 1.2)).toFixed(1),
+  }));
+
+  return {
+    totalRequests,
+    totalTokens,
+    totalCost: totalCost / 100,
+    avgLatency,
+    modelsUsed: models.length,
+    errorRate: '0.3',
+    daily,
+    byModel,
+    byEndpoint,
+  };
+}
 
 function getDateRange(period) {
   const now = new Date();
@@ -108,8 +173,16 @@ export function useUsageStats(period = '30d') {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const isDemo = !isSupabaseConfigured();
+
   const fetchStats = useCallback(async () => {
-    if (!user || !isSupabaseConfigured()) {
+    if (isDemo) {
+      setStats(generateDemoData(period));
+      setLoading(false);
+      return;
+    }
+
+    if (!user) {
       setLoading(false);
       return;
     }
@@ -166,5 +239,6 @@ export function useUsageStats(period = '30d') {
     error,
     refetch: fetchStats,
     isConnected: isSupabaseConfigured(),
+    isDemo,
   };
 }

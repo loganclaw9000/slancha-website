@@ -102,7 +102,7 @@ const PERIODS = [
 
 export default function UsageStats() {
   const [period, setPeriod] = useState('30d');
-  const { stats, loading, error, isConnected } = useUsageStats(period);
+  const { stats, loading, error, isConnected, isDemo } = useUsageStats(period);
   const hasData = stats.totalRequests > 0;
 
   return (
@@ -124,6 +124,16 @@ export default function UsageStats() {
           ))}
         </div>
       </div>
+
+      {isDemo && (
+        <div className="usage-demo-banner">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+            <path d="M12 16v-4M12 8h.01"/>
+          </svg>
+          Demo data — connect Supabase to see your real usage metrics.
+        </div>
+      )}
 
       {error && (
         <div className="usage-error">
@@ -178,7 +188,7 @@ export default function UsageStats() {
         </>
       )}
 
-      {!loading && !hasData && (
+      {!loading && !hasData && !isDemo && (
         <div className="dash-empty">
           <div className="dash-empty-icon">
             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -188,11 +198,6 @@ export default function UsageStats() {
           <h2 className="dash-empty-title">No usage data yet</h2>
           <p className="dash-empty-text">
             Start sending requests through the Slancha Router to see your usage metrics here.
-            {!isConnected && (
-              <span className="usage-local-note">
-                <br/>Database not connected — usage will appear once Supabase is configured.
-              </span>
-            )}
           </p>
         </div>
       )}
