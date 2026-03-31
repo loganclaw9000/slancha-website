@@ -2,7 +2,7 @@
 .faq-page {
   max-width: 800px;
   margin: 0 auto;
-  padding: 48px 20px;
+  padding: 80px 20px 48px;
 }
 
 .faq-header {
@@ -144,6 +144,50 @@
   font-size: 15px;
   color: #cccccc;
   line-height: 1.6;
+}
+
+/* Eyebrow */
+.faq-eyebrow {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #4a9eff;
+  margin-bottom: 16px;
+}
+
+/* CTA Section */
+.faq-cta {
+  text-align: center;
+  margin-top: 64px;
+  padding: 48px 32px;
+  background: linear-gradient(135deg, rgba(74, 158, 255, 0.08), rgba(74, 158, 255, 0.02));
+  border: 1px solid #333344;
+  border-radius: 16px;
+}
+
+.faq-cta h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 12px;
+}
+
+.faq-cta p {
+  font-size: 16px;
+  color: #b0b0b0;
+  margin: 0 0 28px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.faq-cta-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 /* Responsive */

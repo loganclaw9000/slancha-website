@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import Nav from '../components/Nav';
+import Footer from '../components/Footer';
 import usePageMeta from '../hooks/usePageMeta';
 import '../components/Faq.css';
 
@@ -102,6 +105,28 @@ const faqData = [
   }
 ];
 
+function FaqJsonLd({ faqData }) {
+  const allQuestions = faqData.flatMap(cat => cat.questions);
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: allQuestions.map(item => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.a,
+      },
+    })),
+  };
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
+  );
+}
+
 function AccordionItem({ question, answer, isOpen, onToggle, hasSeparator }) {
   return (
     <div className={`accordion-item ${isOpen ? 'open' : ''}`}>
@@ -162,35 +187,50 @@ export default function FAQ() {
   };
 
   return (
-    <div className="faq-page">
-      <div className="faq-header">
-        <h1>Frequently Asked Questions</h1>
-        <p>
-          Can't find what you're looking for?{' '}
-          <a href="/contact">Contact our team</a>
-        </p>
-      </div>
+    <div className="page">
+      <FaqJsonLd faqData={faqData} />
+      <Nav />
+      <main className="faq-page">
+        <div className="faq-header">
+          <span className="faq-eyebrow">Support</span>
+          <h1>Frequently Asked Questions</h1>
+          <p>
+            Can't find what you're looking for?{' '}
+            <Link to="/contact">Contact our team</Link>
+          </p>
+        </div>
 
-      <div className="faq-content">
-        {faqData.map((category, catIdx) => (
-          <div key={category.category} className="faq-category">
-            <h2>{category.category}</h2>
-            {category.questions.map((item, qIdx) => {
-              const globalIndex = catIdx * 10 + qIdx;
-              return (
-                <AccordionItem
-                  key={globalIndex}
-                  question={item.q}
-                  answer={item.a}
-                  isOpen={openIndex === globalIndex}
-                  onToggle={() => handleToggle(globalIndex)}
-                  hasSeparator={item.a.includes('---')}
-                />
-              );
-            })}
+        <div className="faq-content">
+          {faqData.map((category, catIdx) => (
+            <div key={category.category} className="faq-category">
+              <h2>{category.category}</h2>
+              {category.questions.map((item, qIdx) => {
+                const globalIndex = catIdx * 10 + qIdx;
+                return (
+                  <AccordionItem
+                    key={globalIndex}
+                    question={item.q}
+                    answer={item.a}
+                    isOpen={openIndex === globalIndex}
+                    onToggle={() => handleToggle(globalIndex)}
+                    hasSeparator={item.a.includes('---')}
+                  />
+                );
+              })}
+            </div>
+          ))}
+        </div>
+
+        <section className="faq-cta">
+          <h2>Still have questions?</h2>
+          <p>Our team is ready to help you evaluate whether Slancha is the right fit for your AI infrastructure.</p>
+          <div className="faq-cta-buttons">
+            <Link to="/contact" className="btn-primary">Contact Sales</Link>
+            <Link to="/docs" className="btn-secondary">Read the Docs</Link>
           </div>
-        ))}
-      </div>
+        </section>
+      </main>
+      <Footer />
     </div>
   );
 }
