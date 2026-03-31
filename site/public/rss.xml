@@ -6,12 +6,39 @@
     <link>https://slancha.ai/blog</link>
     <atom:link href="https://slancha.ai/rss.xml" rel="self" type="application/rss+xml"/>
     <language>en-us</language>
-    <lastBuildDate>Mon, 31 Mar 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 31 Mar 2026 12:00:00 GMT</lastBuildDate>
     <image>
       <url>https://slancha.ai/favicon.svg</url>
       <title>Slancha Blog</title>
       <link>https://slancha.ai/blog</link>
     </image>
+
+    <item>
+      <title>AI Inference Optimization: Complete Guide to QAT, MIG, and Multi-Token Prediction</title>
+      <link>https://slancha.ai/blog/ai-inference-optimization-qat-mig-multi-token</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/ai-inference-optimization-qat-mig-multi-token</guid>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate>
+      <author>contact@slancha.ai (Slancha Engineering)</author>
+      <description>Three techniques are reshaping how production AI inference runs: Quantization-Aware Training, Multi-Instance GPU, and Multi-Token Prediction. Here's how each works, when to use them, and how they compound to cut inference costs by 60-75%.</description>
+    </item>
+
+    <item>
+      <title>Fine-Tuning vs RAG: When to Use Each (And How to Stop Choosing)</title>
+      <link>https://slancha.ai/blog/fine-tuning-vs-rag-when-to-use-each</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/fine-tuning-vs-rag-when-to-use-each</guid>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate>
+      <author>contact@slancha.ai (Slancha Engineering)</author>
+      <description>The fine-tuning vs RAG debate is one of the most common questions in production AI. Here's a practical decision framework based on real workloads — plus why the best systems use both, automatically.</description>
+    </item>
+
+    <item>
+      <title>Zero-Config AI Inference: Why the Black Box Wins</title>
+      <link>https://slancha.ai/blog/zero-config-ai-inference</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/zero-config-ai-inference</guid>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate>
+      <author>contact@slancha.ai (Paul Logan)</author>
+      <description>Every AI infrastructure platform gives you more knobs. Slancha took them away. Here's why the black box approach to AI inference consistently outperforms teams with "full control" — and what the data says about how engineering teams actually manage model selection.</description>
+    </item>
 
     <item>
       <title>The Multi-Model Future: Why One LLM Won't Rule Them All</title>

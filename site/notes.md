@@ -1,6 +1,6 @@
 ---
-lastCommit: c935ea1
-timestamp: 2026-03-31T20:30:00Z
+lastCommit: dffcf8b
+timestamp: 2026-03-31T09:31:00Z
 ---
 
 # Site Notes
@@ -9,14 +9,18 @@ Recent changes and deployment notes.
 
 ## Latest Changes
 
-**Commit:** `4a219b4`  
-**Date:** 2026-03-31 02:22 UTC
+**Commit:** `dffcf8b`  
+**Date:** 2026-03-31 09:31 UTC
 
-**Added missing Twitter Card image tag**
+**Added case study templates and design specs**
 
-Complete social sharing metadata for OG image:
-- Updated `index.html` to include `twitter:image` meta tag
-- Ensures proper rendering on Twitter/X when sharing Slancha website
+New comprehensive resources for sales enablement and frontend development:
+- `copy/case-study-templates.md` - Vertical-specific case study templates (Fintech, Healthtech, E-commerce) with full customization guides
+- `design/og-image.md` - OG image design specification
+- `design/onboarding-flow.md` - Onboarding flow design spec
+- `og-image-template.html` - HTML template for OG images
+- `render-og.js` - Script to render OG images from templates
+- Updated `qa/bugs.md` - Closed TierCards bug (now rendering on homepage), documented contact form error as expected behavior
 
 **Previous Changes**
 

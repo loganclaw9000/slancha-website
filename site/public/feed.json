@@ -8,6 +8,42 @@
   "language": "en-US",
   "items": [
     {
+      "id": "https://slancha.ai/blog/ai-inference-optimization-qat-mig-multi-token",
+      "url": "https://slancha.ai/blog/ai-inference-optimization-qat-mig-multi-token",
+      "title": "AI Inference Optimization: Complete Guide to QAT, MIG, and Multi-Token Prediction",
+      "summary": "Three techniques are reshaping how production AI inference runs: Quantization-Aware Training, Multi-Instance GPU, and Multi-Token Prediction. Here's how each works, when to use them, and how they compound to cut inference costs by 60-75%.",
+      "date_published": "2026-03-31T00:00:00Z",
+      "authors": [{ "name": "Slancha Engineering" }],
+      "tags": ["optimization", "QAT", "MIG", "multi-token-prediction", "inference", "technical"]
+    },
+    {
+      "id": "https://slancha.ai/blog/fine-tuning-vs-rag-when-to-use-each",
+      "url": "https://slancha.ai/blog/fine-tuning-vs-rag-when-to-use-each",
+      "title": "Fine-Tuning vs RAG: When to Use Each (And How to Stop Choosing)",
+      "summary": "The fine-tuning vs RAG debate is one of the most common questions in production AI. Here's a practical decision framework based on real workloads — plus why the best systems use both, automatically.",
+      "date_published": "2026-03-31T00:00:00Z",
+      "authors": [{ "name": "Slancha Engineering" }],
+      "tags": ["fine-tuning", "RAG", "architecture", "tutorial"]
+    },
+    {
+      "id": "https://slancha.ai/blog/zero-config-ai-inference",
+      "url": "https://slancha.ai/blog/zero-config-ai-inference",
+      "title": "Zero-Config AI Inference: Why the Black Box Wins",
+      "summary": "Every AI infrastructure platform gives you more knobs. Slancha took them away. Here's why the black box approach consistently outperforms teams with 'full control'.",
+      "date_published": "2026-03-31T00:00:00Z",
+      "authors": [{ "name": "Paul Logan" }],
+      "tags": ["strategy", "black-box", "inference", "positioning"]
+    },
+    {
+      "id": "https://slancha.ai/blog/the-multi-model-future",
+      "url": "https://slancha.ai/blog/the-multi-model-future",
+      "title": "The Multi-Model Future: Why One LLM Won't Rule Them All",
+      "summary": "The era of picking one model and routing everything through it is ending. MoE architectures, task-specific fine-tuning, and intelligent routing are converging on a multi-model future.",
+      "date_published": "2026-03-31T00:00:00Z",
+      "authors": [{ "name": "Slancha Team" }],
+      "tags": ["multi-model", "architecture", "future"]
+    },
+    {
       "id": "https://slancha.ai/blog/introducing-slancha",
       "url": "https://slancha.ai/blog/introducing-slancha",
       "title": "Introducing Slancha: The AI Inference Platform That Gets Better While You Sleep",
