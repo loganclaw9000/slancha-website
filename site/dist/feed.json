@@ -183,6 +183,24 @@
       ]
     },
     {
+      "id": "https://slancha.ai/blog/slancha-vs-openrouter-beyond-the-model-marketplace",
+      "url": "https://slancha.ai/blog/slancha-vs-openrouter-beyond-the-model-marketplace",
+      "title": "Slancha vs OpenRouter: Beyond the Model Marketplace",
+      "summary": "OpenRouter gives you access to every model through one API. Slancha gives you one API that makes model selection irrelevant. A detailed comparison of two fundamentally different approaches to multi-model AI.",
+      "date_published": "2026-03-31T00:00:00.000Z",
+      "authors": [
+        {
+          "name": "Slancha Team"
+        }
+      ],
+      "tags": [
+        "comparison",
+        "routing",
+        "inference",
+        "openrouter"
+      ]
+    },
+    {
       "id": "https://slancha.ai/blog/how-to-reduce-llm-api-costs",
       "url": "https://slancha.ai/blog/how-to-reduce-llm-api-costs",
       "title": "How to Reduce Your LLM API Costs by 60% Without Sacrificing Quality",

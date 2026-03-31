@@ -5,7 +5,7 @@
     <link>https://slancha.ai/blog</link>
     <description>Technical deep dives, tutorials, and insights on AI engineering: model evaluation, deployment strategies, fine-tuning pipelines, and the eval-deploy-train loop.</description>
     <language>en-us</language>
-    <lastBuildDate>Tue, 31 Mar 2026 08:31:30 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 31 Mar 2026 08:35:58 GMT</lastBuildDate>
     <atom:link href="https://slancha.ai/rss.xml" rel="self" type="application/rss+xml" />
     <image>
       <url>https://slancha.ai/favicon.svg</url>
@@ -126,6 +126,18 @@
       <category>router</category>
       <category>product</category>
       <category>launch</category>
+    </item>
+    <item>
+      <title>Slancha vs OpenRouter: Beyond the Model Marketplace</title>
+      <link>https://slancha.ai/blog/slancha-vs-openrouter-beyond-the-model-marketplace</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/slancha-vs-openrouter-beyond-the-model-marketplace</guid>
+      <description>OpenRouter gives you access to every model through one API. Slancha gives you one API that makes model selection irrelevant. A detailed comparison of two fundamentally different approaches to multi-model AI.</description>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate>
+      <author>team@slancha.ai (Slancha Team)</author>
+      <category>comparison</category>
+      <category>routing</category>
+      <category>inference</category>
+      <category>openrouter</category>
     </item>
     <item>
       <title>How to Reduce Your LLM API Costs by 60% Without Sacrificing Quality</title>
