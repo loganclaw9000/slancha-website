@@ -206,7 +206,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://slancha.ai/architecture</loc>
+    <loc>https://slancha.ai/docs/architecture</loc>
     <lastmod>2026-03-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -410,62 +410,6 @@
     <loc>https://slancha.ai/blog/build-vs-buy-ai-gateway</loc>
     <lastmod>2026-03-31</lastmod>
     <changefreq>yearly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://slancha.ai/blog/reduce-llm-inference-latency</loc>
-    <lastmod>2026-03-31</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://slancha.ai/blog/how-to-build-a-self-improving-ai-pipeline</loc>
-    <lastmod>2026-03-31</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://slancha.ai/blog/lora-fine-tuning-guide</loc>
-    <lastmod>2026-03-31</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://slancha.ai/blog/ai-inference-cost-optimization-cfo-guide</loc>
-    <lastmod>2026-03-31</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://slancha.ai/blog/llm-monitoring-observability-guide</loc>
-    <lastmod>2026-03-31</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://slancha.ai/blog/llm-benchmarks-are-broken</loc>
-    <lastmod>2026-03-31</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Additional pages -->
-  <url>
-    <loc>https://slancha.ai/developers</loc>
-    <lastmod>2026-03-31</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://slancha.ai/resources</loc>
-    <lastmod>2026-03-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://slancha.ai/pilot</loc>
-    <lastmod>2026-03-31</lastmod>
-    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 </urlset>

@@ -5,7 +5,7 @@
     <link>https://slancha.ai/blog</link>
     <description>Technical deep dives, tutorials, and insights on AI engineering: model evaluation, deployment strategies, fine-tuning pipelines, and the eval-deploy-train loop.</description>
     <language>en-us</language>
-    <lastBuildDate>Tue, 31 Mar 2026 17:33:09 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 31 Mar 2026 17:39:13 GMT</lastBuildDate>
     <atom:link href="https://slancha.ai/rss.xml" rel="self" type="application/rss+xml" />
     <image>
       <url>https://slancha.ai/favicon.svg</url>
@@ -286,15 +286,16 @@
       <title>AI Inference Cost Optimization: A CFO&apos;s Guide to GPU Economics</title>
       <link>https://slancha.ai/blog/ai-inference-cost-optimization-cfo-guide</link>
       <guid isPermaLink="true">https://slancha.ai/blog/ai-inference-cost-optimization-cfo-guide</guid>
-      <description>Your API bill is the tip of the iceberg. This guide breaks down the real total cost of ownership for AI inference — build vs. buy analysis with concrete numbers, ROI framework for the board, and three real-world scenarios showing what happens when you get optimization right (or wrong).</description>
+      <description>Your API bill went from $5K to $47K in six months. This guide gives CFOs and finance leaders the TCO breakdown, build vs. buy analysis, and ROI framework they need to make the right inference infrastructure decision — no technical jargon.</description>
       <pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate>
       <author>team@slancha.ai (Slancha Team)</author>
       <category>cost-optimization</category>
-      <category>business</category>
-      <category>cfo</category>
-      <category>gpu-economics</category>
+      <category>CFO</category>
+      <category>ROI</category>
+      <category>TCO</category>
       <category>build-vs-buy</category>
-      <category>roi</category>
+      <category>enterprise</category>
+      <category>economics</category>
     </item>
   </channel>
 </rss>
