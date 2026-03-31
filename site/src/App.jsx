@@ -24,6 +24,8 @@ import NotFound from './pages/NotFound';
 const Blog = lazy(() => import('./pages/Blog'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
 const Docs = lazy(() => import('./pages/Docs'));
+const FAQ = lazy(() => import('./pages/FAQ'));
+const VsCompetitors = lazy(() => import('./pages/VsCompetitors'));
 
 function Loading() {
   return (
@@ -50,6 +52,10 @@ const App = () => (
           <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/docs" element={<Docs />} />
           <Route path="/docs/:slug" element={<Docs />} />
+
+          {/* FAQ & Comparison pages */}
+          <Route path="/faq" element={<FAQ />} />
+          <Route path="/vs-competitors" element={<VsCompetitors />} />
 
           {/* Auth */}
           <Route path="/login" element={<Login />} />
