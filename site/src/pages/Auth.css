@@ -176,3 +176,15 @@
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+
+@media (max-width: 480px) {
+  .auth-page {
+    padding: 24px 12px;
+  }
+  .auth-card {
+    padding: 28px 20px;
+  }
+  .auth-title {
+    font-size: 22px;
+  }
+}

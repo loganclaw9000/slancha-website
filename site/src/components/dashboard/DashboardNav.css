@@ -49,3 +49,33 @@
   color: var(--text-primary);
   border-color: var(--border-hover);
 }
+
+@media (max-width: 768px) {
+  .dash-nav {
+    height: 56px;
+    padding: 0 12px;
+  }
+  .dash-nav-logo {
+    font-size: 16px;
+  }
+  .dash-nav-right {
+    gap: 8px;
+  }
+  .dash-nav-user {
+    display: none;
+  }
+  .dash-nav-signout {
+    font-size: 12px;
+    padding: 4px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dash-nav {
+    height: 48px;
+    padding: 0 8px;
+  }
+  .dash-nav-right {
+    gap: 6px;
+  }
+}

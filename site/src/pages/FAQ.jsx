@@ -11,23 +11,23 @@ const faqData = [
     questions: [
       {
         q: 'We already use Databricks. Do we need Slancha?',
-        a: "Most enterprise customers use both. Databricks manages your data infrastructure (ETL, warehouses, analytics), while Slancha manages your AI engineering workflow (model evaluation, deployment, continuous learning). They're complementary — Databricks handles data; Slancha handles AI."
+        a: "Most enterprise customers use both. Databricks manages your data infrastructure (ETL, warehouses, analytics), while Slancha manages your AI inference — routing, automated fine-tuning, and inference optimization behind a single API endpoint. They're complementary: Databricks handles data; Slancha handles AI inference."
       },
       {
-        q: 'What frameworks do you support?',
-        a: 'All major frameworks: PyTorch, TensorFlow, Hugging Face, Ray, and more. Our Python SDK works with your existing models. Just drop in the Slancha evaluation wrapper, run tests, and deploy with one command.'
+        q: 'How do we integrate Slancha?',
+        a: 'Point your API calls to Slancha\'s endpoint. That\'s it. Our API is OpenAI-compatible, so you can swap in one line of code. Python and TypeScript SDKs are available for convenience.'
       },
       {
-        q: 'Can we customize the evaluation metrics?',
-        a: 'Yes. Use our 50+ pre-built benchmarks, or define your own custom metrics and datasets. Our SDK makes it easy to integrate your proprietary evals.'
+        q: 'Do we need to choose or manage models?',
+        a: 'No. That\'s the point. Slancha automatically routes requests to the right model, fine-tunes task-specific models on your usage data, and optimizes inference — all behind the scenes. You just use the API.'
       },
       {
-        q: 'How does auto post-training work?',
-        a: 'Slancha automatically captures production data, triggers model retraining when performance degrades or new data accumulates, and deploys improved models with A/B testing to ensure quality. No manual pipelines required.'
+        q: 'How does automated fine-tuning work?',
+        a: 'Slancha continuously analyzes your task patterns, curates training data from real usage, and fine-tunes smaller task-specific models that match or outperform frontier models on your workloads. When new model architectures drop, Slancha re-fine-tunes automatically. No manual pipelines required.'
       },
       {
-        q: 'What kind of latency can we expect for evaluations?',
-        a: 'Typical model evaluations complete in minutes to hours, depending on model size and dataset complexity. Parallel evaluation of multiple models keeps total time low.'
+        q: 'What kind of latency can we expect?',
+        a: 'Slancha optimizes for low latency using quantization-aware training (4-bit inference), multi-instance GPU serving, and multi-token prediction. Most customers see sub-100ms response times. Performance improves over time as models are fine-tuned for your specific tasks.'
       }
     ]
   },
@@ -53,7 +53,7 @@ const faqData = [
     questions: [
       {
         q: 'How is usage-based pricing calculated?',
-        a: 'Based on model evaluations (per model), deployments (per model per month), and data capture (GB/month). We provide a usage calculator on the pricing page.'
+        a: 'Based on API requests and tokens processed through your endpoint. Simple per-token pricing with volume discounts. We provide a usage calculator on the pricing page.'
       },
       {
         q: 'Can we upgrade or downgrade anytime?',
@@ -91,7 +91,7 @@ const faqData = [
     questions: [
       {
         q: 'How do we migrate from our current setup?',
-        a: 'Our SDK works with your existing models. Drop in the Slancha evaluation wrapper, run tests, and deploy with one command. Most teams are live within a day.'
+        a: 'Swap your LLM provider endpoint for Slancha\'s OpenAI-compatible API. One line of code. Slancha starts routing and optimizing immediately — no configuration, no model selection, no pipeline setup. Most teams are live within an hour.'
       },
       {
         q: 'Can we self-host?',
@@ -99,7 +99,7 @@ const faqData = [
       },
       {
         q: 'What about support?',
-        a: 'Eval + Deploy: Email support, 48-hour response | Full Loop: Priority email + chat, 4-hour response | Enterprise: Dedicated success manager, 1-hour response, SLA-backed'
+        a: 'Starter: Email support, 48-hour response | Growth: Priority email + chat, 4-hour response | Enterprise: Dedicated success manager, 1-hour response, SLA-backed'
       }
     ]
   }

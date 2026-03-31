@@ -54,7 +54,7 @@
     position: static;
     border-right: none;
     border-bottom: 1px solid var(--glass-border);
-    padding: 12px;
+    padding: 8px;
     overflow-x: auto;
   }
   .dash-sidebar-nav {
@@ -65,5 +65,8 @@
     white-space: nowrap;
     padding: 8px 12px;
     font-size: 13px;
+  }
+  .dash-sidebar-link svg {
+    display: none;
   }
 }
