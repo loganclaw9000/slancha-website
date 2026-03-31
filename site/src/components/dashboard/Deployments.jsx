@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Deployments.css';
+import usePageMeta from '../../hooks/usePageMeta';
 
 const ACTIVE_DEPLOYMENTS = [
   {
@@ -196,6 +197,7 @@ function HistoryRow({ entry }) {
 }
 
 export default function Deployments() {
+  usePageMeta({ title: 'Deployments', description: 'Manage your model deployments, endpoints, and deployment metrics.' });
   const [tab, setTab] = useState('active');
 
   const healthyCt = ACTIVE_DEPLOYMENTS.filter(d => d.status === 'healthy').length;

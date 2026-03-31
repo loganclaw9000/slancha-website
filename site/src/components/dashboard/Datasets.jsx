@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Datasets.css';
+import usePageMeta from '../../hooks/usePageMeta';
 
 const DATASETS = [
   {
@@ -269,6 +270,7 @@ function DatasetRow({ ds, selected, onSelect, onExpand, expanded }) {
 }
 
 export default function Datasets() {
+  usePageMeta({ title: 'Datasets', description: 'Upload, browse, and manage training and evaluation datasets.' });
   const [selected, setSelected] = useState(new Set());
   const [expanded, setExpanded] = useState(null);
   const [search, setSearch] = useState('');

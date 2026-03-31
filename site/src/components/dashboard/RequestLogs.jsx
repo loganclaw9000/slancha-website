@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import './RequestLogs.css';
+import usePageMeta from '../../hooks/usePageMeta';
 
 // Demo data — realistic API request logs
 const DEMO_LOGS = [
@@ -45,6 +46,7 @@ function LatencyCell({ ms, status }) {
 }
 
 export default function RequestLogs() {
+  usePageMeta({ title: 'Request Logs', description: 'Browse and filter your API request history with detailed response data.' });
   const [endpointFilter, setEndpointFilter] = useState('All');
   const [statusFilter, setStatusFilter] = useState('All');
   const [search, setSearch] = useState('');

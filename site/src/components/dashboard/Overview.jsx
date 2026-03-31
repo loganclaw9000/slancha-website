@@ -1,6 +1,7 @@
 import { useUsageStats } from '../../hooks/useUsageStats';
 import { useApiKeys } from '../../hooks/useApiKeys';
 import Onboarding from './Onboarding';
+import usePageMeta from '../../hooks/usePageMeta';
 
 function formatNumber(n) {
   if (n >= 1000000) return (n / 1000000).toFixed(1) + 'M';
@@ -9,6 +10,7 @@ function formatNumber(n) {
 }
 
 export default function Overview() {
+  usePageMeta({ title: 'Dashboard Overview', description: 'Your Slancha dashboard — API usage, model performance, and account overview at a glance.' });
   const { stats, loading: usageLoading, isDemo } = useUsageStats('30d');
   const { keys, loading: keysLoading } = useApiKeys();
 

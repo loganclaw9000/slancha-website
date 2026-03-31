@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './TeamManagement.css';
+import usePageMeta from '../../hooks/usePageMeta';
 
 const ROLES = [
   { value: 'admin', label: 'Admin', desc: 'Full access — manage team, billing, API keys, and all settings' },
@@ -37,6 +38,7 @@ function formatDate(iso) {
 }
 
 export default function TeamManagement() {
+  usePageMeta({ title: 'Team Management', description: 'Manage team members, roles, and permissions for your Slancha organization.' });
   const [members, setMembers] = useState(DEMO_MEMBERS);
   const [invites, setInvites] = useState(DEMO_INVITES);
   const [showInvite, setShowInvite] = useState(false);

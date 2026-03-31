@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Optimization.css';
+import usePageMeta from '../../hooks/usePageMeta';
 
 const OPT_TECHNIQUES = [
   {
@@ -196,6 +197,7 @@ function MTPDetail({ technique }) {
 }
 
 export default function Optimization() {
+  usePageMeta({ title: 'Optimization', description: 'Monitor inference optimization — quantization, MIG partitioning, and multi-token prediction.' });
   const [activeTab, setActiveTab] = useState('qat');
   const activeTechnique = OPT_TECHNIQUES.find(t => t.id === activeTab);
 

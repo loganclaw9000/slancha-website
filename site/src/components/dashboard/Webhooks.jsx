@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useWebhooks, WEBHOOK_EVENTS } from '../../hooks/useWebhooks';
 import './Webhooks.css';
+import usePageMeta from '../../hooks/usePageMeta';
 
 function WebhookForm({ onSubmit, onCancel }) {
   const [url, setUrl] = useState('');
@@ -165,6 +166,7 @@ function WebhookRow({ webhook, onToggle, onDelete }) {
 }
 
 export default function Webhooks() {
+  usePageMeta({ title: 'Webhooks', description: 'Configure webhook endpoints for real-time event notifications.' });
   const { webhooks, loading, error, createWebhook, toggleWebhook, deleteWebhook, isConnected } = useWebhooks();
   const [showForm, setShowForm] = useState(false);
   const [newSecret, setNewSecret] = useState(null);

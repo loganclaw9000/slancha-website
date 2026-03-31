@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Evaluations.css';
+import usePageMeta from '../../hooks/usePageMeta';
 
 const EVAL_RUNS = [
   { id: 'eval-089', name: 'Reasoning Accuracy v3', status: 'completed', dataset: 'reasoning-2k', samples: 2000, models: ['gpt-4o', 'claude-sonnet-4', 'llama-3.3-70b'], startedAt: '2026-03-31T10:00:00Z', duration: '12m 34s', avgScore: 91.4, bestModel: 'claude-sonnet-4', bestScore: 96.1, promoted: true },
@@ -84,6 +85,7 @@ function ProgressRing({ progress }) {
 }
 
 export default function Evaluations() {
+  usePageMeta({ title: 'Evaluations', description: 'View evaluation runs, model comparisons, and dataset management.' });
   const [selectedRun, setSelectedRun] = useState(null);
   const [tab, setTab] = useState('runs');
 

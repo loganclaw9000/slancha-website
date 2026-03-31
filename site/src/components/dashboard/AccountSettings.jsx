@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
+import usePageMeta from '../../hooks/usePageMeta';
 
 export default function AccountSettings() {
+  usePageMeta({ title: 'Account Settings', description: 'Update your Slancha account profile, email, and security settings.' });
   const { user, updatePassword } = useAuth();
   const [displayName, setDisplayName] = useState(user?.user_metadata?.display_name || '');
   const [company, setCompany] = useState('');

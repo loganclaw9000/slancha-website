@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSubscription } from '../../hooks/useSubscription';
+import usePageMeta from '../../hooks/usePageMeta';
 
 function formatNumber(n) {
   if (n === -1) return 'Unlimited';
@@ -91,6 +92,7 @@ function InvoiceStatusBadge({ status }) {
 }
 
 export default function Billing() {
+  usePageMeta({ title: 'Billing', description: 'Manage your Slancha subscription, view invoices, and update payment methods.' });
   const {
     subscription, limits, usage, loading, error,
     planName, isFreePlan, isActive, isCanceling, isUnlimited, usagePercent, isNearLimit, isAtLimit,

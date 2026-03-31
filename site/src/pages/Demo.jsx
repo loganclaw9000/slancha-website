@@ -251,7 +251,7 @@ print(usage)
 ];
 
 export default function Demo() {
-  usePageMeta('Product Demo', 'Interactive walkthrough of the Slancha platform — from signup to production deployment in 5 steps.');
+  usePageMeta({ title: 'Product Demo', description: 'Interactive walkthrough of the Slancha platform — from signup to production deployment in 5 steps.' });
   const [currentStep, setCurrentStep] = useState(0);
   const step = STEPS[currentStep];
 

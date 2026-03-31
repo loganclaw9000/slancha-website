@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { useApiKeys } from '../../hooks/useApiKeys';
+import usePageMeta from '../../hooks/usePageMeta';
 
 export default function ApiKeys() {
+  usePageMeta({ title: 'API Keys', description: 'Manage your Slancha API keys. Create, revoke, and monitor key usage.' });
   const { keys, loading, error, createKey, revokeKey, isConnected } = useApiKeys();
   const [showCreate, setShowCreate] = useState(false);
   const [newKeyName, setNewKeyName] = useState('');

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './ModelsRouting.css';
+import usePageMeta from '../../hooks/usePageMeta';
 
 const MODELS = [
   { id: 'gpt-4o', name: 'gpt-4o', provider: 'OpenAI', status: 'active', latencyP50: 842, latencyP99: 2140, accuracy: 94.2, cost: 2.50, requests: 12840, routePct: 38, lastOptimized: '2h ago', tags: ['general', 'reasoning'] },
@@ -49,6 +50,7 @@ function EventIcon({ type }) {
 }
 
 export default function ModelsRouting() {
+  usePageMeta({ title: 'Models & Routing', description: 'Monitor your active model pool, routing distribution, and auto-optimization events.' });
   const [selectedModel, setSelectedModel] = useState(null);
   const totalRequests = MODELS.reduce((s, m) => s + m.requests, 0);
   const avgLatency = Math.round(MODELS.reduce((s, m) => s + m.latencyP50 * m.requests, 0) / totalRequests);

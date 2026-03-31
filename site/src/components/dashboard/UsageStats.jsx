@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useUsageStats } from '../../hooks/useUsageStats';
+import usePageMeta from '../../hooks/usePageMeta';
 
 function formatNumber(n) {
   if (n >= 1000000) return (n / 1000000).toFixed(1) + 'M';
@@ -101,6 +102,7 @@ const PERIODS = [
 ];
 
 export default function UsageStats() {
+  usePageMeta({ title: 'Usage Statistics', description: 'Track your Slancha API usage — requests, tokens, latency, and cost breakdown.' });
   const [period, setPeriod] = useState('30d');
   const { stats, loading, error, isConnected, isDemo } = useUsageStats(period);
   const hasData = stats.totalRequests > 0;

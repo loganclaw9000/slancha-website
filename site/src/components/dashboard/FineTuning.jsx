@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './FineTuning.css';
+import usePageMeta from '../../hooks/usePageMeta';
 
 const FT_JOBS = [
   { id: 'ft-047', name: 'gpt-4o-ft-slancha-v4', baseModel: 'gpt-4o', status: 'training', progress: 72, epochs: { current: 3, total: 4 }, samples: 2400, dataset: 'reasoning-2k + code-gen-500', startedAt: '2026-03-31T09:15:00Z', eta: '~28 min', loss: [0.84, 0.62, 0.41, 0.33], accuracy: [89.2, 92.1, 94.8, 96.1], autoPromote: true, threshold: 95.0 },
@@ -134,6 +135,7 @@ function TrainingDetail({ job }) {
 }
 
 export default function FineTuning() {
+  usePageMeta({ title: 'Fine-Tuning', description: 'Monitor fine-tuning jobs, training metrics, and auto-promoted models.' });
   const [expandedId, setExpandedId] = useState(null);
   const [tab, setTab] = useState('jobs');
 
