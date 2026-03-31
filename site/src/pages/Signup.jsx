@@ -70,22 +70,22 @@ export default function Signup() {
 
             <div className="auth-field">
               <label className="auth-label" htmlFor="name">Full name</label>
-              <input className="auth-input" id="name" name="name" type="text" placeholder="Your name" required value={form.name} onChange={handleChange} />
+              <input className="auth-input" id="name" name="name" type="text" autoComplete="name" placeholder="Your name" required value={form.name} onChange={handleChange} />
             </div>
 
             <div className="auth-field">
               <label className="auth-label" htmlFor="email">Work email</label>
-              <input className="auth-input" id="email" name="email" type="email" placeholder="you@company.com" required value={form.email} onChange={handleChange} />
+              <input className="auth-input" id="email" name="email" type="email" autoComplete="email" placeholder="you@company.com" required value={form.email} onChange={handleChange} />
             </div>
 
             <div className="auth-field">
               <label className="auth-label" htmlFor="password">Password</label>
-              <input className="auth-input" id="password" name="password" type="password" placeholder="At least 8 characters" required minLength={8} value={form.password} onChange={handleChange} />
+              <input className="auth-input" id="password" name="password" type="password" autoComplete="new-password" placeholder="At least 8 characters" required minLength={8} value={form.password} onChange={handleChange} />
             </div>
 
             <div className="auth-field">
               <label className="auth-label" htmlFor="confirmPassword">Confirm password</label>
-              <input className="auth-input" id="confirmPassword" name="confirmPassword" type="password" placeholder="Confirm your password" required value={form.confirmPassword} onChange={handleChange} />
+              <input className="auth-input" id="confirmPassword" name="confirmPassword" type="password" autoComplete="new-password" placeholder="Confirm your password" required value={form.confirmPassword} onChange={handleChange} />
             </div>
 
             <button className="btn-primary btn-lg auth-submit" type="submit" disabled={loading}>

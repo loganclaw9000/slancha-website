@@ -42,7 +42,7 @@ export default function UpdatePassword() {
   return (
     <div className="page">
       <Nav backLink />
-      <main className="auth-page">
+      <main id="main-content" className="auth-page">
         <div className="auth-card">
           <h1 className="auth-title">Set new password</h1>
           <p className="auth-subtitle">Choose a strong password for your account.</p>
@@ -52,12 +52,12 @@ export default function UpdatePassword() {
 
             <div className="auth-field">
               <label className="auth-label" htmlFor="password">New password</label>
-              <input className="auth-input" id="password" name="password" type="password" placeholder="At least 8 characters" required minLength={8} value={form.password} onChange={handleChange} />
+              <input className="auth-input" id="password" name="password" type="password" autoComplete="new-password" placeholder="At least 8 characters" required minLength={8} value={form.password} onChange={handleChange} />
             </div>
 
             <div className="auth-field">
               <label className="auth-label" htmlFor="confirmPassword">Confirm password</label>
-              <input className="auth-input" id="confirmPassword" name="confirmPassword" type="password" placeholder="Confirm your password" required value={form.confirmPassword} onChange={handleChange} />
+              <input className="auth-input" id="confirmPassword" name="confirmPassword" type="password" autoComplete="new-password" placeholder="Confirm your password" required value={form.confirmPassword} onChange={handleChange} />
             </div>
 
             <button className="btn-primary btn-lg auth-submit" type="submit" disabled={loading}>

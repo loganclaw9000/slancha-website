@@ -53,7 +53,7 @@ export default function ResetPassword() {
 
                 <div className="auth-field">
                   <label className="auth-label" htmlFor="email">Email</label>
-                  <input className="auth-input" id="email" type="email" placeholder="you@company.com" required value={email} onChange={(e) => { setEmail(e.target.value); setError(''); }} />
+                  <input className="auth-input" id="email" type="email" autoComplete="email" placeholder="you@company.com" required value={email} onChange={(e) => { setEmail(e.target.value); setError(''); }} />
                 </div>
 
                 <button className="btn-primary btn-lg auth-submit" type="submit" disabled={loading}>

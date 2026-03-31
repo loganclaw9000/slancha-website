@@ -132,6 +132,7 @@ export default function Contact() {
                     id="name"
                     name="name"
                     type="text"
+                    autoComplete="name"
                     placeholder="Your name"
                     required
                     aria-required="true"
@@ -149,6 +150,7 @@ export default function Contact() {
                     id="email"
                     name="email"
                     type="email"
+                    autoComplete="email"
                     placeholder="you@company.com"
                     required
                     aria-required="true"

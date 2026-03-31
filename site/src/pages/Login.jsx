@@ -60,12 +60,12 @@ export default function Login() {
 
             <div className="auth-field">
               <label className="auth-label" htmlFor="email">Email</label>
-              <input className="auth-input" id="email" name="email" type="email" placeholder="you@company.com" required value={form.email} onChange={handleChange} />
+              <input className="auth-input" id="email" name="email" type="email" autoComplete="email" placeholder="you@company.com" required value={form.email} onChange={handleChange} />
             </div>
 
             <div className="auth-field">
               <label className="auth-label" htmlFor="password">Password</label>
-              <input className="auth-input" id="password" name="password" type="password" placeholder="Your password" required value={form.password} onChange={handleChange} />
+              <input className="auth-input" id="password" name="password" type="password" autoComplete="current-password" placeholder="Your password" required value={form.password} onChange={handleChange} />
             </div>
 
             <div className="auth-forgot">

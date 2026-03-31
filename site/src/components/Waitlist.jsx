@@ -67,6 +67,7 @@ export default function Waitlist() {
               <input
                 type="email"
                 className="waitlist-input"
+                autoComplete="email"
                 placeholder="you@company.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
