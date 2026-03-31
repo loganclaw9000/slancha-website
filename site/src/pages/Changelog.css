@@ -1,0 +1,177 @@
+.changelog-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 6rem 1.5rem 4rem;
+}
+
+.changelog-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.changelog-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
+  background: linear-gradient(135deg, #0A84FF, #00D1B2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.changelog-header p {
+  color: var(--text-secondary, #94a3b8);
+  font-size: 1.15rem;
+  max-width: 550px;
+  margin: 0 auto;
+}
+
+.changelog-timeline {
+  position: relative;
+  padding-left: 2rem;
+}
+
+.changelog-timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, #0A84FF, #00D1B2 40%, var(--border, #2a2a4a));
+}
+
+.changelog-entry {
+  position: relative;
+  margin-bottom: 2.5rem;
+  padding-left: 1.5rem;
+}
+
+.changelog-entry::before {
+  content: '';
+  position: absolute;
+  left: -2rem;
+  top: 0.4rem;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #0A84FF;
+  border: 2px solid var(--bg, #0d0d1a);
+  transform: translateX(-4px);
+}
+
+.changelog-entry.major::before {
+  width: 14px;
+  height: 14px;
+  background: linear-gradient(135deg, #0A84FF, #00D1B2);
+  transform: translateX(-6px);
+}
+
+.changelog-date {
+  font-size: 0.8rem;
+  color: var(--text-muted, #64748b);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.35rem;
+}
+
+.changelog-version {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(10, 132, 255, 0.12);
+  color: #0A84FF;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+}
+
+.changelog-entry h2 {
+  font-size: 1.35rem;
+  color: var(--text-primary, #e2e8f0);
+  margin-bottom: 0.5rem;
+}
+
+.changelog-entry p {
+  color: var(--text-secondary, #94a3b8);
+  line-height: 1.7;
+  margin-bottom: 0.75rem;
+}
+
+.changelog-tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+}
+
+.changelog-tag {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+}
+
+.changelog-tag.feature { background: rgba(0, 209, 178, 0.12); color: #00D1B2; }
+.changelog-tag.improvement { background: rgba(10, 132, 255, 0.12); color: #0A84FF; }
+.changelog-tag.fix { background: rgba(251, 191, 36, 0.12); color: #fbbf24; }
+.changelog-tag.api { background: rgba(168, 85, 247, 0.12); color: #a855f7; }
+.changelog-tag.docs { background: rgba(148, 163, 184, 0.12); color: #94a3b8; }
+
+.changelog-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.changelog-items li {
+  position: relative;
+  padding-left: 1.25rem;
+  color: var(--text-primary, #e2e8f0);
+  line-height: 1.6;
+  margin-bottom: 0.35rem;
+  font-size: 0.95rem;
+}
+
+.changelog-items li::before {
+  content: '>';
+  position: absolute;
+  left: 0;
+  color: #0A84FF;
+  font-weight: 700;
+  font-family: monospace;
+}
+
+.changelog-subscribe {
+  text-align: center;
+  margin-top: 3rem;
+  padding: 2rem;
+  background: var(--surface, #1a1a2e);
+  border: 1px solid var(--border, #2a2a4a);
+  border-radius: 12px;
+}
+
+.changelog-subscribe h3 {
+  font-size: 1.15rem;
+  margin-bottom: 0.5rem;
+}
+
+.changelog-subscribe p {
+  color: var(--text-secondary, #94a3b8);
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.changelog-subscribe .btn-primary {
+  display: inline-block;
+}
+
+@media (max-width: 640px) {
+  .changelog-header h1 { font-size: 1.75rem; }
+  .changelog-entry h2 { font-size: 1.15rem; }
+  .changelog-timeline { padding-left: 1.5rem; }
+  .changelog-entry { padding-left: 1rem; }
+}
