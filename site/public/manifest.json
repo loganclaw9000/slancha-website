@@ -1,0 +1,21 @@
+{
+  "name": "Slancha — AI Inference Platform",
+  "short_name": "Slancha",
+  "description": "End-to-end AI inference platform. One API endpoint that automatically routes, fine-tunes, optimizes, and redeploys models.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0A0A0F",
+  "theme_color": "#0A0A0F",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/og-image.png",
+      "sizes": "1200x630",
+      "type": "image/png"
+    }
+  ]
+}
