@@ -6,6 +6,7 @@ import Features from '../components/Features';
 import HowItWorks from '../components/HowItWorks';
 import TechStack from '../components/TechStack';
 import About from '../components/About';
+import Waitlist from '../components/Waitlist';
 import PilotCTA from '../components/PilotCTA';
 import Footer from '../components/Footer';
 
@@ -24,6 +25,7 @@ export default function Home() {
         <TechStack />
         <hr className="section-divider" />
         <About />
+        <Waitlist />
         <PilotCTA />
       </main>
       <Footer />
