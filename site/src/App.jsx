@@ -23,6 +23,7 @@ const Billing = lazy(() => import('./components/dashboard/Billing'));
 const AccountSettings = lazy(() => import('./components/dashboard/AccountSettings'));
 const Webhooks = lazy(() => import('./components/dashboard/Webhooks'));
 const RequestLogs = lazy(() => import('./components/dashboard/RequestLogs'));
+const ModelsRouting = lazy(() => import('./components/dashboard/ModelsRouting'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 const Blog = lazy(() => import('./pages/Blog'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
@@ -115,6 +116,7 @@ const App = () => (
             <Route path="usage" element={<UsageStats />} />
             <Route path="billing" element={<Billing />} />
             <Route path="logs" element={<RequestLogs />} />
+            <Route path="models" element={<ModelsRouting />} />
             <Route path="webhooks" element={<Webhooks />} />
             <Route path="settings" element={<AccountSettings />} />
           </Route>
