@@ -1,14 +1,12 @@
 # Bug Reports
 
-## Status: 2 open bugs
+## Status: 1 open bug
 
-Last QA run: 2026-03-31T06:57Z
+Last QA run: 2026-03-31T09:27Z
 
 ---
 
 ### Open Bugs
-
-**[HOMEPAGE] TierCards/Offerings section missing** | Homepage should have TierCards section per design spec (step 6 in homepage.md: "Offerings – 4-tier card grid") | TierCards component exists, copy file offerings.md exists, separate /pricing page exists | Homepage.jsx does not import or render TierCards component; section not present in rendered HTML | severity:medium
 
 **[CONTACT] Form endpoint error in console when VITE_FORM_ENDPOINT not set** | Form submission attempts to POST to undefined endpoint, causing `net::ERR_CONNECTION_REFUSED` console error before falling back to mailto | Contact.jsx has VITE_FORM_ENDPOINT check with mailto fallback | Console shows `Failed to load resource: net::ERR_CONNECTION_REFUSED` on form submit (expected fallback behavior, but still logged as error) | severity:low
 
@@ -17,7 +15,7 @@ Last QA run: 2026-03-31T06:57Z
 ### Closed Bugs
 
 ### Fixed this run (2026-03-31)
-- **BUG FIXED** TierCards not rendered on homepage
+- **BUG FIXED** TierCards not rendered on homepage — verified 2026-03-31T09:27Z (browser test shows section present)
 
 ### Previous runs
 - **BUG FIXED** Features.css was using stale `--color-*` tokens (--color-bg, --color-surface, --color-border, --color-accent, --color-text, --color-text-muted, --radius-md) not defined in the design system. Feature cards were rendering with transparent backgrounds, wrong borders, and wrong text colors. Fixed to use --bg, --bg-card, --border, --accent, --text-primary, --text-secondary, --radius-lg. Commit: 7c95e14.
