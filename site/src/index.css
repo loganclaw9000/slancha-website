@@ -30,6 +30,8 @@
   --accent-glow: rgba(10, 132, 255, 0.15);
 
   /* Aliases used by boss-created pages — map to our palette */
+  --bg-primary: #0A0A0F;
+  --surface: rgba(255, 255, 255, 0.03);
   --primary: #0A84FF;
   --primary-dark: #0070E0;
   --primary-light: #3399FF;
