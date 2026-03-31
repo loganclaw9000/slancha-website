@@ -1,12 +1,4 @@
-export const posts = [
-  {
-    slug: 'reduce-llm-inference-latency',
-    title: 'How to Cut LLM Inference Latency in Half: 8 Production Techniques',
-    date: '2026-03-31',
-    author: 'Slancha Engineering',
-    excerpt: 'High latency kills AI products. Here are 8 battle-tested techniques to slash LLM inference latency in production — from speculative decoding to intelligent routing — with code examples, benchmark data, and architecture patterns.',
-    tags: ['latency', 'inference', 'optimization', 'production', 'performance'],
-    body: `Latency is the silent killer of AI products. Your model might be brilliant, but if it takes 3 seconds to respond, users leave. In production, **every 100ms of latency costs you conversions, user satisfaction, and ultimately revenue**.
+const e=[{slug:"reduce-llm-inference-latency",title:"How to Cut LLM Inference Latency in Half: 8 Production Techniques",date:"2026-03-31",author:"Slancha Engineering",excerpt:"High latency kills AI products. Here are 8 battle-tested techniques to slash LLM inference latency in production — from speculative decoding to intelligent routing — with code examples, benchmark data, and architecture patterns.",tags:["latency","inference","optimization","production","performance"],body:`Latency is the silent killer of AI products. Your model might be brilliant, but if it takes 3 seconds to respond, users leave. In production, **every 100ms of latency costs you conversions, user satisfaction, and ultimately revenue**.
 
 We've compiled 8 techniques that real engineering teams use to cut LLM inference latency — often by 50% or more — without sacrificing output quality. Each technique includes code, benchmarks, and when to use it.
 
@@ -436,16 +428,7 @@ response = client.route(
 # batching, and MIG partitioning behind the scenes.
 \`\`\`
 
-[Start for free](/signup) — the router tier includes intelligent routing, automatic optimization, and real-time latency metrics. See your p50 and p99 drop in the dashboard within minutes.`,
-  },
-  {
-    slug: 'build-vs-buy-ai-gateway',
-    title: 'Build vs Buy: The AI Gateway Decision Framework for Engineering Teams',
-    date: '2026-03-31',
-    author: 'Slancha Engineering',
-    excerpt: 'Your team needs an AI gateway. Should you build one in-house or use a managed platform? We break down the true cost, timeline, and complexity of both paths — with real code, architecture decisions, and a decision matrix.',
-    tags: ['ai-gateway', 'build-vs-buy', 'architecture', 'engineering', 'decision-framework'],
-    body: `Every team running LLMs in production eventually hits the same question: **should we build our own AI gateway, or buy one?**
+[Start for free](/signup) — the router tier includes intelligent routing, automatic optimization, and real-time latency metrics. See your p50 and p99 drop in the dashboard within minutes.`},{slug:"build-vs-buy-ai-gateway",title:"Build vs Buy: The AI Gateway Decision Framework for Engineering Teams",date:"2026-03-31",author:"Slancha Engineering",excerpt:"Your team needs an AI gateway. Should you build one in-house or use a managed platform? We break down the true cost, timeline, and complexity of both paths — with real code, architecture decisions, and a decision matrix.",tags:["ai-gateway","build-vs-buy","architecture","engineering","decision-framework"],body:`Every team running LLMs in production eventually hits the same question: **should we build our own AI gateway, or buy one?**
 
 The answer isn't obvious. Building gives you control. Buying gives you speed. The wrong choice costs you 3-6 months of engineering time or locks you into a vendor that doesn't fit.
 
@@ -728,16 +711,7 @@ Most teams don't need to build their own database, their own auth system, or the
 
 ---
 
-*[Try Slancha free](/signup) — see routing decisions, cost tracking, and latency metrics on your actual traffic in under 5 minutes. No credit card required.*`,
-  },
-  {
-    slug: 'ai-inference-optimization-qat-mig-multi-token',
-    title: 'AI Inference Optimization: Complete Guide to QAT, MIG, and Multi-Token Prediction',
-    date: '2026-03-31',
-    author: 'Slancha Engineering',
-    excerpt: 'Three techniques are reshaping how production AI inference runs: Quantization-Aware Training, Multi-Instance GPU, and Multi-Token Prediction. Here\'s how each works, when to use them, and how they compound to cut inference costs by 60-75%.',
-    tags: ['optimization', 'QAT', 'MIG', 'multi-token-prediction', 'inference', 'technical'],
-    body: `If you're running LLM inference at scale, you've probably hit the wall: **GPU costs grow linearly with traffic, but your budget doesn't.**
+*[Try Slancha free](/signup) — see routing decisions, cost tracking, and latency metrics on your actual traffic in under 5 minutes. No credit card required.*`},{slug:"ai-inference-optimization-qat-mig-multi-token",title:"AI Inference Optimization: Complete Guide to QAT, MIG, and Multi-Token Prediction",date:"2026-03-31",author:"Slancha Engineering",excerpt:"Three techniques are reshaping how production AI inference runs: Quantization-Aware Training, Multi-Instance GPU, and Multi-Token Prediction. Here's how each works, when to use them, and how they compound to cut inference costs by 60-75%.",tags:["optimization","QAT","MIG","multi-token-prediction","inference","technical"],body:`If you're running LLM inference at scale, you've probably hit the wall: **GPU costs grow linearly with traffic, but your budget doesn't.**
 
 The good news is that three complementary techniques — Quantization-Aware Training (QAT), Multi-Instance GPU (MIG), and Multi-Token Prediction (MTP) — can dramatically reduce your per-request cost without degrading quality. The better news is that they compound.
 
@@ -1016,16 +990,7 @@ If you're currently running inference at FP16 on dedicated GPUs:
 
 ---
 
-*Production AI inference doesn't have to be expensive. The techniques exist — the question is whether you build the infrastructure or [let the platform handle it](/signup).*`,
-  },
-  {
-    slug: 'zero-config-ai-inference',
-    title: 'Zero-Config AI Inference: Why the Black Box Wins',
-    date: '2026-03-31',
-    author: 'Paul Logan',
-    excerpt: 'Every AI infrastructure platform gives you more knobs. Slancha took them away. Here\'s why the black box approach to AI inference consistently outperforms teams with "full control" — and what the data says about how engineering teams actually manage model selection.',
-    tags: ['strategy', 'black-box', 'inference', 'positioning'],
-    body: `Every AI infrastructure company pitches the same thing: **more control.** More models to choose from. More knobs to tune. More dashboards to monitor. More decisions for your team to make.
+*Production AI inference doesn't have to be expensive. The techniques exist — the question is whether you build the infrastructure or [let the platform handle it](/signup).*`},{slug:"zero-config-ai-inference",title:"Zero-Config AI Inference: Why the Black Box Wins",date:"2026-03-31",author:"Paul Logan",excerpt:`Every AI infrastructure platform gives you more knobs. Slancha took them away. Here's why the black box approach to AI inference consistently outperforms teams with "full control" — and what the data says about how engineering teams actually manage model selection.`,tags:["strategy","black-box","inference","positioning"],body:`Every AI infrastructure company pitches the same thing: **more control.** More models to choose from. More knobs to tune. More dashboards to monitor. More decisions for your team to make.
 
 Slancha does the opposite. You get one endpoint. You don't pick models. You don't configure routing rules. You don't manage fine-tuning pipelines. You don't even see which model handled your request (unless you ask).
 
@@ -1141,16 +1106,7 @@ The black box wins because it never stops working. Your team will. That's not a 
 
 ---
 
-*Ready to stop managing and start shipping? [Get your free API key](/signup) and let the optimization run itself.*`,
-  },
-  {
-    slug: 'introducing-slancha',
-    title: 'Introducing Slancha: The AI Inference Platform That Gets Better While You Sleep',
-    date: '2026-03-31',
-    author: 'Paul Logan',
-    excerpt: 'Today we\'re opening early access to Slancha — an end-to-end AI inference platform that routes, fine-tunes, and optimizes your LLM workloads behind a single API endpoint. No model selection, no benchmarking, no ML team required.',
-    tags: ['launch', 'announcement', 'platform'],
-    body: `Today, we're opening early access to Slancha.
+*Ready to stop managing and start shipping? [Get your free API key](/signup) and let the optimization run itself.*`},{slug:"introducing-slancha",title:"Introducing Slancha: The AI Inference Platform That Gets Better While You Sleep",date:"2026-03-31",author:"Paul Logan",excerpt:"Today we're opening early access to Slancha — an end-to-end AI inference platform that routes, fine-tunes, and optimizes your LLM workloads behind a single API endpoint. No model selection, no benchmarking, no ML team required.",tags:["launch","announcement","platform"],body:`Today, we're opening early access to Slancha.
 
 Slancha is an end-to-end AI inference platform built on a simple premise: **your team shouldn't have to become AI infrastructure experts to use AI well.**
 
@@ -1286,16 +1242,7 @@ We're building Slancha because we believe the future of AI inference isn't about
 
 Have questions? [Reach out](/contact) or find us on [GitHub](https://github.com/slancha).
 
-— Paul Logan & James Maki, Co-founders`
-  },
-  {
-    slug: 'the-case-for-black-box-ai-inference',
-    title: 'The Case for Black Box AI Inference: Why Your Team Should Stop Picking Models',
-    date: '2026-03-31',
-    author: 'Slancha Team',
-    excerpt: 'Every AI platform promises transparency and control. Slancha bets on the opposite: a black box that handles everything. Here\'s why that\'s the right call for 90% of teams using LLM APIs.',
-    tags: ['philosophy', 'inference', 'platform', 'strategy'],
-    body: `The most common reaction we get from technical founders is: "Wait, I can't pick the model?"
+— Paul Logan & James Maki, Co-founders`},{slug:"the-case-for-black-box-ai-inference",title:"The Case for Black Box AI Inference: Why Your Team Should Stop Picking Models",date:"2026-03-31",author:"Slancha Team",excerpt:"Every AI platform promises transparency and control. Slancha bets on the opposite: a black box that handles everything. Here's why that's the right call for 90% of teams using LLM APIs.",tags:["philosophy","inference","platform","strategy"],body:`The most common reaction we get from technical founders is: "Wait, I can't pick the model?"
 
 No. You can't. That's the point.
 
@@ -1437,16 +1384,7 @@ Stop picking models. Start shipping.
 
 ---
 
-*[Create your free account](/signup) — one API endpoint, zero model decisions, continuous improvement behind the scenes.*`,
-  },
-  {
-    slug: 'slancha-vs-databricks-ai-infrastructure-comparison',
-    title: 'Slancha vs. Databricks: The AI Infrastructure Showdown',
-    date: '2026-03-31',
-    author: 'Slancha Team',
-    excerpt: 'Databricks gives you the tools. Slancha does the work. A detailed comparison of two fundamentally different approaches to AI infrastructure — full control vs. automatic results.',
-    tags: ['comparison', 'infrastructure', 'enterprise'],
-    body: `## The Quick Answer
+*[Create your free account](/signup) — one API endpoint, zero model decisions, continuous improvement behind the scenes.*`},{slug:"slancha-vs-databricks-ai-infrastructure-comparison",title:"Slancha vs. Databricks: The AI Infrastructure Showdown",date:"2026-03-31",author:"Slancha Team",excerpt:"Databricks gives you the tools. Slancha does the work. A detailed comparison of two fundamentally different approaches to AI infrastructure — full control vs. automatic results.",tags:["comparison","infrastructure","enterprise"],body:`## The Quick Answer
 
 **Databricks** is a general-purpose AI platform for building, training, and deploying ML models at enterprise scale. It's powerful, flexible, and requires a dedicated ML team to operate.
 
@@ -1546,16 +1484,7 @@ Choose based on what you actually need, not what sounds cool on a pitch deck.
 
 ---
 
-*Need inference that just works? [Request a pilot](/contact) and see the difference.*`,
-  },
-  {
-    slug: 'from-prototype-to-production-ai-deployment-checklist',
-    title: 'From Prototype to Production: The AI Deployment Checklist',
-    date: '2026-03-30',
-    author: 'Slancha Team',
-    excerpt: 'Most AI projects that "work" in prototype never make it to production. This checklist covers what actually breaks and how to fix it — routing, data curation, quantization, GPU efficiency, and more.',
-    tags: ['production', 'deployment', 'checklist', 'engineering'],
-    body: `## The Gap Nobody Talks About
+*Need inference that just works? [Request a pilot](/contact) and see the difference.*`},{slug:"from-prototype-to-production-ai-deployment-checklist",title:"From Prototype to Production: The AI Deployment Checklist",date:"2026-03-30",author:"Slancha Team",excerpt:'Most AI projects that "work" in prototype never make it to production. This checklist covers what actually breaks and how to fix it — routing, data curation, quantization, GPU efficiency, and more.',tags:["production","deployment","checklist","engineering"],body:`## The Gap Nobody Talks About
 
 You've trained your model. It works on your validation set. The accuracy looks good. So you deploy it to production, right?
 
@@ -1650,16 +1579,7 @@ Building a production AI deployment system that routes, analyzes, fine-tunes, qu
 
 ---
 
-*Need help deploying AI at scale? Slancha gives you all of this behind a single API endpoint. [Request a pilot](/contact).*`,
-  },
-  {
-    slug: 'building-a-production-ai-router-architecture-patterns',
-    title: 'Building a Production AI Router: Architecture Patterns That Scale',
-    date: '2026-03-31',
-    author: 'Slancha Team',
-    excerpt: 'Routing requests to the right model is the easy part. The hard part is doing it at scale with sub-millisecond overhead, graceful degradation, and zero downtime deploys. Here are the architecture patterns that make it work.',
-    tags: ['router', 'architecture', 'infrastructure', 'engineering'],
-    body: `You've decided to stop sending every request to GPT-4. Smart. But there's a gap between "we should route requests" and "we have a production-grade routing system." This post covers the architecture patterns that bridge that gap — the patterns we built Slancha's router on.
+*Need help deploying AI at scale? Slancha gives you all of this behind a single API endpoint. [Request a pilot](/contact).*`},{slug:"building-a-production-ai-router-architecture-patterns",title:"Building a Production AI Router: Architecture Patterns That Scale",date:"2026-03-31",author:"Slancha Team",excerpt:"Routing requests to the right model is the easy part. The hard part is doing it at scale with sub-millisecond overhead, graceful degradation, and zero downtime deploys. Here are the architecture patterns that make it work.",tags:["router","architecture","infrastructure","engineering"],body:`You've decided to stop sending every request to GPT-4. Smart. But there's a gap between "we should route requests" and "we have a production-grade routing system." This post covers the architecture patterns that bridge that gap — the patterns we built Slancha's router on.
 
 ## Pattern 1: Embedding-Based Classification Over LLM Classification
 
@@ -2004,16 +1924,7 @@ You don't need to build the infrastructure. You need the outcomes.
 
 ---
 
-*[Start with the free router](/signup) — production-grade architecture patterns, zero infrastructure to manage.*`,
-  },
-  {
-    slug: 'the-complete-guide-to-ai-model-routing',
-    title: 'The Complete Guide to AI Model Routing: Strategies, Architecture, and Cost Optimization',
-    date: '2026-03-31',
-    author: 'Slancha Team',
-    excerpt: 'Not every request needs GPT-4. Learn how intelligent model routing cuts inference costs 40-70% while maintaining quality — with architecture patterns, routing strategies, and real benchmarks.',
-    tags: ['router', 'architecture', 'cost-optimization', 'tutorial'],
-    body: `Your AI inference bill is probably 3-5x what it needs to be. The reason: you're sending every request to the same model, regardless of complexity.
+*[Start with the free router](/signup) — production-grade architecture patterns, zero infrastructure to manage.*`},{slug:"the-complete-guide-to-ai-model-routing",title:"The Complete Guide to AI Model Routing: Strategies, Architecture, and Cost Optimization",date:"2026-03-31",author:"Slancha Team",excerpt:"Not every request needs GPT-4. Learn how intelligent model routing cuts inference costs 40-70% while maintaining quality — with architecture patterns, routing strategies, and real benchmarks.",tags:["router","architecture","cost-optimization","tutorial"],body:`Your AI inference bill is probably 3-5x what it needs to be. The reason: you're sending every request to the same model, regardless of complexity.
 
 Model routing fixes this by classifying each request and sending it to the optimal model — balancing cost, latency, and quality automatically. This guide covers the architecture, strategies, and implementation patterns you need.
 
@@ -2236,16 +2147,7 @@ The router is OpenAI API-compatible — swap your base URL and you're live. No c
 
 ---
 
-*[Sign up for free](/signup) and start routing in under 5 minutes. No credit card, no usage limits.*`,
-  },
-  {
-    slug: 'how-eval-data-should-drive-fine-tuning-technical-deep-dive',
-    title: 'How Eval Data Should Drive Fine-Tuning: A Technical Deep Dive',
-    date: '2026-03-30',
-    author: 'Slancha Team',
-    excerpt: 'A hands-on guide to building a closed-loop pipeline where evaluation failures automatically become training examples — with code, architecture patterns, and real metrics.',
-    tags: ['post-training', 'fine-tuning', 'engineering', 'tutorial'],
-    body: `Most teams run evals and fine-tuning as separate workflows with a manual handoff in between. This post shows you how to build a closed-loop pipeline where eval failures automatically feed into your next training run — and how Slancha makes it turnkey.
+*[Sign up for free](/signup) and start routing in under 5 minutes. No credit card, no usage limits.*`},{slug:"how-eval-data-should-drive-fine-tuning-technical-deep-dive",title:"How Eval Data Should Drive Fine-Tuning: A Technical Deep Dive",date:"2026-03-30",author:"Slancha Team",excerpt:"A hands-on guide to building a closed-loop pipeline where evaluation failures automatically become training examples — with code, architecture patterns, and real metrics.",tags:["post-training","fine-tuning","engineering","tutorial"],body:`Most teams run evals and fine-tuning as separate workflows with a manual handoff in between. This post shows you how to build a closed-loop pipeline where eval failures automatically feed into your next training run — and how Slancha makes it turnkey.
 
 ## The Architecture
 
@@ -2444,16 +2346,7 @@ Slancha handles all of this as a managed pipeline. You provide the eval suite an
 
 ---
 
-*Want to see this pipeline running on your models? [Apply for the Slancha pilot](/contact) — we'll set up your first closed-loop cycle in a 30-minute onboarding call.*`,
-  },
-  {
-    slug: '5-signs-your-ml-team-needs-an-evaluation-platform',
-    title: '5 Signs Your ML Team Needs an Evaluation Platform',
-    date: '2026-03-30',
-    author: 'Slancha Team',
-    excerpt: 'Spreadsheets, vibes-based deployment, and "it works on my laptop" are not an eval strategy. Here\'s how to know you\'ve outgrown ad-hoc testing.',
-    tags: ['evaluation', 'best-practices', 'team'],
-    body: `If you're shipping AI features, you're evaluating models — whether you realize it or not. The question is whether your evaluation process is deliberate or accidental.
+*Want to see this pipeline running on your models? [Apply for the Slancha pilot](/contact) — we'll set up your first closed-loop cycle in a 30-minute onboarding call.*`},{slug:"5-signs-your-ml-team-needs-an-evaluation-platform",title:"5 Signs Your ML Team Needs an Evaluation Platform",date:"2026-03-30",author:"Slancha Team",excerpt:`Spreadsheets, vibes-based deployment, and "it works on my laptop" are not an eval strategy. Here's how to know you've outgrown ad-hoc testing.`,tags:["evaluation","best-practices","team"],body:`If you're shipping AI features, you're evaluating models — whether you realize it or not. The question is whether your evaluation process is deliberate or accidental.
 
 Here are five signs your team has outgrown ad-hoc testing and needs a real evaluation platform.
 
@@ -2507,16 +2400,7 @@ An evaluation platform isn't overhead — it's the foundation that makes continu
 
 ---
 
-*Ready to move beyond spreadsheets? [Start with the free Slancha Router](/signup) and see what structured evaluation looks like.*`,
-  },
-  {
-    slug: 'why-eval-data-should-drive-fine-tuning',
-    title: 'Why Eval Data Should Drive Fine-Tuning',
-    date: '2026-03-29',
-    author: 'Slancha Team',
-    excerpt: 'Most teams treat evaluation and fine-tuning as separate workflows. That disconnect is costing you model quality and engineering hours.',
-    tags: ['post-training', 'evaluation', 'fine-tuning'],
-    body: `Most AI teams run evaluations to decide which model to deploy. Then they run fine-tuning to improve a model. These two workflows produce overlapping data — but almost nobody connects them.
+*Ready to move beyond spreadsheets? [Start with the free Slancha Router](/signup) and see what structured evaluation looks like.*`},{slug:"why-eval-data-should-drive-fine-tuning",title:"Why Eval Data Should Drive Fine-Tuning",date:"2026-03-29",author:"Slancha Team",excerpt:"Most teams treat evaluation and fine-tuning as separate workflows. That disconnect is costing you model quality and engineering hours.",tags:["post-training","evaluation","fine-tuning"],body:`Most AI teams run evaluations to decide which model to deploy. Then they run fine-tuning to improve a model. These two workflows produce overlapping data — but almost nobody connects them.
 
 ## The Broken Handoff
 
@@ -2554,16 +2438,7 @@ That's not a nice-to-have. That's your competition pulling ahead while you're co
 
 ---
 
-*Want to see this in practice? [Apply for the Slancha pilot](/contact) — we'll instrument your first connected eval-deploy-post-train cycle.*`,
-  },
-  {
-    slug: 'the-real-cost-of-stitching-ai-tools-together',
-    title: 'The Real Cost of Stitching AI Tools Together',
-    date: '2026-03-28',
-    author: 'Slancha Team',
-    excerpt: 'You\'re paying for 4-6 tools that don\'t talk to each other. The integration tax is higher than you think.',
-    tags: ['platform', 'infrastructure', 'cost'],
-    body: `Talk to any AI engineering team running inference at scale and you'll hear the same story: "We use Tool A for eval, Tool B for serving, Tool C for monitoring, and we're stitching together fine-tuning with scripts and cron jobs."
+*Want to see this in practice? [Apply for the Slancha pilot](/contact) — we'll instrument your first connected eval-deploy-post-train cycle.*`},{slug:"the-real-cost-of-stitching-ai-tools-together",title:"The Real Cost of Stitching AI Tools Together",date:"2026-03-28",author:"Slancha Team",excerpt:"You're paying for 4-6 tools that don't talk to each other. The integration tax is higher than you think.",tags:["platform","infrastructure","cost"],body:`Talk to any AI engineering team running inference at scale and you'll hear the same story: "We use Tool A for eval, Tool B for serving, Tool C for monitoring, and we're stitching together fine-tuning with scripts and cron jobs."
 
 ## Count the Tools
 
@@ -2602,16 +2477,7 @@ The result: your ML engineers spend time on model quality, not plumbing.
 
 ---
 
-*Managing 4+ tools for your AI stack? [Let's talk about consolidating](/contact).*`,
-  },
-  {
-    slug: 'introducing-the-slancha-router',
-    title: 'Introducing the Slancha Router: Free Intelligent Model Routing',
-    date: '2026-03-27',
-    author: 'Slancha Team',
-    excerpt: 'Route requests to the best model for the job — automatically. Free to use, no lock-in.',
-    tags: ['router', 'product', 'launch'],
-    body: `Today we're opening free access to the Slancha Router — an intelligent model routing layer that automatically sends each request to the optimal model based on your cost, latency, and accuracy requirements.
+*Managing 4+ tools for your AI stack? [Let's talk about consolidating](/contact).*`},{slug:"introducing-the-slancha-router",title:"Introducing the Slancha Router: Free Intelligent Model Routing",date:"2026-03-27",author:"Slancha Team",excerpt:"Route requests to the best model for the job — automatically. Free to use, no lock-in.",tags:["router","product","launch"],body:`Today we're opening free access to the Slancha Router — an intelligent model routing layer that automatically sends each request to the optimal model based on your cost, latency, and accuracy requirements.
 
 ## What the Router Does
 
@@ -2651,16 +2517,7 @@ No bait-and-switch. The router stays free. The platform is where the value compo
 
 ---
 
-*[Create your free account](/signup) and start routing in under 5 minutes.*`,
-  },
-  {
-    slug: 'slancha-vs-openrouter-beyond-the-model-marketplace',
-    title: 'Slancha vs OpenRouter: Beyond the Model Marketplace',
-    date: '2026-03-31',
-    author: 'Slancha Team',
-    excerpt: 'OpenRouter gives you access to every model through one API. Slancha gives you one API that makes model selection irrelevant. A detailed comparison of two fundamentally different approaches to multi-model AI.',
-    tags: ['comparison', 'routing', 'inference', 'openrouter'],
-    body: `OpenRouter is one of the most popular unified LLM APIs. It abstracts dozens of providers behind a single endpoint and lets you shop for the best price or latency per model. If you're using it today, you already understand the value of not being locked into one provider.
+*[Create your free account](/signup) and start routing in under 5 minutes.*`},{slug:"slancha-vs-openrouter-beyond-the-model-marketplace",title:"Slancha vs OpenRouter: Beyond the Model Marketplace",date:"2026-03-31",author:"Slancha Team",excerpt:"OpenRouter gives you access to every model through one API. Slancha gives you one API that makes model selection irrelevant. A detailed comparison of two fundamentally different approaches to multi-model AI.",tags:["comparison","routing","inference","openrouter"],body:`OpenRouter is one of the most popular unified LLM APIs. It abstracts dozens of providers behind a single endpoint and lets you shop for the best price or latency per model. If you're using it today, you already understand the value of not being locked into one provider.
 
 But there's a ceiling to what a marketplace can do for you. This post breaks down where OpenRouter stops and where Slancha starts.
 
@@ -2901,16 +2758,7 @@ The marketplace gives you options. The optimization engine gives you results.
 
 ---
 
-*[Try the free router tier](/signup) — same API format as OpenRouter, zero model decisions, costs that decrease over time.*`,
-  },
-  {
-    slug: 'how-to-reduce-llm-api-costs',
-    title: 'How to Reduce Your LLM API Costs by 60% Without Sacrificing Quality',
-    date: '2026-03-31',
-    author: 'Slancha Team',
-    excerpt: 'LLM API bills are growing faster than usage. Here are five proven techniques — from intelligent routing to automated fine-tuning — that cut costs dramatically while maintaining or improving output quality.',
-    tags: ['cost-optimization', 'inference', 'routing', 'fine-tuning', 'guide'],
-    body: `Your LLM API bill doubled last quarter. Your usage only grew 40%. Sound familiar?
+*[Try the free router tier](/signup) — same API format as OpenRouter, zero model decisions, costs that decrease over time.*`},{slug:"how-to-reduce-llm-api-costs",title:"How to Reduce Your LLM API Costs by 60% Without Sacrificing Quality",date:"2026-03-31",author:"Slancha Team",excerpt:"LLM API bills are growing faster than usage. Here are five proven techniques — from intelligent routing to automated fine-tuning — that cut costs dramatically while maintaining or improving output quality.",tags:["cost-optimization","inference","routing","fine-tuning","guide"],body:`Your LLM API bill doubled last quarter. Your usage only grew 40%. Sound familiar?
 
 Enterprise AI spending is rising faster than anyone predicted — not because models are expensive per token (prices have dropped ~280x in two years), but because usage is exploding. More features, more agents, more automation, more tokens. And the dirty secret: **frontier providers are selling inference at a loss**. OpenAI reportedly spent $8.7 billion on Azure inference in the first three quarters of 2025 while posting a $5 billion loss. When the subsidies end, your costs go up.
 
@@ -3100,16 +2948,7 @@ No model selection. No infrastructure. No ML team. Just an API that gets cheaper
 
 ---
 
-*Your LLM costs should go down as you scale, not up. [Start with the free router](/signup) and see the difference in your first week.*`,
-  },
-  {
-    slug: 'the-multi-model-future',
-    title: 'The Multi-Model Future: Why One LLM Won\'t Rule Them All',
-    date: '2026-03-31',
-    author: 'Slancha Team',
-    excerpt: 'The era of picking one model and routing everything through it is ending. MoE architectures, task-specific fine-tuning, and intelligent routing are converging on a multi-model future. Here\'s what that means for your AI stack.',
-    tags: ['strategy', 'architecture', 'inference', 'MoE'],
-    body: `For the last two years, the default AI strategy has been simple: pick GPT-4 (or Claude, or Gemini), send everything to it, and pay the bill.
+*Your LLM costs should go down as you scale, not up. [Start with the free router](/signup) and see the difference in your first week.*`},{slug:"the-multi-model-future",title:"The Multi-Model Future: Why One LLM Won't Rule Them All",date:"2026-03-31",author:"Slancha Team",excerpt:"The era of picking one model and routing everything through it is ending. MoE architectures, task-specific fine-tuning, and intelligent routing are converging on a multi-model future. Here's what that means for your AI stack.",tags:["strategy","architecture","inference","MoE"],body:`For the last two years, the default AI strategy has been simple: pick GPT-4 (or Claude, or Gemini), send everything to it, and pay the bill.
 
 That era is ending. Not because frontier models are getting worse — they're not. But because the economics, architectures, and deployment patterns of AI inference are all converging on the same conclusion: **the future is multi-model.**
 
@@ -3226,16 +3065,7 @@ If you're running a single-model setup today:
 
 ---
 
-*The multi-model future is already here — it's just not evenly distributed. [Start with the free router](/signup) and close the gap.*`,
-  },
-  {
-    slug: 'fine-tuning-vs-rag-when-to-use-each',
-    title: 'Fine-Tuning vs RAG: When to Use Each (And How to Stop Choosing)',
-    date: '2026-03-31',
-    author: 'Slancha Engineering',
-    excerpt: 'The fine-tuning vs RAG debate is one of the most common questions in production AI. Here\'s a practical decision framework based on real workloads — plus why the best systems use both, automatically.',
-    tags: ['fine-tuning', 'RAG', 'architecture', 'tutorial'],
-    body: `If you're building AI into a product, you've hit this question: **Should we fine-tune a model, or use retrieval-augmented generation (RAG)?**
+*The multi-model future is already here — it's just not evenly distributed. [Start with the free router](/signup) and close the gap.*`},{slug:"fine-tuning-vs-rag-when-to-use-each",title:"Fine-Tuning vs RAG: When to Use Each (And How to Stop Choosing)",date:"2026-03-31",author:"Slancha Engineering",excerpt:"The fine-tuning vs RAG debate is one of the most common questions in production AI. Here's a practical decision framework based on real workloads — plus why the best systems use both, automatically.",tags:["fine-tuning","RAG","architecture","tutorial"],body:`If you're building AI into a product, you've hit this question: **Should we fine-tune a model, or use retrieval-augmented generation (RAG)?**
 
 The internet gives you oversimplified answers. "RAG for facts, fine-tuning for behavior." That's directionally correct but useless when you're staring at a production workload that does both.
 
@@ -3442,17 +3272,7 @@ You don't build the routing logic. You don't manage the fine-tuning pipeline. Yo
 
 ---
 
-*Stop choosing between fine-tuning and RAG. [Let the platform decide for each request](/signup) — based on your actual data, not a static architecture diagram.*`,
-  },
-  {
-    slug: 'enterprise-ai-inference-buyers-guide-2026',
-    title: 'The Enterprise AI Inference Buyer\'s Guide 2026',
-    date: '2026-03-31',
-    author: 'Slancha Team',
-    excerpt: 'A practical framework for evaluating AI inference vendors — covering latency architecture, cost transparency, security requirements, TCO calculations, and migration playbooks. No fluff, no vendor bias.',
-    tags: ['enterprise', 'buyer-guide', 'comparison', 'TCO', 'security', 'migration'],
-    featured: true,
-    body: `If you're responsible for deploying large language models at scale, you've got problems that don't show up in demos: production latency 10x worse than your PoC, monthly API bills climbing past $47,000, ML teams benchmarking instead of shipping, and security teams that won't sign off on anything.
+*Stop choosing between fine-tuning and RAG. [Let the platform decide for each request](/signup) — based on your actual data, not a static architecture diagram.*`},{slug:"enterprise-ai-inference-buyers-guide-2026",title:"The Enterprise AI Inference Buyer's Guide 2026",date:"2026-03-31",author:"Slancha Team",excerpt:"A practical framework for evaluating AI inference vendors — covering latency architecture, cost transparency, security requirements, TCO calculations, and migration playbooks. No fluff, no vendor bias.",tags:["enterprise","buyer-guide","comparison","TCO","security","migration"],featured:!0,body:`If you're responsible for deploying large language models at scale, you've got problems that don't show up in demos: production latency 10x worse than your PoC, monthly API bills climbing past $47,000, ML teams benchmarking instead of shipping, and security teams that won't sign off on anything.
 
 This guide cuts through the marketing noise. You'll get a practical evaluation framework, an honest vendor comparison, and a TCO calculator that includes the engineering overhead most proposals ignore.
 
@@ -3648,16 +3468,7 @@ Continue monitoring for patterns that don't show up in week 1. Validate cost sav
 
 **If you're still shopping:** Use this framework to compare vendors. Ask the security questions — they'll tell you everything you need to know. Calculate the real TCO, not just the API cost.
 
-*The guide is based on actual deployments, TCO calculations, and security audits from teams shipping at scale. [Get started with Slancha](/signup) — see your real numbers in under 5 minutes.*`,
-  },
-  {
-    slug: 'how-to-build-a-self-improving-ai-pipeline',
-    title: 'How to Build a Self-Improving AI Pipeline (Eval → Fine-Tune → Deploy Loop)',
-    date: '2026-03-31',
-    author: 'Slancha Engineering',
-    excerpt: 'Most AI pipelines are static: deploy a model, hope it works, manually retrain when it drifts. Here\'s how to build a pipeline that evaluates, fine-tunes, and redeploys automatically — closing the loop so your models get better with every request.',
-    tags: ['pipeline', 'fine-tuning', 'evaluation', 'automation', 'MLOps', 'closed-loop'],
-    body: `Most AI pipelines are **static**. You pick a model, write a prompt, deploy it, and hope. When quality degrades — and it always does — someone notices weeks later, runs manual evals, retrains, and redeploys. That cycle takes days to weeks. Meanwhile, your users suffer.
+*The guide is based on actual deployments, TCO calculations, and security audits from teams shipping at scale. [Get started with Slancha](/signup) — see your real numbers in under 5 minutes.*`},{slug:"how-to-build-a-self-improving-ai-pipeline",title:"How to Build a Self-Improving AI Pipeline (Eval → Fine-Tune → Deploy Loop)",date:"2026-03-31",author:"Slancha Engineering",excerpt:"Most AI pipelines are static: deploy a model, hope it works, manually retrain when it drifts. Here's how to build a pipeline that evaluates, fine-tunes, and redeploys automatically — closing the loop so your models get better with every request.",tags:["pipeline","fine-tuning","evaluation","automation","MLOps","closed-loop"],body:`Most AI pipelines are **static**. You pick a model, write a prompt, deploy it, and hope. When quality degrades — and it always does — someone notices weeks later, runs manual evals, retrains, and redeploys. That cycle takes days to weeks. Meanwhile, your users suffer.
 
 A self-improving pipeline does this automatically. It continuously evaluates production outputs, identifies where the model underperforms, fine-tunes on the weak spots, and redeploys — all without human intervention. The result: models that get better with every request.
 
@@ -4242,16 +4053,7 @@ No infrastructure to manage. No eval pipelines to build. No fine-tuning schedule
 
 ---
 
-*Building a self-improving AI pipeline is a significant engineering investment — or one API call. [Try the closed-loop approach](/signup) and see your eval scores improve within a week.*`,
-  },
-  {
-    slug: 'lora-fine-tuning-guide',
-    title: 'The Complete Guide to LoRA Fine-Tuning: From Data Preparation to Production Deployment',
-    date: '2026-03-31',
-    author: 'Slancha Engineering',
-    excerpt: 'LoRA has become the default fine-tuning method for production LLMs — but most teams get the implementation wrong. This guide covers adapter architecture, data preparation, hyperparameter tuning, evaluation, quantized variants (QLoRA), and deployment patterns with production benchmarks.',
-    tags: ['LoRA', 'fine-tuning', 'QLoRA', 'production', 'MLOps', 'training', 'adapters'],
-    body: `LoRA (Low-Rank Adaptation) has become the default method for fine-tuning large language models in production. Instead of updating all model parameters — which requires massive GPU memory and risks catastrophic forgetting — LoRA trains small adapter matrices that modify the model's behavior with 0.1-1% of the parameters.
+*Building a self-improving AI pipeline is a significant engineering investment — or one API call. [Try the closed-loop approach](/signup) and see your eval scores improve within a week.*`},{slug:"lora-fine-tuning-guide",title:"The Complete Guide to LoRA Fine-Tuning: From Data Preparation to Production Deployment",date:"2026-03-31",author:"Slancha Engineering",excerpt:"LoRA has become the default fine-tuning method for production LLMs — but most teams get the implementation wrong. This guide covers adapter architecture, data preparation, hyperparameter tuning, evaluation, quantized variants (QLoRA), and deployment patterns with production benchmarks.",tags:["LoRA","fine-tuning","QLoRA","production","MLOps","training","adapters"],body:`LoRA (Low-Rank Adaptation) has become the default method for fine-tuning large language models in production. Instead of updating all model parameters — which requires massive GPU memory and risks catastrophic forgetting — LoRA trains small adapter matrices that modify the model's behavior with 0.1-1% of the parameters.
 
 But most teams get the implementation wrong. They pick arbitrary rank values, prepare data poorly, skip evaluation, and deploy without quantization. The result: fine-tuned models that are slower, less accurate, and more expensive than the base model.
 
@@ -4822,6 +4624,4 @@ No GPU provisioning. No hyperparameter tuning. No evaluation pipelines. The loop
 
 ---
 
-*LoRA makes fine-tuning accessible, but production deployment still requires data curation, evaluation, quantization, and monitoring. [Try Slancha](/signup) to skip the infrastructure and get straight to better models.*`,
-  },
-];
+*LoRA makes fine-tuning accessible, but production deployment still requires data curation, evaluation, quantization, and monitoring. [Try Slancha](/signup) to skip the infrastructure and get straight to better models.*`}];export{e as p};
