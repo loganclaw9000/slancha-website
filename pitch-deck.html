@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slancha — Pitch Deck</title>
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --accent: #6366f1;
+    --accent2: #818cf8;
+    --green: #22c55e;
+    --orange: #f97316;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --border: #1e293b;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+  }
+  .slide {
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    padding: 60px 80px;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .slide.active { display: flex; }
+  .slide-number {
+    position: fixed;
+    bottom: 24px;
+    right: 40px;
+    font-size: 14px;
+    color: var(--muted);
+    z-index: 10;
+  }
+  .nav-hint {
+    position: fixed;
+    bottom: 24px;
+    left: 40px;
+    font-size: 13px;
+    color: var(--muted);
+    opacity: 0.5;
+  }
+  h1 { font-size: 56px; font-weight: 800; line-height: 1.1; margin-bottom: 16px; }
+  h2 { font-size: 42px; font-weight: 700; line-height: 1.2; margin-bottom: 24px; }
+  h3 { font-size: 24px; font-weight: 600; color: var(--accent2); margin-bottom: 16px; text-transform: uppercase; letter-spacing: 2px; }
+  p { font-size: 22px; line-height: 1.6; color: var(--muted); max-width: 800px; }
+  .subtitle { font-size: 28px; color: var(--muted); margin-bottom: 32px; }
+  .accent { color: var(--accent); }
+  .accent2 { color: var(--accent2); }
+  .green { color: var(--green); }
+  .orange { color: var(--orange); }
+
+  /* Title slide */
+  .title-slide { align-items: center; text-align: center; }
+  .title-slide h1 { font-size: 72px; }
+  .logo-mark {
+    width: 80px; height: 80px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border-radius: 20px;
+    margin-bottom: 32px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 40px; font-weight: 800; color: white;
+  }
+
+  /* Bullet lists */
+  .bullets { list-style: none; margin: 16px 0; }
+  .bullets li {
+    font-size: 22px;
+    line-height: 1.8;
+    padding-left: 28px;
+    position: relative;
+    color: var(--text);
+  }
+  .bullets li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 14px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .bullets li .detail { color: var(--muted); font-size: 18px; }
+
+  /* Stats grid */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 24px;
+    margin: 32px 0;
+  }
+  .stat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    text-align: center;
+  }
+  .stat .number { font-size: 42px; font-weight: 800; color: var(--accent); }
+  .stat .label { font-size: 16px; color: var(--muted); margin-top: 8px; }
+
+  /* Two column */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    margin-top: 24px;
+  }
+  .col-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+  }
+  .col-card h4 { font-size: 22px; font-weight: 700; margin-bottom: 16px; color: var(--accent2); }
+
+  /* Loop diagram */
+  .loop-diagram {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin: 40px auto;
+    flex-wrap: wrap;
+  }
+  .loop-step {
+    background: var(--surface);
+    border: 2px solid var(--accent);
+    border-radius: 16px;
+    padding: 20px 28px;
+    text-align: center;
+    min-width: 160px;
+  }
+  .loop-step .step-title { font-size: 20px; font-weight: 700; color: var(--accent); }
+  .loop-step .step-desc { font-size: 14px; color: var(--muted); margin-top: 6px; }
+  .loop-arrow { font-size: 28px; color: var(--accent); padding: 0 8px; }
+
+  /* Pricing table */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin: 24px 0;
+  }
+  .price-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+  }
+  .price-card.featured { border-color: var(--accent); }
+  .price-card .tier { font-size: 18px; font-weight: 700; color: var(--accent2); margin-bottom: 8px; }
+  .price-card .price { font-size: 32px; font-weight: 800; color: var(--text); }
+  .price-card .price-sub { font-size: 14px; color: var(--muted); }
+  .price-card .features { list-style: none; margin-top: 16px; text-align: left; }
+  .price-card .features li { font-size: 14px; color: var(--muted); padding: 4px 0; }
+  .price-card .features li::before { content: '✓ '; color: var(--green); }
+
+  /* Competitor matrix */
+  .matrix {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-size: 16px;
+  }
+  .matrix th {
+    background: var(--surface);
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 2px solid var(--accent);
+    color: var(--accent2);
+    font-weight: 600;
+  }
+  .matrix td {
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+    color: var(--muted);
+  }
+  .matrix td.yes { color: var(--green); font-weight: 700; }
+  .matrix td.no { color: #ef4444; }
+  .matrix td.partial { color: var(--orange); }
+  .matrix tr.highlight td { color: var(--text); background: rgba(99,102,241,0.08); }
+
+  /* Market pyramid */
+  .pyramid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin: 32px auto;
+  }
+  .pyramid-level {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    padding: 16px;
+    font-weight: 700;
+    text-align: center;
+  }
+  .pyramid-tam { width: 600px; background: rgba(99,102,241,0.15); border: 1px solid var(--accent); font-size: 20px; }
+  .pyramid-sam { width: 440px; background: rgba(99,102,241,0.25); border: 1px solid var(--accent); font-size: 20px; }
+  .pyramid-som { width: 280px; background: rgba(99,102,241,0.4); border: 1px solid var(--accent); font-size: 20px; color: white; }
+
+  /* Funnel */
+  .funnel { display: flex; flex-direction: column; align-items: center; gap: 4px; margin: 24px auto; }
+  .funnel-step {
+    display: flex; align-items: center; justify-content: space-between;
+    border-radius: 10px; padding: 14px 24px;
+    font-size: 17px; font-weight: 600;
+  }
+  .funnel-step span { margin-left: 24px; font-weight: 400; color: var(--muted); font-size: 15px; }
+
+  /* Use of funds */
+  .fund-bars { margin: 24px 0; }
+  .fund-bar { margin-bottom: 16px; }
+  .fund-bar .fund-label { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 18px; }
+  .fund-bar .bar-track { height: 12px; background: var(--surface); border-radius: 6px; overflow: hidden; }
+  .fund-bar .bar-fill { height: 100%; border-radius: 6px; background: var(--accent); }
+
+  /* Vision timeline */
+  .timeline {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 40px 0;
+    position: relative;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    top: 32px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2), var(--green));
+  }
+  .tl-node {
+    text-align: center;
+    flex: 1;
+    position: relative;
+    z-index: 1;
+  }
+  .tl-dot {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin: 22px auto 16px;
+  }
+  .tl-year { font-size: 20px; font-weight: 800; color: var(--accent2); }
+  .tl-desc { font-size: 16px; color: var(--muted); margin-top: 8px; max-width: 200px; margin-left: auto; margin-right: auto; }
+
+  /* CTA slide */
+  .cta-slide { align-items: center; text-align: center; }
+  .cta-slide h1 { font-size: 52px; max-width: 900px; }
+  .cta-tagline { font-size: 24px; color: var(--accent2); margin-top: 16px; }
+</style>
+</head>
+<body>
+
+<!-- Slide 1: Title -->
+<div class="slide title-slide active" id="slide-1">
+  <div class="logo-mark">S</div>
+  <h1>Slancha</h1>
+  <div class="subtitle">End-to-end AI inference. One API. Zero overhead.</div>
+  <p style="font-size: 18px; margin-top: 16px;">Route &rarr; Analyze &rarr; Fine-Tune &rarr; Optimize &rarr; Redeploy</p>
+  <p style="font-size: 16px; margin-top: 40px; color: var(--muted);">Seed Round &middot; 2026</p>
+</div>
+
+<!-- Slide 2: Problem -->
+<div class="slide" id="slide-2">
+  <h3>The Problem</h3>
+  <h2>AI teams are trapped in a <span class="accent">manual loop</span></h2>
+  <ul class="bullets">
+    <li>Engineers evaluate models in Jupyter notebooks and spreadsheets<br><span class="detail">3-week iteration cycles to test and deploy a new model</span></li>
+    <li>Deploying winners requires custom infrastructure nobody wants to build<br><span class="detail">70% of ML projects never make it to production</span></li>
+    <li>Production signal is isolated from training pipelines<br><span class="detail">Models degrade in production with no automated feedback loop</span></li>
+    <li>API costs are subsidized and structurally unstable<br><span class="detail">OpenAI lost $5B on $3.7B revenue in 2025 — prices will rise</span></li>
+  </ul>
+  <div class="stats" style="margin-top: 40px;">
+    <div class="stat"><div class="number orange">3 weeks</div><div class="label">Avg. model iteration cycle</div></div>
+    <div class="stat"><div class="number orange">70%</div><div class="label">ML projects never reach production</div></div>
+    <div class="stat"><div class="number orange">$5B</div><div class="label">OpenAI's 2025 loss on inference</div></div>
+  </div>
+</div>
+
+<!-- Slide 3: Solution -->
+<div class="slide" id="slide-3">
+  <h3>The Solution</h3>
+  <h2>A single API that <span class="accent">gets smarter</span> with every request</h2>
+  <p>Customers send requests to one endpoint. Slancha handles everything behind it — routing, analysis, fine-tuning, and optimization. The platform continuously improves without human intervention.</p>
+  <div class="loop-diagram">
+    <div class="loop-step">
+      <div class="step-title">Route</div>
+      <div class="step-desc">Semantic router sends requests to optimal model</div>
+    </div>
+    <div class="loop-arrow">&rarr;</div>
+    <div class="loop-step">
+      <div class="step-title">Analyze</div>
+      <div class="step-desc">Curate training data from real usage patterns</div>
+    </div>
+    <div class="loop-arrow">&rarr;</div>
+    <div class="loop-step">
+      <div class="step-title">Fine-Tune</div>
+      <div class="step-desc">Train task-specific models automatically</div>
+    </div>
+    <div class="loop-arrow">&rarr;</div>
+    <div class="loop-step">
+      <div class="step-title">Optimize</div>
+      <div class="step-desc">QAT + MIG + multi-token prediction</div>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="number green">10x</div><div class="label">Faster iteration (3 wks &rarr; 3 days)</div></div>
+    <div class="stat"><div class="number green">40-60%</div><div class="label">Cost reduction vs. frontier APIs</div></div>
+    <div class="stat"><div class="number green">Zero</div><div class="label">ML infrastructure to manage</div></div>
+  </div>
+</div>
+
+<!-- Slide 4: Why Now -->
+<div class="slide" id="slide-4">
+  <h3>Why Now</h3>
+  <h2>Three forces creating a <span class="accent">$50B+ opportunity</span></h2>
+  <div class="two-col">
+    <div>
+      <ul class="bullets">
+        <li><strong>Open-source models hit parity.</strong><br><span class="detail">Llama 4, Qwen 3, Mistral, DeepSeek V3 — open-source now matches proprietary quality. MoE architectures deliver 3-5x lower compute cost.</span></li>
+        <li><strong>GPU economics are favorable.</strong><br><span class="detail">Costs dropped 60% since 2023. Fine-tuning is now affordable for mid-market teams. NVIDIA Blackwell (B200/B300) enables MIG partitioning.</span></li>
+        <li><strong>Enterprise AI is moving from "try" to "own."</strong><br><span class="detail">Companies want to own their models, not rent API access at subsidized rates that will eventually rise.</span></li>
+      </ul>
+    </div>
+    <div>
+      <div class="col-card">
+        <h4>Competitor Funding Validates Market</h4>
+        <ul class="bullets" style="margin: 0;">
+          <li>Together AI — <strong>$350M</strong> raised</li>
+          <li>Modal — <strong>$220M</strong> raised</li>
+          <li>Fireworks AI — <strong>$70M</strong> raised</li>
+          <li>Groq — <strong>$640M</strong> raised</li>
+          <li>Anyscale — <strong>$260M</strong> raised</li>
+        </ul>
+        <p style="font-size: 16px; margin-top: 16px; color: var(--green); font-weight: 600;">$1.5B+ invested in AI inference infrastructure</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 5: Market Size -->
+<div class="slide" id="slide-5">
+  <h3>Market Size</h3>
+  <h2>A massive, fast-growing market</h2>
+  <div class="pyramid">
+    <div class="pyramid-level pyramid-tam">TAM: <span class="accent2">$47–58B</span> by 2028 &mdash; AI inference + training infrastructure</div>
+    <div class="pyramid-level pyramid-sam">SAM: <span class="accent2">$8–12B</span> &mdash; Open-source eval + deploy segment</div>
+    <div class="pyramid-level pyramid-som">SOM: $40–80M Year 1</div>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="number">~50%</div><div class="label">Market CAGR through 2028</div></div>
+    <div class="stat"><div class="number">80%</div><div class="label">Eval/observability segment CAGR</div></div>
+    <div class="stat"><div class="number">2/3</div><div class="label">AI compute now goes to inference (up from 1/3 in 2023)</div></div>
+  </div>
+  <p style="font-size: 16px; margin-top: 16px;">Sources: Gartner, Forrester, McKinsey, Crunchbase, public pricing data</p>
+</div>
+
+<!-- Slide 6: Business Model -->
+<div class="slide" id="slide-6">
+  <h3>Business Model</h3>
+  <h2>PLG for scale. Sales-led for enterprise.</h2>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="tier">Router</div>
+      <div class="price">Free</div>
+      <div class="price-sub">The wedge</div>
+      <ul class="features">
+        <li>Single API endpoint</li>
+        <li>Semantic model routing</li>
+        <li>10K requests/mo</li>
+        <li>Community support</li>
+      </ul>
+    </div>
+    <div class="price-card">
+      <div class="tier">Eval + Deploy</div>
+      <div class="price">$299<span style="font-size:16px;color:var(--muted)">/mo</span></div>
+      <div class="price-sub">+ $0.001/request</div>
+      <ul class="features">
+        <li>Benchmarking suite</li>
+        <li>One-click deployment</li>
+        <li>Production monitoring</li>
+        <li>Email support</li>
+      </ul>
+    </div>
+    <div class="price-card featured">
+      <div class="tier">Full Loop</div>
+      <div class="price">$999<span style="font-size:16px;color:var(--muted)">/mo</span></div>
+      <div class="price-sub">+ $0.02/GPU-min</div>
+      <ul class="features">
+        <li>Everything in Eval+Deploy</li>
+        <li>Auto fine-tuning</li>
+        <li>Inference optimization</li>
+        <li>Priority support</li>
+      </ul>
+    </div>
+    <div class="price-card">
+      <div class="tier">Enterprise</div>
+      <div class="price">Custom</div>
+      <div class="price-sub">Annual contract</div>
+      <ul class="features">
+        <li>Single-tenant / on-prem</li>
+        <li>Private model registry</li>
+        <li>SOC 2, HIPAA, GDPR</li>
+        <li>Dedicated support + SLA</li>
+      </ul>
+    </div>
+  </div>
+  <div class="stats" style="margin-top: 16px;">
+    <div class="stat"><div class="number green">14:1</div><div class="label">LTV:CAC (Eval+Deploy)</div></div>
+    <div class="stat"><div class="number green">65-85%</div><div class="label">Gross margin (platform tiers)</div></div>
+    <div class="stat"><div class="number green">1-2 mo</div><div class="label">CAC payback period</div></div>
+  </div>
+</div>
+
+<!-- Slide 7: Traction -->
+<div class="slide" id="slide-7">
+  <h3>Traction</h3>
+  <h2>Pre-launch momentum</h2>
+  <div class="two-col">
+    <div>
+      <div class="stats" style="grid-template-columns: 1fr;">
+        <div class="stat"><div class="number green">[X]</div><div class="label">Waitlist signups</div></div>
+        <div class="stat"><div class="number green">[X]</div><div class="label">Pilot customers in pipeline</div></div>
+        <div class="stat"><div class="number green">Live</div><div class="label">Platform + dashboard + auth shipped</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="col-card">
+        <h4>What's Shipped</h4>
+        <ul class="bullets" style="margin: 0;">
+          <li>Full marketing site with 15+ pages</li>
+          <li>Auth system (Supabase)</li>
+          <li>Dashboard: API keys, usage, settings</li>
+          <li>API playground (5 endpoints)</li>
+          <li>Docs: quickstart, SDK, API reference</li>
+          <li>Blog with technical content</li>
+          <li>Waitlist / email capture</li>
+        </ul>
+      </div>
+      <p style="font-size: 16px; margin-top: 16px; color: var(--muted);">[Update with real metrics at fundraise time]</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 8: Competition -->
+<div class="slide" id="slide-8">
+  <h3>Competition</h3>
+  <h2>No one owns the <span class="accent">eval-first</span> wedge</h2>
+  <table class="matrix">
+    <thead>
+      <tr>
+        <th>Platform</th>
+        <th>Routing</th>
+        <th>Eval</th>
+        <th>Deploy</th>
+        <th>Fine-Tune</th>
+        <th>Auto Loop</th>
+        <th>Black Box</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="highlight">
+        <td><strong>Slancha</strong></td>
+        <td class="yes">Yes</td>
+        <td class="yes">Yes</td>
+        <td class="yes">Yes</td>
+        <td class="yes">Yes</td>
+        <td class="yes">Yes</td>
+        <td class="yes">Yes</td>
+      </tr>
+      <tr>
+        <td>Fireworks AI</td>
+        <td class="no">No</td>
+        <td class="no">No</td>
+        <td class="yes">Yes</td>
+        <td class="yes">Yes</td>
+        <td class="no">No</td>
+        <td class="no">No</td>
+      </tr>
+      <tr>
+        <td>Together AI</td>
+        <td class="no">No</td>
+        <td class="no">No</td>
+        <td class="yes">Yes</td>
+        <td class="yes">Yes</td>
+        <td class="no">No</td>
+        <td class="no">No</td>
+      </tr>
+      <tr>
+        <td>Not Diamond</td>
+        <td class="yes">Yes</td>
+        <td class="partial">Partial</td>
+        <td class="no">No</td>
+        <td class="no">No</td>
+        <td class="no">No</td>
+        <td class="no">No</td>
+      </tr>
+      <tr>
+        <td>Portkey</td>
+        <td class="yes">Yes</td>
+        <td class="partial">Partial</td>
+        <td class="no">No</td>
+        <td class="no">No</td>
+        <td class="no">No</td>
+        <td class="no">No</td>
+      </tr>
+      <tr>
+        <td>OpenRouter</td>
+        <td class="yes">Yes</td>
+        <td class="no">No</td>
+        <td class="no">No</td>
+        <td class="no">No</td>
+        <td class="no">No</td>
+        <td class="no">No</td>
+      </tr>
+      <tr>
+        <td>Databricks</td>
+        <td class="no">No</td>
+        <td class="partial">Partial</td>
+        <td class="yes">Yes</td>
+        <td class="yes">Yes</td>
+        <td class="no">No</td>
+        <td class="no">No</td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="font-size: 18px; margin-top: 16px;">Slancha is the <strong>only platform</strong> that closes the loop automatically. Competitors require manual intervention at every step.</p>
+</div>
+
+<!-- Slide 9: Go-to-Market -->
+<div class="slide" id="slide-9">
+  <h3>Go-to-Market</h3>
+  <h2>Free router as the <span class="accent">wedge</span></h2>
+  <div class="two-col">
+    <div>
+      <div class="col-card">
+        <h4>PLG Motion (80% of revenue)</h4>
+        <div class="funnel" style="align-items: flex-start;">
+          <div class="funnel-step" style="width:100%; background:rgba(99,102,241,0.1); border:1px solid var(--accent);">Free Router — 10,000 signups Y1 <span>$0 CAC (organic)</span></div>
+          <div class="funnel-step" style="width:85%; background:rgba(99,102,241,0.15); border:1px solid var(--accent);">Eval + Deploy — 2-3% convert <span>$50-100 CAC</span></div>
+          <div class="funnel-step" style="width:65%; background:rgba(99,102,241,0.25); border:1px solid var(--accent);">Full Loop — 15-20% upgrade <span>$500 CAC</span></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="col-card">
+        <h4>Sales-Led Motion (20% of revenue)</h4>
+        <ul class="bullets" style="margin: 0;">
+          <li>Enterprise pilots: $25K / 8 weeks</li>
+          <li>Annual contracts: $100K-$500K</li>
+          <li>40-50% pilot-to-close rate</li>
+          <li>CAC: $500-$1,000</li>
+        </ul>
+        <div style="margin-top: 24px; padding: 16px; background: rgba(34,197,94,0.1); border-radius: 12px; border: 1px solid var(--green);">
+          <p style="font-size: 16px; color: var(--green); font-weight: 600;">Key insight: Free eval is the wedge. Teams try Slancha to benchmark models — then stay for the automated loop.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 10: Team -->
+<div class="slide" id="slide-10">
+  <h3>Team</h3>
+  <h2>Built by engineers who've shipped <span class="accent">AI at scale</span></h2>
+  <div class="two-col">
+    <div>
+      <div class="col-card" style="min-height: 200px;">
+        <h4>Founder</h4>
+        <p style="font-size: 18px; color: var(--text);">[Founder Name]</p>
+        <p style="font-size: 16px;">[Bio — previous companies, relevant experience, why this problem]</p>
+      </div>
+      <div class="col-card" style="margin-top: 24px;">
+        <h4>Advisors</h4>
+        <ul class="bullets" style="margin: 0;">
+          <li>[Advisor 1] — [Role at Company]</li>
+          <li>[Advisor 2] — [Role at Company]</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="col-card">
+        <h4>The AI Team</h4>
+        <p style="font-size: 16px; margin-bottom: 16px;">11 AI agents running 24/7, coordinated by an autonomous orchestrator. The team that built this site, docs, API, dashboard, business strategy, and financial models — in under 48 hours.</p>
+        <ul class="bullets" style="margin: 0;">
+          <li>Engineering: 5 agents (frontend, QA, design, copywriting, tech lead)</li>
+          <li>Business: 4 agents (strategy, finance, ops, bizdev)</li>
+          <li>Coordination: 2 agents (boss + orchestrator)</li>
+        </ul>
+        <p style="font-size: 14px; color: var(--muted); margin-top: 16px;">This is the infrastructure playbook we sell — we use it ourselves.</p>
+      </div>
+      <div class="col-card" style="margin-top: 24px;">
+        <h4>Open Roles</h4>
+        <ul class="bullets" style="margin: 0;">
+          <li>Founding Engineer (ML/Infra)</li>
+          <li>Developer Advocate</li>
+          <li>Account Executive</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 11: The Ask -->
+<div class="slide" id="slide-11">
+  <h3>The Ask</h3>
+  <h2>Raising <span class="accent">$[X]M</span> to capture the eval-first market</h2>
+  <div class="two-col">
+    <div>
+      <div class="fund-bars">
+        <div class="fund-bar">
+          <div class="fund-label"><span>Engineering</span><span class="accent2">60%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:60%"></div></div>
+          <p style="font-size: 14px; color: var(--muted); margin-top: 4px;">5-7 engineers, platform buildout</p>
+        </div>
+        <div class="fund-bar">
+          <div class="fund-label"><span>Go-to-Market</span><span class="accent2">25%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:25%"></div></div>
+          <p style="font-size: 14px; color: var(--muted); margin-top: 4px;">2 AEs, partner manager, content marketing</p>
+        </div>
+        <div class="fund-bar">
+          <div class="fund-label"><span>Infrastructure</span><span class="accent2">10%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:10%"></div></div>
+          <p style="font-size: 14px; color: var(--muted); margin-top: 4px;">GPU credits, cloud, bandwidth</p>
+        </div>
+        <div class="fund-bar">
+          <div class="fund-label"><span>Operations</span><span class="accent2">5%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:5%"></div></div>
+          <p style="font-size: 14px; color: var(--muted); margin-top: 4px;">Legal, finance, hiring</p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="col-card">
+        <h4>Milestones</h4>
+        <div style="margin-bottom: 24px;">
+          <p style="font-size: 18px; color: var(--text); font-weight: 700;">12 months</p>
+          <ul class="bullets" style="margin: 8px 0;">
+            <li>$10M ARR</li>
+            <li>1,000 customers</li>
+            <li>Series A ready</li>
+          </ul>
+        </div>
+        <div>
+          <p style="font-size: 18px; color: var(--text); font-weight: 700;">24 months</p>
+          <ul class="bullets" style="margin: 8px 0;">
+            <li>$75M ARR</li>
+            <li>5,000 customers</li>
+            <li>Path to profitability</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 12: Vision / Close -->
+<div class="slide cta-slide" id="slide-12">
+  <div class="logo-mark">S</div>
+  <h2 style="font-size: 28px; color: var(--muted); margin-bottom: 40px;">The Vision</h2>
+  <div class="timeline" style="width: 80%; max-width: 800px;">
+    <div class="tl-node">
+      <div class="tl-year">2026</div>
+      <div class="tl-dot"></div>
+      <div class="tl-desc">Eval-first platform for open-source model iteration</div>
+    </div>
+    <div class="tl-node">
+      <div class="tl-year">2028</div>
+      <div class="tl-dot" style="background: var(--accent2);"></div>
+      <div class="tl-desc">Full AI engineering platform: data, eval, deploy, train</div>
+    </div>
+    <div class="tl-node">
+      <div class="tl-year">2030</div>
+      <div class="tl-dot" style="background: var(--green);"></div>
+      <div class="tl-desc">The operating system for AI engineering</div>
+    </div>
+  </div>
+  <h1 style="margin-top: 60px; font-size: 44px; max-width: 800px;">Let's build the compounding<br>improvement loop for AI.</h1>
+  <div class="cta-tagline" style="margin-top: 32px;">slancha.ai</div>
+</div>
+
+<div class="slide-number" id="slideNum">1 / 12</div>
+<div class="nav-hint">Arrow keys or click to navigate</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const slideNum = document.getElementById('slideNum');
+  let current = 0;
+  const total = slides.length;
+
+  function showSlide(n) {
+    slides[current].classList.remove('active');
+    current = ((n % total) + total) % total;
+    slides[current].classList.add('active');
+    slideNum.textContent = `${current + 1} / ${total}`;
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'ArrowDown') {
+      e.preventDefault();
+      showSlide(current + 1);
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      showSlide(current - 1);
+    } else if (e.key === 'Home') {
+      showSlide(0);
+    } else if (e.key === 'End') {
+      showSlide(total - 1);
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    if (e.clientX > window.innerWidth / 2) {
+      showSlide(current + 1);
+    } else {
+      showSlide(current - 1);
+    }
+  });
+</script>
+</body>
+</html>
