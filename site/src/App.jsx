@@ -29,6 +29,7 @@ const FineTuning = lazy(() => import('./components/dashboard/FineTuning'));
 const Optimization = lazy(() => import('./components/dashboard/Optimization'));
 const TeamManagement = lazy(() => import('./components/dashboard/TeamManagement'));
 const Deployments = lazy(() => import('./components/dashboard/Deployments'));
+const Datasets = lazy(() => import('./components/dashboard/Datasets'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 const Blog = lazy(() => import('./pages/Blog'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
@@ -55,6 +56,9 @@ const Resources = lazy(() => import('./pages/Resources'));
 const Glossary = lazy(() => import('./pages/Glossary'));
 const Developers = lazy(() => import('./pages/Developers'));
 const PilotProgram = lazy(() => import('./pages/PilotProgram'));
+const Architecture = lazy(() => import('./pages/Architecture'));
+const SdkReference = lazy(() => import('./pages/SdkReference'));
+const ApiReference = lazy(() => import('./pages/ApiReference'));
 
 function Loading() {
   return (
@@ -105,6 +109,9 @@ const App = () => (
           <Route path="/glossary" element={<Glossary />} />
           <Route path="/developers" element={<Developers />} />
           <Route path="/pilot" element={<PilotProgram />} />
+          <Route path="/architecture" element={<Architecture />} />
+          <Route path="/developers/sdk" element={<SdkReference />} />
+          <Route path="/developers/api" element={<ApiReference />} />
 
           {/* Auth */}
           <Route path="/login" element={<Login />} />
@@ -129,6 +136,7 @@ const App = () => (
             <Route path="optimization" element={<Optimization />} />
             <Route path="team" element={<TeamManagement />} />
             <Route path="deployments" element={<Deployments />} />
+            <Route path="datasets" element={<Datasets />} />
             <Route path="webhooks" element={<Webhooks />} />
             <Route path="settings" element={<AccountSettings />} />
           </Route>

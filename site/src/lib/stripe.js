@@ -1,6 +1,7 @@
 import { loadStripe } from '@stripe/stripe-js';
 
 const stripePublishableKey = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY;
+const apiUrl = import.meta.env.VITE_API_URL || '';
 
 let stripePromise = null;
 
@@ -12,9 +13,9 @@ export function getStripe() {
 }
 
 /**
- * Pricing tiers with Stripe Payment Link IDs.
- * Configure VITE_STRIPE_LINK_* env vars with your Stripe Payment Links.
- * When a backend is available, switch to Checkout Sessions for more control.
+ * Pricing tiers — matches the server-side product catalog.
+ * Checkout flows through the API server's /stripe/create-checkout-session endpoint.
+ * Falls back to Payment Links if API is not configured.
  */
 export const pricingTiers = [
   {
@@ -29,9 +30,12 @@ export const pricingTiers = [
       'Cost, latency, and accuracy tracking',
       'Multi-model routing dashboard',
       'Deployment rollback & canary releases',
+      '50,000 API requests/month included',
     ],
     price: '$299',
     pricePeriod: '/mo + usage',
+    annualPrice: '$239',
+    annualPricePeriod: '/mo (billed annually)',
     paymentLink: import.meta.env.VITE_STRIPE_LINK_EVAL_DEPLOY,
     cta: 'Get Started',
     featured: false,
@@ -41,19 +45,22 @@ export const pricingTiers = [
     name: 'Full Loop',
     subtitle: 'Platform',
     bestFor: 'Teams running continuous fine-tuning or building proprietary model capabilities',
-    description: 'Everything in Eval + Deploy, plus the post-training pipeline that closes the loop: production signal automatically becomes fine-tuning data.',
+    description: 'The complete platform: routing, task analysis, automated fine-tuning, and inference optimization. The full closed loop — production usage automatically improves your models.',
     features: [
-      'Everything in Eval + Deploy',
-      'Post-training pipeline automation',
-      'Production signal → fine-tuning data',
+      'Everything in Route + Analyze',
+      'Automated fine-tuning pipeline',
+      'Production usage → fine-tuning data',
       'Continuous model improvement cycles',
       'Custom training run scheduling',
       'Fine-tuning data quality monitoring',
+      '500,000 API requests/month included',
     ],
     price: '$999',
     pricePeriod: '/mo + usage',
+    annualPrice: '$799',
+    annualPricePeriod: '/mo (billed annually)',
     paymentLink: import.meta.env.VITE_STRIPE_LINK_FULL_LOOP,
-    cta: 'Contact Sales',
+    cta: 'Start Free Trial',
     featured: true,
   },
   {
@@ -72,7 +79,7 @@ export const pricingTiers = [
     ],
     price: 'Custom',
     pricePeriod: 'one-time license',
-    paymentLink: import.meta.env.VITE_STRIPE_LINK_SELF_HOSTED,
+    paymentLink: null,
     cta: 'Contact Sales',
     featured: false,
   },
@@ -92,24 +99,69 @@ export const pricingTiers = [
     ],
     price: 'Limited',
     pricePeriod: 'preview',
-    paymentLink: import.meta.env.VITE_STRIPE_LINK_SRE_AGENT,
+    paymentLink: null,
     cta: 'Join Waitlist',
     featured: false,
   },
 ];
 
 /**
- * Redirect to Stripe Payment Link or contact page.
- * Falls back to contact page if no payment link is configured.
+ * Start checkout flow.
+ *
+ * Priority:
+ * 1. Stripe Checkout Session via API server (if VITE_API_URL is set)
+ * 2. Stripe Payment Link (if VITE_STRIPE_LINK_* is set)
+ * 3. Contact page fallback
  */
-export function handleCheckout(tierId) {
+export async function handleCheckout(tierId, { interval = 'monthly', userId, email } = {}) {
   const tier = pricingTiers.find(t => t.id === tierId);
   if (!tier) return;
 
+  // Custom pricing tiers → contact
+  if (tier.price === 'Custom' || tier.price === 'Limited') {
+    window.location.href = `/contact?plan=${tierId}`;
+    return;
+  }
+
+  // Try Checkout Session via API server
+  if (apiUrl) {
+    try {
+      const res = await fetch(`${apiUrl}/stripe/create-checkout-session`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tierId, interval, userId, email }),
+      });
+
+      const data = await res.json();
+
+      if (data.redirect) {
+        window.location.href = data.redirect;
+        return;
+      }
+
+      if (data.url) {
+        window.location.href = data.url;
+        return;
+      }
+
+      if (data.sessionId) {
+        const stripe = await getStripe();
+        if (stripe) {
+          await stripe.redirectToCheckout({ sessionId: data.sessionId });
+          return;
+        }
+      }
+    } catch (err) {
+      console.warn('[stripe] Checkout session failed, falling back:', err.message);
+    }
+  }
+
+  // Fallback: Payment Link
   if (tier.paymentLink) {
     window.location.href = tier.paymentLink;
-  } else {
-    // Fallback: redirect to contact with tier context
-    window.location.href = `/contact?plan=${tierId}`;
+    return;
   }
+
+  // Final fallback: contact page
+  window.location.href = `/contact?plan=${tierId}`;
 }

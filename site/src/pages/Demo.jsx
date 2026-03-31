@@ -243,7 +243,7 @@ print(usage)
     resultLabel: 'Dashboard metrics',
     keyPoints: [
       'Per-model cost breakdown shows exactly where your budget goes',
-      'Quality score tracks across the eval→deploy→fine-tune loop automatically',
+      'Quality score tracks across the route→analyze→fine-tune→optimize loop automatically',
       'Anomaly alerts notify you when latency spikes or quality drops below threshold',
       'Export metrics to Datadog, Grafana, or any observability platform via webhooks',
     ]
@@ -354,7 +354,7 @@ export default function Demo() {
             {currentStep === STEPS.length - 1 && (
               <div className="demo-cta">
                 <h3>Ready to see this with your data?</h3>
-                <p>Start a free pilot — bring your dataset, and we'll run the full eval→deploy→optimize loop on your workload.</p>
+                <p>Start a free pilot — bring your dataset, and we'll run the full route→analyze→fine-tune→optimize loop on your workload.</p>
                 <Link to="/contact" className="demo-cta-btn">Request a Pilot</Link>
               </div>
             )}

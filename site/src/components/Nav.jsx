@@ -6,7 +6,8 @@ import './Nav.css';
 
 const dropdowns = {
   Product: [
-    { to: '/#how-it-works', label: 'How It Works', desc: 'The eval→deploy→optimize loop', anchor: true },
+    { to: '/#how-it-works', label: 'How It Works', desc: 'Route → analyze → fine-tune → optimize', anchor: true },
+    { to: '/architecture', label: 'Architecture', desc: 'Technical deep dive into all 4 layers' },
     { to: '/integrations', label: 'Integrations', desc: '31 platforms supported' },
     { to: '/demo', label: 'Product Demo', desc: '5-step interactive walkthrough' },
     { to: '/playground', label: 'API Playground', desc: 'Try the API interactively' },
@@ -33,6 +34,8 @@ const dropdowns = {
     { to: '/developers', label: 'Developer Portal', desc: 'SDKs, guides & code examples' },
     { to: '/docs', label: 'Documentation', desc: 'Guides, API ref, SDKs' },
     { to: '/docs/quickstart', label: 'Quickstart', desc: 'First API call in 5 min' },
+    { to: '/developers/sdk', label: 'SDK Reference', desc: 'Full method reference & types' },
+    { to: '/developers/api', label: 'API Reference', desc: 'REST endpoints & schemas' },
     { to: '/blog', label: 'Blog', desc: 'Technical deep dives' },
     { to: '/resources', label: 'Resources', desc: 'Guides, tools & case studies' },
     { to: '/faq', label: 'FAQ', desc: 'Common questions answered' },

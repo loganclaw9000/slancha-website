@@ -10,12 +10,12 @@ const useCases = [
     eyebrow: 'Enterprise ML Teams',
     title: 'Replace your manual model evaluation pipeline',
     challenge:
-      'Your team evaluates models in notebooks, copies results into spreadsheets, and debates which model to deploy in meetings. Deployments take weeks. Post-training happens quarterly — if at all.',
+      'Your team benchmarks models in notebooks, copies results into spreadsheets, and debates which model to use in meetings. Switching models takes weeks. Optimization happens quarterly — if at all.',
     steps: [
-      'Connect your eval datasets and custom metrics to Slancha',
-      'Run automated head-to-head evaluations across all candidate models',
-      'Deploy the winner with one click — canary, shadow, or full rollout',
-      'Slancha captures production data and triggers retraining automatically',
+      'Point your API calls at Slancha\'s single endpoint',
+      'Slancha automatically routes requests to the right model for each task',
+      'Behind the scenes, task-specific models are fine-tuned on your usage data',
+      'Inference is continuously optimized — cost drops, quality improves, automatically',
     ],
     metrics: [
       { number: '10x', label: 'Faster eval cycles' },

@@ -1,0 +1,456 @@
+/* Datasets Dashboard */
+
+.ds-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+/* Table wrapper */
+.ds-table-wrap {
+  overflow-x: auto;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+}
+
+.ds-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.ds-table thead th {
+  padding: 12px 14px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.03em;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--glass-border);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.ds-sortable {
+  cursor: pointer;
+}
+.ds-sortable:hover {
+  color: var(--text-primary);
+}
+
+.ds-sort-icon {
+  font-size: 11px;
+  margin-left: 4px;
+  opacity: 0.4;
+}
+.ds-sort-icon.active {
+  opacity: 1;
+  color: #3B82F6;
+}
+
+.ds-table tbody tr {
+  border-bottom: 1px solid var(--glass-border);
+  cursor: pointer;
+  transition: background 100ms ease;
+}
+.ds-table tbody tr:last-child {
+  border-bottom: none;
+}
+.ds-table tbody tr:hover {
+  background: rgba(255,255,255,0.02);
+}
+
+.ds-row td {
+  padding: 14px;
+  vertical-align: middle;
+}
+
+.ds-row.selected {
+  background: rgba(59, 130, 246, 0.04);
+}
+
+.ds-row.expanded {
+  background: rgba(59, 130, 246, 0.03);
+  border-bottom: none;
+}
+
+/* Name cell */
+.ds-name-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.ds-name {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 13px;
+}
+.ds-desc {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.3;
+}
+
+/* Status */
+.ds-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 12px;
+  text-transform: capitalize;
+}
+.ds-status.active {
+  color: #22C55E;
+  background: rgba(34, 197, 94, 0.1);
+}
+.ds-status.processing {
+  color: #F59E0B;
+  background: rgba(245, 158, 11, 0.1);
+}
+.ds-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.ds-status-dot.pulse {
+  animation: ds-pulse 1.5s ease infinite;
+}
+@keyframes ds-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.ds-mono {
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 13px;
+}
+
+/* Version badge */
+.ds-version-badge {
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  color: #8B5CF6;
+}
+.ds-version-count {
+  font-weight: 400;
+  color: var(--text-secondary);
+  margin-left: 4px;
+  font-size: 11px;
+}
+
+/* Usage cell */
+.ds-usage-cell {
+  display: flex;
+  gap: 12px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.ds-date {
+  font-size: 12px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+/* Detail panel */
+.ds-detail-row td {
+  padding: 0 !important;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.ds-detail-panel {
+  padding: 20px 24px 24px;
+  background: rgba(59, 130, 246, 0.02);
+  border-top: 1px solid rgba(59, 130, 246, 0.1);
+}
+
+.ds-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 20px;
+}
+
+.ds-detail-section h4 {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+
+.ds-detail-stats {
+  display: flex;
+  gap: 20px;
+}
+
+.ds-detail-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.ds-detail-stat-value {
+  font-size: 18px;
+  font-weight: 700;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+}
+.ds-detail-stat-label {
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+/* Quality bars */
+.ds-quality-bar {
+  margin-bottom: 8px;
+}
+.ds-quality-bar-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-bottom: 3px;
+}
+.ds-quality-bar-track {
+  height: 6px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.ds-quality-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 300ms ease;
+}
+
+/* Language bars */
+.ds-lang-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Tags */
+.ds-tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+.ds-tag {
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(139, 92, 246, 0.1);
+  color: #A78BFA;
+  font-weight: 500;
+}
+
+.ds-detail-meta {
+  display: flex;
+  gap: 16px;
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+/* Detail actions */
+.ds-detail-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.ds-btn {
+  padding: 7px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 6px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 100ms ease;
+}
+.ds-btn:hover {
+  border-color: var(--text-secondary);
+}
+.ds-btn.primary {
+  background: #3B82F6;
+  border-color: #3B82F6;
+  color: #fff;
+}
+.ds-btn.primary:hover {
+  background: #2563EB;
+}
+.ds-btn.danger {
+  color: #EF4444;
+  border-color: rgba(239, 68, 68, 0.3);
+}
+.ds-btn.danger:hover {
+  background: rgba(239, 68, 68, 0.08);
+  border-color: #EF4444;
+}
+.ds-btn.sm {
+  padding: 5px 10px;
+  font-size: 11px;
+}
+
+/* Search + toolbar */
+.ds-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.ds-search-wrapper {
+  position: relative;
+  flex: 1;
+  max-width: 400px;
+}
+.ds-search-wrapper svg {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-secondary);
+  pointer-events: none;
+}
+.ds-search {
+  width: 100%;
+  padding: 9px 12px 9px 36px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 13px;
+  outline: none;
+  transition: border-color 150ms ease;
+}
+.ds-search:focus {
+  border-color: #3B82F6;
+}
+.ds-search::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.6;
+}
+
+/* Bulk actions */
+.ds-bulk-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ds-bulk-count {
+  font-size: 12px;
+  color: #3B82F6;
+  font-weight: 600;
+}
+
+/* Upload panel */
+.ds-upload-panel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  padding: 24px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  margin-bottom: 24px;
+}
+
+.ds-upload-dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  border: 2px dashed var(--glass-border);
+  border-radius: var(--radius);
+  text-align: center;
+  cursor: pointer;
+  transition: all 150ms ease;
+}
+.ds-upload-dropzone:hover {
+  border-color: #3B82F6;
+  background: rgba(59, 130, 246, 0.03);
+}
+.ds-upload-text {
+  margin-top: 12px;
+  font-size: 14px;
+  color: var(--text-primary);
+}
+.ds-upload-browse {
+  color: #3B82F6;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.ds-upload-hint {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 6px;
+}
+
+.ds-upload-info h4 {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.ds-upload-code {
+  padding: 12px;
+  background: rgba(0,0,0,0.3);
+  border-radius: 6px;
+  font-size: 11px;
+  line-height: 1.5;
+  overflow-x: auto;
+  color: #A5D6FF;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+}
+.ds-upload-note {
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+/* Empty state */
+.ds-empty {
+  text-align: center;
+  padding: 40px;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .ds-detail-grid {
+    grid-template-columns: 1fr;
+  }
+  .ds-upload-panel {
+    grid-template-columns: 1fr;
+  }
+  .ds-header {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 700px) {
+  .ds-table-wrap {
+    font-size: 12px;
+  }
+  .ds-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .ds-search-wrapper {
+    max-width: none;
+  }
+}

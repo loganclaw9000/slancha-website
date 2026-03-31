@@ -808,6 +808,8 @@ For explicit control, you can still specify any model by name — the request by
 
 The Slancha API gives you programmatic access to the full eval → deploy → post-train lifecycle. The inference endpoints are OpenAI-compatible — if you're already using the OpenAI SDK, switching is a one-line change.
 
+> **OpenAPI Spec:** Download the full [OpenAPI 3.1 specification](/openapi.yaml) for import into Postman, Insomnia, or SDK generators.
+
 ## Base URL
 
 \`\`\`

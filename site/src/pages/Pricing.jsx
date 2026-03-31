@@ -4,6 +4,7 @@ import Nav from '../components/Nav';
 import Footer from '../components/Footer';
 import { pricingTiers, handleCheckout } from '../lib/stripe';
 import usePageMeta from '../hooks/usePageMeta';
+import { trackCtaClick } from '../lib/analytics';
 import './Pricing.css';
 
 export default function Pricing() {
@@ -52,7 +53,7 @@ export default function Pricing() {
 
                 <button
                   className={`pricing-cta ${tier.featured ? 'btn-primary' : 'btn-secondary'}`}
-                  onClick={() => handleCheckout(tier.id)}
+                  onClick={() => { trackCtaClick(`pricing_${tier.id}`, 'pricing_page'); handleCheckout(tier.id); }}
                 >
                   {tier.cta}
                 </button>

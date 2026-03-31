@@ -413,7 +413,7 @@
       "id": "https://slancha.ai/blog/ai-inference-cost-optimization-cfo-guide",
       "url": "https://slancha.ai/blog/ai-inference-cost-optimization-cfo-guide",
       "title": "AI Inference Cost Optimization: A CFO's Guide to GPU Economics",
-      "summary": "Your API bill went from $5K to $47K in six months. This guide gives CFOs and finance leaders the TCO breakdown, build vs. buy analysis, and ROI framework they need to make the right inference infrastructure decision — no technical jargon.",
+      "summary": "Your API bill is the tip of the iceberg. This guide breaks down the real total cost of ownership for AI inference — build vs. buy analysis with concrete numbers, ROI framework for the board, and three real-world scenarios showing what happens when you get optimization right (or wrong).",
       "date_published": "2026-03-31T00:00:00.000Z",
       "authors": [
         {
@@ -422,12 +422,11 @@
       ],
       "tags": [
         "cost-optimization",
-        "CFO",
-        "ROI",
-        "TCO",
+        "business",
+        "cfo",
+        "gpu-economics",
         "build-vs-buy",
-        "enterprise",
-        "economics"
+        "roi"
       ]
     }
   ]

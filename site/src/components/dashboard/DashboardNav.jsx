@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
+import Notifications from './Notifications';
 import './DashboardNav.css';
 
 export default function DashboardNav() {
@@ -26,6 +27,7 @@ export default function DashboardNav() {
         Slancha
       </Link>
       <div className="dash-nav-right">
+        <Notifications />
         <span className="dash-nav-user">{displayName}</span>
         <button className="dash-nav-signout" onClick={signOut}>Sign out</button>
       </div>

@@ -3,6 +3,7 @@ import { supabase } from '../lib/supabase';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
 import usePageMeta from '../hooks/usePageMeta';
+import { trackCtaClick } from '../lib/analytics';
 import '../components/Contact.css';
 
 const FORMSPREE_ID = import.meta.env.VITE_FORMSPREE_ID;
@@ -70,6 +71,7 @@ export default function Contact() {
         }
         // Also save to Supabase for records (best-effort, don't block on failure)
         supabase.from('contact_submissions').insert([payload]).then(() => {}).catch(() => {});
+        trackCtaClick('contact_form_submit', 'contact_page');
         setStatus('success');
         return;
       }
@@ -80,6 +82,7 @@ export default function Contact() {
         .insert([payload]);
 
       if (error) throw error;
+      trackCtaClick('contact_form_submit', 'contact_page');
       setStatus('success');
     } catch (err) {
       console.error('Contact form submission failed:', err);

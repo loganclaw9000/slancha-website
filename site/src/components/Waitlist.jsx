@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { supabase } from '../lib/supabase';
 import { useScrollReveal } from '../utils/useScrollReveal';
+import { trackWaitlistJoined } from '../lib/analytics';
 import './Waitlist.css';
 
 export default function Waitlist() {
@@ -25,11 +26,13 @@ export default function Waitlist() {
         if (error.code === '23505') {
           // Duplicate — treat as success
           setStatus('success');
+          trackWaitlistJoined(email.split('@')[1] || 'unknown');
         } else {
           throw error;
         }
       } else {
         setStatus('success');
+        trackWaitlistJoined(email.split('@')[1] || 'unknown');
       }
     } catch (err) {
       console.error('Waitlist error:', err);

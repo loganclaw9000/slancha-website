@@ -15,7 +15,7 @@ import Footer from '../components/Footer';
 
 export default function Home() {
   usePageMeta({
-    description: 'Slancha closes the AI engineering loop: evaluate models against production workloads, deploy the winner, post-train on what you learn, and repeat. One API, zero infrastructure overhead.',
+    description: 'Slancha gives you a single API endpoint. Behind it, requests are routed to the right model, task-specific models are fine-tuned on your usage data, and inference is continuously optimized. One API, zero infrastructure.',
   });
   return (
     <div className="page">

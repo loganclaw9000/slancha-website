@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import usePageMeta from '../hooks/usePageMeta';
+import { trackSignup } from '../lib/analytics';
 import Nav from '../components/Nav';
 import './Auth.css';
 
@@ -38,6 +39,8 @@ export default function Signup() {
       setError(error.message);
       setLoading(false);
     } else {
+      const domain = form.email.split('@')[1] || 'unknown';
+      trackSignup(domain, 'email');
       navigate('/verify-email', { state: { email: form.email } });
     }
   };

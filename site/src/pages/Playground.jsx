@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
 import usePageMeta from '../hooks/usePageMeta';
+import { useUsageTracking } from '../hooks/useUsageTracking';
 import './Playground.css';
 
 const ENDPOINTS = [
@@ -224,6 +225,7 @@ export default function Playground() {
   const [typedResponse, setTypedResponse] = useState('');
   const [typing, setTyping] = useState(false);
   const typingRef = useRef(null);
+  const { trackUsage } = useUsageTracking();
 
   const endpoint = ENDPOINTS.find(e => e.id === activeTab);
 
@@ -236,6 +238,8 @@ export default function Playground() {
 
     if (typingRef.current) clearTimeout(typingRef.current);
 
+    const startTime = Date.now();
+
     // Simulate network delay then type out response
     setTimeout(() => {
       setShowResponse(true);
@@ -243,6 +247,18 @@ export default function Playground() {
       const fullText = endpoint.response;
       let i = 0;
       const chunkSize = 8;
+
+      // Track this playground request (fire-and-forget)
+      const responseObj = JSON.parse(endpoint.response);
+      const usage = responseObj.usage || {};
+      trackUsage({
+        endpoint: endpoint.path,
+        model: responseObj.model || endpoint.id,
+        tokensIn: usage.prompt_tokens || 0,
+        tokensOut: usage.completion_tokens || 0,
+        latencyMs: Date.now() - startTime,
+        statusCode: 200,
+      });
 
       function typeNext() {
         if (i < fullText.length) {
@@ -256,7 +272,7 @@ export default function Playground() {
       }
       typeNext();
     }, endpoint.latency);
-  }, [running, endpoint]);
+  }, [running, endpoint, trackUsage]);
 
   const handleTabChange = (id) => {
     if (typingRef.current) clearTimeout(typingRef.current);

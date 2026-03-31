@@ -123,6 +123,7 @@ export default function Blog() {
             <div className="blog-card-meta">
               <span>{featured.author}</span>
               <span>{featured.date}</span>
+              <span>{Math.max(1, Math.round(featured.body.split(/\s+/).length / 200))} min read</span>
             </div>
           </Link>
         )}
@@ -140,6 +141,7 @@ export default function Blog() {
               <div className="blog-card-meta">
                 <span>{post.author}</span>
                 <span>{post.date}</span>
+                <span>{Math.max(1, Math.round(post.body.split(/\s+/).length / 200))} min read</span>
               </div>
             </Link>
           ))}
