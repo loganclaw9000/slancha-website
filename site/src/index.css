@@ -5,30 +5,34 @@
 }
 
 :root {
-  /* Backgrounds — richer with slight blue tint */
-  --bg: #0A0A0F;
-  --bg-card: rgba(255, 255, 255, 0.03);
-  --bg-card-solid: #141419;
+  /* Backgrounds — void black with cyberpunk depth */
+  --bg: #0A0A12;
+  --bg-card: rgba(124, 58, 237, 0.03);
+  --bg-card-solid: #1A1A2E;
   --bg-input: #111116;
-  --bg-elevated: rgba(255, 255, 255, 0.05);
+  --bg-elevated: rgba(124, 58, 237, 0.05);
 
-  /* Borders — subtler, rgba-based */
-  --border: rgba(255, 255, 255, 0.06);
-  --border-muted: rgba(255, 255, 255, 0.04);
-  --border-hover: rgba(255, 255, 255, 0.12);
+  /* Borders — subtle, neon-inspired */
+  --border: rgba(124, 58, 237, 0.06);
+  --border-muted: rgba(124, 58, 237, 0.04);
+  --border-hover: rgba(124, 58, 237, 0.12);
 
-  /* Text — brighter primary for contrast */
-  --text-primary: #F0F0F5;
-  --text-secondary: #8A8F98;
-  --text-muted: #4E535C;
+  /* Text — bright primary for contrast */
+  --text-primary: #F5F5F5;
+  --text-secondary: #A1A1AA;
+  --text-muted: #52525B;
 
-  /* Accent - Blue to Purple for AI innovation + enterprise trust */
-  --accent: #1e40af; /* Deep Blue */
-  --accent-hover: #3730a3; /* Lighter Purple-Blue */
-  --accent-purple: #7c3aed; /* Electric Purple */
-  --accent-teal: #00c4cc; /* Cyan for highlights */
-  --accent-gradient: linear-gradient(135deg, #1e40af 0%, #7c3aed 100%); /* Blue → Purple */
-  --accent-glow: rgba(124, 58, 237, 0.15);
+  /* Accent - Neon Cyberpunk Palette */
+  --primary: #7C3AED;        /* Vivid purple */
+  --primary-dark: #5B21B6;   /* Deep violet */
+  --primary-light: #A78BFA;  /* Lavender */
+  --secondary: #EC4899;      /* Hot pink */
+  --accent: #14B8A6;         /* Toxic teal */
+  --highlight: #F59E0B;      /* Electric amber */
+  --gradient-primary: linear-gradient(135deg, #7C3AED 0%, #EC4899 100%);
+  --gradient-secondary: linear-gradient(135deg, #14B8A6 0%, #7C3AED 100%);
+  --glow-primary: rgba(124, 58, 237, 0.25);
+  --glow-secondary: rgba(236, 72, 153, 0.25);
 
   /* Typography */
   --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
@@ -41,12 +45,13 @@
   --radius-full: 9999px;
 
   /* Glass */
-  --glass-bg: rgba(255, 255, 255, 0.03);
-  --glass-border: rgba(255, 255, 255, 0.06);
+  --glass-bg: rgba(124, 58, 237, 0.03);
+  --glass-border: rgba(124, 58, 237, 0.06);
   --glass-blur: 16px;
 
   /* Shadows */
-  --shadow-glow-blue: 0 0 30px rgba(10, 132, 255, 0.15);
+  --shadow-glow-primary: 0 0 30px rgba(124, 58, 237, 0.25);
+  --shadow-glow-secondary: 0 0 30px rgba(236, 72, 153, 0.25);
 
   /* Easing */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -59,8 +64,8 @@ html {
 body {
   background-color: var(--bg);
   background-image:
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(30, 64, 175, 0.08) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 40% at 80% 50%, rgba(124, 58, 237, 0.04) 0%, transparent 50%);
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(124, 58, 237, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 50%, rgba(236, 72, 153, 0.04) 0%, transparent 50%);
   color: var(--text-primary);
   font-family: var(--font-sans);
   font-size: 18px;
@@ -101,7 +106,7 @@ button, input, textarea, select {
   position: absolute;
   top: -40px;
   left: 0;
-  background: var(--accent);
+  background: var(--gradient-primary);
   color: #fff;
   padding: 8px 16px;
   font-size: 14px;
@@ -116,7 +121,7 @@ button, input, textarea, select {
 
 /* ─── Buttons ─── */
 .btn-primary {
-  background: linear-gradient(135deg, #1e40af 0%, #7c3aed 100%);
+  background: var(--gradient-primary);
   color: #fff;
   border: none;
   border-radius: var(--radius);
@@ -127,17 +132,17 @@ button, input, textarea, select {
   text-decoration: none;
   display: inline-block;
   transition: transform 200ms var(--ease-out-expo), box-shadow 200ms ease;
-  box-shadow: 0 0 20px rgba(10, 132, 255, 0.15);
+  box-shadow: var(--shadow-glow-primary);
 }
 .btn-primary:hover {
   transform: translateY(-1px) scale(1.02);
-  box-shadow: 0 0 30px rgba(124, 58, 237, 0.3), 0 4px 16px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-glow-primary), var(--shadow-glow-secondary), 0 4px 16px rgba(0, 0, 0, 0.3);
 }
 
 .btn-secondary {
   background: transparent;
   color: var(--text-primary);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
   font-weight: 600;
   text-decoration: none;
@@ -146,8 +151,8 @@ button, input, textarea, select {
   transition: border-color 200ms ease, background 200ms ease;
 }
 .btn-secondary:hover {
-  border-color: rgba(255, 255, 255, 0.2);
-  background: rgba(255, 255, 255, 0.03);
+  border-color: var(--border-hover);
+  background: var(--bg-card);
 }
 
 .btn-lg {
@@ -191,7 +196,7 @@ button, input, textarea, select {
   border: none;
   height: 1px;
   margin: 0 64px;
-  background: linear-gradient(90deg, transparent 0%, rgba(30, 64, 175, 0.2) 30%, rgba(124, 58, 237, 0.15) 70%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, rgba(124, 58, 237, 0.2) 30%, rgba(236, 72, 153, 0.15) 70%, transparent 100%);
 }
 @media (max-width: 768px) {
   .section-divider {
@@ -214,22 +219,41 @@ button, input, textarea, select {
 
 /* Gradient text */
 .gradient-text {
-  background: var(--accent-gradient);
+  background: var(--gradient-primary);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
+/* Glassmorphism */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+}
+
+/* Neon glow text */
+.neon-text {
+  text-shadow: 0 0 20px var(--glow-primary);
+}
+
 /* ─── Animations ─── */
 
 @keyframes glow-pulse {
-  0%, 100% { box-shadow: 0 0 20px rgba(124, 58, 237, 0.2), 0 0 60px rgba(124, 58, 237, 0.05); }
-  50% { box-shadow: 0 0 30px rgba(124, 58, 237, 0.35), 0 0 80px rgba(124, 58, 237, 0.1); }
+  0%, 100% { box-shadow: 0 0 20px var(--glow-primary), 0 0 60px rgba(124, 58, 237, 0.05); }
+  50% { box-shadow: 0 0 30px var(--glow-primary), 0 0 80px var(--glow-secondary); }
 }
 
 @keyframes triskele-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+@keyframes neon-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
 }
 
 /* ─── Reduced motion ─── */
