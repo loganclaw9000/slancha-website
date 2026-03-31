@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import usePageMeta from '../hooks/usePageMeta';
 import Nav from '../components/Nav';
 import './Auth.css';
 
 export default function UpdatePassword() {
+  usePageMeta({ title: 'Update Password', description: 'Set a new password for your Slancha account.' });
   const { updatePassword } = useAuth();
   const navigate = useNavigate();
   const [form, setForm] = useState({ password: '', confirmPassword: '' });

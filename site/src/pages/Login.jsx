@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import usePageMeta from '../hooks/usePageMeta';
 import Nav from '../components/Nav';
 import './Auth.css';
 
 export default function Login() {
+  usePageMeta({ title: 'Log In', description: 'Log in to your Slancha account to access your dashboard, API keys, and model management tools.' });
   const { signIn, signInWithGoogle } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();

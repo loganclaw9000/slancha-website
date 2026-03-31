@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import usePageMeta from '../hooks/usePageMeta';
 import Nav from '../components/Nav';
 import './Auth.css';
 
 export default function ResetPassword() {
+  usePageMeta({ title: 'Reset Password', description: 'Reset your Slancha account password.' });
   const { resetPassword } = useAuth();
   const [email, setEmail] = useState('');
   const [sent, setSent] = useState(false);

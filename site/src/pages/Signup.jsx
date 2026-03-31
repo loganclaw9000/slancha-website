@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import usePageMeta from '../hooks/usePageMeta';
 import Nav from '../components/Nav';
 import './Auth.css';
 
 export default function Signup() {
+  usePageMeta({ title: 'Sign Up', description: 'Create a free Slancha account. Start routing AI requests, evaluating models, and deploying to production in minutes.' });
   const { signUp, signInWithGoogle } = useAuth();
   const navigate = useNavigate();
 
