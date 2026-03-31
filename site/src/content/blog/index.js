@@ -1,5 +1,156 @@
 export const posts = [
   {
+    slug: 'the-case-for-black-box-ai-inference',
+    title: 'The Case for Black Box AI Inference: Why Your Team Should Stop Picking Models',
+    date: '2026-03-31',
+    author: 'Slancha Team',
+    excerpt: 'Every AI platform promises transparency and control. Slancha bets on the opposite: a black box that handles everything. Here\'s why that\'s the right call for 90% of teams using LLM APIs.',
+    tags: ['philosophy', 'inference', 'platform', 'strategy'],
+    body: `The most common reaction we get from technical founders is: "Wait, I can't pick the model?"
+
+No. You can't. That's the point.
+
+Every other inference platform gives you knobs to turn: model selection, quantization config, serving parameters, routing rules, fine-tuning triggers. Slancha gives you a single API endpoint. Behind it, we route, analyze, fine-tune, optimize, and redeploy — continuously, behind the scenes.
+
+This post explains why we think the black box approach is not just defensible, but inevitable for most teams shipping AI features.
+
+## The Model Selection Tax
+
+How does your team pick an LLM today? Be honest. It probably goes something like this:
+
+1. Someone reads a blog post about a new model release
+2. They run a few prompts in a playground
+3. The team debates GPT-4o vs Claude Sonnet vs Llama 70B in Slack
+4. Someone picks one based on vibes and benchmark headlines
+5. It goes to production. Nobody re-evaluates for 6 months.
+
+This "selection process" costs more than most teams realize:
+
+| Hidden Cost | Estimate |
+|---|---|
+| Engineer hours comparing models | 40-80h per evaluation cycle |
+| Opportunity cost of delayed shipping | $10-50K per week of deliberation |
+| Suboptimal model choices (paying frontier prices for simple tasks) | 3-5x overspend on 60%+ of requests |
+| Not re-evaluating as new models drop | Months of running a worse model than available |
+
+The industry releases a major new model every 2-3 weeks. Qwen 3, Llama 4, Gemini 2.5, DeepSeek V3, Mistral Large — each one shifts the price-performance frontier. If your team evaluated once and deployed, you're already behind.
+
+## Why "More Control" Doesn't Help
+
+The instinct is: "Give me more knobs. I want to configure everything." This feels safe. It feels professional. It feels like engineering.
+
+But consider what "full control" actually requires:
+
+**To route intelligently,** you need to classify every request by task type, complexity, and domain — then maintain a routing table across 4-8 model tiers, with real-time latency and cost tracking, quality monitoring with automated rerouting when a model degrades, and A/B testing infrastructure to validate routing changes.
+
+**To fine-tune effectively,** you need to curate training data from production traffic (not just your initial dataset), manage deduplication and mixing ratios across training cycles, version every dataset, training run, and model artifact, and run evaluation gates before and after every training job.
+
+**To optimize inference,** you need quantization-aware training (not just post-hoc quantization, which degrades quality), GPU partitioning (MIG) configuration for multi-tenant serving, batching and scheduling tuned to your traffic patterns, and multi-token prediction for throughput-bound workloads.
+
+Each of these is a full-time engineering discipline. Together, they represent the kind of team that Fireworks ($4B valuation, 200+ engineers) and BaseTen ($5B valuation, ex-Google TPU team) have spent years building.
+
+Your team does not have this expertise. Most teams don't. And that's not a criticism — it's the whole point. You're building a product, not an inference platform.
+
+## The Black Box Advantage
+
+Here's what happens when you stop trying to control the stack and let the platform handle it:
+
+### 1. You Ship Faster
+
+No model evaluation cycle. No infrastructure decisions. No "should we self-host or use an API?" debates. You integrate the Slancha endpoint and move on to building your product.
+
+\`\`\`python
+# This is your entire AI infrastructure
+from slancha import Router
+
+router = Router(api_key="sk-...")
+response = router.chat.completions.create(
+    model="auto",
+    messages=[{"role": "user", "content": prompt}]
+)
+\`\`\`
+
+Time to production: minutes, not weeks.
+
+### 2. You Get Continuous Improvement — For Free
+
+The platform analyzes your traffic patterns, identifies which tasks your models struggle with, fine-tunes smaller task-specific models on your actual usage data, and redeploys them — all without you doing anything.
+
+Month 1: The router alone saves you 40-60% by not sending simple requests to expensive frontier models.
+
+Month 3: Fine-tuned models start handling your most common task categories, matching frontier quality at a fraction of the cost.
+
+Month 6: Your cost is 70-80% lower than direct API usage, and accuracy on your specific workload is *higher* than the frontier model you started with.
+
+This doesn't happen if you're the one making decisions. It happens because the platform sees all your traffic, all the time, and optimizes relentlessly.
+
+### 3. You're Automatically Future-Proofed
+
+When Llama 5 drops — or whatever the next state-of-the-art open-source model is — here's what changes for you:
+
+**With a traditional platform:** You hear about it. You evaluate it. You benchmark against your current model. You test in staging. You migrate. That's 2-6 weeks of work, per major release, multiple times per year.
+
+**With Slancha:** We re-fine-tune your task-specific models on the new architecture using your existing curated data. Your accuracy improves and your cost drops. You don't even notice.
+
+## "But What If the Black Box Makes a Bad Decision?"
+
+Fair question. Three answers:
+
+**First, we're not hiding anything.** Your dashboard shows exactly which model served each request, the cost, latency, and quality score per request, routing decisions and why they were made, and fine-tuning progress and accuracy trends. You can see everything. You just don't have to manage it.
+
+**Second, the platform has guardrails.** Fine-tuned models go through evaluation gates before deployment. If a new model version regresses on any metric, it doesn't ship. Canary rollouts shift 5% of traffic first, then scale up only if metrics hold.
+
+**Third, the alternative is worse.** A team manually evaluating models quarterly, deploying based on benchmark headlines, and never re-evaluating makes worse decisions than an automated system running continuous evaluation on your actual traffic. The black box isn't less rigorous than your current process — it's more rigorous, running 24/7 instead of once a quarter.
+
+## Who Should NOT Use a Black Box
+
+We're not saying every team should hand over control. The black box is wrong for you if:
+
+- **You're training foundation models.** If you're pushing the frontier, you need full control over every layer.
+- **You have regulatory requirements for model explainability.** Some industries (healthcare diagnostics, financial credit decisions) require specific model auditability that goes beyond routing transparency.
+- **AI inference IS your product.** If you're Fireworks or BaseTen, obviously you're building the infrastructure, not buying it.
+- **You have 10+ ML engineers.** At that scale, you've already invested in the expertise. The ROI of the black box is lower.
+
+For everyone else — teams using LLM APIs to power features in their product, with 0-3 ML engineers, spending $5K-100K/month on inference — the black box saves time, money, and cognitive overhead.
+
+## The Industry Is Moving This Way
+
+Look at the trajectory:
+
+**2023:** Teams picked one model and called it directly. GPT-4 for everything.
+
+**2024:** Teams started using routers to pick models per-request. Still manual configuration.
+
+**2025:** Teams started fine-tuning, but as a separate workflow from serving. Manual evaluation, manual deployment.
+
+**2026:** The loop is closing. Route → analyze → fine-tune → optimize → redeploy. The only question is whether you build this loop yourself or use a platform that does it for you.
+
+Fireworks AI's CEO, Lin Qiao, said it directly: "We actually are automated customization. That's what we're building — not just inference." The thesis is the same. The difference is that Fireworks builds tools for engineers who understand the levers. Slancha delivers the outcomes without requiring that understanding.
+
+The managed, automated, closed-loop approach isn't the lazy option. It's the end state. We're just getting there faster by not pretending every team needs to understand quantization-aware training.
+
+## Try the Endpoint
+
+The Slancha Router is free. No model selection required — that's the point.
+
+\`\`\`python
+from slancha import Router
+
+router = Router(api_key="sk-...")  # free, no credit card
+response = router.chat.completions.create(
+    model="auto",
+    messages=[{"role": "user", "content": "your prompt here"}]
+)
+# That's it. The platform handles everything else.
+\`\`\`
+
+Stop picking models. Start shipping.
+
+---
+
+*[Create your free account](/signup) — one API endpoint, zero model decisions, continuous improvement behind the scenes.*`,
+  },
+  {
     slug: 'slancha-vs-databricks-ai-infrastructure-comparison',
     title: 'Slancha vs. Databricks: The AI Infrastructure Showdown',
     date: '2026-03-31',
