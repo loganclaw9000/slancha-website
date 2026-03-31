@@ -1,10 +1,16 @@
 # Why Slancha
 
-- **Latency‑first, cost‑smart**
-  We start with your SLA target and work backward, delivering the lowest‑cost inference that still meets latency goals.
+- **Evaluate, deploy, improve — automated**
+  The complete AI engineering loop: automated model evaluation, one-click deployment, and continuous post-training. Ship better models faster.
 
-- **Hardware‑agnostic mastery**
-  Whether you run on AWS Inferentia, NVIDIA L40S, or a B200, Slancha auto‑selects the optimal stack so you never worry about vendor lock‑in.
+- **2.5x faster model selection**
+  Stop guessing. Run models against standardized benchmarks or your own datasets, get detailed metrics in minutes, and always deploy the winner.
 
-- **Zero‑team inference ops**
-  No dedicated ML engineers needed – our platform becomes your inference team, handling scaling, tuning, and monitoring for you.
+- **40% lower inference costs**
+  Automatic model optimization, quantization, and hardware selection deliver predictable performance without the overhead of specialist teams.
+
+- **Continuous learning, zero maintenance**
+  Models improve automatically on captured production data. No manual pipelines, no scheduled retraining — just continuous improvement.
+
+- **All frameworks, all providers**
+  PyTorch, TensorFlow, Hugging Face, Ray — we work with your existing models and infrastructure. Cloud-agnostic, not vendor-locked.

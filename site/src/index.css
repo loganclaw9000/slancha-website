@@ -22,12 +22,13 @@
   --text-secondary: #8A8F98;
   --text-muted: #4E535C;
 
-  /* Accent */
-  --accent: #0A84FF;
-  --accent-hover: #3399FF;
-  --accent-teal: #00D1B2;
-  --accent-gradient: linear-gradient(135deg, #0A84FF 0%, #00D1B2 100%);
-  --accent-glow: rgba(10, 132, 255, 0.15);
+  /* Accent - Blue to Purple for AI innovation + enterprise trust */
+  --accent: #1e40af; /* Deep Blue */
+  --accent-hover: #3730a3; /* Lighter Purple-Blue */
+  --accent-purple: #7c3aed; /* Electric Purple */
+  --accent-teal: #00c4cc; /* Cyan for highlights */
+  --accent-gradient: linear-gradient(135deg, #1e40af 0%, #7c3aed 100%); /* Blue → Purple */
+  --accent-glow: rgba(124, 58, 237, 0.15);
 
   /* Typography */
   --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
@@ -58,8 +59,8 @@ html {
 body {
   background-color: var(--bg);
   background-image:
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(10, 132, 255, 0.08) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 40% at 80% 50%, rgba(0, 209, 178, 0.04) 0%, transparent 50%);
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(30, 64, 175, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 50%, rgba(124, 58, 237, 0.04) 0%, transparent 50%);
   color: var(--text-primary);
   font-family: var(--font-sans);
   font-size: 18px;
@@ -115,7 +116,7 @@ button, input, textarea, select {
 
 /* ─── Buttons ─── */
 .btn-primary {
-  background: var(--accent-gradient);
+  background: linear-gradient(135deg, #1e40af 0%, #7c3aed 100%);
   color: #fff;
   border: none;
   border-radius: var(--radius);
@@ -130,7 +131,7 @@ button, input, textarea, select {
 }
 .btn-primary:hover {
   transform: translateY(-1px) scale(1.02);
-  box-shadow: 0 0 30px rgba(10, 132, 255, 0.3), 0 4px 16px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 30px rgba(124, 58, 237, 0.3), 0 4px 16px rgba(0, 0, 0, 0.3);
 }
 
 .btn-secondary {
@@ -190,7 +191,7 @@ button, input, textarea, select {
   border: none;
   height: 1px;
   margin: 0 64px;
-  background: linear-gradient(90deg, transparent 0%, rgba(10, 132, 255, 0.2) 30%, rgba(0, 209, 178, 0.15) 70%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, rgba(30, 64, 175, 0.2) 30%, rgba(124, 58, 237, 0.15) 70%, transparent 100%);
 }
 @media (max-width: 768px) {
   .section-divider {
@@ -222,8 +223,8 @@ button, input, textarea, select {
 /* ─── Animations ─── */
 
 @keyframes glow-pulse {
-  0%, 100% { box-shadow: 0 0 20px rgba(10, 132, 255, 0.2), 0 0 60px rgba(10, 132, 255, 0.05); }
-  50% { box-shadow: 0 0 30px rgba(10, 132, 255, 0.35), 0 0 80px rgba(10, 132, 255, 0.1); }
+  0%, 100% { box-shadow: 0 0 20px rgba(124, 58, 237, 0.2), 0 0 60px rgba(124, 58, 237, 0.05); }
+  50% { box-shadow: 0 0 30px rgba(124, 58, 237, 0.35), 0 0 80px rgba(124, 58, 237, 0.1); }
 }
 
 @keyframes triskele-spin {

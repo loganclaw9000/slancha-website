@@ -1,30 +1,75 @@
-# Offerings
+# Choose Your Loop
 
-## Managed Hosting
-**Best for:** Companies that want a fully managed, hassle‑free inference platform.
+## Eval + Deploy
+**Best for:** AI teams evaluating and deploying models
 
-Our team runs Slancha’s control plane on your behalf, handling hardware provisioning, scaling, and SLA monitoring. You provide your model and data; we deliver ultra‑low latency inference with predictable costs. Pricing is subscription‑based, starting at $2,500 /mo for up to 5 M inferences.
+**Price:** $499/month or usage-based
 
-## Self‑Hosted Deployment
-**Best for:** Teams that need full control over their infrastructure while leveraging Slancha’s optimization engine.
+**Includes:**
+- 100 model evaluations/month
+- 5 active deployments
+- Basic A/B testing
+- 10GB data capture/month
+- Framework support (PyTorch, TensorFlow, Hugging Face)
+- SOC 2 compliance
 
-Deploy the Slancha stack on your own servers or cloud instances. You retain ownership of all hardware and data, yet benefit from automatic model placement across GPUs, TPUs, or custom ASICs. Pricing is a one‑time license fee of $12,000 plus optional support contracts.
+**Perfect for:** Teams getting started with automated evaluation
 
-## Autonomous SRE Agent (Premium)
-**Best for:** Enterprises that require an AI‑driven operations layer to manage inference workloads at scale.
+---
 
-The Autonomous SRE Agent continuously monitors performance, auto‑tunes resources, and resolves incidents before they impact users. You supply the models; we provide a self‑optimizing, latency‑first execution environment with enterprise‑grade SLAs. Currently in limited preview — contact us for early access.
+## Full Loop
+**Best for:** AI teams shipping production models
 
-## PromptForge (Router)
-**Best for:** Teams running multiple LLMs who want automatic prompt optimization without manual tuning.
+**Price:** $2,499/month or usage-based
 
-**The System Intelligence Layer for Prompt Quality**
+**Includes:**
+- Unlimited evaluations
+- Unlimited deployments
+- Advanced A/B testing with statistical significance
+- 100GB data capture/month
+- Auto post-training
+- Priority support
+- Real-time monitoring & alerts
+- Custom eval definition
 
-- **Auto‑discovers optimal prompts** — Automatically finds the best way to talk to every model in your fleet, so each performs at peak without manual prompt engineering.
-- **Near‑zero marginal cost** — Scales to any number of models without scaling costs; proprietary architecture ensures adding new models is near‑free.
-- **Self‑improving quality** — Learns and improves from every production request; quality gets better over time with zero human intervention.
-- **Inline deployment** — Deploys with your existing inference stack; sub‑millisecond overhead, fully transparent to your application layer.
-- **Instant model adaptation** — Adapts instantly when models change; lightweight calibration replaces expensive re‑optimization, keeping you current without downtime.
-- **Inference‑aware optimization** — Uniquely co‑designed with the serving layer to reduce latency, not just improve accuracy.
-- **Unified across providers** — One pipeline, any model, any provider; works across open‑weight and commercial APIs through a unified optimization framework.
-- **Compounding investment** — Every optimization run makes the next one faster and cheaper, building long‑term moat on prompt quality.
+**Perfect for:** Production AI teams needing the complete loop
+
+---
+
+## Enterprise Self-Hosted
+**Best for:** Organizations with custom requirements
+
+**Price:** Custom
+
+**Includes:**
+- All Full Loop features
+- Self-hosted deployment option
+- SSO/SAML integration
+- Custom SLAs (99.9%, 99.95%, 99.99%)
+- Dedicated success manager
+- Custom integrations
+- VPC deployment
+- White-label options
+
+**Perfect for:** Enterprises needing full control and compliance
+
+---
+
+## Autonomous SRE Agent (Add-on)
+**Best for:** Teams running 100+ models at scale
+
+**Price:** +$5,000/month
+
+**Includes:**
+- AI-driven operations layer
+- Continuous performance monitoring
+- Auto-scaling and cost optimization
+- Incident resolution before users notice
+- Predictive capacity planning
+- Custom SLA enforcement
+
+**Perfect for:** Production environments needing hands-off operations
+
+---
+
+All plans include 14-day free trial. No credit card required.

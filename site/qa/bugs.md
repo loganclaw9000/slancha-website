@@ -2,7 +2,20 @@
 
 ## Status: No open bugs
 
-Last QA run: 2026-03-30T23:33Z
+Last QA run: 2026-03-31T00:38Z
+
+### New features tested (TASK-055)
+
+- ✓ Pricing page with 4 tiers (Eval+Deploy, Full Loop, Self-Hosted, Autonomous SRE Agent)
+- ✓ Stripe Payment Links integration with contact fallback
+- ✓ CheckoutSuccess page with session_id param
+- ✓ CheckoutCancel page with pricing/contact links
+- ✓ Billing dashboard component (empty state for no subscription)
+- ✓ All routes wired in App.jsx (/pricing, /checkout/success, /checkout/cancel, /dashboard/billing)
+- ✓ CSS alignment with design spec (2×2 grid, glassmorphism, hover effects, responsive)
+- ✓ No console errors, no CORS errors, build passes (298 modules)
+
+### Checks performed
 
 ### Checks performed
 
