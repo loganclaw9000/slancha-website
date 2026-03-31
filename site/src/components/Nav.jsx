@@ -29,6 +29,7 @@ const dropdowns = {
     { to: '/vs/fireworks', label: 'vs Fireworks AI', desc: 'Engineer tools vs team results' },
   ],
   Developers: [
+    { to: '/developers', label: 'Developer Portal', desc: 'SDKs, guides & code examples' },
     { to: '/docs', label: 'Documentation', desc: 'Guides, API ref, SDKs' },
     { to: '/docs/quickstart', label: 'Quickstart', desc: 'First API call in 5 min' },
     { to: '/blog', label: 'Blog', desc: 'Technical deep dives' },

@@ -22,6 +22,7 @@ const UsageStats = lazy(() => import('./components/dashboard/UsageStats'));
 const Billing = lazy(() => import('./components/dashboard/Billing'));
 const AccountSettings = lazy(() => import('./components/dashboard/AccountSettings'));
 const Webhooks = lazy(() => import('./components/dashboard/Webhooks'));
+const RequestLogs = lazy(() => import('./components/dashboard/RequestLogs'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 const Blog = lazy(() => import('./pages/Blog'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
@@ -46,6 +47,7 @@ const VerticalLanding = lazy(() => import('./pages/VerticalLanding'));
 const CompetitorCompare = lazy(() => import('./pages/CompetitorCompare'));
 const Resources = lazy(() => import('./pages/Resources'));
 const Glossary = lazy(() => import('./pages/Glossary'));
+const Developers = lazy(() => import('./pages/Developers'));
 
 function Loading() {
   return (
@@ -94,6 +96,7 @@ const App = () => (
           <Route path="/vs/:competitor" element={<CompetitorCompare />} />
           <Route path="/resources" element={<Resources />} />
           <Route path="/glossary" element={<Glossary />} />
+          <Route path="/developers" element={<Developers />} />
 
           {/* Auth */}
           <Route path="/login" element={<Login />} />
@@ -111,6 +114,7 @@ const App = () => (
             <Route path="keys" element={<ApiKeys />} />
             <Route path="usage" element={<UsageStats />} />
             <Route path="billing" element={<Billing />} />
+            <Route path="logs" element={<RequestLogs />} />
             <Route path="webhooks" element={<Webhooks />} />
             <Route path="settings" element={<AccountSettings />} />
           </Route>
