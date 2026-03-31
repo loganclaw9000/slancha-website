@@ -308,6 +308,20 @@ export default function RequestLogs() {
       {/* Filters */}
       <div className="logs-filters">
         <div className="logs-filter-group">
+          <label className="logs-filter-label">Date Range</label>
+          <div className="usage-period-selector">
+            {Object.entries(DATE_RANGES).map(([key, range]) => (
+              <button
+                key={key}
+                className={`usage-period-btn${dateRangeKey === key ? ' active' : ''}`}
+                onClick={() => setDateRangeKey(key)}
+              >
+                {range.label}
+              </button>
+            ))}
+          </div>
+        </div>
+        <div className="logs-filter-group">
           <label className="logs-filter-label">Endpoint</label>
           <div className="usage-period-selector">
             {ENDPOINTS.map(ep => (
@@ -337,15 +351,33 @@ export default function RequestLogs() {
         </div>
         <div className="logs-filter-group logs-search-group">
           <label className="logs-filter-label">Search</label>
-          <input
-            type="text"
-            className="logs-search"
-            placeholder="Request ID or model..."
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-          />
+          <div className="logs-search-wrap">
+            <input
+              type="text"
+              className="logs-search"
+              placeholder="Request ID or model..."
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+            />
+            <button
+              className={`logs-refresh-btn${refreshing ? ' refreshing' : ''}`}
+              onClick={() => fetchLogs(true)}
+              disabled={loading || refreshing}
+              title="Refresh now"
+            >
+              {refreshing ? '⏳' : '🔄'}
+            </button>
+          </div>
         </div>
       </div>
+
+      {/* Status message */}
+      {error && (
+        <div className="logs-status-message">
+          <span className="logs-status-icon">⚠️</span>
+          <span>{error}</span>
+        </div>
+      )}
 
       {/* Log table */}
       <div className="logs-table-wrap">
@@ -429,14 +461,18 @@ export default function RequestLogs() {
             ))}
             {filtered.length === 0 && (
               <tr>
-                <td colSpan={8} className="logs-empty">No requests match your filters.</td>
+                <td colSpan={8} className="logs-empty">
+                  {loading ? 'Loading request logs...' : 'No requests match your filters.'}
+                </td>
               </tr>
             )}
           </tbody>
         </table>
       </div>
 
-      <p className="usage-local-note">Showing demo data. Connect your API key to see live request logs.</p>
+      <p className="usage-local-note">
+        {error && !error.includes('Demo data') ? 'Real-time data from Supabase. Auto-refresh every 30 seconds.' : 'Showing request logs. Connect your API key to see live request logs.'}
+      </p>
     </div>
   );
 }
