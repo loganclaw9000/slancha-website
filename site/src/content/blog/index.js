@@ -4245,7 +4245,6 @@ No infrastructure to manage. No eval pipelines to build. No fine-tuning schedule
 *Building a self-improving AI pipeline is a significant engineering investment — or one API call. [Try the closed-loop approach](/signup) and see your eval scores improve within a week.*`,
   },
   {
-    {
     slug: 'lora-fine-tuning-guide',
     title: 'The Complete Guide to LoRA Fine-Tuning: From Data Preparation to Production Deployment',
     date: '2026-03-31',
