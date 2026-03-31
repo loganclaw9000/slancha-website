@@ -7,6 +7,7 @@ import Features from '../components/Features';
 import HowItWorks from '../components/HowItWorks';
 import TierCards from '../components/TierCards';
 import TechStack from '../components/TechStack';
+import SocialProof from '../components/SocialProof';
 import About from '../components/About';
 import Waitlist from '../components/Waitlist';
 import PilotCTA from '../components/PilotCTA';
@@ -23,6 +24,7 @@ export default function Home() {
       <main id="main-content">
         <Hero />
         <ValueProps />
+        <SocialProof />
         <hr className="section-divider" />
         <Features />
         <hr className="section-divider" />

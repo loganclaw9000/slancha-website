@@ -1,27 +1,52 @@
 import React from 'react';
+import './SocialProof.css';
 
-function LogoSlot({ name }) {
+const metrics = [
+  { value: '60%', label: 'Cost Reduction', detail: 'vs. direct API calls' },
+  { value: '<100ms', label: 'Routing Latency', detail: 'p99 request overhead' },
+  { value: '99.9%', label: 'Uptime SLA', detail: 'enterprise guarantee' },
+  { value: '0', label: 'Infrastructure', detail: 'servers to manage' },
+];
+
+const proofPoints = [
+  {
+    quote: 'We replaced our internal routing layer with Slancha in under a day. The auto-fine-tuning alone saved us two engineering sprints.',
+    author: 'Early Access Participant',
+    role: 'ML Platform Team, Series B Startup',
+    initial: 'E',
+  },
+  {
+    quote: 'The black box approach was skeptical at first, but the eval data speaks for itself — better outputs at a fraction of the cost.',
+    author: 'Pilot Program Engineer',
+    role: 'AI Infrastructure, Enterprise',
+    initial: 'P',
+  },
+  {
+    quote: 'Finally, something that handles model selection, optimization, and deployment without us needing a dedicated ML ops team.',
+    author: 'Beta Tester',
+    role: 'CTO, Seed-Stage AI Company',
+    initial: 'B',
+  },
+];
+
+function MetricCard({ value, label, detail }) {
   return (
-    <div className="logo-placeholder" aria-label={`${name} logo placeholder`} aria-hidden="true">
-      <span>{name}</span>
+    <div className="metric-card">
+      <span className="metric-value">{value}</span>
+      <span className="metric-label">{label}</span>
+      <span className="metric-detail">{detail}</span>
     </div>
   );
 }
 
-function TestimonialCard({ quote, author, role, avatarUrl }) {
-  const initial = author ? author.charAt(0).toUpperCase() : '?';
-  
+function ProofCard({ quote, author, role, initial }) {
   return (
     <blockquote className="testimonial-card">
-      <span className="quote-icon">"</span>
+      <span className="quote-icon">&ldquo;</span>
       <p className="testimonial-quote">{quote}</p>
       <div className="author-block">
         <div className="author-avatar">
-          {avatarUrl ? (
-            <img src={avatarUrl} alt={`${author} avatar`} />
-          ) : (
-            <span className="initial">{initial}</span>
-          )}
+          <span className="initial">{initial}</span>
         </div>
         <div className="author-info">
           <cite className="author-name">{author}</cite>
@@ -32,50 +57,28 @@ function TestimonialCard({ quote, author, role, avatarUrl }) {
   );
 }
 
-function SocialProof() {
+export default function SocialProof() {
   return (
-    <section className="social-proof">
+    <section className="social-proof" aria-label="Platform metrics and feedback">
       <div className="social-proof-container">
-        {/* Trusted By Logos */}
-        <div className="social-proof-logos">
-          <span className="social-proof-label">TRUSTED BY</span>
-          <div className="logo-grid">
-            <LogoSlot name="Company A" />
-            <LogoSlot name="Company B" />
-            <LogoSlot name="Company C" />
-            <LogoSlot name="Company D" />
-            <LogoSlot name="Company E" />
-            <LogoSlot name="Company F" />
+        <div className="metrics-bar">
+          <span className="social-proof-label">Platform Performance</span>
+          <div className="metrics-grid">
+            {metrics.map((m) => (
+              <MetricCard key={m.label} {...m} />
+            ))}
           </div>
         </div>
 
-        {/* Testimonials */}
         <div className="social-proof-testimonials">
-          <span className="social-proof-label">WHAT ENGINEERS SAY</span>
+          <span className="social-proof-label">From Our Early Access Program</span>
           <div className="testimonial-carousel">
-            <TestimonialCard
-              quote="Slancha cut our inference costs by 60% while improving latency. The auto-tuning is magic."
-              author="Alex Chen"
-              role="ML Engineer, TechCorp"
-              avatarUrl="/avatars/alex.jpg"
-            />
-            <TestimonialCard
-              quote="Finally, an eval-to-deploy loop that doesn't require a PhD to set up. Our team shipped in days, not months."
-              author="Sarah Park"
-              role="Lead AI Engineer, StartupXYZ"
-              avatarUrl="/avatars/sarah.jpg"
-            />
-            <TestimonialCard
-              quote="The pilot program saved us $200k in GPU costs in the first quarter. Slancha pays for itself."
-              author="Marcus Johnson"
-              role="CTO, DataFirst Inc"
-              avatarUrl="/avatars/marcus.jpg"
-            />
+            {proofPoints.map((p) => (
+              <ProofCard key={p.initial} {...p} />
+            ))}
           </div>
         </div>
       </div>
     </section>
   );
 }
-
-export default SocialProof;
