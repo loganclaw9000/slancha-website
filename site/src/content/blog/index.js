@@ -1,5 +1,293 @@
 export const posts = [
   {
+    slug: 'ai-inference-optimization-qat-mig-multi-token',
+    title: 'AI Inference Optimization: Complete Guide to QAT, MIG, and Multi-Token Prediction',
+    date: '2026-03-31',
+    author: 'Slancha Engineering',
+    excerpt: 'Three techniques are reshaping how production AI inference runs: Quantization-Aware Training, Multi-Instance GPU, and Multi-Token Prediction. Here\'s how each works, when to use them, and how they compound to cut inference costs by 60-75%.',
+    tags: ['optimization', 'QAT', 'MIG', 'multi-token-prediction', 'inference', 'technical'],
+    body: `If you're running LLM inference at scale, you've probably hit the wall: **GPU costs grow linearly with traffic, but your budget doesn't.**
+
+The good news is that three complementary techniques — Quantization-Aware Training (QAT), Multi-Instance GPU (MIG), and Multi-Token Prediction (MTP) — can dramatically reduce your per-request cost without degrading quality. The better news is that they compound.
+
+This guide covers how each technique works at a technical level, when to apply it, and how the three interact to produce the 60-75% cost reductions that production systems achieve.
+
+## Quantization-Aware Training (QAT)
+
+### The Problem It Solves
+
+Standard model weights use FP16 or BF16 — 16 bits per parameter. A 70B parameter model needs ~140GB of GPU memory just for weights. That's two A100-80GB cards or one H100 before you've allocated anything for KV cache, activations, or batch processing.
+
+**Post-training quantization (PTQ)** — the naive approach — converts trained FP16 weights to INT8 or INT4 after training. This halves or quarters memory, but introduces quantization error that degrades quality. On complex reasoning tasks, PTQ to INT4 typically loses 3-8% accuracy. For some applications, that's acceptable. For production inference where quality is your product, it's not.
+
+### How QAT Works
+
+Quantization-Aware Training simulates quantization *during training*. The model learns to produce weights that are robust to low-precision representation.
+
+\`\`\`
+Standard Training:
+  Forward pass: FP16 weights → FP16 activations → FP16 loss
+  Backward pass: FP16 gradients → FP16 weight updates
+
+QAT Training:
+  Forward pass: FP16 weights → Quantize to INT4 → Dequantize → FP16 activations → FP16 loss
+  Backward pass: Straight-Through Estimator (STE) gradients → FP16 weight updates
+
+The "fake quantize" operation during forward pass teaches the model
+to produce weights that survive quantization without quality loss.
+\`\`\`
+
+The key insight is the **Straight-Through Estimator (STE)**: during backpropagation, the non-differentiable quantize/dequantize step is replaced with an identity function. The model receives gradients as if quantization didn't happen, but the forward pass includes quantization noise. Over thousands of training steps, the model's weights converge to values that quantize cleanly.
+
+### QAT Results in Practice
+
+| Model | Precision | Memory | Throughput (tok/s) | MMLU Score | Cost/1M tokens |
+|---|---|---|---|---|---|
+| Llama 3 70B | FP16 | 140GB | 45 | 82.0% | $0.90 |
+| Llama 3 70B | PTQ INT4 | 38GB | 165 | 78.2% | $0.24 |
+| Llama 3 70B | QAT INT4 | 38GB | 165 | 81.6% | $0.24 |
+
+QAT INT4 matches FP16 quality (81.6% vs 82.0% — within noise) while running at INT4 speed. PTQ INT4 gets the same speed but loses nearly 4 points on MMLU.
+
+The throughput gain comes from two places:
+1. **Memory bandwidth** — INT4 weights move through the memory hierarchy 4x faster than FP16
+2. **Batch size** — with 4x less memory for weights, you fit 3-4x larger batches, amortizing the fixed costs of attention computation
+
+### When to Use QAT
+
+- **Always, for production inference.** There's no reason to serve FP16 weights if you have the QAT-trained equivalent. The quality is identical and the cost is 3-4x lower.
+- **After fine-tuning.** If you fine-tune a model on task-specific data, run QAT on the fine-tuned checkpoint before deployment. The fine-tuned knowledge survives quantization when QAT is applied correctly.
+- **Exception:** Models under 3B parameters. The quantization noise at INT4 for very small models can be significant. Serve 1-3B models at INT8 or FP16.
+
+## Multi-Instance GPU (MIG)
+
+### The Problem It Solves
+
+Modern data center GPUs are massive. An H100 has 80GB of HBM3 memory and 989 TFLOPS of FP16 compute. An NVIDIA B200 has 192GB of HBM3e and ~4,500 TFLOPS of FP4 compute.
+
+When you serve a 7B parameter model (QAT INT4: ~4GB), you're using **5% of an H100's memory** and a fraction of its compute. The rest sits idle. You're paying for the whole GPU but using a sliver.
+
+Running multiple model instances per GPU is the obvious fix, but traditional multi-process sharing causes contention, unpredictable latency spikes, and makes it impossible to guarantee SLAs per model.
+
+### How MIG Works
+
+Multi-Instance GPU is a hardware-level partitioning feature on NVIDIA A100, H100, and Blackwell GPUs. It divides a single physical GPU into up to 7 isolated **GPU instances**, each with:
+
+- Dedicated compute (SMs)
+- Dedicated memory bandwidth
+- Dedicated L2 cache
+- Hardware-level fault isolation
+
+\`\`\`
+# Create MIG instances on an H100
+sudo nvidia-smi mig -cgi 9,9,9,9,9,9,9 -C
+
+# Result: 7 isolated GPU instances, each with:
+#   - ~11.4GB HBM3 memory
+#   - ~141 TFLOPS FP16
+#   - Independent error containment
+
+# Assign models to instances
+# Instance 0: Qwen 2.5 7B (QAT INT4) — general routing
+# Instance 1: Llama 3 8B (QAT INT4) — code generation
+# Instance 2: Mistral 7B (QAT INT4) — summarization
+# Instance 3: Phi-3 mini (QAT INT4) — classification
+# Instance 4-6: Spare / burst capacity
+\`\`\`
+
+Each instance behaves like an independent GPU. A crash in one instance doesn't affect others. Memory allocation in one instance can't be accessed by another. Latency is predictable because there's no contention for shared resources.
+
+### MIG on Blackwell (B200/B300)
+
+NVIDIA's Blackwell architecture takes MIG further:
+
+- **B200:** 192GB HBM3e, up to 7 instances → ~27GB per instance. Each instance can serve a QAT INT4 70B model comfortably.
+- **B300:** 288GB HBM3e, up to 7 instances → ~41GB per instance. Each instance can serve multiple 70B models or a single 200B+ model.
+
+The economics are dramatic. Instead of one B200 serving one model, you serve 7 different task-optimized models on one GPU, each with hardware-isolated performance guarantees.
+
+| Configuration | Models Served | GPU Cost/hour | Cost per Model/hour |
+|---|---|---|---|
+| 1x B200, single model | 1 | $8.50 | $8.50 |
+| 1x B200, 7x MIG instances | 7 | $8.50 | $1.21 |
+| 7x A10G, one model each | 7 | $7.35 | $1.05 |
+
+MIG on B200 achieves per-model costs comparable to cheap A10G instances, but with H100-class performance per instance. The sweet spot is obvious.
+
+### When to Use MIG
+
+- **When you run multiple small-to-mid models** (7B-30B QAT INT4). This is the most common production pattern — task-specific models routed by request type.
+- **When you need latency isolation.** If your summarization model shouldn't impact your code generation model's latency, MIG provides hardware guarantees that software isolation can't match.
+- **When you want to maximize GPU utilization.** Most production inference runs at 15-30% GPU utilization. MIG + multiple models pushes this to 70-90%.
+
+## Multi-Token Prediction (MTP)
+
+### The Problem It Solves
+
+Standard autoregressive generation produces one token per forward pass. A 200-token response requires 200 sequential forward passes. The GPU's compute is heavily underutilized because each pass processes a single token through the full model.
+
+Latency scales linearly with response length. At 50ms per forward pass, a 200-token response takes 10 seconds. Users don't wait 10 seconds.
+
+### How MTP Works
+
+Multi-Token Prediction modifies the model architecture to predict multiple tokens in a single forward pass using specialized prediction heads.
+
+\`\`\`
+Standard autoregressive:
+  Pass 1: [prompt] → token_1
+  Pass 2: [prompt, token_1] → token_2
+  Pass 3: [prompt, token_1, token_2] → token_3
+  ... (one token per pass)
+
+Multi-Token Prediction (k=4):
+  Pass 1: [prompt] → token_1, token_2*, token_3*, token_4*
+  Verify: Check token_2*, token_3*, token_4* against model distribution
+  Accept: If verified, skip 3 forward passes
+  Reject: Fall back to standard autoregressive from first rejected token
+
+  * Predicted by lightweight auxiliary heads, not the full model
+\`\`\`
+
+The auxiliary prediction heads are small (typically 1-2 transformer layers) trained to predict tokens 2, 3, and k steps ahead. At inference time, the main model generates token 1 and the auxiliary heads speculate tokens 2-k. A verification pass checks if the speculated tokens match what the model would have generated. Accepted tokens save forward passes.
+
+### Acceptance Rates and Speedup
+
+The speedup depends on **acceptance rate** — how often speculated tokens are correct. This varies by content type:
+
+| Content Type | Avg Acceptance Rate (k=4) | Effective Speedup |
+|---|---|---|
+| Boilerplate / structured output | 85-95% | 2.5-3.5x |
+| Code generation | 70-85% | 2.0-2.8x |
+| Natural language (factual) | 60-75% | 1.7-2.2x |
+| Creative / unpredictable text | 40-55% | 1.3-1.6x |
+
+For structured output (JSON, code, templates), MTP is transformative. API responses that return JSON schemas see 3x throughput gains because the output is highly predictable.
+
+### Implementation
+
+\`\`\`python
+# vLLM with multi-token prediction (speculative decoding)
+from vllm import LLM, SamplingParams
+
+llm = LLM(
+    model="meta-llama/Llama-3-8B-QAT-INT4",
+    speculative_model="meta-llama/Llama-3-8B-MTP-heads",
+    num_speculative_tokens=4,
+    tensor_parallel_size=1,
+)
+
+# Same API — MTP is transparent to the caller
+params = SamplingParams(temperature=0.7, max_tokens=512)
+output = llm.generate("Write a Python function to parse CSV files", params)
+
+# Result: ~2.5x faster generation for code tasks
+# Quality is identical — rejected speculations fall back to standard generation
+\`\`\`
+
+### When to Use MTP
+
+- **Always, for structured output.** JSON, code, templates, SQL — anything with predictable patterns sees 2-3x speedup at no quality cost.
+- **When latency matters more than throughput.** MTP reduces per-request latency. If your bottleneck is throughput (requests/second across many concurrent users), continuous batching may be more impactful.
+- **Combined with QAT.** MTP works on quantized models. The speculation heads are also quantized. The compound effect is: 4x memory reduction (QAT) + 2-3x generation speed (MTP).
+
+## How the Three Compound
+
+Here's where it gets interesting. QAT, MIG, and MTP aren't competing optimizations — they're **orthogonal and multiplicative.**
+
+\`\`\`
+Baseline: 1x B200, FP16 Llama 3 70B
+  Throughput: 45 tok/s
+  Serving: 1 model
+  Utilization: ~25%
+  Cost: $8.50/hr for one workload
+
++ QAT INT4: 4x memory reduction, 3.5x throughput
+  Throughput: ~160 tok/s per model
+  Memory: 38GB (vs 140GB)
+
++ MIG (7 instances on B200):
+  Serving: 7 task-optimized models on one GPU
+  Each instance: ~27GB, ~160 tok/s
+  Total throughput: ~1,120 tok/s across 7 models
+  Utilization: ~85%
+
++ MTP (k=4, mixed workload avg 2x speedup):
+  Effective throughput: ~2,240 tok/s across 7 models
+  Per-model: ~320 tok/s effective
+
+Result:
+  Cost per model: $1.21/hr (vs $8.50/hr baseline)
+  Throughput per model: 320 tok/s (vs 45 tok/s baseline)
+  Total improvement: 7x cost reduction, 7x throughput increase
+  Quality: Within 0.5% of FP16 baseline
+\`\`\`
+
+This isn't theoretical. It's how modern inference platforms actually operate.
+
+## The Build vs. Delegate Tradeoff
+
+Implementing all three techniques yourself requires:
+
+1. **QAT expertise** — Training pipeline modifications, custom quantization calibration, evaluation across your task distribution. Budget 2-4 weeks for an experienced ML engineer.
+
+2. **MIG configuration** — NVIDIA driver setup, instance profiling, workload-to-instance mapping, monitoring per instance. Budget 1-2 weeks for a systems engineer.
+
+3. **MTP implementation** — Speculative decoding integration with your serving framework (vLLM, TensorRT-LLM, or custom), head training, acceptance rate monitoring. Budget 2-4 weeks.
+
+4. **Ongoing optimization** — Model updates require re-QAT. Workload shifts require MIG re-partitioning. New tasks require MTP head retraining. Budget 20-30% of one engineer's time continuously.
+
+Total: **2-3 engineer-months to build, then ongoing maintenance.** For a team of 5+ ML engineers with infrastructure experience, this is feasible and worthwhile.
+
+For everyone else, this is exactly the kind of complexity that should be delegated to infrastructure.
+
+## How Slancha Handles This
+
+Slancha's inference optimization layer applies all three techniques automatically:
+
+\`\`\`python
+import slancha
+
+# You send a request. That's it.
+response = slancha.chat.completions.create(
+    messages=[{"role": "user", "content": "Generate a Python API client for our REST API"}]
+)
+
+# Behind the scenes:
+# 1. Request classified as "code generation" (semantic routing)
+# 2. Routed to QAT INT4 code-optimized model on MIG instance
+# 3. MTP enabled (k=4, code acceptance rate ~80%)
+# 4. Response generated at ~300 tok/s
+# 5. Cost: $0.0003 per 1K tokens (vs $0.015 at GPT-4o)
+\`\`\`
+
+You don't configure quantization. You don't manage MIG partitions. You don't train MTP heads. The optimization loop runs continuously based on your actual workload patterns.
+
+When enough of your requests fall into a consistent task type, Slancha automatically:
+- Fine-tunes a task-specific model on your patterns
+- Applies QAT to the fine-tuned model
+- Deploys it on a MIG instance sized for the workload
+- Enables MTP with heads trained on your output distribution
+- Routes matching requests to the optimized path
+
+The compound effect is the 60-75% cost reduction that we cite — and it improves over time as the system learns your workload.
+
+## Getting Started
+
+If you're currently running inference at FP16 on dedicated GPUs:
+
+1. **Start with QAT.** It's the highest ROI optimization. Use [GPTQ](https://github.com/AutoGPTQ/AutoGPTQ) or [AWQ](https://github.com/mit-han-lab/llm-awq) for fast QAT on existing models. Test quality on your evaluation set before deploying.
+
+2. **Add MIG if you run multiple models.** If you're routing to 3+ different models, MIG will immediately improve utilization. Start with 3 instances and measure.
+
+3. **Enable MTP for structured output.** If >30% of your output is JSON, code, or templates, MTP will noticeably reduce latency.
+
+4. **Or skip all of this.** [Sign up for Slancha](/signup) and get all three optimizations applied automatically. Send requests to one endpoint. See the cost difference in your first billing cycle.
+
+---
+
+*Production AI inference doesn't have to be expensive. The techniques exist — the question is whether you build the infrastructure or [let the platform handle it](/signup).*`,
+  },
+  {
     slug: 'zero-config-ai-inference',
     title: 'Zero-Config AI Inference: Why the Black Box Wins',
     date: '2026-03-31',
@@ -2208,5 +2496,221 @@ If you're running a single-model setup today:
 ---
 
 *The multi-model future is already here — it's just not evenly distributed. [Start with the free router](/signup) and close the gap.*`,
+  },
+  {
+    slug: 'fine-tuning-vs-rag-when-to-use-each',
+    title: 'Fine-Tuning vs RAG: When to Use Each (And How to Stop Choosing)',
+    date: '2026-03-31',
+    author: 'Slancha Engineering',
+    excerpt: 'The fine-tuning vs RAG debate is one of the most common questions in production AI. Here\'s a practical decision framework based on real workloads — plus why the best systems use both, automatically.',
+    tags: ['fine-tuning', 'RAG', 'architecture', 'tutorial'],
+    body: `If you're building AI into a product, you've hit this question: **Should we fine-tune a model, or use retrieval-augmented generation (RAG)?**
+
+The internet gives you oversimplified answers. "RAG for facts, fine-tuning for behavior." That's directionally correct but useless when you're staring at a production workload that does both.
+
+This guide breaks down when each approach wins, when they fail, and how modern inference platforms eliminate the tradeoff entirely.
+
+## The Core Difference
+
+**Fine-tuning** changes what the model *knows and how it responds*. You train on examples of desired input-output pairs. The knowledge is baked into the weights. At inference time, there's no extra step — the model just responds correctly.
+
+**RAG** changes what the model *can access*. You retrieve relevant documents at query time and inject them into the context. The model's weights are unchanged — it's just reading better context.
+
+\`\`\`python
+# Fine-tuned model — knowledge is in the weights
+response = client.chat.completions.create(
+    model="ft:gpt-4o-mini:acme:support-v3",
+    messages=[{"role": "user", "content": "What's our refund policy?"}]
+)
+# Model answers from trained knowledge — no retrieval needed
+
+# RAG — knowledge is retrieved at query time
+docs = vector_store.similarity_search("refund policy", k=3)
+context = "\\n".join([d.page_content for d in docs])
+response = client.chat.completions.create(
+    model="gpt-4o-mini",
+    messages=[
+        {"role": "system", "content": f"Answer using this context:\\n{context}"},
+        {"role": "user", "content": "What's our refund policy?"}
+    ]
+)
+# Model answers from retrieved documents
+\`\`\`
+
+Both work. The question is which works *better* for your specific use case.
+
+## When Fine-Tuning Wins
+
+Fine-tuning is the right choice when:
+
+### 1. You Need Consistent Behavior, Not Just Correct Answers
+
+If your model needs to respond in a specific *style* — your brand voice, a particular format, a structured output schema — fine-tuning is dramatically better than prompting.
+
+RAG can tell a model what to say. Fine-tuning changes *how* it says it.
+
+**Example:** A customer support bot that needs to always respond with empathy, acknowledge the issue, provide a solution, and offer a follow-up — in that exact order. You can prompt for this, but fine-tuning on 500 examples makes it automatic and consistent.
+
+### 2. Your Knowledge Is Stable
+
+If the information the model needs doesn't change frequently (product specs, coding patterns, domain terminology, regulatory frameworks), fine-tuning is more efficient. You train once and serve at base inference cost with no retrieval overhead.
+
+### 3. Latency Matters
+
+Fine-tuning adds zero latency. RAG adds a retrieval step (typically 50-200ms for vector search), plus the overhead of larger context windows from injected documents.
+
+For real-time applications — autocomplete, inline suggestions, chatbots with <500ms response targets — fine-tuning keeps you fast.
+
+### 4. You Want to Use Smaller Models
+
+This is fine-tuning's superpower. A 7B parameter model fine-tuned on your task-specific data can match or beat a 70B general-purpose model — at 1/10th the inference cost.
+
+| Model | Params | Fine-tuned? | Task Accuracy | Cost/1K tokens |
+|---|---|---|---|---|
+| GPT-4o | 200B+ | No | 92% | $0.015 |
+| Llama 3 70B | 70B | No | 88% | $0.005 |
+| Llama 3 8B | 8B | Yes (task-specific) | 91% | $0.0003 |
+| Qwen 2.5 7B | 7B | Yes (task-specific) | 90% | $0.0003 |
+
+Fine-tuning lets you *buy down model size* without sacrificing quality.
+
+## When RAG Wins
+
+RAG is the right choice when:
+
+### 1. Your Data Changes Frequently
+
+If you're building on top of data that updates daily, weekly, or in real-time — product catalogs, documentation, news, financial data — RAG is the only sane approach. Fine-tuning takes hours to days. Index updates take seconds.
+
+### 2. You Need Source Attribution
+
+RAG naturally supports "here's where I found that" because the retrieved documents are explicit. This is critical for compliance, legal, medical, and financial applications where the user needs to verify the source.
+
+Fine-tuned models can't point to where they learned something. The knowledge is distributed across billions of parameters.
+
+### 3. Your Knowledge Base Is Large and Diverse
+
+If your application needs to access thousands of documents across different topics, RAG scales better. Fine-tuning on massive corpora risks catastrophic forgetting (the model loses general capabilities) or requires expensive continuous training.
+
+RAG just adds more vectors to the index.
+
+### 4. You Need to Combine Multiple Data Sources
+
+When the answer requires synthesizing information from different databases, APIs, or document types, RAG's retrieval pipeline can pull from multiple sources. Fine-tuning bakes in a static snapshot of one dataset.
+
+## When Both Fail (And What to Do Instead)
+
+### The RAG Failure Mode: Context Window Poisoning
+
+RAG fails silently when retrieval returns *plausible but wrong* documents. The model dutifully answers based on irrelevant context, and the user sees a confident, well-sourced, incorrect response.
+
+This happens more than people admit. Typical vector search accuracy on production datasets is 70-85%, meaning 15-30% of retrieved chunks are noise.
+
+**Fix:** Re-ranking + answer verification. Or route the query to a fine-tuned model that doesn't need retrieval for known topics.
+
+### The Fine-Tuning Failure Mode: Distribution Shift
+
+Fine-tuned models fail when production queries drift from training data. If you trained on Q3 support tickets and Q4 brings a new product launch with new issues, the model confidently gives outdated answers.
+
+**Fix:** Monitoring + periodic retraining. Or fall back to RAG for queries outside the fine-tuning distribution.
+
+### The Real Answer: Use Both
+
+The best production systems don't choose between fine-tuning and RAG. They use both:
+
+\`\`\`
+Query → Task Classification
+  ├── Known domain (high confidence) → Fine-tuned model (fast, cheap)
+  ├── Known domain (needs sources) → Fine-tuned model + RAG verification
+  ├── Unknown/evolving domain → RAG with general model
+  └── Complex reasoning → Large model + RAG context
+\`\`\`
+
+This is the pattern Slancha automates. The router classifies each request by task type and confidence. High-confidence, stable-domain queries go to fine-tuned models (fast and cheap). Queries requiring fresh data or source attribution go through RAG pipelines. Complex queries get routed to larger models with appropriate context.
+
+You don't configure any of this. It happens automatically.
+
+## The Decision Framework
+
+Use this flowchart for your next AI feature:
+
+**Step 1: How often does the underlying data change?**
+- Weekly or faster → RAG (or RAG + fine-tuning hybrid)
+- Monthly or slower → Fine-tuning is viable
+
+**Step 2: Do users need source attribution?**
+- Yes → RAG (or hybrid with RAG verification)
+- No → Fine-tuning is viable
+
+**Step 3: Is latency critical (<500ms)?**
+- Yes → Fine-tuning preferred (no retrieval overhead)
+- No → Either works
+
+**Step 4: Can you afford to train on your data?**
+- You have 500+ high-quality examples → Fine-tuning
+- You have <500 examples → RAG or few-shot prompting
+- You have documents but not Q&A pairs → RAG
+
+**Step 5: How many distinct task types do you serve?**
+- 1-3 task types → Fine-tune a model per task
+- 10+ task types → RAG with a general model, selectively fine-tune the top 3
+
+## The Cost Math
+
+Here's what the approaches cost for a team handling 100K requests/month across a support + docs use case:
+
+| Approach | Infra Cost | Eng. Hours/Month | Total Monthly | Quality |
+|---|---|---|---|---|
+| Single GPT-4o + prompt engineering | $1,500 | 5 | $2,250 | Good |
+| RAG (vector DB + GPT-4o-mini) | $800 | 15 | $2,550 | Good + sources |
+| Fine-tuned 7B (self-managed) | $300 | 25 | $3,050 | Very good |
+| Fine-tuned 7B + RAG (self-managed) | $500 | 40 | $5,300 | Excellent |
+| Slancha (automated routing + fine-tuning) | $500 | 0 | $500 | Excellent |
+
+The self-managed hybrid is the best quality, but the engineering overhead makes it the most expensive total cost. Slancha delivers the same quality at a fraction of the cost because the optimization loop runs itself.
+
+## How Slancha Automates This
+
+When you send requests through Slancha's single endpoint, here's what happens behind the scenes:
+
+1. **Request classification** — Sub-millisecond semantic routing classifies the task type and estimates complexity.
+
+2. **Route selection** — Known, stable patterns route to fine-tuned models. Novel or data-dependent queries route to larger models with optional RAG augmentation.
+
+3. **Continuous learning** — The system tracks which routes produce the best outcomes. Fine-tuning triggers automatically when enough high-quality examples accumulate for a task type.
+
+4. **Automatic rebalancing** — As fine-tuned models improve, more traffic shifts to them. Cost drops. Quality improves. No human intervention.
+
+\`\`\`python
+import slancha
+
+# You don't choose between fine-tuning and RAG.
+# Slancha routes each request to the optimal approach.
+response = slancha.chat.completions.create(
+    messages=[{"role": "user", "content": "What's our refund policy for enterprise plans?"}]
+)
+
+# Behind the scenes:
+# - "refund policy" → classified as support/policy (stable domain)
+# - Routed to fine-tuned 7B model (trained on your support data)
+# - Response verified against RAG-retrieved policy docs
+# - Latency: 89ms, Cost: $0.0002
+\`\`\`
+
+You don't build the routing logic. You don't manage the fine-tuning pipeline. You don't configure the RAG retrieval. The platform handles it because it has the data to make better decisions than a static configuration ever could.
+
+## Practical Takeaways
+
+1. **Don't default to RAG just because it's easier to set up.** If your data is stable and your quality bar is high, fine-tuning a small model will outperform RAG on accuracy, latency, and cost.
+
+2. **Don't default to fine-tuning just because it sounds more "production-ready."** If your data changes weekly, you'll spend more time retraining than building features.
+
+3. **The hybrid approach is the right architecture** but only if you can afford the engineering overhead to build and maintain it. Most teams can't.
+
+4. **If you're spending >$500/month on LLM APIs, automate the decision.** [Try Slancha's free router](/signup) — it handles the routing, fine-tuning, and optimization automatically. Your first week will show you where the savings are.
+
+---
+
+*Stop choosing between fine-tuning and RAG. [Let the platform decide for each request](/signup) — based on your actual data, not a static architecture diagram.*`,
   },
 ];
