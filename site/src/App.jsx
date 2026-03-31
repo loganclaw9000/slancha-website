@@ -26,6 +26,7 @@ const BlogPost = lazy(() => import('./pages/BlogPost'));
 const Docs = lazy(() => import('./pages/Docs'));
 const FAQ = lazy(() => import('./pages/FAQ'));
 const VsCompetitors = lazy(() => import('./pages/VsCompetitors'));
+const UseCases = lazy(() => import('./pages/UseCases'));
 
 function Loading() {
   return (
@@ -56,6 +57,7 @@ const App = () => (
           {/* FAQ & Comparison pages */}
           <Route path="/faq" element={<FAQ />} />
           <Route path="/vs-competitors" element={<VsCompetitors />} />
+          <Route path="/use-cases" element={<UseCases />} />
 
           {/* Auth */}
           <Route path="/login" element={<Login />} />

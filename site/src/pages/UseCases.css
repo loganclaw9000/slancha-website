@@ -1,0 +1,155 @@
+.usecases-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 6rem 1.5rem 4rem;
+}
+
+.usecases-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.usecases-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
+  background: linear-gradient(135deg, #0A84FF, #00D1B2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.usecases-header p {
+  color: var(--text-secondary, #94a3b8);
+  font-size: 1.15rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.usecase-card {
+  background: var(--surface, #1a1a2e);
+  border: 1px solid var(--border, #2a2a4a);
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  transition: border-color 0.2s;
+}
+
+.usecase-card:hover {
+  border-color: #0A84FF;
+}
+
+.usecase-eyebrow {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  margin-bottom: 1rem;
+}
+
+.usecase-eyebrow.enterprise { background: rgba(10, 132, 255, 0.15); color: #0A84FF; }
+.usecase-eyebrow.startup { background: rgba(0, 209, 178, 0.15); color: #00D1B2; }
+.usecase-eyebrow.research { background: rgba(168, 85, 247, 0.15); color: #a855f7; }
+.usecase-eyebrow.platform { background: rgba(251, 191, 36, 0.15); color: #fbbf24; }
+
+.usecase-card h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary, #e2e8f0);
+}
+
+.usecase-card .challenge {
+  color: var(--text-secondary, #94a3b8);
+  margin-bottom: 1.25rem;
+  line-height: 1.6;
+}
+
+.usecase-card h3 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary, #94a3b8);
+  margin-bottom: 0.75rem;
+}
+
+.usecase-steps {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem;
+}
+
+.usecase-steps li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary, #e2e8f0);
+  line-height: 1.5;
+}
+
+.usecase-steps li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: #0A84FF;
+  font-weight: 700;
+}
+
+.usecase-result {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border, #2a2a4a);
+}
+
+.usecase-metric {
+  text-align: center;
+}
+
+.usecase-metric .number {
+  font-size: 1.75rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #0A84FF, #00D1B2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.usecase-metric .label {
+  font-size: 0.8rem;
+  color: var(--text-secondary, #94a3b8);
+  display: block;
+  margin-top: 0.15rem;
+}
+
+.usecases-cta {
+  text-align: center;
+  margin-top: 3rem;
+  padding: 2.5rem;
+  background: var(--surface, #1a1a2e);
+  border: 1px solid var(--border, #2a2a4a);
+  border-radius: 12px;
+}
+
+.usecases-cta h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.usecases-cta p {
+  color: var(--text-secondary, #94a3b8);
+  margin-bottom: 1.5rem;
+}
+
+.usecases-cta .btn-primary {
+  margin-right: 0.75rem;
+}
+
+@media (max-width: 640px) {
+  .usecases-header h1 { font-size: 1.75rem; }
+  .usecase-card { padding: 1.5rem; }
+  .usecase-result { gap: 1rem; }
+}
