@@ -64,8 +64,9 @@ const ApiReference = lazy(() => import('./pages/ApiReference'));
 
 function Loading() {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '60vh' }}>
-      <div className="auth-spinner" />
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '60vh' }} role="status" aria-label="Loading page">
+      <div className="auth-spinner" aria-hidden="true" />
+      <span className="sr-only">Loading…</span>
     </div>
   );
 }

@@ -17,8 +17,8 @@ export default function AuthCallback() {
   }, [navigate]);
 
   return (
-    <div className="auth-loading">
-      <div className="auth-spinner" />
+    <div className="auth-loading" role="status" aria-label="Signing in">
+      <div className="auth-spinner" aria-hidden="true" />
       <p style={{ color: 'var(--text-secondary)', marginTop: '16px' }}>Signing you in...</p>
     </div>
   );
