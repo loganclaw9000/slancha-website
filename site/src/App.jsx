@@ -1,6 +1,7 @@
 import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
+import { ABTestProvider } from './ab';
 import ProtectedRoute from './components/ProtectedRoute';
 import ErrorBoundary from './components/ErrorBoundary';
 import ScrollToTop from './components/ScrollToTop';
@@ -73,11 +74,12 @@ function Loading() {
 }
 
 const App = () => (
-  <AuthProvider>
-    <Router>
-      <ScrollToTop />
-      <ErrorBoundary>
-      <Suspense fallback={<Loading />}>
+  <ABTestProvider>
+    <AuthProvider>
+      <Router>
+        <ScrollToTop />
+        <ErrorBoundary>
+          <Suspense fallback={<Loading />}>
         <Routes>
           {/* Public marketing */}
           <Route path="/" element={<Home />} />
@@ -150,10 +152,11 @@ const App = () => (
 
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </Suspense>
-      </ErrorBoundary>
-    </Router>
-  </AuthProvider>
+          </Suspense>
+        </ErrorBoundary>
+      </Router>
+    </AuthProvider>
+  </ABTestProvider>
 );
 
 export default App;
