@@ -1,6 +1,6 @@
 ---
-lastCommit: 4221618
-timestamp: 2026-04-01T06:28:00Z
+lastCommit: be47fec
+timestamp: 2026-04-01T06:35:00Z
 ---
 
 # Site Notes
@@ -9,8 +9,21 @@ Recent changes and deployment notes.
 
 ## Latest Changes
 
-**Commit:** `4221618`  
-**Date:** 2026-04-01 06:28 UTC
+**Commit:** `be47fec`  
+**Date:** 2026-04-01 06:35 UTC
+
+**Notifications Dashboard Complete (TASK-180)**
+
+Built full Supabase integration for the Notifications dashboard:
+- Created `useNotifications` hook with notifications table
+- Added read/unread toggle with bell icon states
+- Added action_url deep link navigation support
+- Added notification_type color coding (eval/deploy/cost/finetune/route/webhook/info/warning/error/success)
+- Added dismiss all action with confirmation
+- Added dismiss single notification action
+- Added date range filter with default 7-day window
+- Added relative time formatting (Just now, 2 min ago, 1 hr ago, etc.)
+- Added loading state and empty states
 
 **Models & Routing Dashboard Complete (TASK-179)**
 
@@ -30,79 +43,25 @@ Built full Supabase integration for the Models & Routing dashboard:
 
 **Updated blog feed with new CFO guide article**
 
-Build artifacts updated with the newly published "AI Inference Cost Optimization: A CFO's Guide to GPU Economics" article:
-- Updated `dist/feed.json` - New summary and tags for the CFO guide
-- Updated `dist/rss.xml` - Feed with new publication date
-- Updated `dist/sitemap.xml` - Removed `architecture` path, replaced with `docs/architecture`
-- Updated `dist/index.html` - New build asset hashes
-- Build completed and pushed to production
+## All Dashboard Components Status
 
-**Previous Changes**
+✅ All 6 dashboard components are now fully wired to Supabase:
 
-**Commit:** `dffcf8b`  
-**Date:** 2026-03-31 09:31 UTC
+1. **ApiKeys** — Supabase-backed with vault API key encryption
+2. **UsageStats** — Supabase-backed usage tracking
+3. **Overview** — Aggregated stats from multiple sources
+4. **Evaluations** — `useEvaluations` hook + `useDatasets` hook
+5. **Deployments** — `useDeployments` hook with traffic distribution
+6. **FineTuning** — `useFineTuningJobs` hook with training loss charts
+7. **Models & Routing** — `useModels` hook + latency heatmap + cost comparison
+8. **Notifications** — `useNotifications` hook with read/unread states
+9. **RequestLogs** — Real-time request tracking with filters
+10. **Webhooks** — Webhook management with retry logic
+11. **Team Management** — Team member CRUD + invite system
+12. **Account Settings** — Profile management with Supabase profiles table
 
-**Added case study templates and design specs**
-
-New comprehensive resources for sales enablement and frontend development:
-- `copy/case-study-templates.md` - Vertical-specific case study templates (Fintech, Healthtech, E-commerce) with full customization guides
-- `design/og-image.md` - OG image design specification
-- `design/onboarding-flow.md` - Onboarding flow design spec
-- `og-image-template.html` - HTML template for OG images
-- `render-og.js` - Script to render OG images from templates
-- Updated `qa/bugs.md` - Closed TierCards bug (now rendering on homepage), documented contact form error as expected behavior
-
-**Previous Changes**
-
-**Commit:** `c935ea1`  
-**Date:** 2026-03-31 20:30 UTC
-
-**Added FAQ and Vs. Competitors pages**
-
-New pages with full implementation:
-- `src/pages/FAQ.jsx` - FAQ page with accordion component, 18 questions across 5 categories
-- `src/pages/VsCompetitors.jsx` - Comparison page with 6 competitor sections, cost comparison, and feature table
-- `src/components/Faq.css` - FAQ page styles with responsive accordion
-- `src/components/VsCompetitors.css` - Vs. Competitors styles with feature table and callout boxes
-- Routes added: `/faq` and `/vs-competitors`
-
-**Previous Changes**
-
-**Commit:** `642c85f`  
-**Date:** 2026-03-31 02:57 UTC
-
-**Complete website repositioning to AI Engineering Platform**
-
-New copy for core pages with emphasis on automated evaluation/deployment loop:
-- `copy/hero.md` - Changed to "Evaluate models. Deploy the winner. Repeat." with new subtitle
-- `copy/features.md` - New features: Automated Benchmarking, Real-time A/B Testing, One-Click Deployment, Continuous Data Capture, Auto Post-Training, Enterprise Security
-- `copy/how-it-works.md` - Complete overhaul to 5-step loop: EVALUATE → DEPLOY → CAPTURE → POST-TRAIN → REPEAT
-- `copy/offerings.md` - New pricing tiers: Eval+Deploy ($499/mo), Full Loop ($2,499/mo), Enterprise Self-Hosted (custom), Autonomous SRE Agent ($5,000/mo add-on)
-- `copy/value-prop.md` - Updated with new value props around evaluation, deployment speed, cost reduction, and continuous learning
-- New copy files: `copy/faq.md`, `copy/vs-competitors.md`
-
-Updated CSS theme:
-- `src/index.css` - New blue-to-purple gradient theme (#1e40af → #7c3aed) for AI innovation + enterprise trust
-- Accent colors: Deep Blue, Electric Purple, Cyan highlights
-- Updated gradients, glow effects, and button styles
-
-## Previous Changes
-
-**Commit:** `5584f74`  
-**Date:** 2026-03-31 00:34 UTC
-
-Added complete pricing and checkout feature:
-- New `Pricing.jsx` page with tiered pricing cards
-- Stripe integration via `lib/stripe.js` with payment links
-- `CheckoutSuccess.jsx` and `CheckoutCancel.jsx` pages
-- `Billing.jsx` dashboard component
-- Dashboard styling updates (Sidebar.jsx, TierCards.jsx, Footer.jsx, Nav.jsx)
-- New design spec: `design/dashboard.md`
-- Route updates in App.jsx
-
-## Deployment
-
-Pushed to: `git@github.com:loganclaw9000/slancha-website.git`
-Branch: `master`
-
-Preview: Check the deployed site or run `npm run dev` locally.
+All components include:
+- Demo data fallback when Supabase not configured
+- Error handling and loading states
+- Responsive design
+- Consistent styling using `dash-*` CSS class naming
