@@ -367,6 +367,85 @@
   flex-shrink: 0;
 }
 
+/* Filters row */
+.deploy-filters-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+  padding: 16px 20px;
+  background: var(--bg-secondary, #181830);
+  border: 1px solid var(--border-color, #2a2a4a);
+  border-radius: 10px;
+  flex-wrap: wrap;
+}
+
+.deploy-filter-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Uptime graph section */
+.deploy-uptime-graph {
+  margin-bottom: 20px;
+  padding: 16px 20px;
+  background: var(--bg-secondary, #181830);
+  border: 1px solid var(--border-color, #2a2a4a);
+  border-radius: 10px;
+}
+
+/* Latency section */
+.deploy-latency-section {
+  margin-bottom: 20px;
+  padding: 16px 20px;
+  background: var(--bg-secondary, #181830);
+  border: 1px solid var(--border-color, #2a2a4a);
+  border-radius: 10px;
+}
+
+.deploy-latency-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.deploy-latency-table th {
+  text-align: left;
+  font-size: 11px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border-color, #2a2a4a);
+}
+
+.deploy-latency-table td {
+  padding: 12px;
+  font-size: 13px;
+  color: var(--text-primary);
+  border-bottom: 1px solid rgba(42, 42, 74, 0.5);
+  font-family: var(--font-mono);
+}
+
+.deploy-latency-table tr:last-child td {
+  border-bottom: none;
+}
+
+.deploy-latency-table tr:hover td {
+  background: rgba(88, 101, 242, 0.05);
+}
+
+/* Empty chart placeholder */
+.deploy-empty-chart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  color: var(--text-secondary);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .deploy-grid {
