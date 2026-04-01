@@ -1,143 +1,13 @@
 import React, { useState } from 'react';
 import './Datasets.css';
 import usePageMeta from '../../hooks/usePageMeta';
-
-const DATASETS = [
-  {
-    id: 'ds-001',
-    name: 'reasoning-2k',
-    description: 'General reasoning and logic problems across 8 categories',
-    samples: 2000,
-    size: '4.2 MB',
-    format: 'jsonl',
-    version: 'v3',
-    versions: 3,
-    createdAt: '2026-03-15T10:00:00Z',
-    updatedAt: '2026-03-31T08:00:00Z',
-    tags: ['reasoning', 'logic', 'math'],
-    usedIn: { evals: 12, fineTunes: 3 },
-    quality: { avgTokens: 342, duplicates: 0.2, langDist: { en: 95, es: 3, fr: 2 } },
-    status: 'active',
-  },
-  {
-    id: 'ds-002',
-    name: 'code-gen-500',
-    description: 'Code generation tasks — Python, TypeScript, Go with test cases',
-    samples: 500,
-    size: '1.8 MB',
-    format: 'jsonl',
-    version: 'v2',
-    versions: 2,
-    createdAt: '2026-03-18T14:30:00Z',
-    updatedAt: '2026-03-30T22:00:00Z',
-    tags: ['code', 'generation', 'python', 'typescript'],
-    usedIn: { evals: 8, fineTunes: 2 },
-    quality: { avgTokens: 580, duplicates: 0.0, langDist: { en: 100 } },
-    status: 'active',
-  },
-  {
-    id: 'ds-003',
-    name: 'summ-3k',
-    description: 'Summarization — news articles, technical docs, legal briefs',
-    samples: 3000,
-    size: '12.1 MB',
-    format: 'jsonl',
-    version: 'v4',
-    versions: 4,
-    createdAt: '2026-03-10T09:00:00Z',
-    updatedAt: '2026-03-31T11:30:00Z',
-    tags: ['summarization', 'news', 'technical', 'legal'],
-    usedIn: { evals: 15, fineTunes: 5 },
-    quality: { avgTokens: 1240, duplicates: 0.8, langDist: { en: 88, de: 7, fr: 5 } },
-    status: 'active',
-  },
-  {
-    id: 'ds-004',
-    name: 'multi-qa-1k',
-    description: 'Multilingual question answering across 12 languages',
-    samples: 1000,
-    size: '3.4 MB',
-    format: 'jsonl',
-    version: 'v2',
-    versions: 2,
-    createdAt: '2026-03-20T16:00:00Z',
-    updatedAt: '2026-03-31T06:00:00Z',
-    tags: ['multilingual', 'qa', 'retrieval'],
-    usedIn: { evals: 6, fineTunes: 1 },
-    quality: { avgTokens: 210, duplicates: 0.1, langDist: { en: 40, es: 15, fr: 12, de: 10, ja: 8, zh: 5, ko: 3, pt: 2, it: 2, ar: 1, hi: 1, ru: 1 } },
-    status: 'active',
-  },
-  {
-    id: 'ds-005',
-    name: 'general-5k',
-    description: 'General benchmark — broad coverage across all task types',
-    samples: 5000,
-    size: '18.7 MB',
-    format: 'jsonl',
-    version: 'v6',
-    versions: 6,
-    createdAt: '2026-03-05T08:00:00Z',
-    updatedAt: '2026-03-31T10:00:00Z',
-    tags: ['general', 'benchmark', 'mixed'],
-    usedIn: { evals: 22, fineTunes: 8 },
-    quality: { avgTokens: 445, duplicates: 1.2, langDist: { en: 92, es: 4, fr: 2, de: 2 } },
-    status: 'active',
-  },
-  {
-    id: 'ds-006',
-    name: 'ft-candidates-800',
-    description: 'Curated fine-tuning candidates — high-quality prompt/completion pairs',
-    samples: 800,
-    size: '2.9 MB',
-    format: 'jsonl',
-    version: 'v1',
-    versions: 1,
-    createdAt: '2026-03-28T12:00:00Z',
-    updatedAt: '2026-03-30T18:30:00Z',
-    tags: ['fine-tuning', 'curated', 'high-quality'],
-    usedIn: { evals: 4, fineTunes: 2 },
-    quality: { avgTokens: 890, duplicates: 0.0, langDist: { en: 100 } },
-    status: 'active',
-  },
-  {
-    id: 'ds-007',
-    name: 'customer-support-v1',
-    description: 'Auto-curated from live customer support traffic — 2 weeks of data',
-    samples: 4200,
-    size: '15.3 MB',
-    format: 'jsonl',
-    version: 'v1',
-    versions: 1,
-    createdAt: '2026-03-29T00:00:00Z',
-    updatedAt: '2026-03-31T00:00:00Z',
-    tags: ['auto-curated', 'support', 'live-traffic'],
-    usedIn: { evals: 2, fineTunes: 0 },
-    quality: { avgTokens: 520, duplicates: 3.4, langDist: { en: 78, es: 12, fr: 5, de: 3, pt: 2 } },
-    status: 'processing',
-  },
-  {
-    id: 'ds-008',
-    name: 'extraction-financial',
-    description: 'Financial document extraction — SEC filings, earnings reports, 10-K forms',
-    samples: 1500,
-    size: '28.4 MB',
-    format: 'jsonl',
-    version: 'v2',
-    versions: 2,
-    createdAt: '2026-03-12T10:00:00Z',
-    updatedAt: '2026-03-29T14:00:00Z',
-    tags: ['extraction', 'financial', 'documents', 'sec'],
-    usedIn: { evals: 5, fineTunes: 3 },
-    quality: { avgTokens: 2100, duplicates: 0.5, langDist: { en: 100 } },
-    status: 'active',
-  },
-];
+import { useDatasets } from '../../hooks/useDatasets';
 
 const SUMMARY_STATS = {
-  totalDatasets: DATASETS.length,
-  totalSamples: DATASETS.reduce((s, d) => s + d.samples, 0),
-  totalSize: '86.8 MB',
-  autoCurated: DATASETS.filter(d => d.tags.includes('auto-curated')).length,
+  totalDatasets: 0,
+  totalSamples: 0,
+  totalSize: '0 MB',
+  autoCurated: 0,
 };
 
 function formatDate(iso) {
@@ -271,6 +141,7 @@ function DatasetRow({ ds, selected, onSelect, onExpand, expanded }) {
 
 export default function Datasets() {
   usePageMeta({ title: 'Datasets', description: 'Upload, browse, and manage training and evaluation datasets.' });
+  const { datasets, loading, error, supabaseConfigured, uploadDataset, deleteDataset, getSummaryStats, refetch } = useDatasets();
   const [selected, setSelected] = useState(new Set());
   const [expanded, setExpanded] = useState(null);
   const [search, setSearch] = useState('');
@@ -287,7 +158,7 @@ export default function Datasets() {
   };
 
   const toggleAll = () => {
-    if (selected.size === filtered.length) {
+    if (selected.size === filtered.length && filtered.length > 0) {
       setSelected(new Set());
     } else {
       setSelected(new Set(filtered.map(d => d.id)));
@@ -303,13 +174,13 @@ export default function Datasets() {
     }
   };
 
-  const filtered = DATASETS
+  const filtered = datasets
     .filter(d => {
       if (!search) return true;
       const q = search.toLowerCase();
       return d.name.toLowerCase().includes(q) ||
-        d.description.toLowerCase().includes(q) ||
-        d.tags.some(t => t.includes(q));
+        d.description?.toLowerCase().includes(q) ||
+        d.tags?.some(t => t.includes(q));
     })
     .sort((a, b) => {
       let av, bv;
@@ -344,19 +215,19 @@ export default function Datasets() {
       <div className="dash-cards">
         <div className="dash-stat-card">
           <div className="dash-stat-label">Total Datasets</div>
-          <div className="dash-stat-value">{SUMMARY_STATS.totalDatasets}</div>
+          <div className="dash-stat-value">{getSummaryStats().totalDatasets}</div>
         </div>
         <div className="dash-stat-card">
           <div className="dash-stat-label">Total Samples</div>
-          <div className="dash-stat-value">{SUMMARY_STATS.totalSamples.toLocaleString()}</div>
+          <div className="dash-stat-value">{getSummaryStats().totalSamples.toLocaleString()}</div>
         </div>
         <div className="dash-stat-card">
           <div className="dash-stat-label">Total Size</div>
-          <div className="dash-stat-value">{SUMMARY_STATS.totalSize}</div>
+          <div className="dash-stat-value">{getSummaryStats().totalSize}</div>
         </div>
         <div className="dash-stat-card">
           <div className="dash-stat-label">Auto-Curated</div>
-          <div className="dash-stat-value" style={{ color: '#8B5CF6' }}>{SUMMARY_STATS.autoCurated}</div>
+          <div className="dash-stat-value" style={{ color: '#8B5CF6' }}>{getSummaryStats().autoCurated}</div>
         </div>
       </div>
 
@@ -447,9 +318,11 @@ export default function Datasets() {
         </div>
       )}
 
-      <p className="usage-local-note" style={{ marginTop: 24 }}>
-        Showing demo data. Datasets will populate from your evaluations and uploaded files.
-      </p>
+      {!supabaseConfigured && (
+        <div className="eval-demo-banner" style={{ marginTop: 24, padding: 12, background: 'rgba(139, 92, 246, 0.1)', border: '1px solid rgba(139, 92, 246, 0.2)', borderRadius: 8, textAlign: 'center', color: 'var(--text-secondary)', fontSize: 14 }}>
+          Demo data — connect Supabase to configure real datasets
+        </div>
+      )}
     </div>
   );
 }
