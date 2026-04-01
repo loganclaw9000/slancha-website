@@ -1,6 +1,6 @@
 ---
-lastCommit: 22b15a4813d7af8a3adc4ee9f955a1a02d0423e8
-timestamp: 2026-03-31T17:41:00Z
+lastCommit: 4221618
+timestamp: 2026-04-01T06:28:00Z
 ---
 
 # Site Notes
@@ -8,6 +8,22 @@ timestamp: 2026-03-31T17:41:00Z
 Recent changes and deployment notes.
 
 ## Latest Changes
+
+**Commit:** `4221618`  
+**Date:** 2026-04-01 06:28 UTC
+
+**Models & Routing Dashboard Complete (TASK-179)**
+
+Built full Supabase integration for the Models & Routing dashboard:
+- Created `useModels` hook with model_pool and optimization_events tables
+- Added routing weight slider controls with real-time updates
+- Added latency heatmap visualization (P50→P99 gradient)
+- Added cost comparison bar chart (sorted cheapest→most expensive)
+- Added optimization event log with event_type badges
+- Added improvement percentage callouts with trend arrows
+- Added model status toggle (active↔testing) and delete actions
+
+**Previous Changes**
 
 **Commit:** `22b15a4813d7af8a3adc4ee9f955a1a02d0423e8`  
 **Date:** 2026-03-31 17:41 UTC
