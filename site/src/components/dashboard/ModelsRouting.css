@@ -306,6 +306,328 @@
   line-height: 1.5;
 }
 
+/* Empty state */
+.models-empty-state {
+  padding: 20px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 13px;
+  font-style: italic;
+}
+
+/* Loading */
+.models-loading {
+  padding: 40px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+/* Event badges */
+.models-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-left: 8px;
+}
+
+.models-badge--route { color: #3B82F6; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.2); }
+.models-badge--finetune { color: #8B5CF6; background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.2); }
+.models-badge--pool { color: #22C55E; background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.2); }
+.models-badge--cost { color: #F59E0B; background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.2); }
+.models-badge--accuracy { color: #EC4899; background: rgba(236, 72, 153, 0.1); border: 1px solid rgba(236, 72, 153, 0.2); }
+
+/* Latency Heatmap */
+.models-heatmap {
+  margin-bottom: 24px;
+  padding: 20px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+}
+
+.models-heatmap-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.models-heatmap-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+
+.models-heatmap-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.models-heatmap-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.models-heatmap-label {
+  font-size: 12px;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  width: 80px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--text-primary);
+}
+
+.models-heatmap-bar {
+  flex: 1;
+  display: flex;
+  height: 24px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.models-heatmap-segment {
+  height: 100%;
+  transition: width 300ms ease;
+}
+
+.models-heatmap--p50 {
+  background: linear-gradient(135deg, #22C55E, #16A34A);
+}
+
+.models-heatmap--p99 {
+  background: linear-gradient(135deg, #EF4444, #DC2626);
+}
+
+.models-heatmap-values {
+  display: flex;
+  gap: 8px;
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--text-secondary);
+}
+
+.models-heatmap-value-p50 {
+  color: #22C55E;
+}
+
+.models-heatmap-value-p99 {
+  color: #EF4444;
+}
+
+/* Cost Comparison */
+.models-cost-comparison {
+  margin-bottom: 24px;
+  padding: 20px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+}
+
+.models-cost-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.models-cost-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+
+.models-cost-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.models-cost-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.models-cost-label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 140px;
+  flex-shrink: 0;
+}
+
+.models-cost-label code {
+  font-size: 12px;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+}
+
+.models-cost-provider {
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+.models-cost-bar-container {
+  flex: 1;
+  height: 24px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.models-cost-bar-segment {
+  height: 100%;
+  transition: width 300ms ease;
+}
+
+.models-cost-value {
+  font-size: 12px;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+  width: 60px;
+  text-align: right;
+}
+
+/* Weight slider control */
+.models-weight-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 140px;
+}
+
+.models-weight-slider {
+  width: 80px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--border-muted);
+  outline: none;
+  -webkit-appearance: none;
+}
+
+.models-weight-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent-primary);
+  cursor: pointer;
+  transition: transform 100ms ease;
+}
+
+.models-weight-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.models-weight-slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent-primary);
+  cursor: pointer;
+  border: none;
+}
+
+.models-weight-value {
+  font-size: 11px;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+  min-width: 35px;
+  text-align: right;
+}
+
+/* Action buttons */
+.models-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.models-btn {
+  border: none;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 6px 10px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 150ms ease;
+}
+
+.models-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: scale(1.05);
+}
+
+.models-btn--status {
+  color: #F59E0B;
+}
+
+.models-btn--delete {
+  color: #EF4444;
+}
+
+.models-btn--delete:hover {
+  background: rgba(239, 68, 68, 0.1);
+}
+
+/* Optimization header */
+.models-opt-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Optimization improvement */
+.models-opt-improvement {
+  margin-top: 6px;
+  padding: 6px 10px;
+  background: rgba(34, 197, 94, 0.08);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  border-radius: var(--radius);
+}
+
+.models-opt-improvement-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #22C55E;
+}
+
+/* Provider tag */
+.models-tag--provider {
+  background: rgba(59, 130, 246, 0.08);
+  border-color: rgba(59, 130, 246, 0.2);
+  color: #3B82F6;
+}
+
+/* P99 latency column */
+.models-latency-p99 {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+}
+
+@media (max-width: 1024px) {
+  .models-detail-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .models-weight-control {
+    min-width: 120px;
+  }
+}
+
 @media (max-width: 768px) {
   .models-detail-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -325,5 +647,44 @@
   .models-table-wrap {
     margin: 0 -24px;
     padding: 0 24px;
+  }
+
+  .models-heatmap-row,
+  .models-cost-row {
+    flex-wrap: wrap;
+  }
+
+  .models-heatmap-label {
+    width: 100%;
+  }
+
+  .models-cost-label {
+    width: 100%;
+  }
+
+  .models-weight-control {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .models-weight-slider {
+    width: 100%;
+  }
+
+  .models-opt-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .models-actions {
+    flex-direction: column;
+  }
+
+  .models-btn {
+    padding: 4px 8px;
+    font-size: 12px;
   }
 }
