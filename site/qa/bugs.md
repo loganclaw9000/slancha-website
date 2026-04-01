@@ -1,8 +1,18 @@
 # Bug Reports
 
-## Status: 0 open bugs
+## Status: 1 open bugs (conversion tracking gaps)
 
-Last QA run: 2026-04-01T05:25Z (heartbeat)
+Last QA run: 2026-04-01T16:15Z (heartbeat)
+
+---
+
+### Open Bugs
+
+**[ANALYTICS] Missing conversion tracking on major CTAs** — 12+ high-impact CTAs across the site are not firing analytics events, creating blind spots in the conversion funnel. Fixed in this run: Nav buttons ("Get Started", "Sign in", "Dashboard"), Hero CTAs ("Get Your API Endpoint", "See How It Works"), PilotCTA, Enterprise page CTAs ("Talk to Sales", "Compare Plans", "Schedule a Demo", "Read Case Studies"), PilotProgram page CTAs ("Apply for a Pilot", "Start Your Pilot"). See `site/qa/conversion-tracking-audit.md` for complete list. | severity:high | expected: All primary CTAs fire trackCtaClick events | actual: Only Pricing page tier buttons, Contact form submit, Waitlist signup, Signup form were tracked | fixed: 2026-04-01
+
+---
+
+### Verified as Expected Behavior
 
 ---
 
@@ -14,11 +24,18 @@ None — all verified passing.
 
 **[CONTACT] Form fallback to mailto** — When VITE_FORM_ENDPOINT is not set in .env, form submission correctly falls back to `mailto:contact@slancha.ai`. No console errors observed in browser test (2026-04-01). This is the designed behavior. Only action needed: set VITE_FORM_ENDPOINT to actual Formspree ID if desired. | severity:low (informational)
 
+**[ANALYTICS] Conversion tracking implemented** — Added trackCtaClick() to all critical CTAs: Nav buttons (desktop + mobile), Hero CTAs, PilotCTA, Enterprise page (4 CTAs), PilotProgram page (2 CTAs). Verified build passes with new tracking code. | severity:medium | fixed: 2026-04-01
+
 ---
 
 ### Closed Bugs
 
-### Fixed this run (2026-03-31)
+---
+
+### Closed Bugs
+
+### Fixed this run (2026-04-01)
+- **TASK-219 FIXED** Conversion tracking gap — Added `trackCtaClick()` to 12+ CTAs across Nav.jsx, Hero.jsx, PilotCTA.jsx, Enterprise.jsx, PilotProgram.jsx. Created `site/qa/conversion-tracking-audit.md` with complete audit. Build passes. | severity:high
 - **BUG FIXED** TierCards not rendered on homepage — verified 2026-03-31T09:27Z (browser test shows section present)
 
 ### Previous runs

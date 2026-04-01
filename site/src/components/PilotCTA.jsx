@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useScrollReveal } from '../utils/useScrollReveal';
+import { trackCtaClick } from '../lib/analytics';
 import './PilotCTA.css';
 
 export default function PilotCTA() {
@@ -12,7 +13,7 @@ export default function PilotCTA() {
           Slancha gives you a single API endpoint that continuously gets smarter, faster, and cheaper.
           No model selection. No fine-tuning teams. No infrastructure decisions. Just better inference.
         </p>
-        <Link to="/signup" className="btn-primary btn-lg">Get Your Endpoint</Link>
+        <Link to="/signup" className="btn-primary btn-lg" onClick={() => trackCtaClick('pilot_get_endpoint', 'homepage')}>Get Your Endpoint</Link>
         <a href="mailto:contact@slancha.ai" className="pilot-cta-email">contact@slancha.ai</a>
       </div>
     </section>

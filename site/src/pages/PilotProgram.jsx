@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
 import usePageMeta from '../hooks/usePageMeta';
+import { trackCtaClick } from '../lib/analytics';
 import './PilotProgram.css';
 
 const includes = [
@@ -153,8 +154,8 @@ export default function PilotProgram() {
             Run Slancha on your real workloads for 4{'\u2013'}6 weeks. Full platform access, dedicated engineering support, and concrete metrics{'\u2014'}so you make decisions based on data, not demos.
           </p>
           <div className="pilot-hero-ctas">
-            <Link to="/contact" className="btn btn-primary">Apply for a Pilot</Link>
-            <Link to="/enterprise" className="btn btn-secondary">Enterprise Overview</Link>
+            <Link to="/contact" className="btn btn-primary" onClick={() => trackCtaClick('pilot_apply', 'pilot_page')}>Apply for a Pilot</Link>
+            <Link to="/enterprise" className="btn btn-secondary" onClick={() => trackCtaClick('pilot_enterprise_overview', 'pilot_page')}>Enterprise Overview</Link>
           </div>
         </section>
 
@@ -258,8 +259,8 @@ export default function PilotProgram() {
             Tell us about your use case and current inference setup. We{'\u2019'}ll design a pilot scoped to your specific needs.
           </p>
           <div className="pilot-cta-buttons">
-            <Link to="/contact" className="btn btn-primary">Start Your Pilot</Link>
-            <Link to="/demo" className="btn btn-secondary">See the Demo First</Link>
+            <Link to="/contact" className="btn btn-primary" onClick={() => trackCtaClick('pilot_start', 'pilot_page')}>Start Your Pilot</Link>
+            <Link to="/demo" className="btn btn-secondary" onClick={() => trackCtaClick('pilot_see_demo', 'pilot_page')}>See the Demo First</Link>
           </div>
         </section>
       </main>

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { trackCtaClick } from '../lib/analytics';
 import './Nav.css';
 
 const SearchModal = lazy(() => import('./SearchModal'));
@@ -221,11 +222,11 @@ export default function Nav({ backLink = false }) {
               <span className="nav-search-hint">Ctrl+K</span>
             </button>
             {user ? (
-              <Link to="/dashboard" className="btn-primary btn-sm">Dashboard</Link>
+              <Link to="/dashboard" className="btn-primary btn-sm" onClick={() => trackCtaClick('nav_dashboard', 'global_nav')}>Dashboard</Link>
             ) : (
               <>
-                <Link to="/login" className="nav-link">Sign in</Link>
-                <Link to="/signup" className="btn-primary btn-sm">Get Started</Link>
+                <Link to="/login" className="nav-link" onClick={() => trackCtaClick('nav_sign_in', 'global_nav')}>Sign in</Link>
+                <Link to="/signup" className="btn-primary btn-sm" onClick={() => trackCtaClick('nav_get_started', 'global_nav')}>Get Started</Link>
               </>
             )}
           </div>
@@ -255,13 +256,13 @@ export default function Nav({ backLink = false }) {
               <Link to="/pricing" className="nav-overlay-link" onClick={closeMenu}>Pricing</Link>
               {user ? (
                 <>
-                  <Link to="/dashboard" className="nav-overlay-link" onClick={closeMenu}>Dashboard</Link>
+                  <Link to="/dashboard" className="nav-overlay-link" onClick={() => { trackCtaClick('nav_dashboard_mobile', 'mobile_nav'); closeMenu(); }}>Dashboard</Link>
                   <button className="nav-overlay-link" onClick={handleSignOut} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'inherit', font: 'inherit', textAlign: 'center' }}>Sign out</button>
                 </>
               ) : (
                 <>
-                  <Link to="/login" className="nav-overlay-link" onClick={closeMenu}>Sign in</Link>
-                  <Link to="/signup" className="nav-overlay-link nav-overlay-cta" onClick={closeMenu}>Get Started</Link>
+                  <Link to="/login" className="nav-overlay-link" onClick={() => { trackCtaClick('nav_sign_in_mobile', 'mobile_nav'); closeMenu(); }}>Sign in</Link>
+                  <Link to="/signup" className="nav-overlay-link nav-overlay-cta" onClick={() => { trackCtaClick('nav_get_started_mobile', 'mobile_nav'); closeMenu(); }}>Get Started</Link>
                 </>
               )}
             </div>

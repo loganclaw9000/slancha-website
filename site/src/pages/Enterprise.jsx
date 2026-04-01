@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
 import usePageMeta from '../hooks/usePageMeta';
+import { trackCtaClick } from '../lib/analytics';
 import './Enterprise.css';
 
 const capabilities = [
@@ -93,8 +94,8 @@ export default function Enterprise() {
             compliance, and support for teams that can't compromise on control.
           </p>
           <div className="enterprise-hero-ctas">
-            <Link to="/contact" className="btn-primary btn-lg">Talk to Sales</Link>
-            <Link to="/pricing" className="btn-secondary btn-lg">Compare Plans</Link>
+            <Link to="/contact" className="btn-primary btn-lg" onClick={() => trackCtaClick('enterprise_talk_sales', 'enterprise_page')}>Talk to Sales</Link>
+            <Link to="/pricing" className="btn-secondary btn-lg" onClick={() => trackCtaClick('enterprise_compare_plans', 'enterprise_page')}>Compare Plans</Link>
           </div>
         </section>
 
@@ -177,8 +178,8 @@ export default function Enterprise() {
           <h2>Ready to scale your AI operations?</h2>
           <p>Get a custom deployment plan, pricing, and a dedicated onboarding team for your organization.</p>
           <div className="enterprise-cta-buttons">
-            <Link to="/contact" className="btn-primary btn-lg">Schedule a Demo</Link>
-            <Link to="/case-studies" className="btn-secondary btn-lg">Read Case Studies</Link>
+            <Link to="/contact" className="btn-primary btn-lg" onClick={() => trackCtaClick('enterprise_schedule_demo', 'enterprise_page')}>Schedule a Demo</Link>
+            <Link to="/case-studies" className="btn-secondary btn-lg" onClick={() => trackCtaClick('enterprise_read_case_studies', 'enterprise_page')}>Read Case Studies</Link>
           </div>
         </section>
       </main>
