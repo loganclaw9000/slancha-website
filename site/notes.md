@@ -1,11 +1,25 @@
 ---
-lastCommit: c3c4e24
-timestamp: 2026-04-01T07:35:00Z
+lastCommit: ccde0f8191f3bb4803add7fe94248c75b0453cb0
+timestamp: 2026-04-01T12:38:00Z
 ---
 
 # Site Notes
 
 Recent changes and deployment notes.
+
+## Latest Changes
+
+**Commit:** `ccde0f8`  
+**Date:** 2026-04-01 12:38 UTC
+
+**Added Python SDK integration tests and updated memory files**
+
+- Added complete Python SDK integration test suite (`sdk/python/tests/integration_test.py`)
+- Created integration test README with setup and usage instructions
+- Added daily memory files for Gmail heartbeat and current date tracking
+- Updated TASKS.md for task management
+
+---
 
 ## Latest Changes
 

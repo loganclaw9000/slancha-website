@@ -1,55 +1,55 @@
 # How Slancha Works
 
-Four layers, one endpoint. Everything happens behind the scenes.
+Four stages, one endpoint. Everything happens behind the scenes.
 
 ---
 
 ## 1. ROUTE
-**Requests go to the right model, automatically**
+**Your requests go to the right model, automatically**
 
-Every request hits a single API endpoint. Slancha's semantic router classifies the task in sub-millisecond time and routes it to the optimal model — no model selection required.
+Every request hits a single API endpoint. Slancha instantly classifies what you're asking and sends it to the optimal model — no model selection, no benchmarking required.
 
-- Single OpenAI-compatible API endpoint
-- Sub-millisecond semantic routing
-- Automatic cost/quality optimization
-- Simple tasks go to efficient models, complex ones to frontier models
+- One API key for everything
+- Instant routing decisions
+- Simple tasks → efficient models, complex tasks → powerful models
+- You never pick models. We handle it.
 
 ---
 
 ## 2. ANALYZE
-**Your usage patterns become training data**
+**Your usage patterns improve your models**
 
-Behind the router, Slancha continuously analyzes the tasks you're sending — summarization, code generation, QA, retrieval. This data is automatically curated for fine-tuning.
+Behind the scenes, Slancha watches what you're doing — summarization, code, QA, retrieval — and automatically builds better training data from your real production usage.
 
-- Automatic task classification
-- Real-time data curation from live traffic
-- No customer-provided datasets needed
-- Usage patterns improve routing over time
+- Automatic learning from your traffic
+- No datasets to prepare, no evaluation sets to upload
+- Your data improves your models continuously
+- Everything stays private to your account
 
 ---
 
 ## 3. FINE-TUNE
-**Task-specific models, built for you**
+**Smaller models that beat frontier on your work**
 
-Using your curated task data, Slancha fine-tunes smaller models that match or outperform frontier generalists on your specific workloads. This happens behind the scenes — you never see it.
+Slancha fine-tunes custom models on your specific tasks. The result: models that match or outperform expensive frontier models, but cost a fraction. You never see the fine-tuning — it just works.
 
-- Automated fine-tuning on your usage data
-- Smaller models that beat frontier on your tasks
-- Automatic re-fine-tuning when better architectures drop
-- No ML engineers, no hyperparameter tuning, no data wrangling
+- Custom models trained on your actual usage
+- Better performance, lower cost
+- Automatic upgrades when better architectures drop
+- No ML team required
 
 ---
 
 ## 4. OPTIMIZE
-**Faster, cheaper inference**
+**Faster responses, dramatically lower cost**
 
-Fine-tuned models are served with 4-bit quantization (QAT), multi-instance GPU packing, and multi-token prediction. The result: dramatically lower cost and latency.
+Every fine-tuned model gets optimized before serving. The outcome: snappier responses and significantly lower costs, with continuous improvement as we redeploy better versions.
 
-- Quantization-aware training (4-bit, no quality loss)
-- Multi-Instance GPU for efficient hardware utilization
+- 4-bit optimization (same quality, 4x less memory)
+- Smarter GPU packing for efficient serving
 - Multi-token prediction for higher throughput
 - Continuous redeployment of improved models
 
 ---
 
-**The loop closes automatically.** Route → Analyze → Fine-tune → Optimize → Redeploy. Your models get better every day without you doing anything.
+**The loop never stops.** Route → Analyze → Fine-tune → Optimize → Redeploy. Your models get better every day without you lifting a finger.
