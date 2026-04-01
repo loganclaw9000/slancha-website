@@ -1,6 +1,6 @@
 ---
-lastCommit: be47fec
-timestamp: 2026-04-01T06:35:00Z
+lastCommit: c3c4e24
+timestamp: 2026-04-01T07:35:00Z
 ---
 
 # Site Notes
@@ -8,6 +8,17 @@ timestamp: 2026-04-01T06:35:00Z
 Recent changes and deployment notes.
 
 ## Latest Changes
+
+**Commit:** `c3c4e24`  
+**Date:** 2026-04-01 07:35 UTC
+
+**QA: Updated bug status to 0 open bugs**
+
+Verified all QA checks passing during heartbeat test run. Updated `qa/bugs.md` to reflect 0 open bugs and added verification notes for the contact form fallback behavior.
+
+---
+
+**Previous Changes**
 
 **Commit:** `be47fec`  
 **Date:** 2026-04-01 06:35 UTC
@@ -37,6 +48,13 @@ Built full Supabase integration for the Models & Routing dashboard:
 - Added model status toggle (active↔testing) and delete actions
 
 **Previous Changes**
+
+**Commit:** `22b15a4813d7af8a3adc4ee9f955a1a02d0423e8`  
+**Date:** 2026-03-31 17:41 UTC
+
+**Updated blog feed with new CFO guide article**
+
+## Previous Changes
 
 **Commit:** `22b15a4813d7af8a3adc4ee9f955a1a02d0423e8`  
 **Date:** 2026-03-31 17:41 UTC
