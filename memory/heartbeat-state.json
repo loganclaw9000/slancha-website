@@ -1,7 +1,52 @@
 {
-  "lastChecks": {
-    "email": 1743447240,
-    "calendar": 1743447240,
-    "weather": null
-  }
+  "lastCheck": "2026-04-01T04:42:00Z",
+  "unreadCount": 20,
+  "actionableItems": [
+    {
+      "id": 1,
+      "type": "supabase_oauth",
+      "subject": "OAuth Application Approval",
+      "date": "2026-03-31",
+      "status": "needs_review",
+      "task_reference": "TASK-101"
+    },
+    {
+      "id": 2,
+      "type": "github_oauth",
+      "subject": "Third-party OAuth application added",
+      "date": "2026-03-29",
+      "status": "needs_review",
+      "task_reference": "TASK-101"
+    },
+    {
+      "id": 3,
+      "type": "anthropic_api",
+      "subject": "API access turned off",
+      "date": "2026-03-27",
+      "status": "needs_action",
+      "task_reference": "TASK-102"
+    },
+    {
+      "id": 4,
+      "type": "google_security",
+      "subject": "Security alert",
+      "date": "2026-03-31",
+      "status": "verify_login"
+    },
+    {
+      "id": 5,
+      "type": "shared_doc",
+      "subject": "Document shared: InferenceLabs",
+      "from": "Paul Logan",
+      "date": "2026-03-07",
+      "status": "review"
+    }
+  ],
+  "nonActionable": [
+    "Supabase welcome/training emails (4)",
+    "Anthropic invoices (2)",
+    "Claude product updates (3)"
+  ],
+  "whatsappNotificationSent": true,
+  "whatsappMessageId": "3EB047E4B5E7FCBE1D4DE9"
 }
