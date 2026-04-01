@@ -45,8 +45,13 @@ export function getExperimentVariation(experimentKey, userId = null) {
     return { variation: 'control', userId: userKey, timestamp: Date.now() };
   }
   
-  // Weighted random selection
-  const random = Math.abs(crypto.createHash('md5').update(userKey + experimentKey).digest('hex'), 16);
+  // Weighted random selection — deterministic hash from string
+  const str = userKey + experimentKey;
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = ((hash << 5) - hash + str.charCodeAt(i)) | 0;
+  }
+  const random = Math.abs(hash % 100) / 100;
   let cumulative = 0;
   let selected = experiment.variations[0].id;
   
