@@ -1,14 +1,18 @@
 # Bug Reports
 
-## Status: 1 open bug
+## Status: 0 open bugs
 
-Last QA run: 2026-03-31T09:27Z
+Last QA run: 2026-04-01T05:25Z (heartbeat)
 
 ---
 
 ### Open Bugs
 
-**[CONTACT] Form endpoint error in console when VITE_FORM_ENDPOINT not set** | Form submission attempts to POST to undefined endpoint, causing `net::ERR_CONNECTION_REFUSED` console error before falling back to mailto | Contact.jsx has VITE_FORM_ENDPOINT check with mailto fallback | Console shows `Failed to load resource: net::ERR_CONNECTION_REFUSED` on form submit (expected fallback behavior, but still logged as error) | severity:low
+None — all verified passing.
+
+### Verified as Expected Behavior
+
+**[CONTACT] Form fallback to mailto** — When VITE_FORM_ENDPOINT is not set in .env, form submission correctly falls back to `mailto:contact@slancha.ai`. No console errors observed in browser test (2026-04-01). This is the designed behavior. Only action needed: set VITE_FORM_ENDPOINT to actual Formspree ID if desired. | severity:low (informational)
 
 ---
 
