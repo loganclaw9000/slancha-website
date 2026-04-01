@@ -1,5 +1,10 @@
 # Progress Log - Slancha Website
 
+## 2026-04-01
+
+- 08:55 PST TASK-218 - Build A/B test framework for homepage ✅ COMPLETE
+  Created src/ab/ framework with localStorage-based assignment, 3 homepage variants (control, variant-a pricing-focused, variant-b testimonial-focused), analytics event tracking (cta_click, pricing_cta_click, demo_cta_click, pilot_cta_click). Build passes, pushed to GitHub.
+
 ## 2026-03-31
 
 - 07:24 PST TASK-093 - Design Demo Flow Spec ✅ COMPLETE
