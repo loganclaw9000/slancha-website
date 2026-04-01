@@ -42,3 +42,6 @@ Repository = "https://github.com/loganclaw9000/slancha-sdk-python"
 
 [tool.hatch.build.targets.wheel]
 packages = ["slancha"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
