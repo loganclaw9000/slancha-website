@@ -76,7 +76,7 @@ function Loading() {
 const App = () => (
   <ABTestProvider>
     <AuthProvider>
-      <Router>
+      <Router basename={import.meta.env.BASE_URL}>
         <ScrollToTop />
         <ErrorBoundary>
           <Suspense fallback={<Loading />}>
