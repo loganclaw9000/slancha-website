@@ -32,6 +32,7 @@ const Optimization = lazy(() => import('./components/dashboard/Optimization'));
 const TeamManagement = lazy(() => import('./components/dashboard/TeamManagement'));
 const Deployments = lazy(() => import('./components/dashboard/Deployments'));
 const Datasets = lazy(() => import('./components/dashboard/Datasets'));
+const SemanticRouter = lazy(() => import('./components/dashboard/SemanticRouter'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 const Blog = lazy(() => import('./pages/Blog'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
@@ -143,6 +144,7 @@ const App = () => (
             <Route path="deployments" element={<Deployments />} />
             <Route path="datasets" element={<Datasets />} />
             <Route path="webhooks" element={<Webhooks />} />
+            <Route path="router" element={<SemanticRouter />} />
             <Route path="settings" element={<AccountSettings />} />
           </Route>
 
