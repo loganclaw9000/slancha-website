@@ -23,13 +23,15 @@ jobs:
         with:
           node-version: 20
           cache: npm
-          cache-dependency-path: site/package-lock.json
-      - run: cd site && npm ci
-      - run: cd site && GITHUB_PAGES=true npm run build
-      - run: cp site/dist/index.html site/dist/404.html
+      - run: npm ci
+      - run: GITHUB_PAGES=true npm run build
+        env:
+          VITE_SUPABASE_URL: https://tqbvmmhgiivyjjcctqcb.supabase.co
+          VITE_SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRxYnZtbWhnaWl2eWpqY2N0cWNiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4MTkyNTAsImV4cCI6MjA5MDM5NTI1MH0.zY9_zVBJRwQRhARZSH_tvmSNcbBulbTJ1GZzOMT8hGM
+      - run: cp dist/index.html dist/404.html
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: site/dist
+          path: dist
 
   deploy:
     needs: build
