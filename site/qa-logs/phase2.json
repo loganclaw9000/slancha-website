@@ -1,0 +1,138 @@
+{
+  "phase": 2,
+  "description": "Auth Stress Test",
+  "timestamp": "2026-04-03T07:04:51.390Z",
+  "tests": [
+    {
+      "name": "Login with correct credentials → reaches /dashboard",
+      "status": "pass",
+      "error": null,
+      "screenshot": null,
+      "notes": [
+        "Redirected to: https://loganclaw9000.github.io/slancha-website/dashboard"
+      ]
+    },
+    {
+      "name": "Login with wrong password → stays on /login, shows error",
+      "status": "pass",
+      "error": null,
+      "screenshot": null,
+      "notes": [
+        "Correctly blocked, error shown"
+      ]
+    },
+    {
+      "name": "Login with empty fields → shows validation",
+      "status": "pass",
+      "error": null,
+      "screenshot": null,
+      "notes": [
+        "Correctly blocked empty submission"
+      ]
+    },
+    {
+      "name": "Login with non-existent email → shows error",
+      "status": "pass",
+      "error": null,
+      "screenshot": null,
+      "notes": [
+        "Correctly blocked, error shown"
+      ]
+    },
+    {
+      "name": "SQL injection in email field → doesn't break",
+      "status": "pass",
+      "error": null,
+      "screenshot": null,
+      "notes": [
+        "SQL injection correctly blocked"
+      ]
+    },
+    {
+      "name": "XSS in email field → not executed",
+      "status": "pass",
+      "error": null,
+      "screenshot": null,
+      "notes": [
+        "XSS not executed"
+      ]
+    },
+    {
+      "name": "Signup empty form → shows validation",
+      "status": "pass",
+      "error": null,
+      "screenshot": null,
+      "notes": [
+        "Empty signup correctly blocked"
+      ]
+    },
+    {
+      "name": "Signup with mismatched passwords → shows error",
+      "status": "pass",
+      "error": null,
+      "screenshot": null,
+      "notes": [
+        "Mismatch correctly handled"
+      ]
+    },
+    {
+      "name": "Password reset with valid email → shows success",
+      "status": "pass",
+      "error": null,
+      "screenshot": null,
+      "notes": [
+        "Success message shown"
+      ]
+    },
+    {
+      "name": "Password reset with invalid email format → shows error",
+      "status": "pass",
+      "error": null,
+      "screenshot": null,
+      "notes": [
+        "Native HTML5 email validation may apply"
+      ]
+    },
+    {
+      "name": "Session persists across dashboard page navigations",
+      "status": "pass",
+      "error": null,
+      "screenshot": null,
+      "notes": [
+        "Session persisted across 4 dashboard navigations"
+      ]
+    },
+    {
+      "name": "Sign Out button works → redirects away from dashboard",
+      "status": "pass",
+      "error": null,
+      "screenshot": null,
+      "notes": [
+        "Signed out, redirected to: https://loganclaw9000.github.io/slancha-website/login"
+      ]
+    },
+    {
+      "name": "/dashboard → /login when not authenticated",
+      "status": "pass",
+      "error": null,
+      "screenshot": null,
+      "notes": [
+        "Correctly redirected to /login"
+      ]
+    },
+    {
+      "name": "Direct /dashboard/keys → /login when not authenticated",
+      "status": "pass",
+      "error": null,
+      "screenshot": null,
+      "notes": [
+        "Protected: https://loganclaw9000.github.io/slancha-website/login"
+      ]
+    }
+  ],
+  "summary": {
+    "pass": 14,
+    "fail": 0,
+    "skip": 0
+  }
+}

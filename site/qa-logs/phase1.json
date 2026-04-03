@@ -1,7 +1,7 @@
 {
   "phase": 1,
   "description": "Page Load Smoke Test",
-  "timestamp": "2026-04-03T06:56:34.788Z",
+  "timestamp": "2026-04-03T07:02:21.545Z",
   "tests": [
     {
       "name": "/",
@@ -395,16 +395,13 @@
     },
     {
       "name": "/dashboard/evals",
-      "status": "fail",
-      "errors": [
-        "Body text too short: 80 chars"
-      ],
+      "status": "pass",
+      "errors": [],
       "networkFailures": [],
       "warnings": [],
       "httpStatus": 404,
-      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_dashboard_evals.png",
       "title": "Dashboard — Slancha",
-      "bodyLength": 80
+      "bodyLength": 1094
     },
     {
       "name": "/dashboard/fine-tuning",
@@ -498,8 +495,8 @@
     }
   ],
   "summary": {
-    "pass": 48,
-    "fail": 1,
+    "pass": 49,
+    "fail": 0,
     "skip": 0
   }
 }

@@ -87,7 +87,7 @@ export default function Contact() {
     } catch (err) {
       if (import.meta.env.DEV) console.error('Contact form submission failed:', err);
       // If Supabase isn't configured or table doesn't exist, fall back to mailto
-      if (err.message?.includes('placeholder') || err.code === '42P01' || err.message?.includes('relation')) {
+      if (err.message?.includes('placeholder') || err.code === '42P01' || err.message?.includes('relation') || err.message?.includes('table') || err.message?.includes('schema cache') || err.code === 'PGRST200' || err.code === 'PGRST116') {
         fallbackMailto();
         setStatus('success');
       } else {
