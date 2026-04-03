@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import { ABTestProvider } from './ab';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -120,6 +120,7 @@ const App = () => (
           <Route path="/architecture" element={<Architecture />} />
           <Route path="/developers/sdk" element={<SdkReference />} />
           <Route path="/developers/api" element={<ApiReference />} />
+          <Route path="/sdk-reference" element={<Navigate to="/developers/sdk" replace />} />
 
           {/* Auth */}
           <Route path="/login" element={<Login />} />

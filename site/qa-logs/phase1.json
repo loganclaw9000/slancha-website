@@ -1,0 +1,603 @@
+{
+  "phase": 1,
+  "description": "Page Load Smoke Test",
+  "timestamp": "2026-04-03T06:49:43.360Z",
+  "tests": [
+    {
+      "name": "/",
+      "status": "pass",
+      "errors": [],
+      "networkFailures": [],
+      "warnings": [],
+      "title": "Slancha — AI Inference That Improves Itself",
+      "bodyLength": 7315
+    },
+    {
+      "name": "/pricing",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_pricing.png",
+      "title": "Pricing — Slancha",
+      "bodyLength": 2795
+    },
+    {
+      "name": "/contact",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_contact.png",
+      "title": "Contact — Slancha",
+      "bodyLength": 808
+    },
+    {
+      "name": "/faq",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_faq.png",
+      "title": "FAQ — Slancha",
+      "bodyLength": 4454
+    },
+    {
+      "name": "/terms",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_terms.png",
+      "title": "Terms of Service — Slancha",
+      "bodyLength": 5327
+    },
+    {
+      "name": "/privacy",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_privacy.png",
+      "title": "Privacy Policy — Slancha",
+      "bodyLength": 5348
+    },
+    {
+      "name": "/docs",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_docs.png",
+      "title": "Getting Started — Docs — Slancha",
+      "bodyLength": 1975
+    },
+    {
+      "name": "/docs/getting-started",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_docs_getting-started.png",
+      "title": "Getting Started — Docs — Slancha",
+      "bodyLength": 1975
+    },
+    {
+      "name": "/docs/api-reference",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [
+        "Possible 404 content: \"404\" found in body"
+      ],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_docs_api-reference.png",
+      "title": "API Reference — Docs — Slancha",
+      "bodyLength": 16031
+    },
+    {
+      "name": "/docs/router",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_docs_router.png",
+      "title": "Router Configuration — Docs — Slancha",
+      "bodyLength": 2483
+    },
+    {
+      "name": "/docs/models",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_docs_models.png",
+      "title": "Available Models — Docs — Slancha",
+      "bodyLength": 2288
+    },
+    {
+      "name": "/docs/webhooks",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_docs_webhooks.png",
+      "title": "Webhooks & Events — Docs — Slancha",
+      "bodyLength": 15433
+    },
+    {
+      "name": "/docs/architecture",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_docs_architecture.png",
+      "title": "Architecture Overview — Docs — Slancha",
+      "bodyLength": 7701
+    },
+    {
+      "name": "/blog",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_blog.png",
+      "title": "Blog — Slancha",
+      "bodyLength": 8752
+    },
+    {
+      "name": "/use-cases",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_use-cases.png",
+      "title": "Use Cases — Slancha",
+      "bodyLength": 3110
+    },
+    {
+      "name": "/case-studies",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_case-studies.png",
+      "title": "Case Studies — Slancha",
+      "bodyLength": 4611
+    },
+    {
+      "name": "/integrations",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_integrations.png",
+      "title": "Integrations — Slancha",
+      "bodyLength": 2814
+    },
+    {
+      "name": "/playground",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_playground.png",
+      "title": "API Playground — Slancha — Slancha",
+      "bodyLength": 1484
+    },
+    {
+      "name": "/changelog",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_changelog.png",
+      "title": "Changelog — Slancha",
+      "bodyLength": 2965
+    },
+    {
+      "name": "/status",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_status.png",
+      "title": "System Status — Slancha",
+      "bodyLength": 2063
+    },
+    {
+      "name": "/enterprise",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_enterprise.png",
+      "title": "Enterprise — Slancha",
+      "bodyLength": 3310
+    },
+    {
+      "name": "/roi-calculator",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_roi-calculator.png",
+      "title": "ROI Calculator — Slancha",
+      "bodyLength": 1713
+    },
+    {
+      "name": "/vs-competitors",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_vs-competitors.png",
+      "title": "How We Compare — Slancha",
+      "bodyLength": 3231
+    },
+    {
+      "name": "/login",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_login.png",
+      "title": "Log In — Slancha",
+      "bodyLength": 200
+    },
+    {
+      "name": "/signup",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_signup.png",
+      "title": "Sign Up — Slancha",
+      "bodyLength": 223
+    },
+    {
+      "name": "/reset-password",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_reset-password.png",
+      "title": "Reset Password — Slancha",
+      "bodyLength": 170
+    },
+    {
+      "name": "/developers",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_developers.png",
+      "title": "Developers — Slancha",
+      "bodyLength": 4205
+    },
+    {
+      "name": "/demo",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_demo.png",
+      "title": "Product Demo — Slancha",
+      "bodyLength": 1754
+    },
+    {
+      "name": "/sdk-reference",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [
+        "Possible 404 content: \"Page not found\" found in body",
+        "Possible 404 content: \"404\" found in body"
+      ],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_sdk-reference.png",
+      "title": "Page Not Found — Slancha",
+      "bodyLength": 582
+    },
+    {
+      "name": "/glossary",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_glossary.png",
+      "title": "AI Inference Glossary — Slancha",
+      "bodyLength": 11753
+    },
+    {
+      "name": "/solutions/fintech",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_solutions_fintech.png",
+      "title": "Slancha — AI Inference That Improves Itself",
+      "bodyLength": 3694
+    },
+    {
+      "name": "/solutions/healthtech",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_solutions_healthtech.png",
+      "title": "Slancha — AI Inference That Improves Itself",
+      "bodyLength": 3776
+    },
+    {
+      "name": "/solutions/ecommerce",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_solutions_ecommerce.png",
+      "title": "Slancha — AI Inference That Improves Itself",
+      "bodyLength": 3698
+    },
+    {
+      "name": "/benchmarks",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_benchmarks.png",
+      "title": "Benchmarks — Slancha",
+      "bodyLength": 3750
+    },
+    {
+      "name": "/dashboard",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_dashboard.png",
+      "title": "Dashboard — Slancha",
+      "bodyLength": 590
+    },
+    {
+      "name": "/dashboard/keys",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_dashboard_keys.png",
+      "title": "Dashboard — Slancha",
+      "bodyLength": 374
+    },
+    {
+      "name": "/dashboard/usage",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_dashboard_usage.png",
+      "title": "Dashboard — Slancha",
+      "bodyLength": 532
+    },
+    {
+      "name": "/dashboard/models",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_dashboard_models.png",
+      "title": "Dashboard — Slancha",
+      "bodyLength": 918
+    },
+    {
+      "name": "/dashboard/router",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_dashboard_router.png",
+      "title": "Dashboard — Slancha",
+      "bodyLength": 495
+    },
+    {
+      "name": "/dashboard/evals",
+      "status": "fail",
+      "errors": [
+        "HTTP 404",
+        "Body text too short: 80 chars"
+      ],
+      "networkFailures": [],
+      "warnings": [],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_dashboard_evals.png",
+      "title": "Dashboard — Slancha",
+      "bodyLength": 80
+    },
+    {
+      "name": "/dashboard/fine-tuning",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_dashboard_fine-tuning.png",
+      "title": "Dashboard — Slancha",
+      "bodyLength": 475
+    },
+    {
+      "name": "/dashboard/optimization",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_dashboard_optimization.png",
+      "title": "Dashboard — Slancha",
+      "bodyLength": 1626
+    },
+    {
+      "name": "/dashboard/deployments",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_dashboard_deployments.png",
+      "title": "Dashboard — Slancha",
+      "bodyLength": 647
+    },
+    {
+      "name": "/dashboard/datasets",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_dashboard_datasets.png",
+      "title": "Dashboard — Slancha",
+      "bodyLength": 1204
+    },
+    {
+      "name": "/dashboard/logs",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_dashboard_logs.png",
+      "title": "Dashboard — Slancha",
+      "bodyLength": 2083
+    },
+    {
+      "name": "/dashboard/team",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_dashboard_team.png",
+      "title": "Dashboard — Slancha",
+      "bodyLength": 926
+    },
+    {
+      "name": "/dashboard/billing",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_dashboard_billing.png",
+      "title": "Dashboard — Slancha",
+      "bodyLength": 551
+    },
+    {
+      "name": "/dashboard/webhooks",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_dashboard_webhooks.png",
+      "title": "Dashboard — Slancha",
+      "bodyLength": 520
+    },
+    {
+      "name": "/dashboard/settings",
+      "status": "fail",
+      "errors": [
+        "HTTP 404"
+      ],
+      "networkFailures": [],
+      "warnings": [],
+      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase1_dashboard_settings.png",
+      "title": "Dashboard — Slancha",
+      "bodyLength": 1598
+    }
+  ],
+  "summary": {
+    "pass": 1,
+    "fail": 48,
+    "skip": 0
+  }
+}
