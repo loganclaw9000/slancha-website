@@ -1,15 +1,32 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
+import { supabase } from '../../lib/supabase';
 import usePageMeta from '../../hooks/usePageMeta';
 import './AccountSettings.css';
 
 export default function AccountSettings() {
   usePageMeta({ title: 'Account Settings', description: 'Update your Slancha account profile, email, and security settings.' });
   const { user, updatePassword } = useAuth();
-  const [displayName, setDisplayName] = useState(user?.user_metadata?.display_name || '');
+  const [displayName, setDisplayName] = useState('');
   const [company, setCompany] = useState('');
   const [saved, setSaved] = useState(false);
+
+  // Load profile from Supabase on mount
+  useEffect(() => {
+    if (!user) return;
+    supabase
+      .from('profiles')
+      .select('display_name, company')
+      .eq('user_id', user.id)
+      .single()
+      .then(({ data }) => {
+        if (data) {
+          setDisplayName(data.display_name || '');
+          setCompany(data.company || '');
+        }
+      });
+  }, [user]);
 
   const [pw, setPw] = useState({ current: '', new: '', confirm: '' });
   const [pwError, setPwError] = useState('');
@@ -25,8 +42,12 @@ export default function AccountSettings() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState('');
 
-  const handleProfile = (e) => {
+  const handleProfile = async (e) => {
     e.preventDefault();
+    if (!user) return;
+    await supabase
+      .from('profiles')
+      .upsert({ user_id: user.id, display_name: displayName, company, updated_at: new Date().toISOString() });
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
   };

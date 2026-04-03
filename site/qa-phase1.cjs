@@ -29,7 +29,7 @@ const DASHBOARD_PAGES = [
 ];
 
 const LOGIN_EMAIL = 'loganclaw9000@gmail.com';
-const LOGIN_PASSWORD = 'password';
+const LOGIN_PASSWORD = 'NewTestPassword123!';
 
 async function login(page) {
   await page.goto(`${BASE_URL}/login`, { waitUntil: 'networkidle', timeout: 30000 });

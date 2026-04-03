@@ -9,7 +9,7 @@ const LOGS_DIR = path.join(__dirname, 'qa-logs');
 fs.mkdirSync(SCREENSHOTS_DIR, { recursive: true });
 
 const LOGIN_EMAIL = 'loganclaw9000@gmail.com';
-const LOGIN_PASSWORD = 'password';
+const LOGIN_PASSWORD = 'NewTestPassword123!';
 
 async function makeTest(name, fn) {
   const result = { name, status: 'pass', error: null, screenshot: null, notes: [] };
