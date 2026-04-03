@@ -49,25 +49,16 @@ const layout = {
     { x: '8%', y: '38%' },   // Optimize (left)
   ],
   mobile: [
-    { x: '50%', y: '2%' },
-    { x: '50%', y: '28%' },
-    { x: '50%', y: '54%' },
-    { x: '50%', y: '80%' },
+    { x: '50%', y: '2%' },   // Route (top)
+    { x: '85%', y: '35%' },  // Analyze (right)
+    { x: '50%', y: '68%' },  // Fine-tune (bottom)
+    { x: '15%', y: '35%' },  // Optimize (left)
   ],
 };
 
 /* Build elliptical SVG path connecting all four nodes in a loop */
 function getEllipsePath(w, h, isMobile) {
-  if (isMobile) {
-    // Vertical line path for mobile
-    const cx = w / 2;
-    const pts = [0.08, 0.32, 0.58, 0.84].map(p => p * h);
-    let d = `M ${cx} ${pts[0]}`;
-    for (let i = 1; i < pts.length; i++) d += ` L ${cx} ${pts[i]}`;
-    d += ` L ${cx} ${pts[0]}`;
-    return d;
-  }
-  // Ellipse via 4 bezier arcs
+  // Ellipse via 4 bezier arcs — same shape on mobile and desktop
   const cx = w / 2, cy = h * 0.44;
   const rx = w * 0.38, ry = h * 0.34;
   return `M ${cx} ${cy - ry}
@@ -117,11 +108,11 @@ export default function PipelineViz() {
     <div className="pipeline-viz-wrapper">
       <div className="pipeline-viz" role="figure" aria-label="Slancha four-stage pipeline: Route, Analyze, Fine-tune, Optimize in a continuous loop">
         {/* SVG connections + animated particle */}
-        <svg className="pipeline-svg" ref={svgRef} viewBox={isMobile ? '0 0 340 500' : '0 0 720 400'} preserveAspectRatio="xMidYMid meet">
+        <svg className="pipeline-svg" ref={svgRef} viewBox={isMobile ? '0 0 340 340' : '0 0 720 400'} preserveAspectRatio="xMidYMid meet">
           <path
             ref={pathRef}
             className="pipeline-path"
-            d={getEllipsePath(isMobile ? 340 : 720, isMobile ? 500 : 400, isMobile)}
+            d={getEllipsePath(isMobile ? 340 : 720, isMobile ? 340 : 400, isMobile)}
           />
           {/* Animated particles */}
           {[0, 1, 2].map(i => (
@@ -139,7 +130,7 @@ export default function PipelineViz() {
           {/* Hidden path for animateMotion mpath reference */}
           <path
             id="pipelinePath"
-            d={getEllipsePath(isMobile ? 340 : 720, isMobile ? 500 : 400, isMobile)}
+            d={getEllipsePath(isMobile ? 340 : 720, isMobile ? 340 : 400, isMobile)}
             fill="none"
             stroke="none"
           />

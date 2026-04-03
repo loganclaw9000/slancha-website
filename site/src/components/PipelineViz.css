@@ -146,12 +146,15 @@
 /* ---------- responsive ---------- */
 @media (max-width: 700px) {
   .pipeline-viz {
-    aspect-ratio: auto;
+    aspect-ratio: 1 / 1;
     max-width: 340px;
-    height: 500px;
+    height: auto;
   }
-  .pv-node { width: 120px; }
-  .pv-icon { width: 48px; height: 48px; font-size: 22px; border-radius: 12px; }
+  .pv-node { width: 100px; }
+  .pv-icon { width: 44px; height: 44px; font-size: 20px; border-radius: 12px; }
   .pv-label { font-size: 13px; }
-  .pv-sublabel { font-size: 11px; }
+  .pv-sublabel { font-size: 10px; }
+  .pv-detail { padding: 18px 20px; }
+  .pv-detail-title { font-size: 15px; }
+  .pv-detail-body { font-size: 13px; }
 }
