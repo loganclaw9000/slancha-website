@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/generate-feeds.js",
+    "build": "vite build && node scripts/generate-feeds.js && cp dist/index.html dist/404.html",
     "preview": "vite preview",
     "test": "npm run test:all",
     "test:all": "npm run test:unit && npm run test:components && npm run test:e2e",

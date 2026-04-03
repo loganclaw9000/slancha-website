@@ -1,6 +1,6 @@
 // @ts-check
-const { test, expect } = require('@playwright/test');
-const { createClient } = require('@supabase/supabase-js');
+import { test, expect } from '@playwright/test';
+import { createClient } from '@supabase/supabase-js';
 
 /**
  * Database Integration Tests
