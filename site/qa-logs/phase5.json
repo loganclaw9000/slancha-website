@@ -1,7 +1,7 @@
 {
   "phase": 5,
   "description": "Dashboard CRUD via Supabase",
-  "timestamp": "2026-04-03T07:29:37.125Z",
+  "timestamp": "2026-04-03T07:36:02.199Z",
   "tests": [
     {
       "name": "Create API Key → appears in list and Supabase",
@@ -15,11 +15,11 @@
     },
     {
       "name": "Update profile → persists on page reload",
-      "status": "fail",
-      "error": "Profile name did not persist after page reload",
-      "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase5_settings_after_reload.png",
+      "status": "pass",
+      "error": null,
+      "screenshot": null,
       "notes": [
-        "Profile name did NOT persist after reload"
+        "Profile name \"QA-1775201715194\" persisted after reload"
       ]
     },
     {
@@ -46,9 +46,9 @@
       "error": null,
       "screenshot": "/home/admin/.openclaw/workspace/site/qa-logs/screenshots/phase5_webhooks_after_add.png",
       "notes": [
-        "Webhooks page: 432 chars",
+        "Webhooks page: 560 chars",
         "Clicked Add Endpoint button",
-        "After submit: 706 chars"
+        "After submit: 916 chars"
       ]
     },
     {
@@ -83,8 +83,8 @@
     }
   ],
   "summary": {
-    "pass": 6,
-    "fail": 1,
+    "pass": 7,
+    "fail": 0,
     "skip": 0
   }
 }

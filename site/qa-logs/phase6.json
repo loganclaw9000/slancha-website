@@ -1,0 +1,197 @@
+{
+  "phase": 6,
+  "description": "Edge Cases & Security",
+  "timestamp": "2026-04-03T07:39:55.741Z",
+  "tests": [
+    {
+      "name": "XSS: Contact name field",
+      "status": "pass",
+      "error": null,
+      "screenshot": null,
+      "notes": [
+        "XSS safe"
+      ]
+    },
+    {
+      "name": "XSS: Contact message field",
+      "status": "pass",
+      "error": null,
+      "screenshot": null,
+      "notes": [
+        "XSS safe"
+      ]
+    },
+    {
+      "name": "XSS: Login email field",
+      "status": "pass",
+      "error": null,
+      "screenshot": null,
+      "notes": [
+        "XSS safe"
+      ]
+    },
+    {
+      "name": "XSS: Signup email field",
+      "status": "pass",
+      "error": null,
+      "screenshot": null,
+      "notes": [
+        "XSS safe"
+      ]
+    },
+    {
+      "name": "SQLi: Login email field",
+      "status": "pass",
+      "error": null,
+      "screenshot": null,
+      "notes": [
+        "Login stayed safe: URL=/login"
+      ]
+    },
+    {
+      "name": "SQLi: Contact form fields",
+      "status": "pass",
+      "error": null,
+      "screenshot": null,
+      "notes": [
+        "No crash from SQL injection"
+      ]
+    },
+    {
+      "name": "Long input (10k chars): Contact form",
+      "status": "pass",
+      "error": null,
+      "screenshot": null,
+      "notes": [
+        "Filled 10k char message",
+        "No crash with long input"
+      ]
+    },
+    {
+      "name": "Long input (10k chars): Search",
+      "status": "pass",
+      "error": null,
+      "screenshot": null,
+      "notes": [
+        "Filled 10k char search query",
+        "No crash with long search input"
+      ]
+    },
+    {
+      "name": "Special chars in contact form fields",
+      "status": "pass",
+      "error": null,
+      "screenshot": null,
+      "notes": [
+        "Special chars handled safely"
+      ]
+    },
+    {
+      "name": "Rapid double-click on login submit",
+      "status": "pass",
+      "error": null,
+      "screenshot": null,
+      "notes": [
+        "Double-click handled (no crash)"
+      ]
+    },
+    {
+      "name": "Rapid double-click on contact submit",
+      "status": "pass",
+      "error": null,
+      "screenshot": null,
+      "notes": [
+        "Double-click handled safely"
+      ]
+    },
+    {
+      "name": "Empty contact form → validation messages",
+      "status": "pass",
+      "error": null,
+      "screenshot": null,
+      "notes": [
+        "Validation messages shown"
+      ]
+    },
+    {
+      "name": "Empty signup form → validation",
+      "status": "pass",
+      "error": null,
+      "screenshot": null,
+      "notes": [
+        "Empty signup blocked"
+      ]
+    },
+    {
+      "name": "Navigate away mid-form, come back",
+      "status": "pass",
+      "error": null,
+      "screenshot": null,
+      "notes": [
+        "Navigate away and back: no crash"
+      ]
+    },
+    {
+      "name": "Browser back/forward navigation",
+      "status": "pass",
+      "error": null,
+      "screenshot": null,
+      "notes": [
+        "Back navigation works",
+        "Forward navigation works"
+      ]
+    },
+    {
+      "name": "Mobile 375px: / renders",
+      "status": "pass",
+      "error": null,
+      "screenshot": null,
+      "notes": [
+        "No horizontal scroll at 375px"
+      ]
+    },
+    {
+      "name": "Mobile 375px: /pricing renders",
+      "status": "pass",
+      "error": null,
+      "screenshot": null,
+      "notes": [
+        "No horizontal scroll at 375px"
+      ]
+    },
+    {
+      "name": "Mobile 375px: /blog renders",
+      "status": "pass",
+      "error": null,
+      "screenshot": null,
+      "notes": [
+        "No horizontal scroll at 375px"
+      ]
+    },
+    {
+      "name": "Mobile 375px: /login renders",
+      "status": "pass",
+      "error": null,
+      "screenshot": null,
+      "notes": [
+        "No horizontal scroll at 375px"
+      ]
+    },
+    {
+      "name": "Concurrent sessions (2 tabs): no conflict",
+      "status": "pass",
+      "error": null,
+      "screenshot": null,
+      "notes": [
+        "Tab 1 (dashboard): 590 chars",
+        "Tab 2 (keys): 311 chars",
+        "Both concurrent tabs loaded correctly"
+      ]
+    }
+  ],
+  "summary": {
+    "pass": 20,
+    "fail": 0,
+    "skip": 0
+  }
+}

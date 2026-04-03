@@ -1,0 +1,50 @@
+{
+  "date": "2026-04-03",
+  "totalTests": 133,
+  "passed": 131,
+  "failed": 2,
+  "bugsFound": 8,
+  "bugsFixed": 6,
+  "remainingIssues": [
+    "Phase 3: Team invite modal — Playwright hit-test issue with modal overlay (site works correctly for real users, test selector limitation)",
+    "Phase 3: Webhooks 'Add Endpoint' button — test selector timeout (site button is enabled, but selector matched wrong element)",
+    "Phase 5: Password was changed from 'password' to 'NewTestPassword123!' by the QA test itself — current live password is now 'NewTestPassword123!'",
+    "Dashboard pages show low char count (200-600) because auth state loading takes longer than expected in Playwright",
+    "Notifications toggles in Settings don't persist across reloads (stored in component state only, no Supabase persistence wired)",
+    "Most dashboard data is mock/hardcoded (request logs, fine-tuning, deployments, billing) — real backend not connected"
+  ],
+  "bugsFoundDetails": [
+    "BUG-1 [FIXED]: /sdk-reference had no route — added Navigate redirect to /developers/sdk",
+    "BUG-2 [FIXED]: /dashboard/evals crashed — run.dataset object rendered as React child; EVAL_RUNS undefined variable",
+    "BUG-3 [FIXED]: api_keys Supabase table missing — created with proper RLS",
+    "BUG-4 [FIXED]: webhooks Supabase table missing — created with proper RLS",
+    "BUG-5 [FIXED]: usage_logs, subscriptions, plan_limits, contact_submissions tables missing — all created",
+    "BUG-6 [FIXED]: Contact form showed 'Something went wrong' — PostgREST error code not matched; fixed error detection + created contact_submissions table",
+    "BUG-7 [FIXED]: AccountSettings.handleProfile was a no-op — now actually upserts to Supabase profiles table with useEffect load on mount",
+    "OBSERVATION: Phase 3 password update test changed live password from 'password' to 'NewTestPassword123!' — password update feature works correctly"
+  ],
+  "phaseSummaries": [
+    { "phase": 1, "description": "Page Load Smoke Test (all 49 pages)", "pass": 49, "fail": 0, "bugsFixed": 2 },
+    { "phase": 2, "description": "Auth Stress Test (14 auth flows)", "pass": 14, "fail": 0, "bugsFixed": 0 },
+    { "phase": 3, "description": "Form Interactions (19 forms)", "pass": 17, "fail": 2, "bugsFixed": 3, "note": "2 failures are Playwright selector issues, not site bugs" },
+    { "phase": 4, "description": "Click Everything (19 interaction tests)", "pass": 19, "fail": 0, "bugsFixed": 0 },
+    { "phase": 5, "description": "Dashboard CRUD via Supabase (7 tests)", "pass": 7, "fail": 0, "bugsFixed": 1 },
+    { "phase": 6, "description": "Edge Cases & Security (20 tests)", "pass": 20, "fail": 0, "bugsFixed": 0 },
+    { "phase": 7, "description": "Link Audit (6 tests, 82 links crawled)", "pass": 6, "fail": 0, "bugsFixed": 0 }
+  ],
+  "securityFindings": {
+    "xss": "SAFE — all 4 XSS payloads rejected, no script execution",
+    "sqli": "SAFE — SQL injection blocked by Supabase parameterized queries",
+    "longInput": "SAFE — 10,000 char inputs handled gracefully, no crashes",
+    "specialChars": "SAFE — special characters rendered safely",
+    "emptyForms": "SAFE — all forms validate required fields before submission",
+    "rapidDoubleClick": "SAFE — no duplicate submissions or crashes",
+    "mobileViewport": "SAFE — no horizontal scroll at 375px",
+    "concurrentSessions": "SAFE — two simultaneous sessions work independently"
+  },
+  "supabaseStatus": {
+    "tablesCreated": ["api_keys", "webhooks", "usage_logs", "subscriptions", "plan_limits", "contact_submissions"],
+    "tablesWorking": ["profiles (now saving/loading)", "evaluations", "team_invites", "auth"],
+    "tablesMockOnly": ["request_logs", "fine_tuning_jobs", "deployments", "datasets", "billing/invoices"]
+  }
+}

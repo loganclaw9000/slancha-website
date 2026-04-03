@@ -169,17 +169,20 @@ async function main() {
     await saveBtn.click();
     await page.waitForTimeout(3000);
 
-    // Reload and check if name persisted
+    // Reload and check if name persisted — check input value, not innerText
     await page.reload({ waitUntil: 'networkidle', timeout: 30000 });
-    await page.waitForTimeout(4000);
+    await page.waitForTimeout(5000);
 
-    const reloadedBody = await page.evaluate(() => document.body.innerText);
-    const hasSavedName = reloadedBody.includes(uniqueName);
-    r.notes.push(hasSavedName ? `Profile name "${uniqueName}" persisted after reload` : 'Profile name did NOT persist after reload');
+    const reloadedNameInput = await page.$('input[placeholder="Your name"], input[placeholder*="Your name"]');
+    const reloadedValue = reloadedNameInput ? await reloadedNameInput.evaluate(el => el.value) : '';
+    const hasSavedName = reloadedValue === uniqueName;
+    r.notes.push(hasSavedName
+      ? `Profile name "${uniqueName}" persisted after reload`
+      : `Reload input value: "${reloadedValue}" (expected: "${uniqueName}")`);
 
     if (!hasSavedName) {
       r.status = 'fail';
-      r.error = 'Profile name did not persist after page reload';
+      r.error = `Profile did not persist. Input value after reload: "${reloadedValue}"`;
       r.screenshot = await ss(page, 'settings_after_reload');
     }
 
