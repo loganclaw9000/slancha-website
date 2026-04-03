@@ -4,20 +4,27 @@ import { trackCtaClick } from '../lib/analytics';
 import './Hero.css';
 
 const CODE_LINES = [
-  { text: 'import slancha', color: 'keyword' },
+  { text: 'from openai import OpenAI', color: 'keyword' },
   { text: '', color: '' },
-  { text: 'response = slancha.complete(', color: 'fn' },
-  { text: '    prompt="Summarize this quarterly report",', color: 'string' },
-  { text: '    # No model selection. No config. Just results.', color: 'comment' },
+  { text: '# Just change the base URL. That\'s it.', color: 'comment' },
+  { text: 'client = OpenAI(', color: 'fn' },
+  { text: '    base_url="https://api.slancha.ai/v1",', color: 'string' },
+  { text: '    api_key="sk-sl_..."', color: 'string' },
+  { text: ')', color: 'fn' },
+  { text: '', color: '' },
+  { text: 'r = client.chat.completions.create(', color: 'fn' },
+  { text: '    model="auto",', color: 'string' },
+  { text: '    messages=[{"role": "user",', color: 'string' },
+  { text: '      "content": "Summarize this report"}]', color: 'string' },
   { text: ')', color: 'fn' },
 ];
 
 const RESPONSE_LINES = [
-  '{ "status": "ok",',
-  '  "model": "auto-selected",',
+  '{ "model": "qwen-7b-ft-your-org",',
+  '  "usage": { "prompt": 84, "completion": 156 },',
   '  "latency_ms": 142,',
-  '  "cost_saved": "47%",',
-  '  "result": "Q3 revenue grew 34% YoY..." }',
+  '  "routing": "fine-tuned (47% cheaper)",',
+  '  "content": "Q3 revenue grew 34%..." }',
 ];
 
 function HeroTerminal() {
@@ -50,7 +57,7 @@ function HeroTerminal() {
         <span className="hero-terminal-dot" style={{ background: '#ff5f57' }} />
         <span className="hero-terminal-dot" style={{ background: '#febc2e' }} />
         <span className="hero-terminal-dot" style={{ background: '#28c840' }} />
-        <span className="hero-terminal-title">slancha_demo.py</span>
+        <span className="hero-terminal-title">quickstart.py</span>
       </div>
       <pre className="hero-terminal-code">
         {CODE_LINES.slice(0, codeIndex).map((line, i) => (
@@ -62,7 +69,7 @@ function HeroTerminal() {
       </pre>
       {showResponse && (
         <div className="hero-terminal-response">
-          <div className="hero-response-label">⚡ Response (142ms)</div>
+          <div className="hero-response-label">⚡ Routed to fine-tuned model (142ms)</div>
           <pre className="hero-terminal-output">
             {RESPONSE_LINES.slice(0, responseIndex).map((line, i) => (
               <div key={i} className="hero-output-line">{line}</div>
