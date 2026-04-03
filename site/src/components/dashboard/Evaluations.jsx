@@ -113,7 +113,7 @@ export default function Evaluations() {
                     <ProgressRing progress={run.progress} />
                     <div>
                       <div className="eval-run-name">{run.name}</div>
-                      <div className="eval-run-meta">{run.dataset} · {run.samples.toLocaleString()} samples · {run.models.length} models</div>
+                      <div className="eval-run-meta">{run.dataset?.name ?? run.dataset} · {run.samples.toLocaleString()} samples · {run.models.length} models</div>
                     </div>
                   </div>
                   <StatusBadge status={run.status} />
@@ -152,7 +152,7 @@ export default function Evaluations() {
                           <span className="eval-run-title">{run.name}</span>
                         </div>
                       </td>
-                      <td><code className="eval-dataset-code">{run.dataset}</code></td>
+                      <td><code className="eval-dataset-code">{run.dataset?.name ?? run.dataset}</code></td>
                       <td>{run.models.length}</td>
                       <td><ScoreBar score={run.bestScore} /></td>
                       <td>
@@ -168,14 +168,14 @@ export default function Evaluations() {
             </div>
 
             {selectedRun && (() => {
-              const run = EVAL_RUNS.find(r => r.id === selectedRun);
+              const run = evals.find(r => r.id === selectedRun);
               if (!run) return null;
               return (
                 <div className="eval-detail">
                   <div className="eval-detail-header">
                     <div>
                       <h3>{run.name}</h3>
-                      <span className="eval-detail-id">{run.id} · {run.dataset} · {run.samples.toLocaleString()} samples</span>
+                      <span className="eval-detail-id">{run.id} · {run.dataset?.name ?? run.dataset} · {run.samples.toLocaleString()} samples</span>
                     </div>
                     {run.promoted && <div className="eval-detail-promoted">Winner auto-promoted to routing</div>}
                   </div>

@@ -62,15 +62,18 @@ async function testPage(page, url, isAuthenticated = false) {
     const fullUrl = `${BASE_URL}${url}`;
     const response = await page.goto(fullUrl, { waitUntil: 'networkidle', timeout: 30000 });
 
-    // Check HTTP status (GitHub Pages SPA returns 200 via 404.html)
+    // Check HTTP status
+    // NOTE: GitHub Pages SPA serves all routes via 404.html with HTTP 404 status.
+    // This is expected and NOT a failure. Only flag 5xx errors.
     const status = response?.status();
-    if (status && status >= 400) {
+    result.httpStatus = status;
+    if (status && status >= 500) {
       result.status = 'fail';
-      result.errors.push(`HTTP ${status}`);
+      result.errors.push(`HTTP ${status} (server error)`);
     }
 
-    // Wait for SPA to render
-    await page.waitForTimeout(2000);
+    // Wait for SPA to render (longer wait for auth-dependent pages)
+    await page.waitForTimeout(isAuthenticated ? 4000 : 2000);
 
     // Check body text length
     const bodyText = await page.evaluate(() => document.body.innerText);
@@ -85,13 +88,11 @@ async function testPage(page, url, isAuthenticated = false) {
       result.warnings.push(`Title doesn't contain "Slancha": "${title}"`);
     }
 
-    // Check for NotFound/404 content being rendered
+    // Check for NotFound/404 content being rendered by the SPA router (real bug)
     const pageContent = await page.content();
     const notFoundIndicators = [
       'Page not found',
-      '404',
       'This page could not be found',
-      'NotFound'
     ];
     for (const indicator of notFoundIndicators) {
       if (bodyText.includes(indicator) && !url.includes('404')) {
