@@ -61,7 +61,7 @@ const faqData = [
       },
       {
         q: 'Do you offer discounts for annual commitments?',
-        a: 'Yes. 20% off for annual commitments on Full Loop plan. Custom enterprise discounts available.'
+        a: 'Yes. 20% off for annual commitments on Pro and Scale plans. Custom enterprise discounts available.'
       }
     ]
   },
@@ -82,7 +82,7 @@ const faqData = [
       },
       {
         q: 'Do you offer SSO?',
-        a: 'Yes. SAML SSO available on Full Loop and Enterprise plans. SCIM provisioning for Enterprise.'
+        a: 'Yes. SAML SSO available on Scale and Enterprise plans. SCIM provisioning for Enterprise.'
       }
     ]
   },

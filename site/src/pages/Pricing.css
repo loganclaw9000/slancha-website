@@ -218,6 +218,97 @@
   background: rgba(255, 255, 255, 0.03);
 }
 
+/* Token pricing */
+.pricing-tokens {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+  text-align: center;
+}
+.pricing-tokens-title {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+}
+.pricing-tokens-subtitle {
+  font-size: 16px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 680px;
+  margin: 0 auto 40px;
+}
+.pricing-tokens-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  text-align: left;
+}
+@media (max-width: 768px) {
+  .pricing-tokens-grid { grid-template-columns: 1fr; }
+  .pricing-tokens-title { font-size: 24px; }
+}
+.pricing-token-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+}
+.pricing-token-label {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+.pricing-token-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+.pricing-token-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.pricing-token-table th {
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  padding: 0 0 10px;
+  border-bottom: 1px solid var(--glass-border);
+}
+.pricing-token-table td {
+  padding: 10px 0;
+  color: var(--text-secondary);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.pricing-token-table td:first-child {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+.pricing-token-savings {
+  display: block;
+  font-size: 11px;
+  color: var(--accent-teal);
+  margin-top: 2px;
+}
+.pricing-token-unit {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 12px;
+  text-align: right;
+}
+.pricing-annual {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: -16px;
+  margin-bottom: 24px;
+}
+
 /* FAQ */
 .pricing-faq {
   max-width: 900px;

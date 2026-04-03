@@ -90,9 +90,9 @@ export default function PricingCompare() {
     const slanchaApiCost = afterFt - optSavings;
 
     // Slancha platform fee based on tier
-    let slanchaPlatform = 299; // Eval + Deploy
-    if (monthlySpend > 10000) slanchaPlatform = 999; // Full Loop
-    if (monthlySpend > 50000) slanchaPlatform = 999; // Still Full Loop (enterprise is custom)
+    let slanchaPlatform = 0; // Starter (free)
+    if (monthlySpend > 500) slanchaPlatform = 49; // Pro
+    if (monthlySpend > 5000) slanchaPlatform = 499; // Scale
 
     const slanchaTotal = slanchaApiCost + slanchaPlatform;
     const totalSavings = monthlySpend - slanchaTotal;
@@ -254,7 +254,7 @@ export default function PricingCompare() {
                 <p className="pc-col-tag">End-to-end AI inference</p>
                 <div className="pc-tier-row pc-tier-row--best">
                   <div className="pc-tier-name">
-                    {monthlySpend > 10000 ? 'Full Loop' : 'Eval + Deploy'}
+                    {monthlySpend > 5000 ? 'Scale' : monthlySpend > 500 ? 'Pro' : 'Starter'}
                     <span className="pc-tier-badge pc-tier-badge--primary">Recommended</span>
                   </div>
                   <div className="pc-cost-line">

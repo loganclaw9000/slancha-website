@@ -19,91 +19,119 @@ export function getStripe() {
  */
 export const pricingTiers = [
   {
-    id: 'eval-deploy',
-    name: 'Eval + Deploy',
-    subtitle: 'Platform',
-    bestFor: 'AI engineering teams stitching together eval and inference tools today',
-    description: 'Connect your production workloads, benchmark model candidates on real tasks, and deploy to API, managed hosting, or on-prem — all from one dashboard.',
+    id: 'starter',
+    name: 'Starter',
+    subtitle: 'Free',
+    bestFor: 'Developers and small teams evaluating smart inference routing',
+    description: 'Try Slancha with zero commitment. Route requests to the right model automatically and see the cost savings firsthand.',
     features: [
-      'Model benchmarking on production tasks',
-      'Deploy to API, managed hosting, or on-prem',
-      'Cost, latency, and accuracy tracking',
-      'Multi-model routing dashboard',
-      'Deployment rollback & canary releases',
-      '50,000 API requests/month included',
+      'Smart model routing',
+      '10,000 API requests/month',
+      'Access to 20+ open-source models',
+      'Usage dashboard & basic analytics',
+      'Community support',
+      '0% markup on model costs',
     ],
-    price: '$299',
-    pricePeriod: '/mo + usage',
-    annualPrice: '$239',
-    annualPricePeriod: '/mo (billed annually)',
-    paymentLink: import.meta.env.VITE_STRIPE_LINK_EVAL_DEPLOY,
-    cta: 'Get Started',
+    price: 'Free',
+    pricePeriod: '',
+    paymentLink: null,
+    cta: 'Get Started Free',
     featured: false,
   },
   {
-    id: 'full-loop',
-    name: 'Full Loop',
-    subtitle: 'Platform',
-    bestFor: 'Teams running continuous fine-tuning or building proprietary model capabilities',
-    description: 'The complete platform: routing, task analysis, automated fine-tuning, and inference optimization. The full closed loop — production usage automatically improves your models.',
+    id: 'pro',
+    name: 'Pro',
+    subtitle: 'For growing teams',
+    bestFor: 'Teams moving to production that want routing, analytics, and cost control',
+    description: 'Unlimited routing with full observability. Pay only for the tokens you use — with zero markup on underlying model costs.',
     features: [
-      'Everything in Route + Analyze',
-      'Automated fine-tuning pipeline',
-      'Production usage → fine-tuning data',
-      'Continuous model improvement cycles',
-      'Custom training run scheduling',
-      'Fine-tuning data quality monitoring',
-      '500,000 API requests/month included',
+      'Everything in Starter',
+      'Unlimited API requests',
+      'All models (open-source + frontier)',
+      'Advanced analytics & cost tracking',
+      'Deployment rollback & canary releases',
+      'Multi-model A/B testing',
+      'Email support',
     ],
-    price: '$999',
+    price: '$49',
     pricePeriod: '/mo + usage',
-    annualPrice: '$799',
+    annualPrice: '$39',
     annualPricePeriod: '/mo (billed annually)',
-    paymentLink: import.meta.env.VITE_STRIPE_LINK_FULL_LOOP,
+    paymentLink: import.meta.env.VITE_STRIPE_LINK_PRO,
+    cta: 'Start Free Trial',
+    featured: false,
+  },
+  {
+    id: 'scale',
+    name: 'Scale',
+    subtitle: 'Full platform',
+    bestFor: 'Teams that want automated fine-tuning and inference optimization — the full closed loop',
+    description: 'The complete Slancha platform. Your production usage automatically trains task-specific models that outperform frontier at a fraction of the cost.',
+    features: [
+      'Everything in Pro',
+      'Automated fine-tuning on your usage data',
+      'Inference optimization (quantization, MIG)',
+      'Continuous model improvement loop',
+      'Custom model training schedules',
+      'Fine-tuned models at 40–60% less than frontier',
+      'Priority support + Slack channel',
+    ],
+    price: '$499',
+    pricePeriod: '/mo + usage',
+    annualPrice: '$399',
+    annualPricePeriod: '/mo (billed annually)',
+    paymentLink: import.meta.env.VITE_STRIPE_LINK_SCALE,
     cta: 'Start Free Trial',
     featured: true,
   },
   {
-    id: 'self-hosted',
-    name: 'Self-Hosted',
-    subtitle: 'Enterprise',
-    bestFor: 'Organizations with strict data residency, air-gap requirements, or compliance constraints',
-    description: 'Deploy the full Slancha platform on your own infrastructure. Complete data ownership with our control plane, eval framework, and fine-tuning pipeline.',
+    id: 'enterprise',
+    name: 'Enterprise',
+    subtitle: 'Custom',
+    bestFor: 'Organizations needing self-hosted deployment, compliance, or dedicated infrastructure',
+    description: 'Deploy Slancha on your own infrastructure with complete data ownership. SOC 2, HIPAA, and air-gap ready.',
     features: [
-      'Full platform on your infrastructure',
+      'Everything in Scale',
+      'Self-hosted or VPC deployment',
       'Complete data ownership & residency',
-      'Air-gap compatible deployment',
-      'SOC 2 & HIPAA compliance ready',
-      'Dedicated support engineer',
+      'SOC 2 & HIPAA compliance',
       'Custom SLA agreements',
+      'Dedicated support engineer',
+      'SSO & advanced RBAC',
     ],
     price: 'Custom',
-    pricePeriod: 'one-time license',
+    pricePeriod: '',
     paymentLink: null,
     cta: 'Contact Sales',
     featured: false,
   },
-  {
-    id: 'sre-agent',
-    name: 'Autonomous SRE Agent',
-    subtitle: 'Add-on',
-    bestFor: 'Enterprises running high-throughput inference at scale',
-    description: 'Slancha\'s autonomous SRE agent monitors your inference fleet 24/7, tuning hardware allocation, cost routing, and SLA compliance.',
-    features: [
-      '24/7 autonomous fleet monitoring',
-      'Hardware allocation optimization',
-      'Cost-aware request routing',
-      'SLA compliance enforcement',
-      'Incident auto-remediation',
-      'Available as add-on to any plan',
-    ],
-    price: 'Limited',
-    pricePeriod: 'preview',
-    paymentLink: null,
-    cta: 'Join Waitlist',
-    featured: false,
-  },
 ];
+
+/**
+ * Published token pricing — displayed on pricing page.
+ * Slancha charges 0% markup on routed requests.
+ * Fine-tuned model inference is 40-60% cheaper than frontier equivalents.
+ */
+export const tokenPricing = {
+  routing: {
+    label: 'Routed requests',
+    description: 'Pay the underlying model cost — zero Slancha markup',
+    examples: [
+      { model: 'Llama 3.3 70B', input: '$0.88', output: '$0.88', unit: '/1M tokens' },
+      { model: 'Mistral Small 3', input: '$0.10', output: '$0.30', unit: '/1M tokens' },
+      { model: 'DeepSeek V3', input: '$0.56', output: '$1.68', unit: '/1M tokens' },
+    ],
+  },
+  fineTuned: {
+    label: 'Fine-tuned models (Scale plan)',
+    description: 'Task-specific models trained on your usage — dramatically cheaper than frontier',
+    examples: [
+      { model: 'Your fine-tuned 7B', input: '$0.05', output: '$0.10', unit: '/1M tokens', savings: 'vs $3.00/$15.00 frontier' },
+      { model: 'Your fine-tuned 14B', input: '$0.12', output: '$0.25', unit: '/1M tokens', savings: 'vs $3.00/$15.00 frontier' },
+      { model: 'Your fine-tuned 70B', input: '$0.50', output: '$0.80', unit: '/1M tokens', savings: 'vs $3.00/$15.00 frontier' },
+    ],
+  },
+};
 
 /**
  * Start checkout flow.
@@ -117,8 +145,14 @@ export async function handleCheckout(tierId, { interval = 'monthly', userId, ema
   const tier = pricingTiers.find(t => t.id === tierId);
   if (!tier) return;
 
+  // Free tier → signup
+  if (tier.price === 'Free') {
+    window.location.href = '/signup';
+    return;
+  }
+
   // Custom pricing tiers → contact
-  if (tier.price === 'Custom' || tier.price === 'Limited') {
+  if (tier.price === 'Custom') {
     window.location.href = `/contact?plan=${tierId}`;
     return;
   }
