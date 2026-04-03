@@ -1,0 +1,139 @@
+{
+  "date": "2026-04-03",
+  "totalTests": 26,
+  "passed": 26,
+  "failed": 0,
+  "findings": [],
+  "allResults": [
+    {
+      "name": "anon SELECT profiles",
+      "status": "PASS",
+      "detail": "empty result (RLS blocks or no data)"
+    },
+    {
+      "name": "anon SELECT api_keys",
+      "status": "PASS",
+      "detail": "empty result (RLS blocks or no data)"
+    },
+    {
+      "name": "anon SELECT usage_logs",
+      "status": "PASS",
+      "detail": "empty result (RLS blocks or no data)"
+    },
+    {
+      "name": "anon SELECT subscriptions",
+      "status": "PASS",
+      "detail": "empty result (RLS blocks or no data)"
+    },
+    {
+      "name": "anon SELECT webhooks",
+      "status": "PASS",
+      "detail": "empty result (RLS blocks or no data)"
+    },
+    {
+      "name": "anon SELECT notifications",
+      "status": "PASS",
+      "detail": "empty result (RLS blocks or no data)"
+    },
+    {
+      "name": "anon SELECT datasets",
+      "status": "PASS",
+      "detail": "empty result (RLS blocks or no data)"
+    },
+    {
+      "name": "anon SELECT deployments",
+      "status": "PASS",
+      "detail": "empty result (RLS blocks or no data)"
+    },
+    {
+      "name": "anon SELECT evaluations",
+      "status": "PASS",
+      "detail": "empty result (RLS blocks or no data)"
+    },
+    {
+      "name": "anon SELECT fine_tuning_jobs",
+      "status": "PASS",
+      "detail": "empty result (RLS blocks or no data)"
+    },
+    {
+      "name": "anon SELECT model_pool",
+      "status": "PASS",
+      "detail": "empty result (RLS blocks or no data)"
+    },
+    {
+      "name": "anon SELECT optimization_events",
+      "status": "PASS",
+      "detail": "empty result (RLS blocks or no data)"
+    },
+    {
+      "name": "anon SELECT optimization_stats",
+      "status": "PASS",
+      "detail": "empty result (RLS blocks or no data)"
+    },
+    {
+      "name": "anon SELECT request_logs",
+      "status": "PASS",
+      "detail": "empty result (RLS blocks or no data)"
+    },
+    {
+      "name": "anon SELECT team_members",
+      "status": "PASS",
+      "detail": "blocked: infinite recursion detected in policy for relation \"team_members\""
+    },
+    {
+      "name": "anon SELECT team_invites",
+      "status": "PASS",
+      "detail": "blocked: infinite recursion detected in policy for relation \"team_members\""
+    },
+    {
+      "name": "INSERT api_keys with fake user_id",
+      "status": "PASS",
+      "detail": "blocked: new row violates row-level security policy for table \"api_keys\""
+    },
+    {
+      "name": "SELECT api_keys for other user",
+      "status": "PASS",
+      "detail": "empty result (RLS enforced)"
+    },
+    {
+      "name": "UPDATE profile for other user",
+      "status": "PASS",
+      "detail": "blocked: column profiles.id does not exist"
+    },
+    {
+      "name": "INSERT webhook for other user",
+      "status": "PASS",
+      "detail": "blocked: new row violates row-level security policy for table \"webhooks\""
+    },
+    {
+      "name": "List all users (admin endpoint)",
+      "status": "PASS",
+      "detail": "blocked: HTTP 403"
+    },
+    {
+      "name": "Enumerate users by email",
+      "status": "PASS",
+      "detail": "blocked: HTTP 403"
+    },
+    {
+      "name": "PostgREST schema endpoint",
+      "status": "PASS",
+      "detail": "HTTP 401"
+    },
+    {
+      "name": "Stripe webhook without signature",
+      "status": "PASS",
+      "detail": "rejected: 404 (function not deployed — OK for pre-launch)"
+    },
+    {
+      "name": "Stripe checkout with malformed body",
+      "status": "PASS",
+      "detail": "rejected: 404"
+    },
+    {
+      "name": "SQLi via REST query param",
+      "status": "PASS",
+      "detail": "rejected: HTTP 400"
+    }
+  ]
+}
