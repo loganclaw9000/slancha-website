@@ -11,7 +11,7 @@ test.describe('Accessibility Tests', () => {
   test.describe.configure({ mode: 'parallel' });
 
   test('homepage should not have any accessibility violations', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     
     const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
     
@@ -19,7 +19,7 @@ test.describe('Accessibility Tests', () => {
   });
 
   test('about section should be accessible', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     
     // Wait for about section to be in viewport
     const aboutSection = page.locator('section').filter({
@@ -35,7 +35,7 @@ test.describe('Accessibility Tests', () => {
   });
 
   test('contact form should be accessible', async ({ page }) => {
-    await page.goto('/contact');
+    await page.goto('./contact');
     
     const accessibilityScanResults = await new AxeBuilder({ page })
       .withTags(['wcag2a', 'wcag2aa', 'wcag21aa'])
@@ -45,7 +45,7 @@ test.describe('Accessibility Tests', () => {
   });
 
   test('contact form labels should be properly associated', async ({ page }) => {
-    await page.goto('/contact');
+    await page.goto('./contact');
     
     // Check all form inputs have associated labels
     const inputs = page.locator('input, textarea, select');
@@ -67,7 +67,7 @@ test.describe('Accessibility Tests', () => {
   });
 
   test('navigation should have proper landmarks', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     
     const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
     
@@ -80,7 +80,7 @@ test.describe('Accessibility Tests', () => {
   });
 
   test('all images should have alt text', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     
     const images = page.locator('img');
     const imageCount = await images.count();
@@ -96,7 +96,7 @@ test.describe('Accessibility Tests', () => {
   });
 
   test('interactive elements should be keyboard accessible', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     
     // Test tab navigation
     await page.keyboard.press('Tab');
@@ -107,7 +107,7 @@ test.describe('Accessibility Tests', () => {
   });
 
   test('heading hierarchy should be correct', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     
     // Get all headings
     const h1 = page.locator('h1');
@@ -130,7 +130,7 @@ test.describe('Accessibility Tests', () => {
   });
 
   test('color contrast should meet WCAG AA standards', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     
     const accessibilityScanResults = await new AxeBuilder({ page })
       .withTags(['wcag2aa'])
@@ -146,7 +146,7 @@ test.describe('Accessibility Tests', () => {
   });
 
   test('links should have descriptive text', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     
     const links = page.locator('a');
     const linkCount = await links.count();
@@ -162,14 +162,14 @@ test.describe('Accessibility Tests', () => {
   });
 
   test('skip links should be present', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     
     const skipLink = page.locator('a[href="#main-content"], a[href="#main"]');
     await expect(skipLink).toBeVisible();
   });
 
   test('error messages should be announced to screen readers', async ({ page }) => {
-    await page.goto('/contact');
+    await page.goto('./contact');
     
     // Trigger form validation errors
     await page.click('button[type="submit"]');

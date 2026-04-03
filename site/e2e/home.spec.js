@@ -9,7 +9,7 @@ import { test, expect } from '@playwright/test';
 test.describe('Homepage Smoke Tests', () => {
   test.beforeEach(async ({ page }) => {
     // Navigate to homepage before each test
-    await page.goto('/');
+    await page.goto('./');
   });
 
   test('should load homepage successfully', async ({ page }) => {

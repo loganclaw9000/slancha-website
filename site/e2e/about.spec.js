@@ -8,7 +8,7 @@ import { test, expect } from '@playwright/test';
 
 test.describe('About Section', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
   });
 
   test('should display about section', async ({ page }) => {
@@ -45,7 +45,7 @@ test.describe('About Section', () => {
 
 test.describe('Pilot CTA', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
   });
 
   test('should display pilot CTA section', async ({ page }) => {
@@ -86,7 +86,7 @@ test.describe('Pilot CTA', () => {
 
 test.describe('How It Works Section', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
   });
 
   test('should display how it works section', async ({ page }) => {

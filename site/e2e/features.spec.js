@@ -8,7 +8,7 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Features Section', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
   });
 
   test('should display features section', async ({ page }) => {
@@ -35,7 +35,7 @@ test.describe('Features Section', () => {
   });
 
   test('should scroll to features section', async ({ page }) => {
-    await page.goto('/#features');
+    await page.goto('./#features');
     const featuresSection = page.locator('section').filter({
       has: page.locator('h2', { hasText: /features/i }),
     });
@@ -49,7 +49,7 @@ test.describe('Features Section', () => {
 
 test.describe('Tier Cards Section', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
   });
 
   test('should display tier cards section', async ({ page }) => {
@@ -107,7 +107,7 @@ test.describe('Tier Cards Section', () => {
 
 test.describe('Tech Stack Section', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
   });
 
   test('should display tech stack section', async ({ page }) => {

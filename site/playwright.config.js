@@ -7,7 +7,8 @@ try {
   // dotenv not installed, skip
 }
 
-const baseURL = process.env.VITE_BASE_URL || 'http://localhost:4173';
+const rawBaseURL = process.env.VITE_BASE_URL || 'http://localhost:4173';
+const baseURL = rawBaseURL.endsWith('/') ? rawBaseURL : rawBaseURL + '/';
 const isExternal = baseURL.startsWith('https://');
 
 export default defineConfig({

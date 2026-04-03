@@ -10,11 +10,11 @@ test.describe('Navigation Tests', () => {
   test.describe.configure({ mode: 'parallel' });
 
   test.beforeEach(async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
   });
 
   test('should have consistent navigation across all pages', async ({ page }) => {
-    const pages = ['/', '/docs', '/blog', '/contact', '/login', '/signup'];
+    const pages = ['./', './docs', './blog', './contact', './login', './signup'];
 
     for (const pagePath of pages) {
       await page.goto(pagePath);
@@ -30,17 +30,17 @@ test.describe('Navigation Tests', () => {
   });
 
   test('logo should always link to homepage', async ({ page }) => {
-    await page.goto('/contact');
-    
+    await page.goto('./contact');
+
     const logo = page.locator('.nav-logo');
     await expect(logo).toHaveAttribute('href', '/');
-    
+
     await logo.click();
-    await expect(page).toHaveURL('/');
+    await expect(page).toHaveURL(/\/$/);
   });
 
   test('docs link should navigate to docs page', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     
     const docsLink = page.locator('a', { hasText: /docs/i }).first();
     await expect(docsLink).toBeVisible();
@@ -50,7 +50,7 @@ test.describe('Navigation Tests', () => {
   });
 
   test('blog link should navigate to blog page', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     
     const blogLink = page.locator('a', { hasText: /blog/i }).first();
     await expect(blogLink).toBeVisible();
@@ -60,7 +60,7 @@ test.describe('Navigation Tests', () => {
   });
 
   test('contact link should navigate to contact page', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     
     // Find contact link in navigation or footer
     const contactLink = page.locator('a', { hasText: /contact/i }).first();
@@ -100,41 +100,41 @@ test.describe('Navigation Tests', () => {
   test('navigation items should be clickable', async ({ page }) => {
     const navLinks = page.locator('.nav-link, nav a').filter({ hasText: true });
     const count = await navLinks.count();
-    
+
     expect(count).toBeGreaterThan(0);
-    
+
     // Test a few navigation links
     for (let i = 0; i < Math.min(count, 3); i++) {
       const link = navLinks.nth(i);
       const href = await link.getAttribute('href');
-      
+
       if (href && !href.startsWith('#')) {
         await link.click();
         await page.waitForLoadState('networkidle');
-        
+
         // URL should change
         const currentUrl = page.url();
         expect(currentUrl).toBeDefined();
-        
+
         // Navigate back
-        await page.goto('/');
+        await page.goto('./');
       }
     }
   });
 
   test('back link should work on auth pages', async ({ page }) => {
-    await page.goto('/login');
-    
+    await page.goto('./login');
+
     // Check if back link exists
     const backLink = page.locator('.nav-link', { hasText: /back/i });
     if (await backLink.count() > 0) {
       await backLink.click();
-      await expect(page).toHaveURL('/');
+      await expect(page).toHaveURL(/\/$/);
     }
   });
 
   test('should handle 404 page', async ({ page }) => {
-    await page.goto('/this-page-does-not-exist-12345');
+    await page.goto('./this-page-does-not-exist-12345');
     
     const notFound = page.locator('.not-found, [data-testid="not-found"]');
     if (await notFound.count() > 0) {
@@ -150,15 +150,15 @@ test.describe('Navigation Tests', () => {
   test('should handle nested routes (dashboard)', async ({ page }) => {
     // Dashboard routes should work when authenticated
     // This is a basic navigation test; auth tests are in auth.spec.js
-    
-    await page.goto('/dashboard');
+
+    await page.goto('./dashboard');
     
     // Should redirect to login if not authenticated
     await expect(page).toHaveURL(/\/login/);
   });
 
   test('should maintain scroll position on navigation', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     
     // Scroll down
     await page.evaluate(() => window.scrollTo(0, 500));
@@ -167,31 +167,31 @@ test.describe('Navigation Tests', () => {
     expect(scrollPosition).toBeGreaterThanOrEqual(500);
     
     // Navigate and come back
-    await page.goto('/contact');
-    await page.goto('/');
-    
+    await page.goto('./contact');
+    await page.goto('./');
+
     // Note: Browser may reset scroll on full page reload
     // This test documents expected behavior
-    expect(page.url()).toBe('http://localhost:4173/');
+    expect(page.url()).toMatch(/\/slancha-website\/?$|localhost.*\/$/);
   });
 
   test('should support browser back/forward', async ({ page }) => {
-    await page.goto('/');
-    
+    await page.goto('./');
+
     // Navigate to another page
-    await page.goto('/about');
-    
+    await page.goto('./about');
+
     // Go back
     await page.goBack();
-    await expect(page).toHaveURL('/');
-    
+    await expect(page).toHaveURL(/\/$/);
+
     // Go forward
     await page.goForward();
     await expect(page).toHaveURL(/\/about/);
   });
 
   test('should have skip link for accessibility', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     
     const skipLink = page.locator('a[href="#main-content"]');
     await expect(skipLink).toBeVisible();
@@ -214,10 +214,10 @@ test.describe('Navigation Tests', () => {
 test.describe('Routing Tests', () => {
   test('should navigate to correct routes', async ({ page }) => {
     const routes = [
-      { path: '/', expectedTitle: /Slancha/i },
-      { path: '/contact', expectedTitle: /Slancha/i },
-      { path: '/docs', expectedTitle: /Slancha/i },
-      { path: '/blog', expectedTitle: /Slancha/i },
+      { path: './', expectedTitle: /Slancha/i },
+      { path: './contact', expectedTitle: /Slancha/i },
+      { path: './docs', expectedTitle: /Slancha/i },
+      { path: './blog', expectedTitle: /Slancha/i },
     ];
 
     for (const route of routes) {
@@ -234,21 +234,21 @@ test.describe('Routing Tests', () => {
 
   test('should handle route with parameters', async ({ page }) => {
     // Blog post with slug
-    await page.goto('/blog/getting-started');
+    await page.goto('./blog/getting-started');
     
     // Should load without 404
     expect(page.url()).toContain('/blog/');
   });
 
   test('should handle dashboard sub-routes', async ({ page }) => {
-    await page.goto('/dashboard');
+    await page.goto('./dashboard');
     
     // Should redirect to login
     expect(page.url()).toContain('/login');
   });
 
   test('should handle auth callback route', async ({ page }) => {
-    await page.goto('/auth/callback');
+    await page.goto('./auth/callback');
     
     // Should handle callback (may show loading or error)
     // Document expected behavior

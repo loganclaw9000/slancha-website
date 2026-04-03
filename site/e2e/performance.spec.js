@@ -12,7 +12,7 @@ test.describe('Performance Tests', () => {
   test('homepage should load within 3 seconds', async ({ page }) => {
     const startTime = Date.now();
     
-    await page.goto('/');
+    await page.goto('./');
     await page.waitForLoadState('networkidle');
     
     const loadTime = Date.now() - startTime;
@@ -38,7 +38,7 @@ test.describe('Performance Tests', () => {
   test('about section should render within 2 seconds', async ({ page }) => {
     const startTime = Date.now();
     
-    await page.goto('/');
+    await page.goto('./');
     
     // Wait for about section
     const aboutSection = page.locator('section').filter({
@@ -54,7 +54,7 @@ test.describe('Performance Tests', () => {
   test('contact page should load within 3 seconds', async ({ page }) => {
     const startTime = Date.now();
     
-    await page.goto('/contact');
+    await page.goto('./contact');
     await page.waitForLoadState('networkidle');
     
     const loadTime = Date.now() - startTime;
@@ -63,7 +63,7 @@ test.describe('Performance Tests', () => {
   });
 
   test('navigation should be responsive (no long tasks)', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     
     // Measure time to interactive
     const ti = await page.evaluate(() => {
@@ -94,7 +94,7 @@ test.describe('Performance Tests', () => {
   });
 
   test('images should be properly optimized', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     
     const imageMetrics = await page.evaluate(() => {
       const images = Array.from(document.querySelectorAll('img'));
@@ -118,7 +118,7 @@ test.describe('Performance Tests', () => {
   });
 
   test('CSS should be minified (check file size)', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     
     const mainScriptSize = await page.evaluate(() => {
       const scripts = document.querySelectorAll('script[src]');
@@ -137,7 +137,7 @@ test.describe('Performance Tests', () => {
   });
 
   test('no unoptimized resources', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     
     // Check for any large images or unoptimized assets
     const resourceMetrics = await page.evaluate(() => {
@@ -162,7 +162,7 @@ test.describe('Performance Tests', () => {
   test('time to interactive should be under 5 seconds', async ({ page }) => {
     const startTime = Date.now();
     
-    await page.goto('/');
+    await page.goto('./');
     
     // Wait for page to be interactive
     await page.waitForFunction(() => {
@@ -175,7 +175,7 @@ test.describe('Performance Tests', () => {
   });
 
   test('core web vitals - Largest Contentful Paint under 2.5s', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     await page.waitForLoadState('networkidle');
     
     // Get LCP using performance observer
@@ -203,7 +203,7 @@ test.describe('Performance Tests', () => {
   });
 
   test('cumulative layout shift should be minimal (CLS < 0.1)', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     
     const cls = await page.evaluate(() => {
       return new Promise(resolve => {

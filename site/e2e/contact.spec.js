@@ -8,7 +8,7 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Contact Page', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/contact');
+    await page.goto('./contact');
   });
 
   test('should load contact page', async ({ page }) => {
@@ -91,6 +91,6 @@ test.describe('Contact Page', () => {
 
   test('should navigate back to homepage', async ({ page }) => {
     await page.click('.nav-logo');
-    await expect(page).toHaveURL('/');
+    await expect(page).toHaveURL(/\/$/);
   });
 });

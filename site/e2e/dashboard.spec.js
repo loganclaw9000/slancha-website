@@ -23,14 +23,14 @@ test.describe('Dashboard Protected Routes', () => {
       });
     });
 
-    await page.goto('/dashboard');
+    await page.goto('./dashboard');
   });
 
   test('should redirect to login if not authenticated', async ({ page }) => {
     // Clear any auth cookies/sessions
     await page.context().clearCookies();
-    
-    await page.goto('/dashboard');
+
+    await page.goto('./dashboard');
     
     // Should redirect to login
     await expect(page).toHaveURL(/\/login/);
@@ -56,8 +56,8 @@ test.describe('Dashboard Protected Routes', () => {
       };
     });
 
-    await page.goto('/dashboard');
-    
+    await page.goto('./dashboard');
+
     await expect(page.locator('h1, h2')).toContainText(/dashboard/i);
   });
 
@@ -77,7 +77,7 @@ test.describe('Dashboard Protected Routes', () => {
       };
     });
 
-    await page.goto('/dashboard');
+    await page.goto('./dashboard');
     
     // Check for navigation tabs
     const navTabs = page.locator('.nav-tabs, nav [role="tab"], [class*="nav-item"]');
@@ -101,7 +101,7 @@ test.describe('Dashboard Protected Routes', () => {
       };
     });
 
-    await page.goto('/dashboard');
+    await page.goto('./dashboard');
     
     // Wait for dashboard to load
     await page.waitForSelector('.dashboard, [role="main"]');
@@ -138,7 +138,7 @@ test.describe('Dashboard API Keys', () => {
       };
     });
 
-    await page.goto('/dashboard/keys');
+    await page.goto('./dashboard/keys');
   });
 
   test('should display API keys section', async ({ page }) => {
@@ -200,7 +200,7 @@ test.describe('Dashboard Usage Stats', () => {
       };
     });
 
-    await page.goto('/dashboard/usage');
+    await page.goto('./dashboard/usage');
   });
 
   test('should display usage stats section', async ({ page }) => {
@@ -247,7 +247,7 @@ test.describe('Dashboard Account Settings', () => {
       };
     });
 
-    await page.goto('/dashboard/settings');
+    await page.goto('./dashboard/settings');
   });
 
   test('should display account settings section', async ({ page }) => {

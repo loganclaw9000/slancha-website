@@ -13,7 +13,7 @@ test.describe('Visual Regression Tests', () => {
   test('homepage should match baseline', async ({ page, context }) => {
     await context.tracing.start({ screenshots: true, snapshots: true });
     
-    await page.goto('/');
+    await page.goto('./');
     await page.waitForLoadState('networkidle');
     
     // Take full page screenshot
@@ -26,7 +26,7 @@ test.describe('Visual Regression Tests', () => {
   });
 
   test('hero section should render correctly', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     
     const heroSection = page.locator('.hero, [class*="hero"], section:has(h1:has-text(/Slancha/i))');
     if (await heroSection.count() > 0) {
@@ -37,7 +37,7 @@ test.describe('Visual Regression Tests', () => {
   });
 
   test('features section should render correctly', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     
     const featuresSection = page.locator('section').filter({
       has: page.locator('h2', { hasText: /features/i }),
@@ -51,7 +51,7 @@ test.describe('Visual Regression Tests', () => {
   });
 
   test('tier cards should render correctly', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     
     const tierSection = page.locator('section').filter({
       has: page.locator('h2, h3', { hasText: /tier|pricing/i }),
@@ -66,7 +66,7 @@ test.describe('Visual Regression Tests', () => {
 
   // Contact page tests
   test('contact page should match baseline', async ({ page }) => {
-    await page.goto('/contact');
+    await page.goto('./contact');
     await page.waitForLoadState('networkidle');
     
     await expect(page).toHaveScreenshot('contact-full.png', {
@@ -76,7 +76,7 @@ test.describe('Visual Regression Tests', () => {
   });
 
   test('contact form should render correctly', async ({ page }) => {
-    await page.goto('/contact');
+    await page.goto('./contact');
     
     const form = page.locator('form');
     await expect(form).toHaveScreenshot('contact-form.png', {
@@ -85,7 +85,7 @@ test.describe('Visual Regression Tests', () => {
   });
 
   test('contact form with validation errors', async ({ page }) => {
-    await page.goto('/contact');
+    await page.goto('./contact');
     
     // Submit empty form to trigger validation
     await page.click('button[type="submit"]');
@@ -99,7 +99,7 @@ test.describe('Visual Regression Tests', () => {
 
   // Navigation tests
   test('navigation bar should render correctly', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     
     const nav = page.locator('nav');
     await expect(nav).toHaveScreenshot('navigation.png', {
@@ -109,7 +109,7 @@ test.describe('Visual Regression Tests', () => {
 
   test('mobile navigation should render correctly', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 667 });
-    await page.goto('/');
+    await page.goto('./');
     
     const nav = page.locator('nav');
     await expect(nav).toHaveScreenshot('navigation-mobile.png', {
@@ -119,7 +119,7 @@ test.describe('Visual Regression Tests', () => {
 
   test('mobile navigation menu should open', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 667 });
-    await page.goto('/');
+    await page.goto('./');
     
     // Click hamburger
     const hamburger = page.locator('.nav-hamburger, button[aria-label*="menu"]');
@@ -136,7 +136,7 @@ test.describe('Visual Regression Tests', () => {
 
   // Footer tests
   test('footer should render correctly', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     await page.waitForLoadState('networkidle');
     
     const footer = page.locator('footer');
@@ -148,7 +148,7 @@ test.describe('Visual Regression Tests', () => {
   // Responsive breakpoints
   test('homepage should render correctly on tablet', async ({ page }) => {
     await page.setViewportSize({ width: 768, height: 1024 });
-    await page.goto('/');
+    await page.goto('./');
     await page.waitForLoadState('networkidle');
     
     await expect(page).toHaveScreenshot('homepage-tablet.png', {
@@ -159,7 +159,7 @@ test.describe('Visual Regression Tests', () => {
 
   test('homepage should render correctly on desktop large', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto('/');
+    await page.goto('./');
     await page.waitForLoadState('networkidle');
     
     await expect(page).toHaveScreenshot('homepage-desktop-large.png', {
@@ -170,7 +170,7 @@ test.describe('Visual Regression Tests', () => {
 
   // Dark mode (if supported)
   test('homepage dark mode should render correctly', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     
     // Check if dark mode toggle exists
     const darkModeToggle = page.locator('button[aria-label*="dark"], button[aria-label*="theme"]');
@@ -187,7 +187,7 @@ test.describe('Visual Regression Tests', () => {
 
   // State-based visual tests
   test('contact form success state', async ({ page }) => {
-    await page.goto('/contact');
+    await page.goto('./contact');
     
     // Fill and submit form
     await page.fill('input[name="name"]', 'Test User');

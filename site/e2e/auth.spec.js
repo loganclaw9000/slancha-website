@@ -8,8 +8,8 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Authentication Smoke Tests', () => {
   test('should load login page', async ({ page }) => {
-    await page.goto('/login');
-    
+    await page.goto('./login');
+
     // Login page should be visible
     await expect(page).toHaveURL(/\/login/);
     
@@ -21,8 +21,8 @@ test.describe('Authentication Smoke Tests', () => {
   });
 
   test('should load signup page', async ({ page }) => {
-    await page.goto('/signup');
-    
+    await page.goto('./signup');
+
     // Signup page should be visible
     await expect(page).toHaveURL(/\/signup/);
     
@@ -34,7 +34,7 @@ test.describe('Authentication Smoke Tests', () => {
   });
 
   test('should have "forgot password" link', async ({ page }) => {
-    await page.goto('/login');
+    await page.goto('./login');
     
     const forgotPasswordLink = page.locator('a').filter({ hasText: /forgot|reset|password/i });
     
@@ -49,7 +49,7 @@ test.describe('Authentication Smoke Tests', () => {
   });
 
   test('should have link to signup from login', async ({ page }) => {
-    await page.goto('/login');
+    await page.goto('./login');
     
     const signupLink = page.locator('a').filter({ hasText: /sign up|create account|register/i });
     
@@ -64,7 +64,7 @@ test.describe('Authentication Smoke Tests', () => {
 
   test('should handle auth callback page', async ({ page }) => {
     // Auth callback is typically called by Supabase during OAuth flow
-    await page.goto('/auth/callback', { timeout: 5000 }).catch(() => {
+    await page.goto('./auth/callback', { timeout: 5000 }).catch(() => {
       // Callback page might not be served without actual auth flow
       console.log('Auth callback page not accessible without auth flow');
     });
@@ -76,7 +76,7 @@ test.describe('Authentication Smoke Tests', () => {
 
   test('should have consistent auth state indicators', async ({ page }) => {
     // Check nav for auth state indicators
-    await page.goto('/');
+    await page.goto('./');
     
     const nav = page.locator('nav, header');
     const authIndicators = nav.locator('a').filter({ 

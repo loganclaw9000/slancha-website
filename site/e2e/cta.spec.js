@@ -8,7 +8,7 @@ import { test, expect } from '@playwright/test';
 
 test.describe('CTA Button Tests', () => {
   test('should have primary CTA on homepage', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     
     // Look for primary CTA buttons
     const primaryCTAs = page.locator('button, a').filter({
@@ -26,7 +26,7 @@ test.describe('CTA Button Tests', () => {
   });
 
   test('should have secondary CTA on homepage', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     
     // Look for secondary CTAs (docs, learn more, etc.)
     const secondaryCTAs = page.locator('button, a').filter({
@@ -44,7 +44,7 @@ test.describe('CTA Button Tests', () => {
   });
 
   test('should navigate to correct pages on CTA click', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     
     // Test "Get Started" or similar primary CTA
     const getStartedBtn = page.locator('button, a').filter({
@@ -66,7 +66,7 @@ test.describe('CTA Button Tests', () => {
   });
 
   test('should navigate to docs on "Read Docs" CTA', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     
     const docsLink = page.locator('a').filter({ hasText: /docs|documentation/i }).first();
     
@@ -79,7 +79,7 @@ test.describe('CTA Button Tests', () => {
   });
 
   test('should have CTAs in multiple sections', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     
     // Count all CTA-like elements
     const allCTAs = page.locator('button, a').filter({
@@ -93,7 +93,7 @@ test.describe('CTA Button Tests', () => {
   });
 
   test('should have CTA in footer', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     
     const footer = page.locator('footer');
     
@@ -109,7 +109,7 @@ test.describe('CTA Button Tests', () => {
   });
 
   test('should have visible hover states on CTAs', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     
     const primaryCTA = page.locator('button, a').filter({
       hasText: /start free|get started|signup/i
@@ -128,7 +128,7 @@ test.describe('CTA Button Tests', () => {
   });
 
   test('should not have broken CTA links', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('./');
     
     // Get all buttons and links
     const allCTAs = page.locator('button, a').filter({ hasText: true });
@@ -156,7 +156,7 @@ test.describe('CTA Button Tests', () => {
         }
         
         // Navigate back
-        await page.goto('/');
+        await page.goto('./');
       }
     }
     

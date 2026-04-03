@@ -8,8 +8,8 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Navigation Smoke Tests', () => {
   test('should have consistent navigation across pages', async ({ page }) => {
-    const pages = ['/', '/about', '/features', '/docs', '/blog'];
-    
+    const pages = ['./', './about', './features', './docs', './blog'];
+
     for (const pagePath of pages) {
       await page.goto(pagePath);
       await page.waitForLoadState('networkidle');
@@ -27,7 +27,7 @@ test.describe('Navigation Smoke Tests', () => {
   });
 
   test('should have logo that links home', async ({ page }) => {
-    await page.goto('/about');
+    await page.goto('./about');
     
     // Find logo element
     const logo = page.locator('img[src*="logo"], a:has(img), .logo');
@@ -43,7 +43,7 @@ test.describe('Navigation Smoke Tests', () => {
 
   test('should have mobile menu toggle', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 667 });
-    await page.goto('/');
+    await page.goto('./');
     
     // Look for mobile menu button
     const menuToggle = page.locator('button:has(svg), button:has(icon), .menu-toggle, .mobile-menu');
@@ -60,7 +60,7 @@ test.describe('Navigation Smoke Tests', () => {
 
   test('should handle navigation errors gracefully', async ({ page }) => {
     // Try to navigate to a non-existent page
-    await page.goto('/nonexistent-page-12345');
+    await page.goto('./nonexistent-page-12345');
     await page.waitForLoadState('networkidle');
     
     // Should show a 404 or similar, not crash
