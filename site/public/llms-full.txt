@@ -1,6 +1,6 @@
 # Slancha
 
-> End-to-end AI inference platform. Single API endpoint that automatically routes requests to the right model, fine-tunes task-specific models on your usage data, optimizes inference (quantization + GPU efficiency), and continuously redeploys improved models. OpenAI-compatible. Bearer token auth with sk-sl_ prefix.
+> World-class AI inference shouldn't require a world-class infrastructure team. Slancha closes that gap. Single API endpoint that automatically routes requests to the right model, fine-tunes task-specific models on your usage data, optimizes inference, and continuously redeploys improved models. OpenAI-compatible. Bearer token auth with sk-sl_ prefix.
 
 ## Instructions
 

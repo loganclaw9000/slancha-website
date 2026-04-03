@@ -91,8 +91,8 @@ const Hero = () => (
         </g>
       </svg>
     </div>
-    <h1 className="hero-h1">One API endpoint.<br /><span className="gradient-text">Everything handled.</span></h1>
-    <p className="hero-subtitle">Slancha is an end-to-end AI inference platform. You get a single endpoint. We route, fine-tune, optimize, and redeploy — continuously, behind the scenes. Better accuracy, lower latency, lower cost. No ML team required.</p>
+    <h1 className="hero-h1">World-class AI inference.<br /><span className="gradient-text">No infrastructure team required.</span></h1>
+    <p className="hero-subtitle">Slancha closes the gap between what your AI could do and what your team can build. One API endpoint that routes, fine-tunes, optimizes, and redeploys — continuously, behind the scenes. Better accuracy, lower latency, lower cost.</p>
     <div className="hero-cta">
       <Link to="/signup" className="btn-primary btn-lg hero-cta-primary" onClick={() => trackCtaClick('hero_get_endpoint', 'homepage')}>Get Your API Endpoint</Link>
       <a href="#how-it-works" className="btn-secondary btn-lg" onClick={() => trackCtaClick('hero_how_it_works', 'homepage')}>See How It Works</a>

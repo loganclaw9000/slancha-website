@@ -1,6 +1,6 @@
 {
   "name": "Slancha AI Inference",
-  "description": "End-to-end AI inference platform. OpenAI-compatible API with intelligent model routing, automated fine-tuning, and inference optimization. Single endpoint, zero configuration.",
+  "description": "World-class AI inference shouldn't require a world-class infrastructure team. Slancha closes that gap. OpenAI-compatible API with intelligent model routing, automated fine-tuning, and inference optimization.",
   "url": "https://api.slancha.ai/v1",
   "version": "1.0.0",
   "authentication": {

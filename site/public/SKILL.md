@@ -1,7 +1,7 @@
 # Slancha AI Inference
 
 ## Description
-End-to-end AI inference platform with an OpenAI-compatible API. Intelligent model routing, automated fine-tuning on your usage data, inference optimization (quantization, MIG GPU packing), and continuous redeployment. One endpoint, zero configuration.
+World-class AI inference shouldn't require a world-class infrastructure team. Slancha closes that gap. OpenAI-compatible API with intelligent model routing, automated fine-tuning on your usage data, inference optimization (quantization, MIG GPU packing), and continuous redeployment.
 
 ## Authentication
 Bearer token with `sk-sl_` prefix. Get a free key at https://slancha.ai/signup (no credit card required, 10K requests/month on Starter tier).

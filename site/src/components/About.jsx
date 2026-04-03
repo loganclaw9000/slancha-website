@@ -20,7 +20,7 @@ export default function About() {
             <li><strong>The loop compounds</strong> — the longer you use Slancha, the more data is curated, the better your models get. That advantage is yours alone.</li>
           </ul>
           <p>
-            If a customer wanted to replicate this internally, they'd need to build routing, task classification, data curation, fine-tuning pipelines, quantization-aware training, MIG-based serving, and continuous redeployment. That's a full ML engineering team. Slancha does it behind one endpoint.
+            If a customer wanted to replicate this internally, they'd need to build routing, task classification, data curation, fine-tuning pipelines, quantization-aware training, MIG-based serving, and continuous redeployment. That's a full ML engineering team. World-class AI inference shouldn't require a world-class infrastructure team. Slancha closes that gap.
           </p>
         </div>
       </div>

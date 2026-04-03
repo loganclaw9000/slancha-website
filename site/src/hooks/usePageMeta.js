@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { trackPageView } from '../lib/analytics';
 
 const SITE_NAME = 'Slancha';
-const DEFAULT_DESCRIPTION = 'End-to-end AI inference platform. One API endpoint — Slancha automatically routes, fine-tunes, and optimizes your models behind the scenes. Better accuracy, lower cost, zero ML overhead.';
+const DEFAULT_DESCRIPTION = 'World-class AI inference shouldn\'t require a world-class infrastructure team. Slancha closes that gap — one API endpoint that routes, fine-tunes, and optimizes your models automatically.';
 
 /**
  * Sets document title and meta description for the current page.
