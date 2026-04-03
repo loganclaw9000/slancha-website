@@ -17,6 +17,15 @@ info:
     url: https://slancha.ai/terms
   x-logo:
     url: https://slancha.ai/favicon.svg
+  x-llms:
+    llms-txt: https://slancha.ai/llms.txt
+    llms-full-txt: https://slancha.ai/llms-full.txt
+    signup: https://slancha.ai/signup
+    free-tier: true
+    free-tier-limits: "10,000 requests/month, 20+ models, no credit card"
+    openai-compatible: true
+    skill-manifest: https://slancha.ai/SKILL.md
+    mcp-server-card: https://slancha.ai/.well-known/mcp/server-card.json
 
 servers:
   - url: https://api.slancha.ai/v1

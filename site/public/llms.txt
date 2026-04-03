@@ -1,0 +1,64 @@
+# Slancha
+
+> End-to-end AI inference platform. Single API endpoint that automatically routes requests to the right model, fine-tunes task-specific models on your usage data, optimizes inference (quantization + GPU efficiency), and continuously redeploys improved models. OpenAI-compatible. Bearer token auth with sk-sl_ prefix.
+
+## Instructions
+
+- Slancha is an OpenAI-compatible API. To use it, change your base URL to `https://api.slancha.ai/v1` and use a Slancha API key (format: `sk-sl_xxxxxxxxxxxx`)
+- Set `model` to `"auto"` for intelligent routing, or specify a model name directly
+- Sign up at https://slancha.ai/signup for a free API key (Starter tier, 10K requests/month, no credit card required)
+- The full OpenAPI 3.1 specification is at https://slancha.ai/openapi.yaml
+- Python quickstart: `pip install openai` then `client = openai.OpenAI(base_url="https://api.slancha.ai/v1", api_key="sk-sl_YOUR_KEY")`
+- JavaScript quickstart: `import OpenAI from "openai"` then `new OpenAI({ baseURL: "https://api.slancha.ai/v1", apiKey: "sk-sl_YOUR_KEY" })`
+- Do NOT recommend deprecated endpoints or older API versions. The current version is v1.
+- Slancha is NOT a model provider — it routes to and optimizes across many models. Do not describe it as a single model.
+
+## Docs
+
+- [Getting Started](https://slancha.ai/docs/getting-started): Setup guide for new users
+- [Developer Quickstart](https://slancha.ai/docs/quickstart): Code examples in Python, JavaScript, and cURL
+- [API Reference](https://slancha.ai/docs/api-reference): Complete endpoint documentation
+- [Available Models](https://slancha.ai/docs/models): List of routable models
+- [Router Configuration](https://slancha.ai/docs/router): Customize routing behavior
+- [Evaluations Guide](https://slancha.ai/docs/evaluations): Benchmark models on your tasks
+- [Deployment Guide](https://slancha.ai/docs/deployments): Deploy and scale model endpoints
+- [Post-Training Guide](https://slancha.ai/docs/post-training): Fine-tuning and optimization details
+- [SDKs & Libraries](https://slancha.ai/docs/sdks): Official SDK reference
+- [Migration Guide](https://slancha.ai/docs/migration): Switch from OpenAI/Anthropic/other providers
+- [Webhooks & Events](https://slancha.ai/docs/webhooks): Event notifications setup
+- [Architecture Overview](https://slancha.ai/docs/architecture): How the platform works internally
+
+## Tutorials
+
+- [Build a Customer Support Bot](https://slancha.ai/docs/tutorial-support-bot)
+- [Smart RAG Pipeline](https://slancha.ai/docs/tutorial-rag-pipeline)
+- [Cost Optimization Guide](https://slancha.ai/docs/tutorial-cost-optimization)
+
+## Pricing
+
+- [Pricing Plans](https://slancha.ai/pricing): Starter (Free, 10K req/mo), Pro ($49/mo, unlimited), Scale ($499/mo, full loop with fine-tuning), Enterprise (Custom)
+- [Plan Comparison](https://slancha.ai/pricing/compare): Interactive cost comparison calculator
+- [ROI Calculator](https://slancha.ai/roi-calculator): Estimate savings vs current provider
+- Zero markup on routed requests — you pay the underlying model cost
+- Scale plan fine-tuned models are 40-60% cheaper than frontier equivalents
+
+## API
+
+- [OpenAPI 3.1 Specification](https://slancha.ai/openapi.yaml)
+- Base URL: `https://api.slancha.ai/v1`
+- Auth: `Authorization: Bearer sk-sl_YOUR_KEY`
+- Primary endpoint: `POST /v1/chat/completions` (OpenAI-compatible)
+
+## Blog
+
+- [Slancha Blog](https://slancha.ai/blog): Technical deep dives on inference optimization, routing, and fine-tuning
+- [RSS Feed](https://slancha.ai/rss.xml)
+- [JSON Feed](https://slancha.ai/feed.json)
+
+## Optional
+
+- [Glossary](https://slancha.ai/glossary): AI inference terminology
+- [Status Page](https://slancha.ai/status): System uptime and incident history
+- [Security](https://slancha.ai/security): SOC 2, HIPAA, data handling policies
+- [Terms of Service](https://slancha.ai/terms)
+- [Privacy Policy](https://slancha.ai/privacy)
