@@ -13,12 +13,11 @@
 
 .hero-triskele-wrap {
   position: absolute;
-  top: 50%;
+  top: 200px;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   pointer-events: none;
   z-index: 0;
-  will-change: transform;
 }
 .hero-triskele {
   opacity: 0.04;
