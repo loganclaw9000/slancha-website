@@ -80,6 +80,7 @@
     gap: 32px;
   }
   .footer-links {
-    gap: 40px;
+    gap: 24px 32px;
+    flex-wrap: wrap;
   }
 }
