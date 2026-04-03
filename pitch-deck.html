@@ -266,6 +266,77 @@
   .cta-slide { align-items: center; text-align: center; }
   .cta-slide h1 { font-size: 52px; max-width: 900px; }
   .cta-tagline { font-size: 24px; color: var(--accent2); margin-top: 16px; }
+
+  /* ---- Mobile ---- */
+  @media (max-width: 768px) {
+    body { overflow-y: auto; }
+    .slide {
+      padding: 24px 20px;
+      height: auto;
+      min-height: 100vh;
+      justify-content: flex-start;
+      padding-top: 48px;
+      padding-bottom: 60px;
+    }
+    h1 { font-size: 32px; }
+    h2 { font-size: 26px; margin-bottom: 16px; }
+    h3 { font-size: 16px; letter-spacing: 1px; margin-bottom: 10px; }
+    p { font-size: 16px; }
+    .subtitle { font-size: 18px; margin-bottom: 20px; }
+    .title-slide h1 { font-size: 44px; }
+    .cta-slide h1 { font-size: 28px; }
+    .cta-tagline { font-size: 18px; }
+
+    .two-col { grid-template-columns: 1fr; gap: 20px; }
+    .col-card { padding: 20px; }
+    .col-card h4 { font-size: 18px; margin-bottom: 10px; }
+
+    .bullets li { font-size: 16px; line-height: 1.6; padding-left: 22px; }
+    .bullets li::before { top: 10px; width: 8px; height: 8px; }
+    .bullets li .detail { font-size: 14px; }
+
+    .stats { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .stat { padding: 16px; }
+    .stat .number { font-size: 28px; }
+    .stat .label { font-size: 12px; }
+
+    .pricing-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .price-card { padding: 16px; }
+    .price-card .tier { font-size: 14px; }
+    .price-card .price { font-size: 22px; }
+    .price-card .price-sub { font-size: 11px; }
+    .price-card .features li { font-size: 12px; }
+
+    .matrix { font-size: 12px; display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .matrix th { padding: 8px 10px; font-size: 11px; white-space: nowrap; }
+    .matrix td { padding: 8px 10px; white-space: nowrap; }
+
+    .pyramid-tam { width: 100%; font-size: 15px; padding: 12px; }
+    .pyramid-sam { width: 85%; font-size: 15px; padding: 12px; }
+    .pyramid-som { width: 65%; font-size: 15px; padding: 12px; }
+
+    .funnel-step { font-size: 13px; padding: 10px 14px; }
+    .funnel-step span { font-size: 12px; margin-left: 12px; }
+
+    .fund-bar .fund-label { font-size: 13px; }
+    .fund-bar .fund-label .accent2 { font-size: 12px; }
+
+    .loop-diagram { gap: 8px; }
+    .loop-step { min-width: 100px; padding: 12px 14px; }
+    .loop-step .step-title { font-size: 14px; }
+    .loop-step .step-desc { font-size: 11px; }
+    .loop-arrow { font-size: 20px; padding: 0 4px; }
+
+    .timeline { flex-direction: column; gap: 24px; align-items: flex-start; padding-left: 32px; }
+    .timeline::before { top: 0; bottom: 0; left: 10px; right: auto; width: 3px; height: auto; }
+    .tl-node { text-align: left; }
+    .tl-dot { margin: 0; position: absolute; left: -32px; top: 4px; width: 16px; height: 16px; }
+    .tl-year { font-size: 16px; }
+    .tl-desc { font-size: 14px; max-width: none; margin: 4px 0 0; }
+
+    .slide-number { bottom: 12px; right: 16px; font-size: 12px; }
+    .nav-hint { bottom: 12px; left: 16px; font-size: 11px; }
+  }
 </style>
 </head>
 <body>
