@@ -27,10 +27,10 @@ const DEMO_LOGS = [
   { id: 'req_f8g9h0', ts: '2026-03-31T10:30:48Z', endpoint: '/v1/route', model: 'claude-sonnet-4-20250514', latency: 1320, tokens_in: 3800, tokens_out: 920, status: 200, cost: 0.0468 },
 ];
 
-// Fetch request logs from Supabase request_logs table
+// Fetch request logs from Supabase usage_logs table
 async function fetchRequestLogs({ endpointFilter, statusFilter, dateRange }) {
   let query = supabase
-    .from('request_logs')
+    .from('usage_logs')
     .select('*')
     .order('created_at', { ascending: false });
 
@@ -61,7 +61,7 @@ async function fetchRequestLogs({ endpointFilter, statusFilter, dateRange }) {
   const { data, error } = await query;
 
   if (error) {
-    if (import.meta.env.DEV) console.warn('Supabase request_logs query failed (table may not exist yet):', error.message);
+    if (import.meta.env.DEV) console.warn('Supabase usage_logs query failed:', error.message);
     return null;
   }
 
