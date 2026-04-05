@@ -30,5 +30,6 @@ jobs:
 
       - name: Mirror to loganclaw9000/slancha-website
         run: |
+          git config --unset-all http.https://github.com/.extraheader || true
           git remote add mirror https://x-access-token:${{ secrets.MIRROR_PAT }}@github.com/loganclaw9000/slancha-website.git
           git push mirror master --force
