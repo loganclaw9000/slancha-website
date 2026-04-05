@@ -49,7 +49,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="footer-bottom">
-        <span className="footer-copy">&copy; 2026 Slancha. All rights reserved.</span>
+        <span className="footer-copy">&copy; 2026 Slancha. All rights reserved. &middot; Built by SlanchaAi</span>
       </div>
     </footer>
   );

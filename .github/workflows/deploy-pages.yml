@@ -1,24 +1,21 @@
-name: Deploy to GitHub Pages
+name: Build & Mirror to GitHub Pages
 
 on:
   push:
     branches: [master]
   workflow_dispatch:
 
-permissions:
-  contents: write
-  pages: write
-  id-token: write
-
 concurrency:
   group: pages
   cancel-in-progress: true
 
 jobs:
-  build:
+  build-and-mirror:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -30,28 +27,8 @@ jobs:
           VITE_SUPABASE_URL: https://tqbvmmhgiivyjjcctqcb.supabase.co
           VITE_SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRxYnZtbWhnaWl2eWpqY2N0cWNiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4MTkyNTAsImV4cCI6MjA5MDM5NTI1MH0.zY9_zVBJRwQRhARZSH_tvmSNcbBulbTJ1GZzOMT8hGM
       - run: cp site/dist/index.html site/dist/404.html
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: site/dist
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
-
-  mirror:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Push to loganclaw9000/slancha-website
+      - name: Mirror to loganclaw9000/slancha-website
         run: |
           git remote add mirror https://x-access-token:${{ secrets.MIRROR_PAT }}@github.com/loganclaw9000/slancha-website.git
           git push mirror master --force
