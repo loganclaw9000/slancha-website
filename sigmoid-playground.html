@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0f0f0d; color: #f5f0eb; font-family: system-ui; overflow: hidden; }
+  canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; }
+  #controls {
+    position: fixed; top: 10px; right: 10px; z-index: 10;
+    background: rgba(15,15,13,0.92); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px; padding: 16px; width: 300px; max-height: 95vh; overflow-y: auto;
+    font-size: 12px; backdrop-filter: blur(8px);
+  }
+  #controls h3 { font-size: 14px; margin-bottom: 12px; opacity: 0.7; }
+  .group { margin-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 10px; }
+  .group h4 { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.4; margin-bottom: 8px; }
+  label { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+  label span { opacity: 0.6; }
+  label .val { opacity: 1; font-variant-numeric: tabular-nums; min-width: 40px; text-align: right; }
+  input[type=range] { width: 120px; accent-color: #7d9b76; }
+  input[type=checkbox] { accent-color: #d4a853; margin-right: 2px; width: 13px; height: 13px; cursor: pointer; }
+  input[type=checkbox].drift-cb { accent-color: #7d9b76; }
+  .lock { opacity: 0.5; font-size: 10px; display: flex; align-items: center; gap: 1px; }
+  .drift-label { font-size: 8px; opacity: 0.35; margin-left: -2px; margin-right: 2px; }
+  button { background: rgba(125,155,118,0.2); border: 1px solid rgba(125,155,118,0.3); color: #f5f0eb; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 11px; margin-right: 6px; }
+  button:hover { background: rgba(125,155,118,0.35); }
+  #export { margin-top: 8px; font-size: 10px; opacity: 0.4; word-break: break-all; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="controls">
+  <h3>Sigmoid Spine Playground</h3>
+  <div style="margin-bottom:10px"><button onclick="lockAll(true)">🔒 Lock All</button><button onclick="lockAll(false)">🔓 Unlock All</button></div>
+
+  <div class="group">
+    <h4>Shape <button onclick="lockGroup('shape',true)" style="padding:2px 6px;font-size:9px">🔒</button><button onclick="lockGroup('shape',false)" style="padding:2px 6px;font-size:9px">🔓</button></h4>
+    <label><span class="lock"><input type="checkbox" id="lock_amp">Amplitude</span><input type="range" id="amp" min="0.1" max="0.5" step="0.01" value="0.35"><span class="val" id="ampV">0.35</span></label>
+    <label><span class="lock"><input type="checkbox" id="lock_sWidth">Width</span><input type="range" id="sWidth" min="0.08" max="0.5" step="0.01" value="0.28"><span class="val" id="sWidthV">0.28</span></label>
+    <label><span class="lock"><input type="checkbox" id="lock_k">Steepness (k)</span><input type="range" id="k" min="4" max="30" step="1" value="14"><span class="val" id="kV">14</span></label>
+    <label><span class="lock"><input type="checkbox" id="lock_sHeight">Tile height</span><input type="range" id="sHeight" min="300" max="1500" step="50" value="800"><span class="val" id="sHeightV">800</span></label>
+  </div>
+
+  <div class="group">
+    <h4>Dots <button onclick="lockGroup('dots',true)" style="padding:2px 6px;font-size:9px">🔒</button><button onclick="lockGroup('dots',false)" style="padding:2px 6px;font-size:9px">🔓</button></h4>
+    <label><span class="lock"><input type="checkbox" id="lock_spacing">Spacing</span><input type="range" id="spacing" min="2" max="10" step="0.5" value="4.5"><span class="val" id="spacingV">4.5</span></label>
+    <label><span class="lock"><input type="checkbox" id="lock_dotScale">Dot scale</span><input type="range" id="dotScale" min="0.08" max="0.6" step="0.02" value="0.30"><span class="val" id="dotScaleV">0.30</span></label>
+    <label><span class="lock"><input type="checkbox" id="lock_baseAlpha">Base alpha</span><input type="range" id="baseAlpha" min="0.1" max="1.0" step="0.05" value="0.65"><span class="val" id="baseAlphaV">0.65</span></label>
+    <label><span class="lock"><input type="checkbox" id="lock_edgeBright">Edge bright</span><input type="range" id="edgeBright" min="0" max="0.6" step="0.05" value="0.3"><span class="val" id="edgeBrightV">0.3</span></label>
+  </div>
+
+  <div class="group">
+    <h4>Sway <button onclick="lockGroup('sway',true)" style="padding:2px 6px;font-size:9px">🔒</button><button onclick="lockGroup('sway',false)" style="padding:2px 6px;font-size:9px">🔓</button></h4>
+    <label><span class="lock"><input type="checkbox" id="lock_swayAmt">Global sway</span><input type="range" id="swayAmt" min="0" max="0.15" step="0.005" value="0.06"><span class="val" id="swayAmtV">0.06</span></label>
+    <label><span class="lock"><input type="checkbox" id="lock_swaySpd">Sway speed</span><input type="range" id="swaySpd" min="0.02" max="0.5" step="0.01" value="0.18"><span class="val" id="swaySpdV">0.18</span></label>
+    <label><span class="lock"><input type="checkbox" id="lock_gustAmt">Gust amount</span><input type="range" id="gustAmt" min="0" max="0.15" step="0.005" value="0.06"><span class="val" id="gustAmtV">0.06</span></label>
+    <label><span class="lock"><input type="checkbox" id="lock_gustSpd">Gust speed</span><input type="range" id="gustSpd" min="0.02" max="0.4" step="0.01" value="0.12"><span class="val" id="gustSpdV">0.12</span></label>
+    <label><span class="lock"><input type="checkbox" id="lock_phaseDrift">Phase drift</span><input type="range" id="phaseDrift" min="0" max="0.4" step="0.01" value="0.18"><span class="val" id="phaseDriftV">0.18</span></label>
+  </div>
+
+  <div class="group">
+    <h4>Noise <button onclick="lockGroup('noise',true)" style="padding:2px 6px;font-size:9px">🔒</button><button onclick="lockGroup('noise',false)" style="padding:2px 6px;font-size:9px">🔓</button></h4>
+    <label><span class="lock"><input type="checkbox" id="lock_noiseAmt">Amount</span><input type="range" id="noiseAmt" min="0" max="8" step="0.5" value="3"><span class="val" id="noiseAmtV">3</span></label>
+    <label><span class="lock"><input type="checkbox" id="lock_noiseSpd">Speed</span><input type="range" id="noiseSpd" min="0.05" max="1.0" step="0.05" value="0.3"><span class="val" id="noiseSpdV">0.3</span></label>
+    <label><span class="lock"><input type="checkbox" id="lock_noiseScale">Scale</span><input type="range" id="noiseScale" min="0.002" max="0.04" step="0.001" value="0.015"><span class="val" id="noiseScaleV">0.015</span></label>
+  </div>
+
+  <div class="group">
+    <h4>Breathing <button onclick="lockGroup('breathing',true)" style="padding:2px 6px;font-size:9px">🔒</button><button onclick="lockGroup('breathing',false)" style="padding:2px 6px;font-size:9px">🔓</button></h4>
+    <label><span class="lock"><input type="checkbox" id="lock_breathSpd">Speed</span><input type="range" id="breathSpd" min="0.05" max="1.0" step="0.05" value="0.4"><span class="val" id="breathSpdV">0.4</span></label>
+    <label><span class="lock"><input type="checkbox" id="lock_breathAmt">Amount</span><input type="range" id="breathAmt" min="0" max="0.4" step="0.02" value="0.15"><span class="val" id="breathAmtV">0.15</span></label>
+    <label><span class="lock"><input type="checkbox" id="lock_dotPulse">Dot pulse</span><input type="range" id="dotPulse" min="0" max="0.6" step="0.05" value="0.25"><span class="val" id="dotPulseV">0.25</span></label>
+  </div>
+
+  <div class="group">
+    <h4>Pattern <button onclick="lockGroup('pattern',true)" style="padding:2px 6px;font-size:9px">🔒</button><button onclick="lockGroup('pattern',false)" style="padding:2px 6px;font-size:9px">🔓</button></h4>
+    <label><span class="lock"><input type="checkbox" id="lock_angleA">Grid A angle</span><input type="range" id="angleA" min="-1.5" max="1.5" step="0.05" value="0.48"><span class="val" id="angleAV">0.48</span></label>
+    <label><span class="lock"><input type="checkbox" id="lock_angleB">Grid B angle</span><input type="range" id="angleB" min="-1.5" max="1.5" step="0.05" value="-0.95"><span class="val" id="angleBV">-0.95</span></label>
+    <label><span class="lock"><input type="checkbox" id="lock_opacity">Opacity</span><input type="range" id="opacity" min="0.1" max="1.0" step="0.05" value="0.5"><span class="val" id="opacityV">0.5</span></label>
+    <label><span class="lock"><input type="checkbox" id="lock_rotateSpd">Rotate speed</span><input type="range" id="rotateSpd" min="0" max="0.3" step="0.005" value="0"><span class="val" id="rotateSpdV">0</span></label>
+    <label><span class="lock"><input type="checkbox" id="lock_cycleSpd">Cycle patterns</span><input type="range" id="cycleSpd" min="0" max="2.0" step="0.05" value="0"><span class="val" id="cycleSpdV">0</span></label>
+  </div>
+
+  <button onclick="exportCfg()">📋 Export Config</button>
+  <button onclick="resetCfg()">↺ Reset</button>
+  <button onclick="randomize()">🎲 Randomize</button>
+  <button onclick="randomizeMild()">🎲 Mild Random</button>
+  <button id="chaosBtn" onclick="toggleChaos()">🌀 Chaos Mode</button>
+  <div id="export"></div>
+</div>
+
+<script>
+// --- Noise ---
+const perm = new Uint8Array(512);
+const grad = [[1,1],[-1,1],[1,-1],[-1,-1],[1,0],[-1,0],[0,1],[0,-1]];
+(function() {
+  const p = new Uint8Array(256);
+  for (let i = 0; i < 256; i++) p[i] = i;
+  for (let i = 255; i > 0; i--) { const j = Math.floor(Math.random()*(i+1)); [p[i],p[j]]=[p[j],p[i]]; }
+  for (let i = 0; i < 512; i++) perm[i] = p[i & 255];
+})();
+function noise2d(x,y) {
+  const X=Math.floor(x)&255,Y=Math.floor(y)&255;
+  const xf=x-Math.floor(x),yf=y-Math.floor(y);
+  const u=xf*xf*(3-2*xf),v=yf*yf*(3-2*yf);
+  const aa=perm[perm[X]+Y],ab=perm[perm[X]+Y+1],ba=perm[perm[X+1]+Y],bb=perm[perm[X+1]+Y+1];
+  const g=(h,dx,dy)=>{const g2=grad[h&7];return g2[0]*dx+g2[1]*dy;};
+  const x1=g(aa,xf,yf)+u*(g(ba,xf-1,yf)-g(aa,xf,yf));
+  const x2=g(ab,xf,yf-1)+u*(g(bb,xf-1,yf-1)-g(ab,xf,yf-1));
+  return x1+v*(x2-x1);
+}
+
+const SAGE=[125,155,118], GOLD=[212,168,83];
+
+// --- Sliders → live config ---
+const ids = ['amp','sWidth','k','sHeight','spacing','dotScale','baseAlpha','edgeBright',
+  'swayAmt','swaySpd','gustAmt','gustSpd','phaseDrift',
+  'noiseAmt','noiseSpd','noiseScale','breathSpd','breathAmt','dotPulse',
+  'angleA','angleB','opacity','rotateSpd','cycleSpd'];
+
+function getVal(id) { return parseFloat(document.getElementById(id).value); }
+function cfg() {
+  const c = {};
+  ids.forEach(id => c[id] = getVal(id));
+  return c;
+}
+
+// Wire up live value display + inject drift checkboxes
+ids.forEach(id => {
+  const el = document.getElementById(id);
+  const valEl = document.getElementById(id + 'V');
+  el.addEventListener('input', () => { valEl.textContent = el.value; needsRebuild = true; });
+
+  // Add drift checkbox after the lock checkbox
+  const lockCb = document.getElementById('lock_' + id);
+  if (lockCb) {
+    const driftCb = document.createElement('input');
+    driftCb.type = 'checkbox';
+    driftCb.id = 'drift_' + id;
+    driftCb.className = 'drift-cb';
+    driftCb.title = 'Drift: slowly wander this value';
+    const driftLabel = document.createElement('span');
+    driftLabel.className = 'drift-label';
+    driftLabel.textContent = '~';
+    lockCb.parentNode.insertBefore(driftLabel, lockCb.nextSibling);
+    lockCb.parentNode.insertBefore(driftCb, driftLabel);
+  }
+});
+
+let needsRebuild = true;
+
+function exportCfg() {
+  const c = cfg();
+  const locks = {};
+  ids.forEach(id => { if (isLocked(id)) locks[id] = true; });
+  const out = {
+    values: c,
+    locked: Object.keys(locks).length > 0 ? locks : undefined,
+    chaosMode: chaosMode || undefined,
+    rotating: c.rotateSpd > 0.001 || undefined,
+    cycling: c.cycleSpd > 0.001 || undefined,
+  };
+  // Clean undefineds
+  Object.keys(out).forEach(k => out[k] === undefined && delete out[k]);
+  document.getElementById('export').textContent = JSON.stringify(out, null, 2);
+}
+function resetCfg() {
+  const defaults = {amp:0.35,sWidth:0.28,k:14,sHeight:800,spacing:4.5,dotScale:0.30,baseAlpha:0.65,edgeBright:0.3,swayAmt:0.06,swaySpd:0.18,gustAmt:0.06,gustSpd:0.12,phaseDrift:0.18,noiseAmt:3,noiseSpd:0.3,noiseScale:0.015,breathSpd:0.4,breathAmt:0.15,dotPulse:0.25,angleA:0.48,angleB:-0.95,opacity:0.5,rotateSpd:0,cycleSpd:0};
+  ids.forEach(id => { document.getElementById(id).value = defaults[id]; document.getElementById(id+'V').textContent = defaults[id]; });
+  needsRebuild = true;
+}
+
+function rr(min, max) { return min + Math.random() * (max - min); }
+
+function randomize() {
+  const r = {
+    amp: rr(0.15, 0.45), sWidth: rr(0.10, 0.40), k: Math.round(rr(6, 25)), sHeight: Math.round(rr(400, 1200)/50)*50,
+    spacing: rr(3, 8), dotScale: rr(0.10, 0.50), baseAlpha: rr(0.2, 0.9), edgeBright: rr(0, 0.5),
+    swayAmt: rr(0, 0.12), swaySpd: rr(0.05, 0.4), gustAmt: rr(0, 0.12), gustSpd: rr(0.05, 0.3),
+    phaseDrift: rr(0, 0.35), noiseAmt: rr(0.5, 6), noiseSpd: rr(0.1, 0.8), noiseScale: rr(0.004, 0.03),
+    breathSpd: rr(0.1, 0.8), breathAmt: rr(0, 0.3), dotPulse: rr(0, 0.5),
+    angleA: rr(-1.4, 1.4), angleB: rr(-1.4, 1.4), opacity: rr(0.2, 0.8),
+    rotateSpd: rr(0, 0.15), cycleSpd: rr(0, 0.3)
+  };
+  ids.forEach(id => {
+    if (isLocked(id)) return;
+    const v = Math.round(r[id] * 1000) / 1000;
+    document.getElementById(id).value = v;
+    document.getElementById(id+'V').textContent = v;
+  });
+  needsRebuild = true;
+}
+
+const groups = {
+  shape: ['amp','sWidth','k','sHeight'],
+  dots: ['spacing','dotScale','baseAlpha','edgeBright'],
+  sway: ['swayAmt','swaySpd','gustAmt','gustSpd','phaseDrift'],
+  noise: ['noiseAmt','noiseSpd','noiseScale'],
+  breathing: ['breathSpd','breathAmt','dotPulse'],
+  pattern: ['angleA','angleB','opacity','rotateSpd','cycleSpd'],
+};
+
+function lockAll(state) {
+  ids.forEach(id => { const cb = document.getElementById('lock_'+id); if(cb) cb.checked = state; });
+}
+
+function lockGroup(name, state) {
+  (groups[name]||[]).forEach(id => { const cb = document.getElementById('lock_'+id); if(cb) cb.checked = state; });
+}
+
+function isLocked(id) {
+  const cb = document.getElementById('lock_' + id);
+  return cb && cb.checked;
+}
+
+function randomizeMild() {
+  // Nudge current values by ±20%, skip locked params
+  ids.forEach(id => {
+    if (isLocked(id)) return;
+    if (id === 'rotateSpd' || id === 'cycleSpd') return;
+    const el = document.getElementById(id);
+    const cur = parseFloat(el.value);
+    const min = parseFloat(el.min), max = parseFloat(el.max);
+    const range = max - min;
+    const nudge = cur + (Math.random() - 0.5) * range * 0.4;
+    const v = Math.round(Math.max(min, Math.min(max, nudge)) * 1000) / 1000;
+    el.value = v;
+    document.getElementById(id+'V').textContent = v;
+  });
+  needsRebuild = true;
+}
+
+// --- Chaos mode: randomize every frame ---
+let chaosMode = false;
+function toggleChaos() {
+  chaosMode = !chaosMode;
+  document.getElementById('chaosBtn').style.background = chaosMode ? 'rgba(212,168,83,0.4)' : '';
+  document.getElementById('chaosBtn').textContent = chaosMode ? '🌀 Chaos ON' : '🌀 Chaos Mode';
+}
+
+// --- Canvas ---
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+let w, h, sp;
+let patterns = [];
+
+function makeGrid(w,h,sp,angle) {
+  const dots=[];const range=Math.max(w,h)*2;const cx=w*0.5,cy=h*0.5;
+  const cosA=Math.cos(angle),sinA=Math.sin(angle);
+  for(let gx=-range;gx<range;gx+=sp)for(let gy=-range;gy<range;gy+=sp){
+    const rx=gx*cosA-gy*sinA+cx,ry=gx*sinA+gy*cosA+cy;
+    if(rx>=-sp&&rx<w+sp&&ry>=-sp&&ry<h+sp)dots.push(rx,ry);
+  }
+  return new Float32Array(dots);
+}
+
+function makeRippleGrid(w,h,sp,cx,cy) {
+  const dots=[];const maxR=Math.hypot(w,h);
+  for(let r=sp;r<maxR;r+=sp*1.3){
+    const count=Math.max(6,Math.floor(2*Math.PI*r/sp));
+    for(let i=0;i<count;i++){const a=(i/count)*Math.PI*2;
+      const dx=cx+r*Math.cos(a),dy=cy+r*Math.sin(a);
+      if(dx>=-sp&&dx<w+sp&&dy>=-sp&&dy<h+sp)dots.push(dx,dy);
+    }
+  }
+  return new Float32Array(dots);
+}
+
+function makeScatterGrid(w,h,sp,seed) {
+  const dots=[];let s=seed;
+  const rng=()=>{s=(s*16807)%2147483647;return(s-1)/2147483646;};
+  const count=Math.floor(w*h/(sp*sp)*1.2);
+  for(let i=0;i<count;i++)dots.push(rng()*w,rng()*h);
+  return new Float32Array(dots);
+}
+
+let rotateOffset = 0;
+
+function rebuild() {
+  const c = cfg();
+  w = window.innerWidth; h = window.innerHeight;
+  canvas.width = w; canvas.height = h;
+  sp = Math.max(3, c.spacing * (w / 300));
+  const aA = isLocked('angleA') ? c.angleA : c.angleA + rotateOffset;
+  const aB = isLocked('angleB') ? c.angleB : c.angleB - rotateOffset * 0.7;
+  // 6 pattern sets — same as the logo component
+  patterns = [
+    { a: makeGrid(w,h,sp, aA),   b: makeGrid(w,h,sp, aB) },                        // current angles
+    { a: makeGrid(w,h,sp, 0.15), b: makeGrid(w,h,sp,-0.30) },                      // shallow
+    { a: makeGrid(w,h,sp, 0.0),  b: makeGrid(w,h,sp, 0.78) },                      // perpendicular
+    { a: makeRippleGrid(w,h,sp, w*0.3,h*0.2), b: makeRippleGrid(w,h,sp, w*0.7,h*0.8) }, // ripple
+    { a: makeGrid(w,h,sp, 0.35), b: makeRippleGrid(w,h,sp, w*0.5,h*0.5) },         // mixed
+    { a: makeScatterGrid(w,h,sp,42), b: makeScatterGrid(w,h,sp,137) },              // scatter
+  ];
+  needsRebuild = false;
+}
+rebuild();
+window.addEventListener('resize', () => { needsRebuild = true; });
+
+// Pattern crossfade state
+let curP = 0, nxtP = 1, blendT = 0, blendSpd = 0;
+let crossfadeHoldUntil = 5 + Math.random() * 8;
+let lastRebuildTime = 0;
+
+function sampleS(ny, c, time) {
+  const globalSway = Math.sin(time * c.swaySpd) * c.swayAmt + Math.sin(time * c.swaySpd * 0.6) * c.swayAmt * 0.5;
+  const gustX = noise2d(ny * 1.2 + time * c.gustSpd, time * c.gustSpd * 0.7 + 50) * c.gustAmt;
+  const gustY = noise2d(ny * 1.5 + 200, time * c.gustSpd * 0.8 + 30) * c.gustAmt * 0.5;
+  const driftX = globalSway + gustX + noise2d(ny * 3 + time * c.gustSpd * 2, 400) * c.gustAmt * 0.33;
+  const driftY = gustY + noise2d(ny * 3 + 500, time * c.gustSpd * 1.5) * c.gustAmt * 0.17;
+  const pd = noise2d(time * c.gustSpd * 0.5, 300) * c.phaseDrift + noise2d(time * c.gustSpd * 1.2, 350) * c.phaseDrift * 0.44;
+
+  const tileIndex = Math.floor(ny);
+  const localY = ny - tileIndex + driftY;
+
+  const sig1 = 1 / (1 + Math.exp(-c.k * (localY - 0.28)));
+  const sig2 = 1 / (1 + Math.exp(-c.k * (localY - 0.50)));
+  const sig3 = 1 / (1 + Math.exp(-c.k * (localY - 0.72)));
+  let sx = c.amp * 0.9 * (1 - 2*sig1 + 2*sig2 - 2*sig3);
+  if (tileIndex % 2 !== 0) sx = -sx;
+
+  return 0.5 + sx + driftX + pd * 0.01;
+}
+
+const startTime = performance.now();
+let lastFrame = 0;
+
+function tick(now) {
+  if (now - lastFrame < 1000/20) { requestAnimationFrame(tick); return; }
+  lastFrame = now;
+
+  // Chaos mode: mild randomize every frame
+  if (chaosMode) randomizeMild();
+
+  // Per-param drift: slowly wander checked params with noise
+  const tSec = (now - startTime) / 1000;
+  ids.forEach((id, i) => {
+    const driftCb = document.getElementById('drift_' + id);
+    if (!driftCb || !driftCb.checked) return;
+    const el = document.getElementById(id);
+    const min = parseFloat(el.min), max = parseFloat(el.max);
+    const mid = (min + max) / 2;
+    const range = max - min;
+    // Each param gets its own slowly evolving noise channel
+    // The VALUE is set directly from noise, not accumulated — prevents runaway drift
+    const n = noise2d(tSec * 0.15 + i * 17.3, i * 7.1 + tSec * 0.08);
+    const v = Math.max(min, Math.min(max, mid + n * range * 0.5));
+    el.value = v;
+    document.getElementById(id + 'V').textContent = v.toFixed(3);
+    if (id === 'angleA' || id === 'angleB' || id === 'spacing') needsRebuild = true;
+  });
+
+  const c = cfg();
+  const time = (now - startTime) / 1000;
+  const dt = 1/20;
+
+  // Grid angle rotation — respects angle locks
+  if (c.rotateSpd > 0.001 && (!isLocked('angleA') || !isLocked('angleB'))) {
+    rotateOffset += dt * c.rotateSpd;
+    if (time - lastRebuildTime > 0.5) {
+      lastRebuildTime = time;
+      needsRebuild = true;
+    }
+  }
+
+  // Pattern cycling — smoothly morph between preset angle pairs (respects locks)
+  if (c.cycleSpd > 0.001) {
+    const cycleT = (time * c.cycleSpd) % presets.length;
+    const idx = Math.floor(cycleT);
+    const frac = cycleT - idx;
+    const smooth = frac * frac * (3 - 2 * frac);
+    const a = presets[idx], b = presets[(idx + 1) % presets.length];
+    if (!isLocked('angleA')) {
+      const newA = a[0] + (b[0] - a[0]) * smooth;
+      document.getElementById('angleA').value = newA.toFixed(2);
+      document.getElementById('angleAV').textContent = newA.toFixed(2);
+    }
+    if (!isLocked('angleB')) {
+      const newB = a[1] + (b[1] - a[1]) * smooth;
+      document.getElementById('angleB').value = newB.toFixed(2);
+      document.getElementById('angleBV').textContent = newB.toFixed(2);
+    }
+    // Rebuild every frame during cycling so the pattern shift is visible
+    needsRebuild = true;
+  }
+
+  // Pattern crossfade — automatic cycling through the 6 pattern sets
+  if (c.cycleSpd > 0.001) {
+    if (blendSpd === 0 && time > crossfadeHoldUntil) {
+      let pick; do { pick = Math.floor(Math.random() * patterns.length); } while (pick === curP);
+      nxtP = pick;
+      blendSpd = 0.1 + c.cycleSpd * 0.5;
+      blendT = 0;
+    }
+    if (blendSpd > 0) {
+      blendT += dt * blendSpd;
+      if (blendT >= 1) { blendT = 0; blendSpd = 0; curP = nxtP; crossfadeHoldUntil = time + 3 / Math.max(0.1, c.cycleSpd); }
+    }
+  }
+  const ease = blendT * blendT * (3 - 2 * blendT);
+
+  if (needsRebuild) rebuild();
+  const viewScale = w / 300;
+  const noiseAmt = c.noiseAmt * viewScale * 0.2;
+  const nScale = c.noiseScale / viewScale * 2;
+  const breathFactor = 1 + Math.sin(time * c.breathSpd) * c.breathAmt;
+  const invW = 1/w;
+  const baseR = sp * c.dotScale * breathFactor;
+  const tNS = time * c.noiseSpd;
+  const swMul = 1.5 * c.sWidth;
+  const tileScale = 1 / c.sHeight;
+  const scrollY = 0;
+
+  ctx.clearRect(0, 0, w, h);
+  canvas.style.opacity = c.opacity;
+
+  function drawDots(grid, r0, g0, b0, isSage, alphaMul) {
+    for (let i = 0, len = grid.length; i < len; i += 2) {
+      const ox = grid[i], oy = grid[i+1];
+      const normYTile = (oy + scrollY) * tileScale;
+      const approxDist = Math.abs(ox * invW - sampleS(normYTile, c, time));
+      if (approxDist > swMul) continue;
+      const nx = ox*nScale, ny = oy*nScale;
+      const px = ox + noise2d(nx+tNS, ny)*noiseAmt;
+      const py = oy + noise2d(nx, ny+tNS+100)*noiseAmt;
+      const normX = px * invW;
+      const normYT = (py + scrollY) * tileScale;
+      const sd = Math.abs(normX - sampleS(normYT, c, time));
+      const insideS = 1 - sd/c.sWidth;
+      if (insideS < 0.01) continue;
+      const sizeN = 1 + noise2d(nx*3+time*0.1,ny*3+time*0.05)*c.dotPulse;
+      const r = baseR * insideS * sizeN;
+      if (r < 0.2) continue;
+      const ef = insideS*insideS;
+      const alpha = c.baseAlpha*ef + c.edgeBright*(1-ef);
+      const tIdx = Math.floor(normYT);
+      const lY = normYT - tIdx;
+      const ga = isSage ? (1-lY*0.6) : (0.4+lY*0.6);
+      const fa = alpha * ga * alphaMul;
+      if (fa < 0.01) continue;
+      ctx.beginPath();
+      ctx.arc(px, py, r, 0, 6.283);
+      ctx.fillStyle = `rgba(${r0},${g0},${b0},${fa>1?1:fa})`;
+      ctx.fill();
+    }
+  }
+
+  // Draw with crossfade between two pattern sets
+  const cur = patterns[curP], nxt = patterns[nxtP];
+  if (ease < 0.99) {
+    drawDots(cur.a, SAGE[0],SAGE[1],SAGE[2], true, 1-ease);
+    drawDots(cur.b, GOLD[0],GOLD[1],GOLD[2], false, 1-ease);
+  }
+  if (ease > 0.01) {
+    drawDots(nxt.a, SAGE[0],SAGE[1],SAGE[2], true, ease);
+    drawDots(nxt.b, GOLD[0],GOLD[1],GOLD[2], false, ease);
+  }
+
+  requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+</script>
+</body>
+</html>

@@ -1,0 +1,200 @@
+/* Slancha Design System — Colors + Type
+ * ─────────────────────────────────────────
+ * Source of truth: assets/BRAND-original.md + slancha-website/site/src/index.css
+ * Palette is earthy/organic — sage + gold on warm near-black. Nothing is pure
+ * black or pure white. The halftone sigmoid mark is the brand texture.
+ */
+
+/* ─── Fonts ─── */
+/* Per BRAND.md: Inter Light (300) for display + wordmark, Inter (400) for body,
+ * JetBrains Mono for code. The shipped site mixes in DM Serif Display + Source
+ * Code Pro in places — BRAND.md is authoritative, we follow it here.
+ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  /* ── Brand core (from BRAND.md) ── */
+  --slancha-sage: #7d9b76;        /* primary — halftone grid 1, links, accents */
+  --slancha-gold: #d4a853;        /* secondary — halftone grid 2, highlights, CTAs */
+  --slancha-near-black: #0f0f0d;  /* canvas / dark containers (WARM, not #000) */
+  --slancha-off-white: #e8e4dc;   /* body on dark — warm, not clinical */
+  --slancha-dark-text: #1a1a18;   /* text on light */
+
+  /* ── Backgrounds ── */
+  --bg: #0f0f0d;
+  --bg-card: rgba(255, 255, 255, 0.03);
+  --bg-card-solid: #161614;
+  --bg-input: #131311;
+  --bg-elevated: rgba(255, 255, 255, 0.05);
+  --bg-tertiary: #1a1a16;
+
+  /* ── Borders ── */
+  --border: rgba(255, 255, 255, 0.06);
+  --border-muted: rgba(255, 255, 255, 0.04);
+  --border-hover: rgba(255, 255, 255, 0.12);
+
+  /* ── Text ── */
+  --fg-1: #f5f0eb;   /* primary text — warm white */
+  --fg-2: #8a8780;   /* secondary — muted warm gray */
+  --fg-3: #56534d;   /* tertiary / hints */
+  --text-primary: var(--fg-1);
+  --text-secondary: var(--fg-2);
+  --text-muted: var(--fg-3);
+
+  /* ── Accents ── */
+  --accent: #7d9b76;
+  --accent-hover: #95b38d;
+  --accent-teal: #d4a853; /* "teal" is a legacy alias — it's gold */
+  --accent-gold: #d4a853;
+  --accent-gradient: linear-gradient(135deg, #7d9b76 0%, #d4a853 100%);
+  --accent-glow: rgba(125, 155, 118, 0.15);
+  --gold-glow: rgba(212, 168, 83, 0.12);
+
+  /* ── Typography ── */
+  --font-sans: "Inter", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Inter", system-ui, sans-serif; /* Inter Light 300 per BRAND.md */
+  --font-mono: "JetBrains Mono", "SF Mono", ui-monospace, monospace;
+
+  /* ── Radii ── */
+  --radius-sm: 4px;
+  --radius: 6px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  /* ── Spacing scale ── */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 140px;
+
+  /* ── Glass / surfaces ── */
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.06);
+  --glass-blur: 16px;
+
+  /* ── Shadows / glows ── */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.3);
+  --shadow-lift: 0 20px 60px rgba(0, 0, 0, 0.3);
+  --shadow-glow-sage: 0 0 30px rgba(125, 155, 118, 0.10);
+  --shadow-glow-gold: 0 0 30px rgba(212, 168, 83, 0.08);
+
+  /* ── Easing ── */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+
+  /* ── Ambient mesh (used on body, hero, CTA sections) ── */
+  --mesh-hero:
+    radial-gradient(ellipse 50% 40% at 30% 30%, rgba(125, 155, 118, 0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 50% at 70% 60%, rgba(212, 168, 83, 0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 30% at 50% 80%, rgba(125, 155, 118, 0.06) 0%, transparent 60%);
+  --mesh-body:
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(125, 155, 118, 0.05) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 50%, rgba(212, 168, 83, 0.03) 0%, transparent 50%);
+}
+
+/* ─── Semantic type styles ─── */
+/* Inter Light 300 for display sizes — thin but readable. Tight tracking (-0.015em
+ * on big heads, -0.01em on smaller). Body is Inter 400 at 18px/1.6. */
+
+.type-display {
+  font-family: var(--font-display);
+  font-weight: 300;           /* Inter Light — BRAND.md mandate */
+  font-size: clamp(48px, 6vw, 84px);
+  line-height: 1.06;
+  letter-spacing: -0.015em;
+  color: var(--fg-1);
+}
+
+.type-h1 {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 48px;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--fg-1);
+}
+
+.type-h2 {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 32px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--fg-1);
+}
+
+.type-h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.3;
+  letter-spacing: -0.005em;
+  color: var(--fg-1);
+}
+
+.type-body {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--fg-1);
+}
+
+.type-body-sm {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--fg-2);
+}
+
+.type-caption {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--fg-2);
+}
+
+.type-eyebrow {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.type-mono {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--fg-1);
+}
+
+.type-mono-sm {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--fg-2);
+}
+
+/* Gradient text — ONLY on display type per BRAND.md ("gradient is for the mark only"
+ * but the shipped site uses it on hero headlines; treat as sparing display accent). */
+.type-gradient {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}

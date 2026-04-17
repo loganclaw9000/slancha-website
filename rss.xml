@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Slancha Blog</title>
+    <link>https://slancha.ai/blog</link>
+    <description>Technical deep dives, tutorials, and insights on AI inference: intelligent routing, automated fine-tuning, inference optimization, and the closed-loop AI pipeline.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 17 Apr 2026 23:58:47 GMT</lastBuildDate>
+    <atom:link href="https://slancha.ai/rss.xml" rel="self" type="application/rss+xml" />
+    <image>
+      <url>https://slancha.ai/favicon.svg</url>
+      <title>Slancha Blog</title>
+      <link>https://slancha.ai/blog</link>
+    </image>
+    <item>
+      <title>How to Cut LLM Inference Latency in Half: 8 Production Techniques</title>
+      <link>https://slancha.ai/blog/reduce-llm-inference-latency</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/reduce-llm-inference-latency</guid>
+      <description>High latency kills AI products. Here are 8 battle-tested techniques to slash LLM inference latency in production — from speculative decoding to intelligent routing — with code examples, benchmark data, and architecture patterns.</description>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate>
+      <author>team@slancha.ai (Slancha Engineering)</author>
+      <category>latency</category>
+      <category>inference</category>
+      <category>optimization</category>
+      <category>production</category>
+      <category>performance</category>
+    </item>
+    <item>
+      <title>Build vs Buy: The AI Gateway Decision Framework for Engineering Teams</title>
+      <link>https://slancha.ai/blog/build-vs-buy-ai-gateway</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/build-vs-buy-ai-gateway</guid>
+      <description>Your team needs an AI gateway. Should you build one in-house or use a managed platform? We break down the true cost, timeline, and complexity of both paths — with real code, architecture decisions, and a decision matrix.</description>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate>
+      <author>team@slancha.ai (Slancha Engineering)</author>
+      <category>ai-gateway</category>
+      <category>build-vs-buy</category>
+      <category>architecture</category>
+      <category>engineering</category>
+      <category>decision-framework</category>
+    </item>
+    <item>
+      <title>AI Inference Optimization: Complete Guide to QAT, MIG, and Multi-Token Prediction</title>
+      <link>https://slancha.ai/blog/ai-inference-optimization-qat-mig-multi-token</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/ai-inference-optimization-qat-mig-multi-token</guid>
+      <description>Three techniques are reshaping how production AI inference runs: Quantization-Aware Training, Multi-Instance GPU, and Multi-Token Prediction. Here&apos;s how each works, when to use them, and how they compound to cut inference costs by 60-75%.</description>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate>
+      <author>team@slancha.ai (Slancha Engineering)</author>
+      <category>optimization</category>
+      <category>QAT</category>
+      <category>MIG</category>
+      <category>multi-token-prediction</category>
+      <category>inference</category>
+      <category>technical</category>
+    </item>
+    <item>
+      <title>Zero-Config AI Inference: Why the Black Box Wins</title>
+      <link>https://slancha.ai/blog/zero-config-ai-inference</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/zero-config-ai-inference</guid>
+      <description>Every AI infrastructure platform gives you more knobs. Slancha took them away. Here&apos;s why the black box approach to AI inference consistently outperforms teams with &quot;full control&quot; — and what the data says about how engineering teams actually manage model selection.</description>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate>
+      <author>team@slancha.ai (Paul Logan)</author>
+      <category>strategy</category>
+      <category>black-box</category>
+      <category>inference</category>
+      <category>positioning</category>
+    </item>
+    <item>
+      <title>Introducing Slancha: The AI Inference Platform That Gets Better While You Sleep</title>
+      <link>https://slancha.ai/blog/introducing-slancha</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/introducing-slancha</guid>
+      <description>Today we&apos;re opening early access to Slancha — an end-to-end AI inference platform that routes, fine-tunes, and optimizes your LLM workloads behind a single API endpoint. No model selection, no benchmarking, no ML team required.</description>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate>
+      <author>team@slancha.ai (Paul Logan)</author>
+      <category>launch</category>
+      <category>announcement</category>
+      <category>platform</category>
+    </item>
+    <item>
+      <title>The Case for Black Box AI Inference: Why Your Team Should Stop Picking Models</title>
+      <link>https://slancha.ai/blog/the-case-for-black-box-ai-inference</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/the-case-for-black-box-ai-inference</guid>
+      <description>Every AI platform promises transparency and control. Slancha bets on the opposite: a black box that handles everything. Here&apos;s why that&apos;s the right call for 90% of teams using LLM APIs.</description>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate>
+      <author>team@slancha.ai (Slancha Team)</author>
+      <category>philosophy</category>
+      <category>inference</category>
+      <category>platform</category>
+      <category>strategy</category>
+    </item>
+    <item>
+      <title>Slancha vs. Databricks: The AI Infrastructure Showdown</title>
+      <link>https://slancha.ai/blog/slancha-vs-databricks-ai-infrastructure-comparison</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/slancha-vs-databricks-ai-infrastructure-comparison</guid>
+      <description>Databricks gives you the tools. Slancha does the work. A detailed comparison of two fundamentally different approaches to AI infrastructure — full control vs. automatic results.</description>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate>
+      <author>team@slancha.ai (Slancha Team)</author>
+      <category>comparison</category>
+      <category>infrastructure</category>
+      <category>enterprise</category>
+    </item>
+    <item>
+      <title>From Prototype to Production: The AI Deployment Checklist</title>
+      <link>https://slancha.ai/blog/from-prototype-to-production-ai-deployment-checklist</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/from-prototype-to-production-ai-deployment-checklist</guid>
+      <description>Most AI projects that &quot;work&quot; in prototype never make it to production. This checklist covers what actually breaks and how to fix it — routing, data curation, quantization, GPU efficiency, and more.</description>
+      <pubDate>Mon, 30 Mar 2026 00:00:00 GMT</pubDate>
+      <author>team@slancha.ai (Slancha Team)</author>
+      <category>production</category>
+      <category>deployment</category>
+      <category>checklist</category>
+      <category>engineering</category>
+    </item>
+    <item>
+      <title>Building a Production AI Router: Architecture Patterns That Scale</title>
+      <link>https://slancha.ai/blog/building-a-production-ai-router-architecture-patterns</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/building-a-production-ai-router-architecture-patterns</guid>
+      <description>Routing requests to the right model is the easy part. The hard part is doing it at scale with sub-millisecond overhead, graceful degradation, and zero downtime deploys. Here are the architecture patterns that make it work.</description>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate>
+      <author>team@slancha.ai (Slancha Team)</author>
+      <category>router</category>
+      <category>architecture</category>
+      <category>infrastructure</category>
+      <category>engineering</category>
+    </item>
+    <item>
+      <title>The Complete Guide to AI Model Routing: Strategies, Architecture, and Cost Optimization</title>
+      <link>https://slancha.ai/blog/the-complete-guide-to-ai-model-routing</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/the-complete-guide-to-ai-model-routing</guid>
+      <description>Not every request needs GPT-4. Learn how intelligent model routing cuts inference costs 40-70% while maintaining quality — with architecture patterns, routing strategies, and real benchmarks.</description>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate>
+      <author>team@slancha.ai (Slancha Team)</author>
+      <category>router</category>
+      <category>architecture</category>
+      <category>cost-optimization</category>
+      <category>tutorial</category>
+    </item>
+    <item>
+      <title>How Eval Data Should Drive Fine-Tuning: A Technical Deep Dive</title>
+      <link>https://slancha.ai/blog/how-eval-data-should-drive-fine-tuning-technical-deep-dive</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/how-eval-data-should-drive-fine-tuning-technical-deep-dive</guid>
+      <description>A hands-on guide to building a closed-loop pipeline where evaluation failures automatically become training examples — with code, architecture patterns, and real metrics.</description>
+      <pubDate>Mon, 30 Mar 2026 00:00:00 GMT</pubDate>
+      <author>team@slancha.ai (Slancha Team)</author>
+      <category>post-training</category>
+      <category>fine-tuning</category>
+      <category>engineering</category>
+      <category>tutorial</category>
+    </item>
+    <item>
+      <title>5 Signs Your ML Team Needs an Evaluation Platform</title>
+      <link>https://slancha.ai/blog/5-signs-your-ml-team-needs-an-evaluation-platform</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/5-signs-your-ml-team-needs-an-evaluation-platform</guid>
+      <description>Spreadsheets, vibes-based deployment, and &quot;it works on my laptop&quot; are not an eval strategy. Here&apos;s how to know you&apos;ve outgrown ad-hoc testing.</description>
+      <pubDate>Mon, 30 Mar 2026 00:00:00 GMT</pubDate>
+      <author>team@slancha.ai (Slancha Team)</author>
+      <category>evaluation</category>
+      <category>best-practices</category>
+      <category>team</category>
+    </item>
+    <item>
+      <title>Why Eval Data Should Drive Fine-Tuning</title>
+      <link>https://slancha.ai/blog/why-eval-data-should-drive-fine-tuning</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/why-eval-data-should-drive-fine-tuning</guid>
+      <description>Most teams treat evaluation and fine-tuning as separate workflows. That disconnect is costing you model quality and engineering hours.</description>
+      <pubDate>Sun, 29 Mar 2026 00:00:00 GMT</pubDate>
+      <author>team@slancha.ai (Slancha Team)</author>
+      <category>post-training</category>
+      <category>evaluation</category>
+      <category>fine-tuning</category>
+    </item>
+    <item>
+      <title>The Real Cost of Stitching AI Tools Together</title>
+      <link>https://slancha.ai/blog/the-real-cost-of-stitching-ai-tools-together</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/the-real-cost-of-stitching-ai-tools-together</guid>
+      <description>You&apos;re paying for 4-6 tools that don&apos;t talk to each other. The integration tax is higher than you think.</description>
+      <pubDate>Sat, 28 Mar 2026 00:00:00 GMT</pubDate>
+      <author>team@slancha.ai (Slancha Team)</author>
+      <category>platform</category>
+      <category>infrastructure</category>
+      <category>cost</category>
+    </item>
+    <item>
+      <title>Introducing the Slancha Router: Free Intelligent Model Routing</title>
+      <link>https://slancha.ai/blog/introducing-the-slancha-router</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/introducing-the-slancha-router</guid>
+      <description>Route requests to the best model for the job — automatically. Free to use, no lock-in.</description>
+      <pubDate>Fri, 27 Mar 2026 00:00:00 GMT</pubDate>
+      <author>team@slancha.ai (Slancha Team)</author>
+      <category>router</category>
+      <category>product</category>
+      <category>launch</category>
+    </item>
+    <item>
+      <title>Slancha vs OpenRouter: Beyond the Model Marketplace</title>
+      <link>https://slancha.ai/blog/slancha-vs-openrouter-beyond-the-model-marketplace</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/slancha-vs-openrouter-beyond-the-model-marketplace</guid>
+      <description>OpenRouter gives you access to every model through one API. Slancha gives you one API that makes model selection irrelevant. A detailed comparison of two fundamentally different approaches to multi-model AI.</description>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate>
+      <author>team@slancha.ai (Slancha Team)</author>
+      <category>comparison</category>
+      <category>routing</category>
+      <category>inference</category>
+      <category>openrouter</category>
+    </item>
+    <item>
+      <title>How to Reduce Your LLM API Costs by 60% Without Sacrificing Quality</title>
+      <link>https://slancha.ai/blog/how-to-reduce-llm-api-costs</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/how-to-reduce-llm-api-costs</guid>
+      <description>LLM API bills are growing faster than usage. Here are five proven techniques — from intelligent routing to automated fine-tuning — that cut costs dramatically while maintaining or improving output quality.</description>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate>
+      <author>team@slancha.ai (Slancha Team)</author>
+      <category>cost-optimization</category>
+      <category>inference</category>
+      <category>routing</category>
+      <category>fine-tuning</category>
+      <category>guide</category>
+    </item>
+    <item>
+      <title>The Multi-Model Future: Why One LLM Won&apos;t Rule Them All</title>
+      <link>https://slancha.ai/blog/the-multi-model-future</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/the-multi-model-future</guid>
+      <description>The era of picking one model and routing everything through it is ending. MoE architectures, task-specific fine-tuning, and intelligent routing are converging on a multi-model future. Here&apos;s what that means for your AI stack.</description>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate>
+      <author>team@slancha.ai (Slancha Team)</author>
+      <category>strategy</category>
+      <category>architecture</category>
+      <category>inference</category>
+      <category>MoE</category>
+    </item>
+    <item>
+      <title>Fine-Tuning vs RAG: When to Use Each (And How to Stop Choosing)</title>
+      <link>https://slancha.ai/blog/fine-tuning-vs-rag-when-to-use-each</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/fine-tuning-vs-rag-when-to-use-each</guid>
+      <description>The fine-tuning vs RAG debate is one of the most common questions in production AI. Here&apos;s a practical decision framework based on real workloads — plus why the best systems use both, automatically.</description>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate>
+      <author>team@slancha.ai (Slancha Engineering)</author>
+      <category>fine-tuning</category>
+      <category>RAG</category>
+      <category>architecture</category>
+      <category>tutorial</category>
+    </item>
+    <item>
+      <title>The Enterprise AI Inference Buyer&apos;s Guide 2026</title>
+      <link>https://slancha.ai/blog/enterprise-ai-inference-buyers-guide-2026</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/enterprise-ai-inference-buyers-guide-2026</guid>
+      <description>A practical framework for evaluating AI inference vendors — covering latency architecture, cost transparency, security requirements, TCO calculations, and migration playbooks. No fluff, no vendor bias.</description>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate>
+      <author>team@slancha.ai (Slancha Team)</author>
+      <category>enterprise</category>
+      <category>buyer-guide</category>
+      <category>comparison</category>
+      <category>TCO</category>
+      <category>security</category>
+      <category>migration</category>
+    </item>
+    <item>
+      <title>How to Build a Self-Improving AI Pipeline (Eval → Fine-Tune → Deploy Loop)</title>
+      <link>https://slancha.ai/blog/how-to-build-a-self-improving-ai-pipeline</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/how-to-build-a-self-improving-ai-pipeline</guid>
+      <description>Most AI pipelines are static: deploy a model, hope it works, manually retrain when it drifts. Here&apos;s how to build a pipeline that evaluates, fine-tunes, and redeploys automatically — closing the loop so your models get better with every request.</description>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate>
+      <author>team@slancha.ai (Slancha Engineering)</author>
+      <category>pipeline</category>
+      <category>fine-tuning</category>
+      <category>evaluation</category>
+      <category>automation</category>
+      <category>MLOps</category>
+      <category>closed-loop</category>
+    </item>
+    <item>
+      <title>The Complete Guide to LoRA Fine-Tuning: From Data Preparation to Production Deployment</title>
+      <link>https://slancha.ai/blog/lora-fine-tuning-guide</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/lora-fine-tuning-guide</guid>
+      <description>LoRA has become the default fine-tuning method for production LLMs — but most teams get the implementation wrong. This guide covers adapter architecture, data preparation, hyperparameter tuning, evaluation, quantized variants (QLoRA), and deployment patterns with production benchmarks.</description>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate>
+      <author>team@slancha.ai (Slancha Engineering)</author>
+      <category>LoRA</category>
+      <category>fine-tuning</category>
+      <category>QLoRA</category>
+      <category>production</category>
+      <category>MLOps</category>
+      <category>training</category>
+      <category>adapters</category>
+    </item>
+    <item>
+      <title>AI Inference Cost Optimization: A CFO&apos;s Guide to GPU Economics</title>
+      <link>https://slancha.ai/blog/ai-inference-cost-optimization-cfo-guide</link>
+      <guid isPermaLink="true">https://slancha.ai/blog/ai-inference-cost-optimization-cfo-guide</guid>
+      <description>Your API bill is the tip of the iceberg. This guide breaks down the real total cost of ownership for AI inference — build vs. buy analysis with concrete numbers, ROI framework for the board, and three real-world scenarios showing what happens when you get optimization right (or wrong).</description>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate>
+      <author>team@slancha.ai (Slancha Team)</author>
+      <category>cost-optimization</category>
+      <category>business</category>
+      <category>cfo</category>
+      <category>gpu-economics</category>
+      <category>build-vs-buy</category>
+      <category>roi</category>
+    </item>
+  </channel>
+</rss>

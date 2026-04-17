@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slancha Financial Model — Seed Round</title>
+<style>
+  :root { --bg: #0a0a0f; --surface: #12121a; --accent: #0a84ff; --teal: #00d1b2; --green: #22c55e; --red: #ef4444; --orange: #f97316; --text: #e2e8f0; --muted: #94a3b8; --border: #1e293b; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; padding: 60px 24px; max-width: 900px; margin: 0 auto; }
+  h1 { font-size: 32px; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 8px; }
+  h1 span { background: linear-gradient(135deg, var(--accent), var(--teal)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .subtitle { color: var(--muted); font-size: 16px; margin-bottom: 48px; }
+  h2 { font-size: 22px; font-weight: 700; margin: 40px 0 16px; letter-spacing: -0.02em; }
+  h3 { font-size: 16px; font-weight: 600; margin: 20px 0 8px; color: var(--teal); }
+  p { font-size: 14px; color: var(--muted); margin-bottom: 12px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 16px 0 24px; }
+  th { text-align: left; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); padding: 10px 12px; border-bottom: 1px solid var(--border); }
+  td { padding: 10px 12px; color: var(--text); border-bottom: 1px solid rgba(255,255,255,0.04); }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+  .right { text-align: right; }
+  .green { color: var(--green); }
+  .red { color: var(--red); }
+  .orange { color: var(--orange); }
+  .accent { color: var(--accent); }
+  .bold { font-weight: 700; }
+  .total-row td { border-top: 2px solid var(--border); font-weight: 700; }
+  .section { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin: 24px 0; }
+  .callout { background: rgba(10,132,255,0.08); border: 1px solid rgba(10,132,255,0.2); border-radius: 8px; padding: 16px; margin: 16px 0; font-size: 14px; }
+  .callout strong { color: var(--accent); }
+  .assumption { font-size: 12px; color: var(--muted); font-style: italic; }
+  a { color: var(--accent); text-decoration: none; } a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<h1>Slancha <span>Financial Model</span></h1>
+<p class="subtitle">18-month runway model for a seed raise. Based on 2026 GPU pricing, realistic customer ramp, and conservative unit economics.</p>
+
+<h2>The Ask: $2.5M Seed</h2>
+
+<div class="callout">
+  <strong>Why $2.5M:</strong> 18 months of runway to reach $500K ARR (100 paying customers), prove unit economics, and raise a Series A. GPU costs are the dominant expense — we've modeled conservative utilization with reserved H100s on Lambda/CoreWeave at $2.40-$2.99/hr.
+</div>
+
+<h2>Cost Model: 18-Month Projection</h2>
+
+<div class="section">
+<h3>GPU Infrastructure (Inference Serving)</h3>
+<p>Serving fine-tuned 7B-14B models on reserved H100s. At launch, most traffic routes to existing providers (zero-margin passthrough). GPU costs only apply to self-hosted fine-tuned models.</p>
+<table>
+  <thead>
+    <tr><th>Phase</th><th>Months</th><th>Customers</th><th>Self-Hosted Req/Mo</th><th>GPUs</th><th>Monthly Cost</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Pre-launch</td><td>1-3</td><td>0</td><td>Dev/test only</td><td>1x H100</td><td class="right">$2,200</td></tr>
+    <tr><td>Launch</td><td>4-6</td><td>20-50</td><td>500K</td><td>1x H100</td><td class="right">$2,200</td></tr>
+    <tr><td>Growth</td><td>7-12</td><td>50-100</td><td>2M</td><td>2x H100</td><td class="right">$4,400</td></tr>
+    <tr><td>Scale</td><td>13-18</td><td>100-200</td><td>5M</td><td>3x H100</td><td class="right">$6,600</td></tr>
+  </tbody>
+</table>
+<p class="assumption">Based on reserved H100 pricing at $2.99/hr (Lambda Labs) = ~$2,200/mo per GPU. A single H100 serves ~30 req/s for 7B models (vLLM), handling 2M+ requests/month at 50% utilization.</p>
+</div>
+
+<div class="section">
+<h3>Fine-Tuning Compute</h3>
+<p>LoRA fine-tuning per customer: ~$3/job for 7B model, ~$7/job for 14B. Monthly re-tuning per active Scale customer.</p>
+<table>
+  <thead>
+    <tr><th>Phase</th><th>Months</th><th>Scale Customers</th><th>Jobs/Mo</th><th>Monthly Cost</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Pre-launch</td><td>1-3</td><td>0</td><td>Internal testing</td><td class="right">$100</td></tr>
+    <tr><td>Launch</td><td>4-6</td><td>5</td><td>5-10</td><td class="right">$50</td></tr>
+    <tr><td>Growth</td><td>7-12</td><td>15</td><td>15-30</td><td class="right">$150</td></tr>
+    <tr><td>Scale</td><td>13-18</td><td>30</td><td>30-60</td><td class="right">$300</td></tr>
+  </tbody>
+</table>
+<p class="assumption">LoRA fine-tuning is remarkably cheap: $1-5/job for 7B models on spot A100s. Even at 60 jobs/month the cost is trivial vs inference serving.</p>
+</div>
+
+<div class="section">
+<h3>Supporting Infrastructure</h3>
+<table>
+  <thead>
+    <tr><th>Service</th><th>Mo 1-6</th><th>Mo 7-12</th><th>Mo 13-18</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Supabase (Pro + compute)</td><td class="right">$125</td><td class="right">$200</td><td class="right">$400</td></tr>
+    <tr><td>Cloudflare (CDN + WAF)</td><td class="right">$20</td><td class="right">$20</td><td class="right">$20</td></tr>
+    <tr><td>Monitoring (Grafana Cloud)</td><td class="right">$0</td><td class="right">$50</td><td class="right">$150</td></tr>
+    <tr><td>Email (Loops + Resend)</td><td class="right">$0</td><td class="right">$20</td><td class="right">$40</td></tr>
+    <tr><td>Domain, SSL, misc</td><td class="right">$20</td><td class="right">$20</td><td class="right">$20</td></tr>
+    <tr class="total-row"><td>Total/month</td><td class="right bold">$165</td><td class="right bold">$310</td><td class="right bold">$630</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="section">
+<h3>Team</h3>
+<table>
+  <thead>
+    <tr><th>Role</th><th>When</th><th>Annual (loaded)</th><th>Monthly</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Co-founder 1 (GTM/Product)</td><td>Day 1</td><td>$120K</td><td class="right">$10,000</td></tr>
+    <tr><td>Co-founder 2 (Engineering)</td><td>Day 1</td><td>$120K</td><td class="right">$10,000</td></tr>
+    <tr><td>ML Engineer #1</td><td>Month 4</td><td>$200K</td><td class="right">$16,700</td></tr>
+    <tr><td>Infra Engineer #1</td><td>Month 7</td><td>$180K</td><td class="right">$15,000</td></tr>
+    <tr><td>Developer Advocate</td><td>Month 10</td><td>$140K</td><td class="right">$11,700</td></tr>
+  </tbody>
+</table>
+<p class="assumption">Founder salaries at $120K (below market — equity-heavy). First hires at market rate. Loaded costs include benefits, taxes, equipment (~1.25x base).</p>
+</div>
+
+<h2>18-Month Cash Flow</h2>
+
+<table>
+  <thead>
+    <tr><th>Quarter</th><th>Customers</th><th>MRR</th><th>GPU Cost</th><th>Team Cost</th><th>Other</th><th>Net Burn</th><th>Cumulative</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Q1 (Mo 1-3)</td><td>0</td><td class="right">$0</td><td class="right">$6.6K</td><td class="right">$60K</td><td class="right">$1.5K</td><td class="right red">-$68K</td><td class="right red">-$68K</td></tr>
+    <tr><td>Q2 (Mo 4-6)</td><td>30</td><td class="right">$3K</td><td class="right">$6.8K</td><td class="right">$110K</td><td class="right">$1.5K</td><td class="right red">-$115K</td><td class="right red">-$183K</td></tr>
+    <tr><td>Q3 (Mo 7-9)</td><td>65</td><td class="right">$15K</td><td class="right">$14K</td><td class="right">$155K</td><td class="right">$3K</td><td class="right red">-$157K</td><td class="right red">-$340K</td></tr>
+    <tr><td>Q4 (Mo 10-12)</td><td>100</td><td class="right">$35K</td><td class="right">$14K</td><td class="right">$190K</td><td class="right">$3K</td><td class="right red">-$172K</td><td class="right red">-$512K</td></tr>
+    <tr><td>Q5 (Mo 13-15)</td><td>150</td><td class="right">$55K</td><td class="right">$21K</td><td class="right">$190K</td><td class="right">$4K</td><td class="right red">-$160K</td><td class="right red">-$672K</td></tr>
+    <tr><td>Q6 (Mo 16-18)</td><td>200</td><td class="right">$80K</td><td class="right">$21K</td><td class="right">$190K</td><td class="right">$4K</td><td class="right red">-$135K</td><td class="right red">-$807K</td></tr>
+    <tr class="total-row">
+      <td colspan="2">18-Month Total</td><td class="right green bold">$188K</td><td class="right">$84K</td><td class="right">$895K</td><td class="right">$17K</td><td class="right red bold">-$807K</td><td></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="callout">
+  <strong>Key insight:</strong> Total 18-month burn is ~$807K on the base plan. With $2.5M raised, that leaves $1.7M in reserves for: (1) faster hiring if traction warrants it, (2) GPU scale-up for unexpected growth, (3) 6+ month runway buffer to reach Series A. Conservative burn rate avoids the "raise big, spend big, die fast" pattern.
+</div>
+
+<h2>Revenue Model</h2>
+
+<div class="section">
+<h3>Customer Mix Assumptions</h3>
+<table>
+  <thead>
+    <tr><th>Tier</th><th>Price</th><th>% of Customers</th><th>Avg Monthly Usage Revenue</th><th>Blended ARPU</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Starter (Free)</td><td>$0</td><td>70%</td><td>$0</td><td>$0</td></tr>
+    <tr><td>Pro</td><td>$49/mo</td><td>20%</td><td>$30</td><td>$79</td></tr>
+    <tr><td>Scale</td><td>$499/mo</td><td>8%</td><td>$200</td><td>$699</td></tr>
+    <tr><td>Enterprise</td><td>Custom</td><td>2%</td><td>$1,500</td><td>$3,000</td></tr>
+    <tr class="total-row"><td colspan="4">Blended ARPU (paying customers only)</td><td class="right bold accent">$340</td></tr>
+  </tbody>
+</table>
+<p class="assumption">Free-to-paid conversion: 30% (industry benchmark for dev tools with free tier). Of paying customers: 67% Pro, 27% Scale, 6% Enterprise.</p>
+</div>
+
+<div class="section">
+<h3>18-Month Revenue Ramp</h3>
+<table>
+  <thead>
+    <tr><th>Month</th><th>Total Signups</th><th>Paying Customers</th><th>MRR</th><th>ARR Run Rate</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Month 6</td><td>200</td><td>30</td><td class="right">$5,800</td><td class="right">$70K</td></tr>
+    <tr><td>Month 9</td><td>500</td><td>65</td><td class="right">$16,000</td><td class="right">$192K</td></tr>
+    <tr><td>Month 12</td><td>900</td><td>100</td><td class="right">$34,000</td><td class="right">$408K</td></tr>
+    <tr><td>Month 15</td><td>1,400</td><td>150</td><td class="right">$51,000</td><td class="right">$612K</td></tr>
+    <tr><td class="bold">Month 18</td><td class="bold">2,000</td><td class="bold">200</td><td class="right bold accent">$68,000</td><td class="right bold accent">$816K</td></tr>
+  </tbody>
+</table>
+<p class="assumption">Assumes ~120 new signups/month growing to ~150/month. 30% free-to-paid. 5% monthly churn on paid. Conservative vs Together AI/Fireworks ramps, which both crossed $300M ARR in ~3 years — but they raised $300M+ each.</p>
+</div>
+
+<h2>Unit Economics at Month 18</h2>
+
+<div class="section">
+<table>
+  <thead>
+    <tr><th>Metric</th><th>Value</th><th>Benchmark</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Blended ARPU (paying)</td><td class="right bold">$340/mo</td><td>Portkey: ~$200, Fireworks: ~$500</td></tr>
+    <tr><td>Gross Margin</td><td class="right bold green">58%</td><td>Together: 45%, Fireworks: 50%, SaaS avg: 70%+</td></tr>
+    <tr><td>CAC (blended)</td><td class="right bold">$150</td><td>PLG dev tools: $100-$300</td></tr>
+    <tr><td>LTV (24-month)</td><td class="right bold">$4,750</td><td>At 5% monthly churn, 20-month avg lifetime</td></tr>
+    <tr><td>LTV:CAC</td><td class="right bold green">32:1</td><td>Healthy: >3:1, Great: >5:1</td></tr>
+    <tr><td>CAC Payback</td><td class="right bold green">< 1 month</td><td>Pro pays back in 1 month, Scale immediately</td></tr>
+    <tr><td>Monthly Burn (Mo 18)</td><td class="right bold">$72K</td><td>With $68K MRR, approaching breakeven</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Use of Funds: $2.5M</h2>
+
+<table>
+  <thead>
+    <tr><th>Category</th><th>Amount</th><th>%</th><th>What It Buys</th></tr>
+  </thead>
+  <tbody>
+    <tr><td class="bold">Engineering</td><td class="right">$1,000K</td><td class="right">40%</td><td>2 founders + ML engineer + infra engineer (18 months)</td></tr>
+    <tr><td class="bold">GPU Infrastructure</td><td class="right">$500K</td><td class="right">20%</td><td>Reserved H100 cluster scaling from 1→3 GPUs + fine-tuning compute</td></tr>
+    <tr><td class="bold">Go-to-Market</td><td class="right">$400K</td><td class="right">16%</td><td>Developer advocate, content, community, launch campaigns</td></tr>
+    <tr><td class="bold">Reserve / Buffer</td><td class="right">$500K</td><td class="right">20%</td><td>6+ month buffer for unexpected growth or extended runway to Series A</td></tr>
+    <tr><td class="bold">Operations</td><td class="right">$100K</td><td class="right">4%</td><td>Legal (SOC 2 prep, terms), accounting, tools, misc</td></tr>
+    <tr class="total-row"><td class="bold">Total</td><td class="right bold accent">$2,500K</td><td class="right bold">100%</td><td></td></tr>
+  </tbody>
+</table>
+
+<h2>Why This Is Conservative</h2>
+
+<div class="section">
+<p><strong>GPU costs are falling fast.</strong> H100 reserved pricing dropped from $4.50/hr (2024) to $2.40/hr (2026). B200s are hitting $3.49/hr. Our model uses today's prices — costs will likely be 20-30% lower by month 12.</p>
+<p><strong>Routing is free margin.</strong> When Slancha routes to external providers (OpenAI, Anthropic, Together), our GPU cost is $0. We pass through the cost at zero markup, but the platform fee ($49-$499/mo) is pure margin. Early on, most traffic will be routed externally — meaning GPU costs are lower than modeled.</p>
+<p><strong>Fine-tuning is absurdly cheap.</strong> LoRA fine-tuning a 7B model costs $1-5 per job. Even at 100 customers fine-tuning monthly, that's $500/month. It's a rounding error vs team costs.</p>
+<p><strong>The compounding advantage.</strong> As more customers use Slancha, more task-specific models get fine-tuned. Each fine-tuned model serves multiple customers with similar workloads. GPU cost per customer decreases as the model library grows.</p>
+</div>
+
+<h2>Series A Trigger (Month 15-18)</h2>
+
+<div class="callout">
+  <strong>Raise Series A when:</strong> $500K+ ARR, 100+ paying customers, proven unit economics (>50% gross margin), demonstrated fine-tuning cost savings for at least 10 customers. At that point, raise $10-15M to accelerate to $5M ARR and own the category.
+</div>
+
+<hr style="border: none; border-top: 1px solid var(--border); margin: 48px 0;">
+<p style="text-align: center; color: var(--muted); font-size: 13px;">
+  <a href="/pitch-deck.html">Pitch Deck</a> · <a href="/launch-playbook.html">Launch Playbook</a> · <a href="/pricing">Pricing</a> · <a href="/">Slancha Home</a>
+</p>
+
+</body>
+</html>

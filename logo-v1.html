@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Slancha — Sigmoid Logo v1 (Organic)</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0f0f0d; color: #f5f0eb; font-family: system-ui; display: flex; justify-content: center; align-items: center; min-height: 100vh; flex-direction: column; gap: 24px; }
+  canvas { border-radius: 8px; }
+  .row { display: flex; align-items: center; gap: 12px; }
+  .row span { font-size: 22px; font-weight: 600; letter-spacing: -0.02em; }
+  h2 { font-size: 13px; opacity: 0.4; font-weight: 400; }
+</style>
+</head>
+<body>
+<canvas id="logo" width="300" height="380"></canvas>
+<h2>v1 — Organic drift, 3-sigmoid S</h2>
+<div class="row"><canvas id="sm" width="44" height="56"></canvas><span>Slancha</span></div>
+<script>
+const perm=new Uint8Array(512),grad=[[1,1],[-1,1],[1,-1],[-1,-1],[1,0],[-1,0],[0,1],[0,-1]];
+(function(){const p=new Uint8Array(256);for(let i=0;i<256;i++)p[i]=i;for(let i=255;i>0;i--){const j=Math.floor(Math.random()*(i+1));[p[i],p[j]]=[p[j],p[i]];}for(let i=0;i<512;i++)perm[i]=p[i&255];})();
+function noise2d(x,y){const X=Math.floor(x)&255,Y=Math.floor(y)&255,xf=x-Math.floor(x),yf=y-Math.floor(y),u=xf*xf*(3-2*xf),v=yf*yf*(3-2*yf),aa=perm[perm[X]+Y],ab=perm[perm[X]+Y+1],ba=perm[perm[X+1]+Y],bb=perm[perm[X+1]+Y+1],g=(h,dx,dy)=>{const g2=grad[h&7];return g2[0]*dx+g2[1]*dy;},x1=g(aa,xf,yf)+u*(g(ba,xf-1,yf)-g(aa,xf,yf)),x2=g(ab,xf,yf-1)+u*(g(bb,xf-1,yf-1)-g(ab,xf,yf-1));return x1+v*(x2-x1);}
+const SAGE=[125,155,118],GOLD=[212,168,83];
+const CFG={spacing:4,amp:0.38,sWidth:0.32,dotScale:0.42,baseAlpha:0.75,edgeBright:0.35,noiseScale:0.015,noiseAmt:4,noiseSpeed:0.5,breathSpeed:0.6,breathAmt:0.2};
+
+function sampleS(ny,amp,t){const dX=noise2d(ny*1.5+t*0.15,t*0.1+50)*0.06,dY=noise2d(ny*1.5+200,t*0.12)*0.03,pd=noise2d(t*0.08,300)*0.3,y=ny+dY,k=14,s1=1/(1+Math.exp(-k*(y-0.28))),s2=1/(1+Math.exp(-k*(y-0.50))),s3=1/(1+Math.exp(-k*(y-0.72)));return 0.5+amp*0.9*(1-2*s1+2*s2-2*s3)+dX+pd*0.02;}
+function makeGrid(w,h,sp,a){const d=[];const r=Math.max(w,h)*2,cx=w/2,cy=h/2,ca=Math.cos(a),sa=Math.sin(a);for(let gx=-r;gx<r;gx+=sp)for(let gy=-r;gy<r;gy+=sp){const rx=gx*ca-gy*sa+cx,ry=gx*sa+gy*ca+cy;if(rx>=-sp&&rx<w+sp&&ry>=-sp&&ry<h+sp)d.push(rx,ry);}return new Float32Array(d);}
+function makeRipple(w,h,sp,cx,cy){const d=[];const mr=Math.hypot(w,h);for(let r=sp;r<mr;r+=sp*1.3){const c=Math.max(6,Math.floor(2*Math.PI*r/sp));for(let i=0;i<c;i++){const a=(i/c)*Math.PI*2,dx=cx+r*Math.cos(a),dy=cy+r*Math.sin(a);if(dx>=-sp&&dx<w+sp&&dy>=-sp&&dy<h+sp)d.push(dx,dy);}}return new Float32Array(d);}
+function makeScatter(w,h,sp,seed){const d=[];let s=seed;const rng=()=>{s=(s*16807)%2147483647;return(s-1)/2147483646;};const c=Math.floor(w*h/(sp*sp)*1.2);for(let i=0;i<c;i++)d.push(rng()*w,rng()*h);return new Float32Array(d);}
+
+function setup(canvas,sm){
+  const ctx=canvas.getContext('2d'),ctxS=sm.getContext('2d');
+  const W=canvas.width,H=canvas.height,WS=sm.width,HS=sm.height;
+  const minD=120,sc=Math.max(1,minD/Math.min(WS,HS)),ws=Math.round(WS*sc),hs=Math.round(HS*sc);
+  sm.width=ws;sm.height=hs;
+  const sp=CFG.spacing,spS=Math.max(2,sp*(ws/W));
+  const pats=[
+    {a:makeGrid(W,H,sp,0.48),b:makeGrid(W,H,sp,-0.95),as:makeGrid(ws,hs,spS,0.48),bs:makeGrid(ws,hs,spS,-0.95)},
+    {a:makeGrid(W,H,sp,0.15),b:makeGrid(W,H,sp,-0.30),as:makeGrid(ws,hs,spS,0.15),bs:makeGrid(ws,hs,spS,-0.30)},
+    {a:makeGrid(W,H,sp,0.0),b:makeGrid(W,H,sp,0.78),as:makeGrid(ws,hs,spS,0.0),bs:makeGrid(ws,hs,spS,0.78)},
+    {a:makeRipple(W,H,sp,W*.3,H*.2),b:makeRipple(W,H,sp,W*.7,H*.8),as:makeRipple(ws,hs,spS,ws*.3,hs*.2),bs:makeRipple(ws,hs,spS,ws*.7,hs*.8)},
+    {a:makeGrid(W,H,sp,0.35),b:makeRipple(W,H,sp,W*.5,H*.5),as:makeGrid(ws,hs,spS,0.35),bs:makeRipple(ws,hs,spS,ws*.5,hs*.5)},
+    {a:makeScatter(W,H,sp,42),b:makeScatter(W,H,sp,137),as:makeScatter(ws,hs,spS,42),bs:makeScatter(ws,hs,spS,137)},
+  ];
+  let curP=0,nxtP=1,blendT=0,blendSpd=0,holdUntil=3+Math.random()*5;
+  const t0=performance.now();let lf=0,fc=0;
+
+  function drawFrame(cx,tw,th,gA,gB,s,t,am){
+    const n1=noise2d(t*.07,10),n2=noise2d(t*.09,30),n3=noise2d(t*.06,50),n4=noise2d(t*.08,70);
+    const amp=CFG.amp+n1*.06,sW=CFG.sWidth+n2*.04,ds=CFG.dotScale+n2*.08,ba=CFG.baseAlpha+n3*.12,eb=CFG.edgeBright+n3*.1,na=(CFG.noiseAmt+n4*2),ns=CFG.noiseSpeed+n4*.15,nSc=CFG.noiseScale;
+    const bf=1+Math.sin(t*CFG.breathSpeed)*CFG.breathAmt,iW=1/tw,iH=1/th,bR=s*ds*bf,tNS=t*ns,swM=1.5*sW;
+    function dd(g,r0,g0,b0,iS){for(let i=0,l=g.length;i<l;i+=2){const ox=g[i],oy=g[i+1],nY=oy*iH;if(Math.abs(ox*iW-sampleS(nY,amp,t))>swM)continue;const nx=ox*nSc,ny=oy*nSc,px=ox+noise2d(nx+tNS,ny)*na,py=oy+noise2d(nx,ny+tNS+100)*na,nX=px*iW,nYT=py*iH,sd=Math.abs(nX-sampleS(nYT,amp,t)),ins=1-sd/sW;if(ins<.01)continue;const r=bR*ins;if(r<.2)continue;const ef=ins*ins,al=(ba*ef+eb*(1-ef))*am,ga=iS?(1-nYT*.7):(.3+nYT*.7),fa=al*ga;if(fa<.01)continue;cx.beginPath();cx.arc(px,py,r,0,6.283);cx.fillStyle=`rgba(${r0},${g0},${b0},${fa>1?1:fa})`;cx.fill();}}
+    dd(gA,SAGE[0],SAGE[1],SAGE[2],true);dd(gB,GOLD[0],GOLD[1],GOLD[2],false);
+  }
+
+  function tick(now){
+    if(now-lf<50){requestAnimationFrame(tick);return;}lf=now;
+    const t=(now-t0)/1000,dt=1/20;
+    if(blendSpd===0){if(t>holdUntil){let p;do{p=Math.floor(Math.random()*pats.length);}while(p===curP);nxtP=p;blendSpd=.3+Math.random()*.5;blendT=0;}}else{blendT+=dt*blendSpd;if(blendT>=1){blendT=0;blendSpd=0;curP=nxtP;holdUntil=t+3+Math.random()*6;}}
+    const e=blendT*blendT*(3-2*blendT);
+    ctx.clearRect(0,0,W,H);
+    if(e<.99)drawFrame(ctx,W,H,pats[curP].a,pats[curP].b,sp,t,1-e);
+    if(e>.01)drawFrame(ctx,W,H,pats[nxtP].a,pats[nxtP].b,sp,t,e);
+    if(fc%3===0){ctxS.clearRect(0,0,ws,hs);if(e<.99)drawFrame(ctxS,ws,hs,pats[curP].as,pats[curP].bs,spS,t,1-e);if(e>.01)drawFrame(ctxS,ws,hs,pats[nxtP].as,pats[nxtP].bs,spS,t,e);}
+    fc++;requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+setup(document.getElementById('logo'),document.getElementById('sm'));
+</script>
+</body>
+</html>
