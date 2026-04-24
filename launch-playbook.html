@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slancha Launch Playbook</title>
+<style>
+  :root { --bg: #0a0a0f; --surface: #12121a; --accent: #0a84ff; --teal: #00d1b2; --text: #e2e8f0; --muted: #94a3b8; --border: #1e293b; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; padding: 60px 24px; max-width: 800px; margin: 0 auto; }
+  h1 { font-size: 36px; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 8px; }
+  h1 span { background: linear-gradient(135deg, var(--accent), var(--teal)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .subtitle { color: var(--muted); font-size: 18px; margin-bottom: 48px; }
+  h2 { font-size: 24px; font-weight: 700; margin: 48px 0 16px; padding-top: 24px; border-top: 1px solid var(--border); letter-spacing: -0.02em; }
+  h3 { font-size: 18px; font-weight: 600; margin: 24px 0 8px; color: var(--accent); }
+  p, li { font-size: 15px; color: var(--muted); margin-bottom: 12px; }
+  ul { padding-left: 20px; }
+  li { margin-bottom: 8px; }
+  .phase { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin: 16px 0; }
+  .phase-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+  .phase-title { font-size: 18px; font-weight: 700; }
+  .phase-timing { font-size: 13px; color: var(--teal); font-weight: 600; }
+  .checklist { list-style: none; padding: 0; }
+  .checklist li { padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.04); display: flex; gap: 10px; align-items: flex-start; }
+  .checklist li::before { content: '☐'; flex-shrink: 0; color: var(--accent); }
+  .owner { font-size: 12px; background: rgba(10,132,255,0.12); color: var(--accent); padding: 2px 8px; border-radius: 4px; font-weight: 600; }
+  code { background: rgba(255,255,255,0.06); padding: 2px 6px; border-radius: 4px; font-size: 13px; font-family: 'Source Code Pro', monospace; }
+  .metric { display: inline-block; background: rgba(0,209,178,0.1); border: 1px solid rgba(0,209,178,0.2); padding: 4px 12px; border-radius: 6px; font-size: 13px; color: var(--teal); margin: 4px 4px 4px 0; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<h1>Slancha <span>Launch Playbook</span></h1>
+<p class="subtitle">Everything that needs to happen before, during, and after the API goes live.</p>
+
+<h2>Pre-Launch (T-14 days)</h2>
+
+<div class="phase">
+  <div class="phase-header">
+    <div class="phase-title">Waitlist Nurture Sequence</div>
+    <div class="phase-timing">T-14 to T-7</div>
+  </div>
+  <ul class="checklist">
+    <li>Set up Loops.so account and connect domain for email delivery</li>
+    <li>Import existing waitlist emails from Supabase auth table</li>
+    <li>Create 4-email drip sequence:<br>
+      <strong>Email 1 (immediate):</strong> Welcome + "here's what Slancha does" + link to docs<br>
+      <strong>Email 2 (day 3):</strong> Case study / benchmark showing savings<br>
+      <strong>Email 3 (day 7):</strong> "Launch is coming" + early access offer<br>
+      <strong>Email 4 (launch day):</strong> "We're live — get your free API key"</li>
+    <li>Wire up Supabase signup → Loops contact sync (Edge Function or webhook)</li>
+    <li>Test the full sequence with a personal email</li>
+  </ul>
+</div>
+
+<div class="phase">
+  <div class="phase-header">
+    <div class="phase-title">Content Staging</div>
+    <div class="phase-timing">T-14 to T-3</div>
+  </div>
+  <ul class="checklist">
+    <li>Write launch blog post: "Introducing Slancha — World-class AI inference, no infrastructure team required"</li>
+    <li>Write Show HN post (draft, ~300 words): problem, what we built, how it works, link</li>
+    <li>Write Product Hunt listing: tagline, description, 4 screenshots, maker comment</li>
+    <li>Write Twitter/X launch thread (8-10 tweets): hook → problem → solution → demo GIF → benchmarks → pricing → CTA</li>
+    <li>Write r/LocalLLaMA post: technical deep dive on routing + fine-tuning approach</li>
+    <li>Write r/MachineLearning post: research angle on task-specific models vs frontier</li>
+    <li>Record 60-second demo video (Loom or similar) showing: signup → get key → make request → see routing</li>
+    <li>Create demo GIF for Twitter/GitHub: terminal showing request + response with routing info</li>
+  </ul>
+</div>
+
+<div class="phase">
+  <div class="phase-header">
+    <div class="phase-title">Technical Readiness</div>
+    <div class="phase-timing">T-7 to T-1</div>
+  </div>
+  <ul class="checklist">
+    <li>Backend API live at api.slancha.ai with health check endpoint</li>
+    <li>Verify OpenAI SDK compatibility: <code>openai.OpenAI(base_url="https://api.slancha.ai/v1")</code></li>
+    <li>Load test: 100 concurrent requests, p99 latency < 200ms (excluding model inference)</li>
+    <li>Verify Supabase auth → API key creation → first request flow end-to-end</li>
+    <li>Verify Stripe checkout works for Hobbyist and Pro tiers</li>
+    <li>Status page at /status shows all systems green</li>
+    <li>Monitoring/alerting set up (uptime, error rate, latency)</li>
+    <li>Rate limiting configured for free tier (10K/month)</li>
+    <li>Update site: change all "Join Waitlist" CTAs to "Get Started Free"</li>
+    <li>Remove any "coming soon" or "preview" language from the site</li>
+  </ul>
+</div>
+
+<h2>Launch Day (T-0)</h2>
+
+<div class="phase">
+  <div class="phase-header">
+    <div class="phase-title">Morning (6am-9am)</div>
+    <div class="phase-timing">T-0 Morning</div>
+  </div>
+  <ul class="checklist">
+    <li>Final smoke test: signup → login → create key → make API request → see dashboard</li>
+    <li>Deploy any last site updates, verify GitHub Pages build succeeds</li>
+    <li>Send Email 4 (launch email) to entire waitlist via Loops</li>
+    <li>Publish launch blog post on the site</li>
+  </ul>
+</div>
+
+<div class="phase">
+  <div class="phase-header">
+    <div class="phase-title">Launch Posts (9am-11am ET)</div>
+    <div class="phase-timing">T-0 Mid-morning</div>
+  </div>
+  <ul class="checklist">
+    <li><strong>Hacker News</strong> — Post "Show HN: Slancha — OpenAI-compatible API that auto-routes and fine-tunes your models" <br><em>Timing: 9-10am ET for best visibility</em></li>
+    <li><strong>Product Hunt</strong> — Launch listing goes live (schedule the night before)</li>
+    <li><strong>Twitter/X</strong> — Post the launch thread from @slancha_ai account</li>
+    <li><strong>Reddit</strong> — Post to r/LocalLLaMA (technical), r/MachineLearning (research angle)</li>
+    <li><strong>LinkedIn</strong> — Founders post personal launch announcements</li>
+    <li><strong>Dev.to / Hashnode</strong> — Cross-post the launch blog</li>
+  </ul>
+</div>
+
+<div class="phase">
+  <div class="phase-header">
+    <div class="phase-title">All Day — Engage</div>
+    <div class="phase-timing">T-0 All day</div>
+  </div>
+  <ul class="checklist">
+    <li>Monitor HN comments — respond to every question within 30 minutes</li>
+    <li>Monitor Product Hunt comments — respond to all</li>
+    <li>Monitor Reddit threads — be helpful, technical, transparent</li>
+    <li>Monitor Twitter mentions — retweet, reply, thank</li>
+    <li>Monitor signups in real-time (Supabase dashboard + Loops)</li>
+    <li>Monitor API health: error rate, latency, throughput</li>
+    <li>Fix any bugs immediately — fast iteration shows credibility</li>
+    <li>If HN hits front page: be ready for 10K+ signups in hours</li>
+  </ul>
+</div>
+
+<h2>Post-Launch (T+1 to T+14)</h2>
+
+<div class="phase">
+  <div class="phase-header">
+    <div class="phase-title">Week 1: Convert & Learn</div>
+    <div class="phase-timing">T+1 to T+7</div>
+  </div>
+  <ul class="checklist">
+    <li>Email new signups who haven't made an API request yet — "Need help getting started?"</li>
+    <li>Identify top 10 most active free users → personal email offering Pro upgrade</li>
+    <li>Publish "Launch retrospective" blog post with real numbers (signups, requests, feedback)</li>
+    <li>Collect and publish testimonials/tweets from early users</li>
+    <li>Start tracking: signup → first request → 10th request → paid conversion funnel</li>
+    <li>Set up weekly email digest to waitlist/users: what's new, what we shipped</li>
+  </ul>
+</div>
+
+<div class="phase">
+  <div class="phase-header">
+    <div class="phase-title">Week 2: Scale & Iterate</div>
+    <div class="phase-timing">T+8 to T+14</div>
+  </div>
+  <ul class="checklist">
+    <li>Publish first real case study from a launch user</li>
+    <li>Submit to AI tool directories: There's An AI For That, AI Tool Finder, etc.</li>
+    <li>Submit MCP server to Official MCP Registry, Smithery, Glama</li>
+    <li>Start outbound to 50 companies spending $5K+/month on LLM APIs</li>
+    <li>A/B test pricing page (free tier CTA copy, pricing anchors)</li>
+    <li>Publish comparison pages: "Slancha vs OpenRouter", "Slancha vs Fireworks", etc.</li>
+  </ul>
+</div>
+
+<h2>Success Metrics</h2>
+
+<p>Track these from day one:</p>
+
+<div style="margin: 16px 0;">
+  <span class="metric">Signups: 500+ week 1</span>
+  <span class="metric">First API call: 30%+ of signups</span>
+  <span class="metric">10+ requests: 15%+ of signups</span>
+  <span class="metric">Pro conversion: 2-3% of signups</span>
+  <span class="metric">HN upvotes: 100+</span>
+  <span class="metric">PH upvotes: 200+</span>
+  <span class="metric">Twitter impressions: 50K+</span>
+  <span class="metric">Time to first request: < 5 min</span>
+</div>
+
+<h2>Draft Launch Content</h2>
+
+<h3>Show HN Post (draft)</h3>
+<div class="phase" style="font-size: 14px;">
+<p><strong>Show HN: Slancha — OpenAI-compatible API that auto-routes and fine-tunes your models</strong></p>
+<p>We built Slancha because world-class AI inference shouldn't require a world-class infrastructure team.</p>
+<p>It's a single API endpoint (OpenAI-compatible — swap your base_url, done). Behind it, Slancha automatically:</p>
+<ul>
+<li>Routes each request to the optimal model (semantic classification, sub-ms overhead)</li>
+<li>Analyzes your usage patterns to curate training data</li>
+<li>Fine-tunes smaller, task-specific models that match frontier quality at 40-60% less cost</li>
+<li>Optimizes inference with quantization and GPU packing</li>
+<li>Redeploys improved models continuously</li>
+</ul>
+<p>The longer you use it, the cheaper and better it gets — your fine-tuned 7B can outperform GPT-4 on your specific workloads.</p>
+<p>Free tier: 10K requests/month (hard cap, no overage), 20+ models, BYOK — your API key pays the inference provider directly. No credit card.<br>
+Hobbyist $9/mo (50K req/mo, then $0.50/1K), Pro $249/mo (100K req/mo, then $0.40/1K, plus 2 LoRA adapters + 1 training run/mo), Enterprise $2K+/mo with volume pricing. Half of Not Diamond's $1.00/1K on Hobbyist; 60% less on Pro.</p>
+<p>Docs: <a href="https://slancha.ai/docs">slancha.ai/docs</a> | Signup: <a href="https://slancha.ai/signup">slancha.ai/signup</a></p>
+<p>We're two founders — happy to answer any questions about the routing architecture, fine-tuning approach, or business model.</p>
+</div>
+
+<h3>Product Hunt Tagline Options</h3>
+<div class="phase" style="font-size: 14px;">
+<ul>
+<li>"World-class AI inference without the infrastructure team"</li>
+<li>"One API endpoint that routes, fine-tunes, and optimizes your models automatically"</li>
+<li>"OpenAI-compatible API that gets cheaper the more you use it"</li>
+</ul>
+</div>
+
+<h3>Twitter/X Launch Thread Hook</h3>
+<div class="phase" style="font-size: 14px;">
+<p><strong>Tweet 1 (hook):</strong></p>
+<p>We just launched Slancha — an AI inference API that gets cheaper and better the more you use it.</p>
+<p>One endpoint. OpenAI-compatible. Swap your base_url and you're done.</p>
+<p>Here's how it works 🧵</p>
+</div>
+
+<hr style="border: none; border-top: 1px solid var(--border); margin: 48px 0;">
+
+<p style="text-align: center; color: var(--muted); font-size: 14px;">
+  <a href="/">← Back to Slancha</a> · <a href="/pitch-deck.html">Pitch Deck</a> · <a href="/pricing">Pricing</a>
+</p>
+
+</body>
+</html>

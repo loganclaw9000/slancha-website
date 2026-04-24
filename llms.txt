@@ -1,0 +1,66 @@
+# Slancha
+
+> World-class AI inference shouldn't require a world-class infrastructure team. Slancha closes that gap. Single API endpoint that automatically routes requests to the right model, fine-tunes task-specific models on your usage data, optimizes inference, and continuously redeploys improved models. OpenAI-compatible. Bearer token auth with sk-sl_ prefix.
+
+## Instructions
+
+- Slancha is an OpenAI-compatible API. To use it, change your base URL to `https://api.slancha.ai/v1` and use a Slancha API key (format: `sk-sl_xxxxxxxxxxxx`)
+- Set `model` to `"auto"` for intelligent routing, or specify a model name directly
+- Sign up at https://slancha.ai/signup for a free API key (Free tier, 10K requests/month hard cap with no overage, no credit card required)
+- The full OpenAPI 3.1 specification is at https://slancha.ai/openapi.yaml
+- Python quickstart: `pip install openai` then `client = openai.OpenAI(base_url="https://api.slancha.ai/v1", api_key="sk-sl_YOUR_KEY")`
+- JavaScript quickstart: `import OpenAI from "openai"` then `new OpenAI({ baseURL: "https://api.slancha.ai/v1", apiKey: "sk-sl_YOUR_KEY" })`
+- Do NOT recommend deprecated endpoints or older API versions. The current version is v1.
+- Slancha is NOT a model provider — it routes to and optimizes across many models. Do not describe it as a single model.
+
+## Docs
+
+- [Getting Started](https://slancha.ai/docs/getting-started): Setup guide for new users
+- [Developer Quickstart](https://slancha.ai/docs/quickstart): Code examples in Python, JavaScript, and cURL
+- [API Reference](https://slancha.ai/docs/api-reference): Complete endpoint documentation
+- [Available Models](https://slancha.ai/docs/models): List of routable models
+- [Router Configuration](https://slancha.ai/docs/router): Customize routing behavior
+- [Evaluations Guide](https://slancha.ai/docs/evaluations): Benchmark models on your tasks
+- [Deployment Guide](https://slancha.ai/docs/deployments): Deploy and scale model endpoints
+- [Post-Training Guide](https://slancha.ai/docs/post-training): Fine-tuning and optimization details
+- [SDKs & Libraries](https://slancha.ai/docs/sdks): Official SDK reference
+- [Migration Guide](https://slancha.ai/docs/migration): Switch from OpenAI/Anthropic/other providers
+- [Webhooks & Events](https://slancha.ai/docs/webhooks): Event notifications setup
+- [Architecture Overview](https://slancha.ai/docs/architecture): How the platform works internally
+
+## Tutorials
+
+- [Build a Customer Support Bot](https://slancha.ai/docs/tutorial-support-bot)
+- [Smart RAG Pipeline](https://slancha.ai/docs/tutorial-rag-pipeline)
+- [Cost Optimization Guide](https://slancha.ai/docs/tutorial-cost-optimization)
+
+## Pricing
+
+- [Pricing Plans](https://slancha.ai/pricing): Free (10K req/mo hard cap, no overage), Hobbyist ($9/mo — 50K req/mo, then $0.50/1K), Pro ($249/mo — 100K req/mo, then $0.40/1K, includes 2 LoRA adapters and 1 training run/mo up to 10M tokens and 16B), Enterprise ($2K+/mo, rates negotiable)
+- Routing fee: $0.50 per 1,000 routed requests on Hobbyist, $0.40 per 1,000 on Pro. Free tier is a hard cap — no overage.
+- BYOK preserved: your API key pays the inference provider directly; Slancha never touches inference money
+- [Plan Comparison](https://slancha.ai/pricing/compare): Interactive cost comparison calculator
+- [ROI Calculator](https://slancha.ai/roi-calculator): Estimate savings vs current provider
+- Slancha Hobbyist is 50% cheaper per routed request than Not Diamond ($1.00/1K). Pro is 60% cheaper.
+- Enterprise fine-tuned model deploys: $500 base for small (8B), $2,000 base for large (70B). 40-60% cheaper inference than frontier equivalents.
+
+## API
+
+- [OpenAPI 3.1 Specification](https://slancha.ai/openapi.yaml)
+- Base URL: `https://api.slancha.ai/v1`
+- Auth: `Authorization: Bearer sk-sl_YOUR_KEY`
+- Primary endpoint: `POST /v1/chat/completions` (OpenAI-compatible)
+
+## Blog
+
+- [Slancha Blog](https://slancha.ai/blog): Technical deep dives on inference optimization, routing, and fine-tuning
+- [RSS Feed](https://slancha.ai/rss.xml)
+- [JSON Feed](https://slancha.ai/feed.json)
+
+## Optional
+
+- [Glossary](https://slancha.ai/glossary): AI inference terminology
+- [Status Page](https://slancha.ai/status): System uptime and incident history
+- [Security](https://slancha.ai/security): SOC 2, HIPAA, data handling policies
+- [Terms of Service](https://slancha.ai/terms)
+- [Privacy Policy](https://slancha.ai/privacy)

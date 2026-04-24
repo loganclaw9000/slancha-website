@@ -1,0 +1,22 @@
+{
+  "name": "Slancha — AI Inference Platform",
+  "short_name": "Slancha",
+  "description": "World-class AI inference shouldn't require a world-class infrastructure team. Slancha closes that gap.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0A0A0F",
+  "theme_color": "#0A0A0F",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

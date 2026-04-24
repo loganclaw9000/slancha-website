@@ -1,0 +1,37 @@
+User-agent: *
+Allow: /
+Disallow: /dashboard
+Disallow: /checkout
+Disallow: /auth
+Disallow: /login
+Disallow: /reset-password
+Disallow: /update-password
+Disallow: /verify-email
+
+Sitemap: https://slancha.ai/sitemap.xml
+
+# AI Agent Discovery
+# LLM-readable site index: https://slancha.ai/llms.txt
+# Full docs export: https://slancha.ai/llms-full.txt
+# OpenAPI spec: https://slancha.ai/openapi.yaml
+# MCP server card: https://slancha.ai/.well-known/mcp/server-card.json
+
+User-agent: GPTBot
+Allow: /
+Disallow: /dashboard
+Disallow: /auth
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: Anthropic-AI
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /

@@ -1,0 +1,51 @@
+{
+  "name": "Slancha AI Inference",
+  "description": "World-class AI inference shouldn't require a world-class infrastructure team. Slancha closes that gap. OpenAI-compatible API with intelligent model routing, automated fine-tuning, and inference optimization.",
+  "url": "https://api.slancha.ai/v1",
+  "version": "1.0.0",
+  "authentication": {
+    "type": "bearer",
+    "token_prefix": "sk-sl_",
+    "signup_url": "https://slancha.ai/signup",
+    "free_tier": true,
+    "free_tier_limits": "10,000 requests/month, 20+ models"
+  },
+  "capabilities": {
+    "inference": {
+      "description": "OpenAI-compatible chat completions with intelligent model routing",
+      "endpoint": "/v1/chat/completions",
+      "method": "POST"
+    },
+    "models": {
+      "description": "List available models",
+      "endpoint": "/v1/models",
+      "method": "GET"
+    },
+    "evaluations": {
+      "description": "Benchmark models against custom datasets",
+      "endpoint": "/v1/evaluations",
+      "method": "POST"
+    },
+    "fine_tuning": {
+      "description": "LoRA fine-tuning on production usage data",
+      "endpoint": "/v1/fine-tuning/jobs",
+      "method": "POST"
+    },
+    "deployments": {
+      "description": "Deploy and scale model endpoints",
+      "endpoint": "/v1/deployments",
+      "method": "POST"
+    }
+  },
+  "openapi_spec": "https://slancha.ai/openapi.yaml",
+  "llms_txt": "https://slancha.ai/llms.txt",
+  "docs": "https://slancha.ai/docs",
+  "skill_manifest": "https://slancha.ai/SKILL.md",
+  "pricing": "https://slancha.ai/pricing",
+  "contact": "support@slancha.ai",
+  "compatibility": {
+    "openai_sdk": true,
+    "anthropic_sdk": false,
+    "note": "Use any OpenAI-compatible SDK. Set base_url to https://api.slancha.ai/v1"
+  }
+}

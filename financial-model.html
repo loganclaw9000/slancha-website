@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slancha Financial Model — Seed Round</title>
+<style>
+  :root { --bg: #0a0a0f; --surface: #12121a; --accent: #0a84ff; --teal: #00d1b2; --green: #22c55e; --red: #ef4444; --orange: #f97316; --text: #e2e8f0; --muted: #94a3b8; --border: #1e293b; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; padding: 60px 24px; max-width: 900px; margin: 0 auto; }
+  h1 { font-size: 32px; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 8px; }
+  h1 span { background: linear-gradient(135deg, var(--accent), var(--teal)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .subtitle { color: var(--muted); font-size: 16px; margin-bottom: 48px; }
+  h2 { font-size: 22px; font-weight: 700; margin: 40px 0 16px; letter-spacing: -0.02em; }
+  h3 { font-size: 16px; font-weight: 600; margin: 20px 0 8px; color: var(--teal); }
+  p { font-size: 14px; color: var(--muted); margin-bottom: 12px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 16px 0 24px; }
+  th { text-align: left; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); padding: 10px 12px; border-bottom: 1px solid var(--border); }
+  td { padding: 10px 12px; color: var(--text); border-bottom: 1px solid rgba(255,255,255,0.04); }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+  .right { text-align: right; }
+  .green { color: var(--green); }
+  .red { color: var(--red); }
+  .orange { color: var(--orange); }
+  .accent { color: var(--accent); }
+  .bold { font-weight: 700; }
+  .total-row td { border-top: 2px solid var(--border); font-weight: 700; }
+  .section { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin: 24px 0; }
+  .callout { background: rgba(10,132,255,0.08); border: 1px solid rgba(10,132,255,0.2); border-radius: 8px; padding: 16px; margin: 16px 0; font-size: 14px; }
+  .callout strong { color: var(--accent); }
+  .assumption { font-size: 12px; color: var(--muted); font-style: italic; }
+  a { color: var(--accent); text-decoration: none; } a:hover { text-decoration: underline; }
+  .sandbox { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+  @media (max-width: 720px) { .sandbox { grid-template-columns: 1fr; } }
+  .controls { background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 8px; padding: 16px; }
+  .control { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; margin-bottom: 10px; font-size: 13px; }
+  .control label { color: var(--muted); }
+  .control input[type=number] { background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 4px; padding: 6px 8px; width: 110px; text-align: right; font-family: inherit; font-size: 13px; }
+  .control input[type=range] { width: 100%; accent-color: var(--accent); }
+  .control .slider-row { display: grid; grid-template-columns: 1fr 70px; gap: 8px; align-items: center; }
+  .control .val { color: var(--teal); font-weight: 600; font-size: 12px; text-align: right; font-variant-numeric: tabular-nums; }
+  .presets { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+  .preset-btn { background: rgba(10,132,255,0.12); color: var(--accent); border: 1px solid rgba(10,132,255,0.3); border-radius: 6px; padding: 6px 10px; font-size: 12px; cursor: pointer; font-family: inherit; }
+  .preset-btn:hover { background: rgba(10,132,255,0.22); }
+  .preset-btn.active { background: var(--accent); color: white; }
+  .outputs { background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 8px; padding: 16px; }
+  .kpi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+  .kpi { background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 10px 12px; }
+  .kpi-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 4px; }
+  .kpi-val { font-size: 18px; font-weight: 700; color: var(--teal); font-variant-numeric: tabular-nums; }
+  .kpi-val.big { font-size: 22px; color: var(--accent); }
+  .chart-wrap { background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 12px; margin-top: 12px; }
+  .chart-title { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 8px; }
+  .chart { width: 100%; height: 200px; display: block; }
+  .legend { display: flex; gap: 14px; font-size: 11px; color: var(--muted); margin-top: 6px; flex-wrap: wrap; }
+  .legend-dot { display: inline-block; width: 10px; height: 2px; vertical-align: middle; margin-right: 4px; }
+  .compare-table { font-size: 12px; margin-top: 12px; }
+  .compare-table th { font-size: 10px; padding: 6px 8px; }
+  .compare-table td { padding: 6px 8px; font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+
+<h1>Slancha <span>Financial Model</span></h1>
+<p class="subtitle">18-month runway model for a seed raise. Based on 2026 GPU pricing, realistic customer ramp, and conservative unit economics.</p>
+
+<h2>The Ask: $2.5M Seed</h2>
+
+<div class="callout">
+  <strong>Why $2.5M:</strong> 18 months of runway to reach $500K ARR (100 paying customers), prove unit economics, and raise a Series A. GPU costs are the dominant expense — we've modeled conservative utilization with reserved H100s on Lambda/CoreWeave at $2.40-$2.99/hr.
+</div>
+
+<h2>Cost Model: 18-Month Projection</h2>
+
+<div class="section">
+<h3>GPU Infrastructure (Inference Serving)</h3>
+<p>Serving fine-tuned 7B-14B models on reserved H100s. At launch, most traffic routes to existing providers (zero-margin passthrough). GPU costs only apply to self-hosted fine-tuned models.</p>
+<table>
+  <thead>
+    <tr><th>Phase</th><th>Months</th><th>Customers</th><th>Self-Hosted Req/Mo</th><th>GPUs</th><th>Monthly Cost</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Pre-launch</td><td>1-3</td><td>0</td><td>Dev/test only</td><td>1x H100</td><td class="right">$2,200</td></tr>
+    <tr><td>Launch</td><td>4-6</td><td>20-50</td><td>500K</td><td>1x H100</td><td class="right">$2,200</td></tr>
+    <tr><td>Growth</td><td>7-12</td><td>50-100</td><td>2M</td><td>2x H100</td><td class="right">$4,400</td></tr>
+    <tr><td>Scale</td><td>13-18</td><td>100-200</td><td>5M</td><td>3x H100</td><td class="right">$6,600</td></tr>
+  </tbody>
+</table>
+<p class="assumption">Based on reserved H100 pricing at $2.99/hr (Lambda Labs) = ~$2,200/mo per GPU. A single H100 serves ~30 req/s for 7B models (vLLM), handling 2M+ requests/month at 50% utilization.</p>
+</div>
+
+<div class="section">
+<h3>Fine-Tuning Compute</h3>
+<p>LoRA fine-tuning per customer: ~$3/job for 7B model, ~$7/job for 14B. Monthly re-tuning per active Scale customer.</p>
+<table>
+  <thead>
+    <tr><th>Phase</th><th>Months</th><th>Scale Customers</th><th>Jobs/Mo</th><th>Monthly Cost</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Pre-launch</td><td>1-3</td><td>0</td><td>Internal testing</td><td class="right">$100</td></tr>
+    <tr><td>Launch</td><td>4-6</td><td>5</td><td>5-10</td><td class="right">$50</td></tr>
+    <tr><td>Growth</td><td>7-12</td><td>15</td><td>15-30</td><td class="right">$150</td></tr>
+    <tr><td>Scale</td><td>13-18</td><td>30</td><td>30-60</td><td class="right">$300</td></tr>
+  </tbody>
+</table>
+<p class="assumption">LoRA fine-tuning is remarkably cheap: $1-5/job for 7B models on spot A100s. Even at 60 jobs/month the cost is trivial vs inference serving.</p>
+</div>
+
+<div class="section">
+<h3>Supporting Infrastructure</h3>
+<table>
+  <thead>
+    <tr><th>Service</th><th>Mo 1-6</th><th>Mo 7-12</th><th>Mo 13-18</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Supabase (Pro + compute)</td><td class="right">$125</td><td class="right">$200</td><td class="right">$400</td></tr>
+    <tr><td>Cloudflare (CDN + WAF)</td><td class="right">$20</td><td class="right">$20</td><td class="right">$20</td></tr>
+    <tr><td>Monitoring (Grafana Cloud)</td><td class="right">$0</td><td class="right">$50</td><td class="right">$150</td></tr>
+    <tr><td>Email (Loops + Resend)</td><td class="right">$0</td><td class="right">$20</td><td class="right">$40</td></tr>
+    <tr><td>Domain, SSL, misc</td><td class="right">$20</td><td class="right">$20</td><td class="right">$20</td></tr>
+    <tr class="total-row"><td>Total/month</td><td class="right bold">$165</td><td class="right bold">$310</td><td class="right bold">$630</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="section">
+<h3>Team</h3>
+<table>
+  <thead>
+    <tr><th>Role</th><th>When</th><th>Annual (loaded)</th><th>Monthly</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Co-founder 1 (GTM/Product)</td><td>Day 1</td><td>$120K</td><td class="right">$10,000</td></tr>
+    <tr><td>Co-founder 2 (Engineering)</td><td>Day 1</td><td>$120K</td><td class="right">$10,000</td></tr>
+    <tr><td>ML Engineer #1</td><td>Month 4</td><td>$200K</td><td class="right">$16,700</td></tr>
+    <tr><td>Infra Engineer #1</td><td>Month 7</td><td>$180K</td><td class="right">$15,000</td></tr>
+    <tr><td>Developer Advocate</td><td>Month 10</td><td>$140K</td><td class="right">$11,700</td></tr>
+  </tbody>
+</table>
+<p class="assumption">Founder salaries at $120K (below market — equity-heavy). First hires at market rate. Loaded costs include benefits, taxes, equipment (~1.25x base).</p>
+</div>
+
+<h2>18-Month Cash Flow</h2>
+
+<table>
+  <thead>
+    <tr><th>Quarter</th><th>Customers</th><th>MRR</th><th>GPU Cost</th><th>Team Cost</th><th>Other</th><th>Net Burn</th><th>Cumulative</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Q1 (Mo 1-3)</td><td>0</td><td class="right">$0</td><td class="right">$6.6K</td><td class="right">$60K</td><td class="right">$1.5K</td><td class="right red">-$68K</td><td class="right red">-$68K</td></tr>
+    <tr><td>Q2 (Mo 4-6)</td><td>30</td><td class="right">$3K</td><td class="right">$6.8K</td><td class="right">$110K</td><td class="right">$1.5K</td><td class="right red">-$115K</td><td class="right red">-$183K</td></tr>
+    <tr><td>Q3 (Mo 7-9)</td><td>65</td><td class="right">$15K</td><td class="right">$14K</td><td class="right">$155K</td><td class="right">$3K</td><td class="right red">-$157K</td><td class="right red">-$340K</td></tr>
+    <tr><td>Q4 (Mo 10-12)</td><td>100</td><td class="right">$35K</td><td class="right">$14K</td><td class="right">$190K</td><td class="right">$3K</td><td class="right red">-$172K</td><td class="right red">-$512K</td></tr>
+    <tr><td>Q5 (Mo 13-15)</td><td>150</td><td class="right">$55K</td><td class="right">$21K</td><td class="right">$190K</td><td class="right">$4K</td><td class="right red">-$160K</td><td class="right red">-$672K</td></tr>
+    <tr><td>Q6 (Mo 16-18)</td><td>200</td><td class="right">$80K</td><td class="right">$21K</td><td class="right">$190K</td><td class="right">$4K</td><td class="right red">-$135K</td><td class="right red">-$807K</td></tr>
+    <tr class="total-row">
+      <td colspan="2">18-Month Total</td><td class="right green bold">$188K</td><td class="right">$84K</td><td class="right">$895K</td><td class="right">$17K</td><td class="right red bold">-$807K</td><td></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="callout">
+  <strong>Key insight:</strong> Total 18-month burn is ~$807K on the base plan. With $2.5M raised, that leaves $1.7M in reserves for: (1) faster hiring if traction warrants it, (2) GPU scale-up for unexpected growth, (3) 6+ month runway buffer to reach Series A. Conservative burn rate avoids the "raise big, spend big, die fast" pattern.
+</div>
+
+<h2>Revenue Model</h2>
+
+<div class="section">
+<h3>Customer Mix Assumptions</h3>
+<table>
+  <thead>
+    <tr><th>Tier</th><th>Price</th><th>% of Customers</th><th>Avg Monthly Usage Revenue</th><th>Blended ARPU</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Starter (Free)</td><td>$0</td><td>70%</td><td>$0</td><td>$0</td></tr>
+    <tr><td>Pro</td><td>$49/mo</td><td>20%</td><td>$30</td><td>$79</td></tr>
+    <tr><td>Scale</td><td>$499/mo</td><td>8%</td><td>$200</td><td>$699</td></tr>
+    <tr><td>Enterprise</td><td>Custom</td><td>2%</td><td>$1,500</td><td>$3,000</td></tr>
+    <tr class="total-row"><td colspan="4">Blended ARPU (paying customers only)</td><td class="right bold accent">$340</td></tr>
+  </tbody>
+</table>
+<p class="assumption">Free-to-paid conversion: 30% (industry benchmark for dev tools with free tier). Of paying customers: 67% Pro, 27% Scale, 6% Enterprise.</p>
+</div>
+
+<div class="section">
+<h3>18-Month Revenue Ramp</h3>
+<table>
+  <thead>
+    <tr><th>Month</th><th>Total Signups</th><th>Paying Customers</th><th>MRR</th><th>ARR Run Rate</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Month 6</td><td>200</td><td>30</td><td class="right">$5,800</td><td class="right">$70K</td></tr>
+    <tr><td>Month 9</td><td>500</td><td>65</td><td class="right">$16,000</td><td class="right">$192K</td></tr>
+    <tr><td>Month 12</td><td>900</td><td>100</td><td class="right">$34,000</td><td class="right">$408K</td></tr>
+    <tr><td>Month 15</td><td>1,400</td><td>150</td><td class="right">$51,000</td><td class="right">$612K</td></tr>
+    <tr><td class="bold">Month 18</td><td class="bold">2,000</td><td class="bold">200</td><td class="right bold accent">$68,000</td><td class="right bold accent">$816K</td></tr>
+  </tbody>
+</table>
+<p class="assumption">Assumes ~120 new signups/month growing to ~150/month. 30% free-to-paid. 5% monthly churn on paid. Conservative vs Together AI/Fireworks ramps, which both crossed $300M ARR in ~3 years — but they raised $300M+ each.</p>
+</div>
+
+<h2>Per-Request Pricing Sandbox</h2>
+
+<p>Explore per-request pricing curves à la <strong>Not Diamond</strong> ($1/1K routing decisions) vs <strong>OpenRouter</strong> (5.5% credit markup) vs custom. BYOK means routing has near-zero COGS — the revenue is almost pure margin. Adjust the knobs to find a curve that covers burn without pricing out developers.</p>
+
+<div class="section">
+<div class="presets">
+  <strong style="font-size: 12px; color: var(--muted); align-self: center; margin-right: 4px;">Presets:</strong>
+  <button class="preset-btn" data-preset="slanchaV6">Slancha v6 ($0.50/1K)</button>
+  <button class="preset-btn" data-preset="notdiamond">Not Diamond ($1/1K)</button>
+  <button class="preset-btn" data-preset="openrouter">OpenRouter (5.5%)</button>
+  <button class="preset-btn" data-preset="aggressive">Aggressive ($0.50/1K)</button>
+  <button class="preset-btn" data-preset="premium">Premium ($2/1K)</button>
+  <button class="preset-btn" data-preset="hybrid">Hybrid (sub + overage)</button>
+</div>
+
+<div class="sandbox">
+  <div class="controls">
+    <div class="control">
+      <label>Volume unit</label>
+      <div style="display:flex;gap:4px;">
+        <button class="preset-btn unit-btn active" data-unit="req" type="button">Requests</button>
+        <button class="preset-btn unit-btn" data-unit="tok" type="button">Tokens</button>
+      </div>
+    </div>
+    <div class="control">
+      <label>Pricing model</label>
+      <select id="pricingMode" style="background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 4px; padding: 6px 8px; font-family: inherit; font-size: 13px;">
+        <option value="perReq">Per-request ($/1K req)</option>
+        <option value="perToken">Per-token ($/M input tokens)</option>
+        <option value="markup">% markup on inference cost</option>
+        <option value="hybrid">Subscription + overage</option>
+      </select>
+    </div>
+    <div class="control">
+      <label>Price per 1K requests ($)</label>
+      <input type="number" id="pricePer1K" value="1.00" step="0.10" min="0">
+    </div>
+    <div class="control">
+      <label>Price per 1M input tokens ($)</label>
+      <input type="number" id="pricePerMTok" value="0.50" step="0.05" min="0">
+    </div>
+    <div class="control">
+      <label>Markup on passthrough (%)</label>
+      <input type="number" id="markupPct" value="5.5" step="0.5" min="0">
+    </div>
+    <div class="control">
+      <label>Subscription floor ($/mo)</label>
+      <input type="number" id="subFloor" value="99" step="10" min="0">
+    </div>
+    <div class="control">
+      <label>Free tier (req/mo)</label>
+      <input type="number" id="freeTier" value="50000" step="10000" min="0">
+    </div>
+    <hr style="border: none; border-top: 1px solid var(--border); margin: 12px 0;">
+    <div class="control">
+      <label>Paying customers at Mo 18</label>
+      <div class="slider-row"><input type="range" id="customers" min="10" max="2000" value="200" step="10"><span class="val" id="customersVal">200</span></div>
+    </div>
+    <div class="control" id="reqCustomRow">
+      <label>Avg requests/customer/mo</label>
+      <div class="slider-row"><input type="range" id="reqPerCust" min="10000" max="5000000" value="300000" step="10000"><span class="val" id="reqPerCustVal">300K</span></div>
+    </div>
+    <div class="control" id="tokCustomRow" style="display:none;">
+      <label>Avg tokens/customer/mo (input)</label>
+      <div class="slider-row"><input type="range" id="tokPerCust" min="1000000" max="2000000000" value="360000000" step="1000000"><span class="val" id="tokPerCustVal">360M</span></div>
+    </div>
+    <div class="control">
+      <label>Avg input tokens per request</label>
+      <div class="slider-row"><input type="range" id="tokPerReq" min="100" max="8000" value="1200" step="100"><span class="val" id="tokPerReqVal">1.2K</span></div>
+    </div>
+    <div class="control" style="font-size:11px;color:var(--muted);">
+      <label>Derived volume</label>
+      <span class="val" id="derivedVol" style="color:var(--muted);">—</span>
+    </div>
+    <div class="control">
+      <label>Passthrough inference cost/1K req ($)</label>
+      <div class="slider-row"><input type="range" id="inferCost" min="0" max="20" value="3" step="0.5"><span class="val" id="inferCostVal">$3</span></div>
+    </div>
+    <div class="control">
+      <label>Customer growth (MoM %)</label>
+      <div class="slider-row"><input type="range" id="growth" min="0" max="40" value="15" step="1"><span class="val" id="growthVal">15%</span></div>
+    </div>
+    <div class="control">
+      <label>Slancha COGS on BYOK (%)</label>
+      <div class="slider-row"><input type="range" id="cogs" min="0" max="30" value="3" step="1"><span class="val" id="cogsVal">3%</span></div>
+    </div>
+  </div>
+
+  <div class="outputs">
+    <div class="kpi-grid">
+      <div class="kpi"><div class="kpi-label">MRR at Mo 18</div><div class="kpi-val big" id="kpiMRR">—</div></div>
+      <div class="kpi"><div class="kpi-label">ARR Run Rate</div><div class="kpi-val big" id="kpiARR">—</div></div>
+      <div class="kpi"><div class="kpi-label">Avg ARPU (paying)</div><div class="kpi-val" id="kpiARPU">—</div></div>
+      <div class="kpi"><div class="kpi-label">Gross margin</div><div class="kpi-val" id="kpiGM">—</div></div>
+      <div class="kpi"><div class="kpi-label">18mo cumulative rev</div><div class="kpi-val" id="kpiCum">—</div></div>
+      <div class="kpi"><div class="kpi-label">Breakeven month</div><div class="kpi-val" id="kpiBE">—</div></div>
+    </div>
+
+    <div class="chart-wrap">
+      <div class="chart-title">MRR curve — months 1-18</div>
+      <svg class="chart" id="chart" viewBox="0 0 600 200" preserveAspectRatio="none"></svg>
+      <div class="legend">
+        <span><span class="legend-dot" style="background: var(--accent);"></span>Revenue (MRR)</span>
+        <span><span class="legend-dot" style="background: var(--orange);"></span>Team + infra burn</span>
+        <span><span class="legend-dot" style="background: var(--green);"></span>Net (above zero = profitable)</span>
+      </div>
+    </div>
+
+    <table class="compare-table">
+      <thead><tr><th>Month</th><th class="right">Customers</th><th class="right">Req Volume</th><th class="right">MRR</th><th class="right">Burn</th><th class="right">Net</th></tr></thead>
+      <tbody id="monthlyRows"></tbody>
+    </table>
+  </div>
+</div>
+
+<p class="assumption" id="sandboxNote">Assumes BYOK — Slancha does not touch inference money. Request volume = total across all paying customers. Burn uses base model from above (team + GPU + infra, growing quarterly). Change inputs to find your curve.</p>
+</div>
+
+<script>
+(function() {
+  // Base burn from static model above (monthly, scales by quarter).
+  const BURN_BY_MONTH = [
+    // Q1: ~$68K/3, Q2: ~$115K/3, Q3: ~$157K/3, Q4: ~$172K/3, Q5: ~$160K/3, Q6: ~$135K/3
+    22700,22700,22700, 38300,38300,38300, 52300,52300,52300, 57300,57300,57300, 53300,53300,53300, 45000,45000,45000
+  ];
+
+  const $ = id => document.getElementById(id);
+  const inputs = ['pricingMode','pricePer1K','pricePerMTok','markupPct','subFloor','freeTier','customers','reqPerCust','tokPerCust','tokPerReq','inferCost','growth','cogs'];
+  let volumeUnit = 'req'; // 'req' or 'tok'
+  const fmt$ = n => n >= 1e6 ? '$' + (n/1e6).toFixed(2) + 'M' : n >= 1e3 ? '$' + (n/1e3).toFixed(1) + 'K' : '$' + Math.round(n).toLocaleString();
+  const fmtN = n => n >= 1e9 ? (n/1e9).toFixed(2)+'B' : n >= 1e6 ? (n/1e6).toFixed(1)+'M' : n >= 1e3 ? (n/1e3).toFixed(1)+'K' : Math.round(n).toLocaleString();
+
+  const presets = {
+    // v6: $0.0005/req = $0.50/1K. $0.0001/req serve = 20% COGS. 80% GM.
+    slanchaV6:  { pricingMode:'perReq', pricePer1K:0.50, subFloor:0,  freeTier:50000,    cogs:20 },
+    notdiamond: { pricingMode:'perReq', pricePer1K:1.0,  subFloor:0,  freeTier:10000,    cogs:1 },
+    openrouter: { pricingMode:'markup', markupPct:5.5,   subFloor:0,  freeTier:1000000,  cogs:1 },
+    aggressive: { pricingMode:'perReq', pricePer1K:0.5,  subFloor:0,  freeTier:100000,   cogs:2 },
+    premium:    { pricingMode:'perReq', pricePer1K:2.0,  subFloor:0,  freeTier:25000,    cogs:3 },
+    hybrid:     { pricingMode:'hybrid', pricePer1K:0.5,  subFloor:99, freeTier:500000,   cogs:3 }
+  };
+
+  function applyPreset(name) {
+    const p = presets[name]; if (!p) return;
+    for (const k in p) { const el = $(k); if (el) el.value = p[k]; }
+    document.querySelectorAll('.preset-btn[data-preset]').forEach(b => b.classList.toggle('active', b.dataset.preset === name));
+    recalc();
+  }
+
+  function setUnit(unit) {
+    volumeUnit = unit;
+    document.querySelectorAll('.unit-btn').forEach(b => b.classList.toggle('active', b.dataset.unit === unit));
+    $('reqCustomRow').style.display = unit === 'req' ? '' : 'none';
+    $('tokCustomRow').style.display = unit === 'tok' ? '' : 'none';
+    recalc();
+  }
+
+  function revenuePerCustomer(reqMo, tokReq, inferCostPer1K, mode, cfg) {
+    const billable = Math.max(0, reqMo - cfg.freeTier);
+    let rev = 0;
+    if (mode === 'perReq') rev = (billable / 1000) * cfg.pricePer1K;
+    else if (mode === 'perToken') rev = (billable * tokReq / 1e6) * cfg.pricePerMTok;
+    else if (mode === 'markup') {
+      const passthrough = (billable / 1000) * inferCostPer1K;
+      rev = passthrough * (cfg.markupPct / 100);
+    } else if (mode === 'hybrid') {
+      const overage = (billable / 1000) * cfg.pricePer1K;
+      rev = cfg.subFloor + overage;
+    }
+    if (mode !== 'hybrid' && cfg.subFloor > 0) rev = Math.max(rev, cfg.subFloor);
+    return rev;
+  }
+
+  function recalc() {
+    const cfg = {
+      pricingMode: $('pricingMode').value,
+      pricePer1K: +$('pricePer1K').value,
+      pricePerMTok: +$('pricePerMTok').value,
+      markupPct: +$('markupPct').value,
+      subFloor: +$('subFloor').value,
+      freeTier: +$('freeTier').value,
+      customers18: +$('customers').value,
+      reqPerCust: +$('reqPerCust').value,
+      tokPerReq: +$('tokPerReq').value,
+      inferCost: +$('inferCost').value,
+      growth: +$('growth').value / 100,
+      cogs: +$('cogs').value / 100
+    };
+    cfg.tokPerCust = +$('tokPerCust').value;
+    // Unit-aware volume resolution: user enters one, we derive the other.
+    let reqPerCust, tokPerCust;
+    if (volumeUnit === 'tok') {
+      tokPerCust = cfg.tokPerCust;
+      reqPerCust = Math.round(tokPerCust / cfg.tokPerReq);
+    } else {
+      reqPerCust = cfg.reqPerCust;
+      tokPerCust = reqPerCust * cfg.tokPerReq;
+    }
+    cfg.reqPerCust = reqPerCust;
+    cfg.tokPerCust = tokPerCust;
+    // Slider labels
+    $('customersVal').textContent = cfg.customers18;
+    $('reqPerCustVal').textContent = fmtN(cfg.reqPerCust);
+    $('tokPerCustVal').textContent = fmtN(cfg.tokPerCust);
+    $('tokPerReqVal').textContent = fmtN(cfg.tokPerReq);
+    $('inferCostVal').textContent = '$' + cfg.inferCost.toFixed(2);
+    $('growthVal').textContent = cfg.growth*100 + '%';
+    $('cogsVal').textContent = cfg.cogs*100 + '%';
+    $('derivedVol').textContent = volumeUnit === 'tok'
+      ? '≈ ' + fmtN(reqPerCust) + ' req/mo per customer'
+      : '≈ ' + fmtN(tokPerCust) + ' tok/mo per customer';
+
+    // Customer count per month — solve for mo1 that reaches customers18 at growth rate.
+    const months = 18;
+    let custPath = [];
+    if (cfg.growth > 0) {
+      const mo1 = cfg.customers18 / Math.pow(1 + cfg.growth, months - 1);
+      for (let i = 0; i < months; i++) custPath.push(Math.max(1, Math.round(mo1 * Math.pow(1 + cfg.growth, i))));
+    } else {
+      for (let i = 0; i < months; i++) custPath.push(Math.round(cfg.customers18 * (i+1) / months));
+    }
+
+    const revPerCust = revenuePerCustomer(cfg.reqPerCust, cfg.tokPerReq, cfg.inferCost, cfg.pricingMode, cfg);
+    let cumRev = 0, breakEven = null;
+    const monthly = [];
+    for (let i = 0; i < months; i++) {
+      const cust = custPath[i];
+      const mrr = cust * revPerCust;
+      const reqVol = cust * cfg.reqPerCust;
+      const burn = BURN_BY_MONTH[i];
+      const net = mrr * (1 - cfg.cogs) - burn;
+      cumRev += mrr;
+      if (breakEven === null && net >= 0) breakEven = i + 1;
+      monthly.push({ month: i+1, cust, reqVol, mrr, burn, net });
+    }
+
+    const final = monthly[months - 1];
+    $('kpiMRR').textContent = fmt$(final.mrr);
+    $('kpiARR').textContent = fmt$(final.mrr * 12);
+    $('kpiARPU').textContent = fmt$(revPerCust) + '/mo';
+    $('kpiGM').textContent = ((1 - cfg.cogs) * 100).toFixed(0) + '%';
+    $('kpiCum').textContent = fmt$(cumRev);
+    $('kpiBE').textContent = breakEven ? 'Mo ' + breakEven : 'Not in 18mo';
+
+    // Monthly table — show mo 3, 6, 9, 12, 15, 18
+    const showMonths = [3,6,9,12,15,18];
+    const volHeader = volumeUnit === 'tok' ? 'Tokens' : 'Requests';
+    document.querySelector('.compare-table thead tr').innerHTML = `<th>Month</th><th class="right">Customers</th><th class="right">${volHeader}/mo</th><th class="right">MRR</th><th class="right">Burn</th><th class="right">Net</th>`;
+    $('monthlyRows').innerHTML = showMonths.map(m => {
+      const r = monthly[m-1];
+      const netClass = r.net >= 0 ? 'green' : 'red';
+      const vol = volumeUnit === 'tok' ? r.cust * cfg.tokPerCust : r.reqVol;
+      return `<tr><td>Mo ${m}</td><td class="right">${r.cust}</td><td class="right">${fmtN(vol)}</td><td class="right">${fmt$(r.mrr)}</td><td class="right">${fmt$(r.burn)}</td><td class="right ${netClass}">${r.net >= 0 ? '+' : ''}${fmt$(r.net)}</td></tr>`;
+    }).join('');
+
+    // Chart
+    drawChart(monthly);
+  }
+
+  function drawChart(monthly) {
+    const svg = $('chart');
+    const W = 600, H = 200, PAD_L = 50, PAD_R = 10, PAD_T = 12, PAD_B = 24;
+    const iw = W - PAD_L - PAD_R, ih = H - PAD_T - PAD_B;
+    const maxAbs = Math.max(
+      ...monthly.map(r => Math.max(r.mrr, r.burn, Math.abs(r.net))),
+      1
+    );
+    const yScale = v => PAD_T + ih * (1 - (v + maxAbs) / (2 * maxAbs));
+    const xScale = i => PAD_L + iw * (i / (monthly.length - 1));
+    const mkPath = key => monthly.map((r, i) => `${i===0?'M':'L'}${xScale(i).toFixed(1)},${yScale(r[key]).toFixed(1)}`).join(' ');
+
+    // gridlines
+    const gridVals = [-maxAbs, -maxAbs/2, 0, maxAbs/2, maxAbs];
+    let grid = gridVals.map(v => {
+      const y = yScale(v);
+      const lbl = fmt$(Math.abs(v)) + (v < 0 ? ' (loss)' : '');
+      return `<line x1="${PAD_L}" y1="${y}" x2="${W-PAD_R}" y2="${y}" stroke="${v===0?'rgba(226,232,240,0.18)':'rgba(226,232,240,0.05)'}" stroke-dasharray="${v===0?'':'2,3'}"/><text x="${PAD_L-6}" y="${y+3}" fill="#94a3b8" font-size="9" text-anchor="end" font-family="Inter, sans-serif">${lbl}</text>`;
+    }).join('');
+    // x labels
+    const xLabels = [0, 5, 11, 17].map(i => `<text x="${xScale(i)}" y="${H-6}" fill="#94a3b8" font-size="9" text-anchor="middle" font-family="Inter, sans-serif">Mo ${i+1}</text>`).join('');
+
+    svg.innerHTML = `${grid}${xLabels}
+      <path d="${mkPath('burn')}" fill="none" stroke="#f97316" stroke-width="1.5"/>
+      <path d="${mkPath('mrr')}" fill="none" stroke="#0a84ff" stroke-width="2"/>
+      <path d="${mkPath('net')}" fill="none" stroke="#22c55e" stroke-width="1.5" stroke-dasharray="3,3"/>`;
+  }
+
+  inputs.forEach(id => { const el = $(id); if (el) el.addEventListener('input', recalc); });
+  document.querySelectorAll('.preset-btn[data-preset]').forEach(b => b.addEventListener('click', () => applyPreset(b.dataset.preset)));
+  document.querySelectorAll('.unit-btn').forEach(b => b.addEventListener('click', () => setUnit(b.dataset.unit)));
+  recalc();
+})();
+</script>
+
+<h2>Unit Economics at Month 18</h2>
+
+<div class="section">
+<table>
+  <thead>
+    <tr><th>Metric</th><th>Value</th><th>Benchmark</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Blended ARPU (paying)</td><td class="right bold">$340/mo</td><td>Portkey: ~$200, Fireworks: ~$500</td></tr>
+    <tr><td>Gross Margin</td><td class="right bold green">58%</td><td>Together: 45%, Fireworks: 50%, SaaS avg: 70%+</td></tr>
+    <tr><td>CAC (blended)</td><td class="right bold">$150</td><td>PLG dev tools: $100-$300</td></tr>
+    <tr><td>LTV (24-month)</td><td class="right bold">$4,750</td><td>At 5% monthly churn, 20-month avg lifetime</td></tr>
+    <tr><td>LTV:CAC</td><td class="right bold green">32:1</td><td>Healthy: >3:1, Great: >5:1</td></tr>
+    <tr><td>CAC Payback</td><td class="right bold green">< 1 month</td><td>Pro pays back in 1 month, Scale immediately</td></tr>
+    <tr><td>Monthly Burn (Mo 18)</td><td class="right bold">$72K</td><td>With $68K MRR, approaching breakeven</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Use of Funds: $2.5M</h2>
+
+<table>
+  <thead>
+    <tr><th>Category</th><th>Amount</th><th>%</th><th>What It Buys</th></tr>
+  </thead>
+  <tbody>
+    <tr><td class="bold">Engineering</td><td class="right">$1,000K</td><td class="right">40%</td><td>2 founders + ML engineer + infra engineer (18 months)</td></tr>
+    <tr><td class="bold">GPU Infrastructure</td><td class="right">$500K</td><td class="right">20%</td><td>Reserved H100 cluster scaling from 1→3 GPUs + fine-tuning compute</td></tr>
+    <tr><td class="bold">Go-to-Market</td><td class="right">$400K</td><td class="right">16%</td><td>Developer advocate, content, community, launch campaigns</td></tr>
+    <tr><td class="bold">Reserve / Buffer</td><td class="right">$500K</td><td class="right">20%</td><td>6+ month buffer for unexpected growth or extended runway to Series A</td></tr>
+    <tr><td class="bold">Operations</td><td class="right">$100K</td><td class="right">4%</td><td>Legal (SOC 2 prep, terms), accounting, tools, misc</td></tr>
+    <tr class="total-row"><td class="bold">Total</td><td class="right bold accent">$2,500K</td><td class="right bold">100%</td><td></td></tr>
+  </tbody>
+</table>
+
+<h2>Why This Is Conservative</h2>
+
+<div class="section">
+<p><strong>GPU costs are falling fast.</strong> H100 reserved pricing dropped from $4.50/hr (2024) to $2.40/hr (2026). B200s are hitting $3.49/hr. Our model uses today's prices — costs will likely be 20-30% lower by month 12.</p>
+<p><strong>Routing is free margin.</strong> When Slancha routes to external providers (OpenAI, Anthropic, Together), our GPU cost is $0. We pass through the cost at zero markup, but the platform fee ($49-$499/mo) is pure margin. Early on, most traffic will be routed externally — meaning GPU costs are lower than modeled.</p>
+<p><strong>Fine-tuning is absurdly cheap.</strong> LoRA fine-tuning a 7B model costs $1-5 per job. Even at 100 customers fine-tuning monthly, that's $500/month. It's a rounding error vs team costs.</p>
+<p><strong>The compounding advantage.</strong> As more customers use Slancha, more task-specific models get fine-tuned. Each fine-tuned model serves multiple customers with similar workloads. GPU cost per customer decreases as the model library grows.</p>
+</div>
+
+<h2>Series A Trigger (Month 15-18)</h2>
+
+<div class="callout">
+  <strong>Raise Series A when:</strong> $500K+ ARR, 100+ paying customers, proven unit economics (>50% gross margin), demonstrated fine-tuning cost savings for at least 10 customers. At that point, raise $10-15M to accelerate to $5M ARR and own the category.
+</div>
+
+<hr style="border: none; border-top: 1px solid var(--border); margin: 48px 0;">
+<p style="text-align: center; color: var(--muted); font-size: 13px;">
+  <a href="/pitch-deck.html">Pitch Deck</a> · <a href="/launch-playbook.html">Launch Playbook</a> · <a href="/pricing">Pricing</a> · <a href="/">Slancha Home</a>
+</p>
+
+</body>
+</html>
